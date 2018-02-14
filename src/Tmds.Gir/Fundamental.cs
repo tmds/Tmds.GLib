@@ -32,6 +32,7 @@ namespace Tmds.Gir
         Type,
         IntPtr,
         UIntPtr,
-        Unsupported,
+        VaList,
+        LongDouble
     }
 }
