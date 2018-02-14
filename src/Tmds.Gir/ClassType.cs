@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Tmds.Gir
 {
-    public class Class : GLibType
+    public class ClassType : GLibType
     {
         public string Name { get; set; }
         public string CType { get; set; }

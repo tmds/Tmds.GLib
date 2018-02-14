@@ -480,7 +480,7 @@ namespace Tmds.Gir
                     doc = element.Value;
                 }
             }
-            var interf = new Interface
+            var interf = new InterfaceType
             {
                 Name = interfaceName,
                 CType = cType,
@@ -671,7 +671,7 @@ namespace Tmds.Gir
             {
                 parent = ns.ResolveTypeName(parentName);
             }
-            var cls = new Class
+            var cls = new ClassType
             {
                 Name = className,
                 CType = cType,
