@@ -5,7 +5,7 @@ namespace Tmds.Gir
     public class NamespaceCollection
     {
         public Dictionary<string, Namespace> Namespaces { get; } = new Dictionary<string, Namespace>();
-        public Namespace InternalNamespace { get; }
+        internal Namespace InternalNamespace { get; }
 
         public NamespaceCollection()
         {

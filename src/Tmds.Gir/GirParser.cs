@@ -155,7 +155,7 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Record)
                 {
-                    RecordType record = ReadRecord(element, ns, parentNamePrefix: null, parentCTypePrefix: null);
+                    RecordType record = ReadRecord(element, ns);
                     ns.AddType(record.Name, record);
                 }
                 else if (element.Name == CoreNames.Union)
@@ -500,7 +500,7 @@ namespace Tmds.Gir
 
         private static void ReadNamedUnion(XElement element, Namespace ns)
         {
-            UnionType union = ReadUnion(ns, element, parentNamePrefix: null, parentCTypePrefix: null);
+            UnionType union = ReadUnion(ns, element);
             // union named '_Value__data__union' is missing a c:type
             if (union.Name == "_Value__data__union")
             {
@@ -520,7 +520,7 @@ namespace Tmds.Gir
             return new InvalidDataException(message);
         }
 
-        private static RecordType ReadRecord(XElement recordElement, Namespace ns, string parentNamePrefix, string parentCTypePrefix)
+        private static RecordType ReadRecord(XElement recordElement, Namespace ns)
         {
             var recordName = (string)recordElement.Attribute("name");
             var cType = (string)recordElement.Attribute(CNames.Type);
@@ -532,7 +532,6 @@ namespace Tmds.Gir
             var fields = new List<Field>();
             string doc = null;
             string docDeprecated = null;
-            int unionCount = 0;
             foreach (var element in recordElement.Elements())
             {
                 if (element.Name == CoreNames.Constructor
@@ -556,11 +555,9 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Union)
                 {
-                    UnionType union = ReadUnion(ns, element, recordName, cType);
-                    var fieldName = (string)element.Attribute("name") ?? $"u{unionCount++}";
-                    union.Name = $"{(parentNamePrefix != null ? parentNamePrefix + "_" : "")}{recordName}_{fieldName}";
-                    union.CType = $"{(parentCTypePrefix != null ? parentCTypePrefix + "_" : "")}{cType}_{fieldName}";
-                    var typeId = ns.AddType($"Union<{string.Join(",", union.Fields.Select(f => f.TypeName))}>", union, ensureUnique: false);
+                    UnionType union = ReadUnion(ns, element);
+                    var fieldName = (string)element.Attribute("name");
+                    var typeId = ns.AddType(null, union);
                     fields.Add(new Field
                     {
                         Name = fieldName,
@@ -616,7 +613,6 @@ namespace Tmds.Gir
             var properties = new List<Property>();
             var fields = new List<Field>();
             string doc = null;
-            int unionCount = 0;
             foreach (var element in classElement.Elements())
             {
                 if (element.Name == CoreNames.Constructor
@@ -651,11 +647,9 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Union)
                 {
-                    UnionType union = ReadUnion(ns, element, className, cType);
-                    var fieldName = (string)element.Attribute("name") ?? $"u{unionCount++}";
-                    union.Name = $"{className}_{fieldName}";
-                    union.CType = $"{cType}_{fieldName}";
-                    var typeId = ns.AddType($"Union<{string.Join(",", union.Fields.Select(f => f.TypeName))}>", union, ensureUnique: false);
+                    UnionType union = ReadUnion(ns, element);
+                    var fieldName = (string)element.Attribute("name");
+                    var typeId = ns.AddType(null, union);
                     fields.Add(new Field
                     {
                         Name = fieldName,
@@ -691,7 +685,7 @@ namespace Tmds.Gir
             ns.AddType(className, cls);
         }
 
-        private static UnionType ReadUnion(Namespace ns, XElement unionElement, string parentNamePrefix, string parentCTypePrefix)
+        private static UnionType ReadUnion(Namespace ns, XElement unionElement)
         {
             var unionName = (string)unionElement.Attribute("name");
             var cType = (string)unionElement.Attribute(CNames.Type);
@@ -699,7 +693,6 @@ namespace Tmds.Gir
             var functions = new List<Function>();
             var fields = new List<Field>();
             string doc = null;
-            int structCount = 0;
             foreach (var element in unionElement.Elements())
             {
                 if (element.Name == CoreNames.Constructor
@@ -718,11 +711,9 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Record)
                 {
-                    RecordType record = ReadRecord(element, ns, parentNamePrefix, parentCTypePrefix);
-                    var fieldName = (string)unionElement.Attribute("name") ?? $"s{structCount++}";
-                    record.Name = $"{(parentNamePrefix != null ? parentNamePrefix + "_" : "")}{unionName}_{fieldName}";
-                    record.CType = $"{(parentCTypePrefix != null ? parentCTypePrefix + "_" : "")}{cType}_{fieldName}";
-                    var typeId = ns.AddType($"Record<{string.Join(",", record.Fields.Select(f => f.TypeName))}>", record, ensureUnique: false);
+                    RecordType record = ReadRecord(element, ns);
+                    var fieldName = (string)unionElement.Attribute("name");
+                    var typeId = ns.AddType(null, record);
                     fields.Add(new Field
                     {
                         Name = fieldName,
@@ -771,8 +762,7 @@ namespace Tmds.Gir
                     }
                     var function = ReadFunction(ns, element.Name.LocalName, element);
                     var callback = new CallbackType { Function = function };
-                    string name = $"Callback<{string.Join(",", function.Parameters.Select(p => p.TypeName))}>";
-                    typeId = ns.AddType(name, callback, ensureUnique: false);
+                    typeId = ns.AddType(null, callback);
                 }
                 else if (element.Name == CoreNames.Doc)
                 {
@@ -1161,8 +1151,7 @@ namespace Tmds.Gir
             else if (typeName == "GLib.HashTable")
             {
                 GLibType type = new HashTableType { KeyType = innerTypes[0], ValueType = innerTypes[1]};
-                string name = $"HashTable<{innerTypes[0]}, {innerTypes[1]}>";
-                TypeName tid = ns.NamespaceCollection.InternalNamespace.AddType(name, type, ensureUnique: false);
+                TypeName tid = ns.AddType(null, type);
                 return (tid, cType, arrayLength);
             }
             else
@@ -1195,13 +1184,12 @@ namespace Tmds.Gir
                     default:
                         throw NewInvalidDataException("Unknown container type", typeElement);
                 }
-                string name = $"{kind}<{innerTypes[0]}>{(arrayLength.HasValue ? $"[{arrayLength.Value}]" : "")}";
                 GLibType type = new ListType
                 {
                     Kind = kind,
                     ArrayLength = arrayLength
                 };
-                TypeName tid = ns.NamespaceCollection.InternalNamespace.AddType(name, type, ensureUnique: false);
+                TypeName tid = ns.AddType(null, type);
                 return (tid, cType, arrayLength);
             }
         }

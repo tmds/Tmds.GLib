@@ -24,7 +24,7 @@ namespace Tmds.Gir
         {
             get
             {
-                return _types.Select((type, idx) => new KeyValuePair<string, GLibType>(_names[idx], type));
+                return _types.Select((type, idx) => new KeyValuePair<string, GLibType>(_names[idx], type)).Where(kv => kv.Key != null);
             }
         }
 
@@ -65,20 +65,24 @@ namespace Tmds.Gir
             return ns.CreateNewTypeName(name);
         }
 
-        public TypeName AddType(string name, GLibType type, bool ensureUnique = true)
+        public TypeName AddType(string name, GLibType type)
         {
             if (type == null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
 
-            TypeName? id = FindTypeName(name);
+            TypeName? id = null;
+            if (name != null)
+            {
+                id = FindTypeName(name);
+            }
             if (!id.HasValue)
             {
                 id = CreateNewTypeName(name);
             }
             TypeName typeName = id.Value;
-            if (typeName.Type != null && ensureUnique)
+            if (typeName.Type != null)
             {
                 throw new InvalidOperationException($"Type '{name}' already defined in '{Name}'.");
             }
@@ -104,7 +108,10 @@ namespace Tmds.Gir
             _types.Add(null);
             _names.Add(name);
             int index = _types.Count - 1;
-            _typeIndex[name] = index;
+            if (name != null)
+            {
+                _typeIndex[name] = index;
+            }
             return new TypeName(this, index);
         }
 
