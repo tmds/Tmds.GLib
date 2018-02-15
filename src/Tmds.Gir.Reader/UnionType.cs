@@ -4,7 +4,6 @@ namespace Tmds.Gir
 {
     public class UnionType : GLibType
     {
-        public string Name { get; set; }
         public string CType { get; set; }
         public List<Field> Fields { get; set; }
         public string Doc { get; set; }

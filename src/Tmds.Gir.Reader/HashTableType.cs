@@ -2,7 +2,9 @@ namespace Tmds.Gir
 {
     public class HashTableType : GLibType
     {
-        public TypeName KeyType { get; set; }
-        public TypeName ValueType { get; set; }
+        internal TypeName KeyTypeName { get; set; }
+        public GLibType KeyType => KeyTypeName.Type;
+        internal TypeName ValueTypeName { get; set; }
+        public GLibType ValueType => ValueTypeName.Type;
     }
 }

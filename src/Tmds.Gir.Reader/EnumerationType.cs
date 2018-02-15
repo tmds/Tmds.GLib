@@ -6,7 +6,6 @@ namespace Tmds.Gir
     public class EnumerationType : GLibType
     {
         public string Doc { get; set; }
-        public string Name { get; set; }
         public string CType { get; set; }
         public List<Function> Functions { get; set; }
         public Version Version { get; set; }

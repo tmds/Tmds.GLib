@@ -133,7 +133,7 @@ namespace Tmds.Gir
         private static void ReadNamespace(NamespaceCollection nsc, XElement namespaceElement, string package)
         {
             var name = (string)namespaceElement.Attribute("name");
-            var ns = nsc.GetNamespace(name);
+            var ns = nsc.ResolveNamespace(name);
             ns.PackageName = package;
             foreach (var prefix in ((string)namespaceElement.Attribute("shared-library"))?.Split(',') ?? Array.Empty<string>())
             {
@@ -155,8 +155,8 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Record)
                 {
-                    RecordType record = ReadRecord(element, ns);
-                    ns.AddType(record.Name, record);
+                    (string recordName, RecordType record) = ReadRecord(element, ns);
+                    ns.AddType(recordName, record);
                 }
                 else if (element.Name == CoreNames.Union)
                 {
@@ -227,9 +227,8 @@ namespace Tmds.Gir
             }
             var alias = new AliasType
             {
-                Name = aliasName,
                 CIdentifier = cIdentifier,
-                TypeName = typeId.Value,
+                AliasedTypeName = typeId.Value,
                 TargetCType = cType,
                 Doc = doc
             };
@@ -342,7 +341,6 @@ namespace Tmds.Gir
             }
             var enumeration = new EnumerationType
             {
-                Name = enumerationName,
                 CType = cType,
                 Members = members,
                 Functions = functions,
@@ -394,7 +392,6 @@ namespace Tmds.Gir
             }
             var bitfield = new BitfieldType
             {
-                Name = bitfieldName,
                 CType = cType,
                 Members = members,
                 Functions = functions,
@@ -482,7 +479,6 @@ namespace Tmds.Gir
             }
             var interf = new InterfaceType
             {
-                Name = interfaceName,
                 CType = cType,
                 TypeStruct = typeStruct,
                 CClassType = null, // this will be resolved during postprocessing
@@ -490,7 +486,7 @@ namespace Tmds.Gir
                 Functions = functions,
                 Signals = signals,
                 Properties = properties,
-                Prerequisites = prerequisites,
+                PrerequisitesNames = prerequisites,
                 Version = version,
                 DeprecatedVersion = deprecatedVersion,
                 Doc = doc
@@ -500,9 +496,9 @@ namespace Tmds.Gir
 
         private static void ReadNamedUnion(XElement element, Namespace ns)
         {
-            UnionType union = ReadUnion(ns, element);
+            (string unionName, UnionType union) = ReadUnion(ns, element);
             // union named '_Value__data__union' is missing a c:type
-            if (union.Name == "_Value__data__union")
+            if (unionName == "_Value__data__union")
             {
                 union.CType = "GValue_data";
             }
@@ -510,7 +506,7 @@ namespace Tmds.Gir
             {
                 throw NewInvalidDataException("Missing union c:type", element);
             }
-            ns.AddType(union.Name, union);
+            ns.AddType(unionName, union);
         }
 
         private static Exception NewInvalidDataException(string reason, XElement element)
@@ -520,7 +516,7 @@ namespace Tmds.Gir
             return new InvalidDataException(message);
         }
 
-        private static RecordType ReadRecord(XElement recordElement, Namespace ns)
+        private static (string name, RecordType Type) ReadRecord(XElement recordElement, Namespace ns)
         {
             var recordName = (string)recordElement.Attribute("name");
             var cType = (string)recordElement.Attribute(CNames.Type);
@@ -555,8 +551,7 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Union)
                 {
-                    UnionType union = ReadUnion(ns, element);
-                    var fieldName = (string)element.Attribute("name");
+                    (string fieldName, UnionType union) = ReadUnion(ns, element);
                     var typeId = ns.AddType(null, union);
                     fields.Add(new Field
                     {
@@ -576,17 +571,15 @@ namespace Tmds.Gir
                 var typeId = ns.ResolveTypeName("Gdk.Atom_");
                 ns.AddType("Atom", new AliasType
                 {
-                    Name = "Atom",
                     CIdentifier = "GdkAtom",
-                    TypeName = typeId,
+                    AliasedTypeName = typeId,
                     TargetCType = "GdkAtom_*",
                     Doc = null
                 });
             }
 
-            return new RecordType
+            return (recordName, new RecordType
             {
-                Name = recordName,
                 CType = cType,
                 GLibGetType = getType,
                 GTypeStructFor = gtypeStructFor,
@@ -596,7 +589,7 @@ namespace Tmds.Gir
                 DeprecatedVersion = deprecatedVersion,
                 Doc = doc,
                 DocDeprecated = docDeprecated
-            };
+            });
         }
 
         private static void ReadClass(XElement classElement, Namespace ns)
@@ -647,8 +640,7 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Union)
                 {
-                    UnionType union = ReadUnion(ns, element);
-                    var fieldName = (string)element.Attribute("name");
+                    (string fieldName, UnionType union) = ReadUnion(ns, element);
                     var typeId = ns.AddType(null, union);
                     fields.Add(new Field
                     {
@@ -667,7 +659,6 @@ namespace Tmds.Gir
             }
             var cls = new ClassType
             {
-                Name = className,
                 CType = cType,
                 TypeStruct = typeStruct,
                 CClassType = null, // this will be resolved during postprocessing
@@ -676,8 +667,8 @@ namespace Tmds.Gir
                 Functions = functions,
                 Signals = signals,
                 Properties = properties,
-                Parent = parent,
-                Implements = implements,
+                ParentTypeName = parent,
+                ImplementsNames = implements,
                 Version = version,
                 DeprecatedVersion = deprecatedVersion,
                 Doc = doc
@@ -685,7 +676,7 @@ namespace Tmds.Gir
             ns.AddType(className, cls);
         }
 
-        private static UnionType ReadUnion(Namespace ns, XElement unionElement)
+        private static (string name, UnionType type) ReadUnion(Namespace ns, XElement unionElement)
         {
             var unionName = (string)unionElement.Attribute("name");
             var cType = (string)unionElement.Attribute(CNames.Type);
@@ -711,8 +702,7 @@ namespace Tmds.Gir
                 }
                 else if (element.Name == CoreNames.Record)
                 {
-                    RecordType record = ReadRecord(element, ns);
-                    var fieldName = (string)unionElement.Attribute("name");
+                    (string fieldName, RecordType record) = ReadRecord(element, ns);
                     var typeId = ns.AddType(null, record);
                     fields.Add(new Field
                     {
@@ -723,15 +713,14 @@ namespace Tmds.Gir
                     });
                 }
             }
-            return new UnionType
+            return (unionName, new UnionType
             {
-                Name = unionName,
                 CType = cType,
                 GLibGetType = getType,
                 Fields = fields,
                 Functions = functions,
                 Doc = doc
-            };
+            });
         }
 
         private static Field ReadField(Namespace ns, XElement fieldElement)
@@ -1150,7 +1139,7 @@ namespace Tmds.Gir
             }
             else if (typeName == "GLib.HashTable")
             {
-                GLibType type = new HashTableType { KeyType = innerTypes[0], ValueType = innerTypes[1]};
+                GLibType type = new HashTableType { KeyTypeName = innerTypes[0], ValueTypeName = innerTypes[1]};
                 TypeName tid = ns.AddType(null, type);
                 return (tid, cType, arrayLength);
             }

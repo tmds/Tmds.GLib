@@ -3,7 +3,8 @@ namespace Tmds.Gir
     public class Parameter
     {
         public string Name { get; set; }
-        public TypeName TypeName { get; set; }
+        internal TypeName TypeName { get; set; }
+        public GLibType Type => TypeName.Type;
         public string CType { get; set; }
         public bool InstanceParameter { get; set; }
         public ParameterDirection Direction { get; set; }

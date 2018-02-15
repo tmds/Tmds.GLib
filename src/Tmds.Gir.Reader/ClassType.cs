@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tmds.Gir
 {
     public class ClassType : GLibType
     {
-        public string Name { get; set; }
         public string CType { get; set; }
         public string TypeStruct { get; set; }
         public string CClassType { get; set; }
@@ -17,7 +17,9 @@ namespace Tmds.Gir
         public Version Version { get; set; }
         public Version DeprecatedVersion { get; set; }
         public string Doc { get; set; }
-        public TypeName? Parent { get; set; }
-        public List<TypeName> Implements { get; set; }
+        internal TypeName? ParentTypeName { get; set; }
+        public GLibType Parent => ParentTypeName.HasValue ? ParentTypeName.Value.Type : null;
+        internal List<TypeName> ImplementsNames { get; set; }
+        public IEnumerable<GLibType> Implements => ImplementsNames.Select(name => name.Type);
     }
 }

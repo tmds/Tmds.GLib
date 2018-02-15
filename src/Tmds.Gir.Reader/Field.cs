@@ -8,6 +8,7 @@ namespace Tmds.Gir
         public int? ArrayLength { get; set; }
         public int? Bits { get; set; }
         public bool Private { get; set; }
-        public TypeName TypeName { get; set; }
+        internal TypeName TypeName { get; set; }
+        public GLibType Type => TypeName.Type;
     }
 }

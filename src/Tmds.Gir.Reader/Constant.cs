@@ -6,7 +6,8 @@ namespace Tmds.Gir
     {
         public string Name { get; set; }
         public string CIdentifier { get; set; }
-        public TypeName TypeName { get; set; }
+        internal TypeName TypeName { get; set; }
+        public GLibType Type => TypeName.Type;
         public string CType { get; set; }
         public string Value { get; set; }
         public Version Version { get; set; }

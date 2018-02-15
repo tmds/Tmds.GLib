@@ -4,8 +4,10 @@ namespace Tmds.Gir
 {
     public class NamespaceCollection
     {
-        public Dictionary<string, Namespace> Namespaces { get; } = new Dictionary<string, Namespace>();
+        private Dictionary<string, Namespace> _namespaces { get; } = new Dictionary<string, Namespace>();
         internal Namespace InternalNamespace { get; }
+
+        public IEnumerable<Namespace> Namespaces => _namespaces.Values;
 
         public NamespaceCollection()
         {
@@ -52,13 +54,13 @@ namespace Tmds.Gir
             }
         }
 
-        public Namespace GetNamespace(string name)
+        internal Namespace ResolveNamespace(string name)
         {
             Namespace ns;
-            if (!Namespaces.TryGetValue(name, out ns))
+            if (!_namespaces.TryGetValue(name, out ns))
             {
                 ns = new Namespace(this, name);
-                Namespaces.Add(name, ns);
+                _namespaces.Add(name, ns);
             }
             return ns;
         }

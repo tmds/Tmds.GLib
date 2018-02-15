@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tmds.Gir
 {
     public class InterfaceType : GLibType
     {
-        public string Name { get; set; }
         public string CType { get; set; }
         public string TypeStruct { get; set; }
         public string CClassType { get; set; }
@@ -16,6 +16,7 @@ namespace Tmds.Gir
         public Version Version { get; set; }
         public Version DeprecatedVersion { get; set; }
         public string Doc { get; set; }
-        public List<TypeName> Prerequisites { get; set; }
+        internal List<TypeName> PrerequisitesNames { get; set; }
+        public IEnumerable<GLibType> Prerequisites => PrerequisitesNames.Select(name => name.Type);
     }
 }

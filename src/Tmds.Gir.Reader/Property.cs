@@ -10,7 +10,8 @@ namespace Tmds.Gir
         public bool Construct { get; set; }
         public bool ConstructOnly { get; set; }
         public Transfer Transfer { get; set; }
-        public TypeName TypeName { get; set; }
+        internal TypeName TypeName { get; set; }
+        public GLibType Type => TypeName.Type;
         public string CType { get; set; }
         public Version Version { get; set; }
         public Version DeprecatedVersion { get; set; }

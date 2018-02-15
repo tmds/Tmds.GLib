@@ -5,7 +5,6 @@ namespace Tmds.Gir
 {
     public class RecordType : GLibType
     {
-        public string Name { get; set; }
         public string CType { get; set; }
         public string GLibGetType { get; set; }
         public string GTypeStructFor { get; set; }

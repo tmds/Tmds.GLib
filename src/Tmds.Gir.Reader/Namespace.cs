@@ -21,11 +21,11 @@ namespace Tmds.Gir
         public List<Function> Functions { get; } = new List<Function>();
         public List<Constant> Constants { get; } = new List<Constant>();
 
-        public IEnumerable<KeyValuePair<string, GLibType>> Types
+        public IEnumerable<GLibType> Types
         {
             get
             {
-                return _types.Select((type, idx) => new KeyValuePair<string, GLibType>(_names[idx], type)).Where(kv => kv.Key != null);
+                return _types.Where((type, idx) => _names[idx] != null);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Tmds.Gir
             Name = name;
         }
 
-        public TypeName ResolveTypeName(string typeName)
+        internal TypeName ResolveTypeName(string typeName)
         {
             Namespace ns = this;
             var (typeNs, name) = SplitNamespaceName(typeName);
@@ -48,7 +48,7 @@ namespace Tmds.Gir
 
             if (typeNs != null)
             {
-                ns = ns.NamespaceCollection.GetNamespace(typeNs);
+                ns = ns.NamespaceCollection.ResolveNamespace(typeNs);
             }
             else
             {
@@ -66,11 +66,15 @@ namespace Tmds.Gir
             return ns.CreateNewTypeName(name);
         }
 
-        public TypeName AddType(string name, GLibType type)
+        internal TypeName AddType(string name, GLibType type)
         {
             if (type == null)
             {
                 throw new ArgumentNullException(nameof(type));
+            }
+            if (type.Namespace != null)
+            {
+                throw new ArgumentException($"Type '{name}' is already added to namespace '{type.Namespace.Name}'");
             }
 
             TypeName? id = null;
@@ -83,6 +87,7 @@ namespace Tmds.Gir
                 id = CreateNewTypeName(name);
             }
             TypeName typeName = id.Value;
+            type.TypeName = typeName;
             if (typeName.Type != null)
             {
                 throw new InvalidOperationException($"Type '{name}' already defined in '{Name}'.");
@@ -130,7 +135,7 @@ namespace Tmds.Gir
 
         internal GLibType GetType(int index) => _types[index];
 
-        internal string GetTypeName(int index)
+        internal string GetTypeFullName(int index)
         {
             if (string.IsNullOrEmpty(Name))
             {
@@ -140,6 +145,11 @@ namespace Tmds.Gir
             {
                 return $"{Name}.{_names[index]}";
             }
+        }
+
+        internal string GetTypeName(int index)
+        {
+            return $"{_names[index]}";
         }
     }
 }
