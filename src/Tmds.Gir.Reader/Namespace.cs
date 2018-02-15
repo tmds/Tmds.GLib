@@ -6,6 +6,7 @@ namespace Tmds.Gir
 {
     public class Namespace
     {
+        private static readonly char[] s_dot = new [] { '.' };
         private Dictionary<string, int> _typeIndex = new Dictionary<string, int>();
         private List<GLibType> _types = new List<GLibType>();
         private List<string> _names = new List<string>();
@@ -99,7 +100,7 @@ namespace Tmds.Gir
             {
                 return (null, typeName);
             }
-            string[] split = typeName.Split('.', 2);
+            string[] split = typeName.Split(s_dot, 2);
             return (split[0], split[1]);
         }
 
