@@ -6,6 +6,6 @@ namespace Tmds.Gir
         public string TargetCType { get; set; }
         public string Doc { get; set; }
         internal TypeName AliasedTypeName { get; set; }
-        public GLibType AliasedType => TypeName.Type;
+        public GLibType AliasedType => AliasedTypeName.Type;
     }
 }

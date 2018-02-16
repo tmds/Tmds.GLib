@@ -6,4 +6,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tmds.GLib\Tmds.GLib.csproj" />
+  </ItemGroup>
+
 </Project>
