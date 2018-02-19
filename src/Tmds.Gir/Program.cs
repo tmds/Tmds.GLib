@@ -1,53 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Editing;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
 using System.IO;
+using System.Text;
 
 namespace Tmds.Gir
 {
     class Generator
     {
-        private readonly AdhocWorkspace _workspace;
-        private readonly SyntaxGenerator _generator;
+        private readonly StringBuilder _sb = new StringBuilder();
 
         public Generator()
         {
-            _workspace = new AdhocWorkspace();
-            _generator = SyntaxGenerator.GetGenerator(_workspace, LanguageNames.CSharp);
         }
 
         public string Generate(Namespace ns)
         {
-            var importDeclarations = new[] {
-                _generator.NamespaceImportDeclaration("System"),
-                _generator.NamespaceImportDeclaration(_generator.DottedName("System.Runtime.InteropServices"))
-            };
-            var interopClass = GenerateInteropClass(ns);
-            var namespaceDeclaration = _generator.NamespaceDeclaration(ns.Name, interopClass);
-            var declarations = importDeclarations
-                               .Concat(new[] { namespaceDeclaration });
-            var compilationUnit = _generator.CompilationUnit(declarations);
-            return compilationUnit.NormalizeWhitespace().ToFullString();
+            _sb.Clear();
+            foreach (var usingNamespace in new[] { "System",
+                                                   "System.Runtime.InteropServices"})
+            {
+                _sb.AppendFormat("using {0};\n", usingNamespace);
+            }
+            _sb.AppendFormat("namespace {0} {{\n", ns.Name);
+            AddInteropClass(ns);
+            _sb.Append("}\n");
+            return _sb.ToString();
         }
 
-        private SyntaxNode GenerateInteropClass(Namespace ns)
+        private void AddInteropClass(Namespace ns)
         {
-            string className = $"{ns.Name}Interop";
-            var members = new List<SyntaxNode>();
-            AddFunctionMethods(ns, ns.Functions, members);
+            _sb.AppendFormat("\tpublic static class {0}Interop {{\n", ns.Name);
+            AddFunctionMethods(ns, ns.Functions);
             foreach (var type in ns.Types)
             {
                 var functions = GetFunctions(type);
-                AddFunctionMethods(ns, functions, members);
+                AddFunctionMethods(ns, functions);
             }
-            return _generator.ClassDeclaration(className, null, Accessibility.Public, DeclarationModifiers.Static, null, null, members);
+            _sb.Append("\t}\n");
         }
 
-        private static void AddFunctionMethods(Namespace ns, List<Function> functions, List<SyntaxNode> members)
+        private struct ParameterInfo
+        {
+            public string Type;
+            public string Name;
+        }
+
+        private void AddFunctionMethods(Namespace ns, List<Function> functions)
         {
             if (functions == null)
             {
@@ -56,28 +55,27 @@ namespace Tmds.Gir
             foreach (var function in functions)
             {
                 string functionName = function.CIdentifier;
-                string returnType = MarshallAsType(function.Return);
+                string returnType = MarshallAsType(function.Return, function);
                 if (returnType == null)
                 {
                     continue;
                 }
                 bool unknownType = false;
-                ParameterSyntax[] parameters = function.Parameters.Count == 0 ? null : new ParameterSyntax[function.Parameters.Count];
+                ParameterInfo[] parameters = function.Parameters.Count == 0 ? null : new ParameterInfo[function.Parameters.Count];
                 for (int i = 0; i < function.Parameters.Count; i++)
                 {
                     Parameter p = function.Parameters[i];
-                    var parameterType = MarshallAsType(p);
+                    var parameterType = MarshallAsType(p, function);
                     if (parameterType == null)
                     {
                         unknownType = true;
                         break;
                     }
-                    parameters[i] = SyntaxFactory.Parameter(
-                        attributeLists: default(SyntaxList<AttributeListSyntax>),
-                        modifiers: default(SyntaxTokenList),
-                        type: SyntaxFactory.IdentifierName(parameterType),
-                        identifier: SyntaxFactory.Identifier(EscapeIdentifier(p.Name)),
-                        @default: null);
+                    parameters[i] = new ParameterInfo
+                    {
+                        Type = parameterType,
+                        Name = EscapeIdentifier(p.Name)
+                    };
                 }
                 if (unknownType)
                 {
@@ -88,32 +86,38 @@ namespace Tmds.Gir
                     continue;
                 }
                 string libraryName = ns.SharedLibraries[0];
-                var method = SyntaxFactory.MethodDeclaration(
-                    attributeLists: new SyntaxList<AttributeListSyntax>(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(
-                        SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("DllImport"), SyntaxFactory.AttributeArgumentList(
-                            SyntaxFactory.SeparatedList<AttributeArgumentSyntax>(new[] { SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(libraryName)))})
-                        ))))),
-                    modifiers: SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.ExternKeyword)),
-                    returnType: SyntaxFactory.IdentifierName(returnType),
-                    explicitInterfaceSpecifier: default(ExplicitInterfaceSpecifierSyntax),
-                    identifier: SyntaxFactory.Identifier(functionName),
-                    typeParameterList: null,
-                    parameterList: SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList<ParameterSyntax>(parameters)),
-                    constraintClauses: default(SyntaxList<TypeParameterConstraintClauseSyntax>),
-                    body: null,
-                    expressionBody: null,
-                    semicolonToken: SyntaxFactory.Token(SyntaxKind.SemicolonToken));
-                members.Add(method);
+                _sb.AppendFormat("\t\t[DllImport(\"{0}\")]\n", libraryName);
+                _sb.AppendFormat("\t\tpublic static extern {0} {1}(", returnType, functionName);
+                if (parameters != null)
+                {
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        _sb.AppendFormat("{0} {1}", parameters[i].Type, parameters[i].Name);
+                        if (i != parameters.Length - 1)
+                        {
+                            _sb.Append(", ");
+                        }
+                    }
+                }
+                _sb.Append(");\n");
             }
         }
 
+        private static readonly string[] s_keywords = new[]
+        {
+            "bool", "byte", "sbyte", "short", "ushort", "int", "uint", "long", "ulong", "double", "float", "decimal", "string", "char", "void", "object", "typeof", "sizeof", "null", "true", "false", "if", "else", "while", "for", "foreach", "do", "switch", "case", "default", "lock", "try", "throw", "catch", "finally", "goto", "break", "continue", "return", "public", "private", "internal", "protected", "static", "readonly", "sealed", "const", "fixed", "stackalloc", "volatile", "new", "override", "abstract", "virtual", "event", "extern", "ref", "out", "in", "is", "as", "params", "__arglist", "__makeref", "__reftype", "__refvalue", "this", "base", "namespace", "using", "class", "struct", "interface", "enum", "delegate", "checked", "unchecked", "unsafe", "operator", "implicit", "explicit"
+        };
+
         private static string EscapeIdentifier(string identifier)
         {
-            var needsEscaping = SyntaxFacts.GetKeywordKind(identifier) != SyntaxKind.None;
-            return needsEscaping ? "@" + identifier : identifier;
+            if (s_keywords.Contains(identifier))
+            {
+                return "@" + identifier;
+            }
+            return identifier;
         }
 
-        private static string MarshallAsType(Parameter p)
+        private static string MarshallAsType(Parameter p, Function function)
         {
             GLibType type = p.Type;
             string cType = p.CType;
@@ -217,7 +221,7 @@ namespace Tmds.Gir
                 Generator gen = new Generator();
                 string code = gen.Generate(ns);
                 File.WriteAllText($"../Tmds.GLib/Generated/{ns.Name}.Generated.cs", code);
-                Console.WriteLine(gen.Generate(ns));
+                //Console.WriteLine(gen.Generate(ns));
             }
         }
     }
