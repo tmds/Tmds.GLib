@@ -145,6 +145,8 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_convert_with_fallback(string str, long len, string to_codeset, string from_codeset, string fallback, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
+		public static extern string g_convert_with_iconv(string str, long len, System.IntPtr converter, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
+		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_datalist_clear(System.IntPtr datalist);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_datalist_foreach(System.IntPtr datalist, System.IntPtr func, System.IntPtr user_data);
@@ -300,6 +302,8 @@ namespace GLib {
 		public static extern string g_hostname_to_ascii(string hostname);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_hostname_to_unicode(string hostname);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern ulong g_iconv(System.IntPtr converter, string inbuf, System.IntPtr inbytes_left, string outbuf, System.IntPtr outbytes_left);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_idle_add(System.IntPtr function, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
@@ -1492,6 +1496,10 @@ namespace GLib {
 		public static extern void g_hook_list_marshal(System.IntPtr hook_list, int may_recurse, System.IntPtr marshaller, System.IntPtr marshal_data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_hook_list_marshal_check(System.IntPtr hook_list, int may_recurse, System.IntPtr marshaller, System.IntPtr marshal_data);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern int g_iconv_close(System.IntPtr converter);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_iconv_open(string to_codeset, string from_codeset);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_string_append(System.IntPtr @string, string val);
 		[DllImport("libglib-2.0.so.0")]

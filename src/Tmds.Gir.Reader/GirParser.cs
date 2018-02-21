@@ -524,6 +524,7 @@ namespace Tmds.Gir
             var gtypeStructFor = (string)recordElement.Attribute(GLibNames.IsGTypeStructFor);
             var version = ParseVersion(ns, (string)recordElement.Attribute(CoreNames.Version));
             var deprecatedVersion = ParseVersion(ns, (string)recordElement.Attribute(CoreNames.DeprecatedVersion));
+            bool disguised = (string)recordElement.Attribute("disguised") == "1";
             var functions = new List<Function>();
             var fields = new List<Field>();
             string doc = null;
@@ -562,21 +563,6 @@ namespace Tmds.Gir
                     });
                 }
             }
-            // the gir definitions don't reflect the following correctly
-            // typedef struct _GdkAtom *GdkAtom;
-            if (recordName == "Atom" && ns.Name == "Gdk")
-            {
-                recordName = "Atom_";
-                cType = "GdkAtom_";
-                var typeId = ns.ResolveTypeName("Gdk.Atom_");
-                ns.AddType("Atom", new AliasType
-                {
-                    CIdentifier = "GdkAtom",
-                    AliasedTypeName = typeId,
-                    TargetCType = "GdkAtom_*",
-                    Doc = null
-                });
-            }
 
             return (recordName, new RecordType
             {
@@ -588,7 +574,8 @@ namespace Tmds.Gir
                 Version = version,
                 DeprecatedVersion = deprecatedVersion,
                 Doc = doc,
-                DocDeprecated = docDeprecated
+                DocDeprecated = docDeprecated,
+                Disguised  = disguised
             });
         }
 

@@ -14,5 +14,6 @@ namespace Tmds.Gir
         public Version DeprecatedVersion { get; set; }
         public string Doc { get; set; }
         public string DocDeprecated { get; set; }
+        public bool Disguised { get; set; }
     }
 }

@@ -122,7 +122,8 @@ namespace Tmds.Gir
             GLibType type = p.Type;
             string cType = p.CType;
             (cType, type) = ResolveType(cType, type);
-            bool isPointer = cType.EndsWith("*") || cType == "gpointer" || cType == "gconstpointer";
+            bool isPointer = cType.EndsWith("*") || cType == "gpointer" || cType == "gconstpointer" ||
+                            (type is RecordType rec && rec.Disguised);
             bool isUtf8String = (type is FundamentalType fund && fund.Fundamental == Fundamental.Utf8);
             if (isPointer && !isUtf8String)
             {
