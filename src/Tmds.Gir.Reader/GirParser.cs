@@ -777,7 +777,7 @@ namespace Tmds.Gir
             bool writable = (string)propertyElement.Attribute("writable") == "1";
             bool construct = (string)propertyElement.Attribute("construct") == "1";
             bool constructOnly = (string)propertyElement.Attribute("construct-only") == "1";
-            Transfer transfer = ParseTransfer((string)propertyElement.Attribute("transfer-ownership"));
+            Transfer? transfer = ParseTransfer((string)propertyElement.Attribute("transfer-ownership"));
             var version = ParseVersion(ns, (string)propertyElement.Attribute(CoreNames.Version));
             var deprecatedVersion = ParseVersion(ns, (string)propertyElement.Attribute(CoreNames.DeprecatedVersion));
             bool hasEmptyTypeTag = false;
@@ -831,7 +831,7 @@ namespace Tmds.Gir
                 Writable = writable,
                 Construct = construct,
                 ConstructOnly = constructOnly,
-                Transfer = transfer,
+                Transfer = transfer.Value,
                 TypeName = typeId.Value,
                 CType = cType,
                 Version = version,
@@ -1002,7 +1002,7 @@ namespace Tmds.Gir
         {
             var parameterName = (string)parameterElement.Attribute("name") ?? string.Empty;
             bool instanceParameter = parameterElement.Name == CoreNames.InstanceParameter;
-            Transfer transfer = ParseTransfer((string)parameterElement.Attribute("transfer-ownership"));
+            Transfer? transfer = ParseTransfer((string)parameterElement.Attribute("transfer-ownership"));
             bool nullable = (string)parameterElement.Attribute("nullable") == "1";
             bool allowNone = (string)parameterElement.Attribute("allow-none") == "1";
             bool async = (string)parameterElement.Attribute("scope") == "async";
@@ -1021,6 +1021,7 @@ namespace Tmds.Gir
             {
                 direction = ParseDirection((string)parameterElement.Attribute("direction"));
             }
+            transfer = transfer ?? (direction == ParameterDirection.In ? Transfer.None : Transfer.Full);
             foreach (var element in parameterElement.Elements())
             {
                 if (element.Name == CoreNames.Type
@@ -1058,7 +1059,7 @@ namespace Tmds.Gir
                     CType = ctype,
                     InstanceParameter = instanceParameter,
                     Direction = direction,
-                    Transfer = transfer,
+                    Transfer = transfer.Value,
                     CallerAllocates = callerAllocates,
                     Nullable = nullable,
                     AllowNone = allowNone,
@@ -1185,11 +1186,11 @@ namespace Tmds.Gir
             throw new ArgumentException($"Unknown direction: '{v}'");
         }
 
-        private static Transfer ParseTransfer(string v)
+        private static Transfer? ParseTransfer(string v)
         {
             if (v == null)
             {
-                return Transfer.None;
+                return null;
             }
             switch (v)
             {
