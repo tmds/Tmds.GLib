@@ -481,7 +481,6 @@ namespace Tmds.Gir
             {
                 CType = cType,
                 TypeStruct = typeStruct,
-                CClassType = null, // this will be resolved during postprocessing
                 GLibGetType = getType,
                 Functions = functions,
                 Signals = signals,
@@ -648,7 +647,6 @@ namespace Tmds.Gir
             {
                 CType = cType,
                 TypeStruct = typeStruct,
-                CClassType = null, // this will be resolved during postprocessing
                 GLibGetType = getType,
                 Fields = fields,
                 Functions = functions,

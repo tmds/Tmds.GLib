@@ -8,7 +8,6 @@ namespace Tmds.Gir
     {
         public string CType { get; set; }
         public string TypeStruct { get; set; }
-        public string CClassType { get; set; }
         public string GLibGetType { get; set; }
         public List<Field> Fields { get; set; }
         public List<Function> Functions { get; set; }
