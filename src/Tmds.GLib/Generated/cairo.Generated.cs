@@ -1,6 +1,42 @@
 using System;
 using System.Runtime.InteropServices;
 namespace cairo {
+	public ref struct Context
+	{
+		private IntPtr _pointer;
+		public static explicit operator Context(IntPtr pointer) => new Context { _pointer = pointer };
+		public static explicit operator IntPtr(Context value) => value._pointer
+;	}
+	public ref struct Device
+	{
+		private IntPtr _pointer;
+		public static explicit operator Device(IntPtr pointer) => new Device { _pointer = pointer };
+		public static explicit operator IntPtr(Device value) => value._pointer
+;	}
+	public ref struct Surface
+	{
+		private IntPtr _pointer;
+		public static explicit operator Surface(IntPtr pointer) => new Surface { _pointer = pointer };
+		public static explicit operator IntPtr(Surface value) => value._pointer
+;	}
+	public ref struct Matrix
+	{
+		private IntPtr _pointer;
+		public static explicit operator Matrix(IntPtr pointer) => new Matrix { _pointer = pointer };
+		public static explicit operator IntPtr(Matrix value) => value._pointer
+;	}
+	public ref struct Pattern
+	{
+		private IntPtr _pointer;
+		public static explicit operator Pattern(IntPtr pointer) => new Pattern { _pointer = pointer };
+		public static explicit operator IntPtr(Pattern value) => value._pointer
+;	}
+	public ref struct Region
+	{
+		private IntPtr _pointer;
+		public static explicit operator Region(IntPtr pointer) => new Region { _pointer = pointer };
+		public static explicit operator IntPtr(Region value) => value._pointer
+;	}
 	public enum Status
 	{
 		success = 0,
@@ -145,6 +181,12 @@ namespace cairo {
 		off = 1,
 		on = 2,
 	}
+	public ref struct FontOptions
+	{
+		private IntPtr _pointer;
+		public static explicit operator FontOptions(IntPtr pointer) => new FontOptions { _pointer = pointer };
+		public static explicit operator IntPtr(FontOptions value) => value._pointer
+;	}
 	public enum FontType
 	{
 		toy = 0,
@@ -241,6 +283,30 @@ namespace cairo {
 		@out = 1,
 		part = 2,
 	}
+	public ref struct FontFace
+	{
+		private IntPtr _pointer;
+		public static explicit operator FontFace(IntPtr pointer) => new FontFace { _pointer = pointer };
+		public static explicit operator IntPtr(FontFace value) => value._pointer
+;	}
+	public ref struct ScaledFont
+	{
+		private IntPtr _pointer;
+		public static explicit operator ScaledFont(IntPtr pointer) => new ScaledFont { _pointer = pointer };
+		public static explicit operator IntPtr(ScaledFont value) => value._pointer
+;	}
+	public ref struct Path
+	{
+		private IntPtr _pointer;
+		public static explicit operator Path(IntPtr pointer) => new Path { _pointer = pointer };
+		public static explicit operator IntPtr(Path value) => value._pointer
+;	}
+	public ref struct RectangleInt
+	{
+		private IntPtr _pointer;
+		public static explicit operator RectangleInt(IntPtr pointer) => new RectangleInt { _pointer = pointer };
+		public static explicit operator IntPtr(RectangleInt value) => value._pointer
+;	}
 	public static class cairoInterop {
 		[DllImport("libcairo-gobject.so.2")]
 		public static extern void cairo_image_surface_create();

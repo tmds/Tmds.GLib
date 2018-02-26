@@ -1,6 +1,30 @@
 using System;
 using System.Runtime.InteropServices;
 namespace Atk {
+	public ref struct Action
+	{
+		private IntPtr _pointer;
+		public static explicit operator Action(IntPtr pointer) => new Action { _pointer = pointer };
+		public static explicit operator IntPtr(Action value) => value._pointer
+;	}
+	public ref struct ActionIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator ActionIface(IntPtr pointer) => new ActionIface { _pointer = pointer };
+		public static explicit operator IntPtr(ActionIface value) => value._pointer
+;	}
+	public ref struct Attribute
+	{
+		private IntPtr _pointer;
+		public static explicit operator Attribute(IntPtr pointer) => new Attribute { _pointer = pointer };
+		public static explicit operator IntPtr(Attribute value) => value._pointer
+;	}
+	public ref struct Component
+	{
+		private IntPtr _pointer;
+		public static explicit operator Component(IntPtr pointer) => new Component { _pointer = pointer };
+		public static explicit operator IntPtr(Component value) => value._pointer
+;	}
 	public enum CoordType
 	{
 		screen = 0,
@@ -17,17 +41,247 @@ namespace Atk {
 		overlay = 6,
 		window = 7,
 	}
+	public ref struct Object
+	{
+		private IntPtr _pointer;
+		public static explicit operator Object(IntPtr pointer) => new Object { _pointer = pointer };
+		public static explicit operator IntPtr(Object value) => value._pointer
+;		public static implicit operator GObject.Object(Object value) => (GObject.Object)value._pointer
+;		public static explicit operator Object(GObject.Object value) => (Object)(IntPtr)value
+;	}
+	public ref struct Rectangle
+	{
+		private IntPtr _pointer;
+		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle { _pointer = pointer };
+		public static explicit operator IntPtr(Rectangle value) => value._pointer
+;	}
+	public ref struct ComponentIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator ComponentIface(IntPtr pointer) => new ComponentIface { _pointer = pointer };
+		public static explicit operator IntPtr(ComponentIface value) => value._pointer
+;	}
+	public ref struct Document
+	{
+		private IntPtr _pointer;
+		public static explicit operator Document(IntPtr pointer) => new Document { _pointer = pointer };
+		public static explicit operator IntPtr(Document value) => value._pointer
+;	}
+	public ref struct DocumentIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator DocumentIface(IntPtr pointer) => new DocumentIface { _pointer = pointer };
+		public static explicit operator IntPtr(DocumentIface value) => value._pointer
+;	}
+	public ref struct EditableText
+	{
+		private IntPtr _pointer;
+		public static explicit operator EditableText(IntPtr pointer) => new EditableText { _pointer = pointer };
+		public static explicit operator IntPtr(EditableText value) => value._pointer
+;	}
+	public ref struct EditableTextIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator EditableTextIface(IntPtr pointer) => new EditableTextIface { _pointer = pointer };
+		public static explicit operator IntPtr(EditableTextIface value) => value._pointer
+;	}
+	public ref struct GObjectAccessible
+	{
+		private IntPtr _pointer;
+		public static explicit operator GObjectAccessible(IntPtr pointer) => new GObjectAccessible { _pointer = pointer };
+		public static explicit operator IntPtr(GObjectAccessible value) => value._pointer
+;		public static implicit operator Atk.Object(GObjectAccessible value) => (Atk.Object)value._pointer
+;		public static explicit operator GObjectAccessible(Atk.Object value) => (GObjectAccessible)(IntPtr)value
+;		public static implicit operator GObject.Object(GObjectAccessible value) => (GObject.Object)value._pointer
+;		public static explicit operator GObjectAccessible(GObject.Object value) => (GObjectAccessible)(IntPtr)value
+;	}
+	public ref struct ObjectClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator ObjectClass(IntPtr pointer) => new ObjectClass { _pointer = pointer };
+		public static explicit operator IntPtr(ObjectClass value) => value._pointer
+;	}
+	public ref struct GObjectAccessibleClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator GObjectAccessibleClass(IntPtr pointer) => new GObjectAccessibleClass { _pointer = pointer };
+		public static explicit operator IntPtr(GObjectAccessibleClass value) => value._pointer
+;	}
+	public ref struct Hyperlink
+	{
+		private IntPtr _pointer;
+		public static explicit operator Hyperlink(IntPtr pointer) => new Hyperlink { _pointer = pointer };
+		public static explicit operator IntPtr(Hyperlink value) => value._pointer
+;		public static implicit operator GObject.Object(Hyperlink value) => (GObject.Object)value._pointer
+;		public static explicit operator Hyperlink(GObject.Object value) => (Hyperlink)(IntPtr)value
+;	}
+	public ref struct HyperlinkClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator HyperlinkClass(IntPtr pointer) => new HyperlinkClass { _pointer = pointer };
+		public static explicit operator IntPtr(HyperlinkClass value) => value._pointer
+;	}
+	public ref struct HyperlinkImpl
+	{
+		private IntPtr _pointer;
+		public static explicit operator HyperlinkImpl(IntPtr pointer) => new HyperlinkImpl { _pointer = pointer };
+		public static explicit operator IntPtr(HyperlinkImpl value) => value._pointer
+;	}
+	public ref struct HyperlinkImplIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator HyperlinkImplIface(IntPtr pointer) => new HyperlinkImplIface { _pointer = pointer };
+		public static explicit operator IntPtr(HyperlinkImplIface value) => value._pointer
+;	}
 	[Flags]
 	public enum HyperlinkStateFlags
 	{
 		inline = 1,
 	}
+	public ref struct Hypertext
+	{
+		private IntPtr _pointer;
+		public static explicit operator Hypertext(IntPtr pointer) => new Hypertext { _pointer = pointer };
+		public static explicit operator IntPtr(Hypertext value) => value._pointer
+;	}
+	public ref struct HypertextIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator HypertextIface(IntPtr pointer) => new HypertextIface { _pointer = pointer };
+		public static explicit operator IntPtr(HypertextIface value) => value._pointer
+;	}
+	public ref struct Image
+	{
+		private IntPtr _pointer;
+		public static explicit operator Image(IntPtr pointer) => new Image { _pointer = pointer };
+		public static explicit operator IntPtr(Image value) => value._pointer
+;	}
+	public ref struct ImageIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator ImageIface(IntPtr pointer) => new ImageIface { _pointer = pointer };
+		public static explicit operator IntPtr(ImageIface value) => value._pointer
+;	}
+	public ref struct Implementor
+	{
+		private IntPtr _pointer;
+		public static explicit operator Implementor(IntPtr pointer) => new Implementor { _pointer = pointer };
+		public static explicit operator IntPtr(Implementor value) => value._pointer
+;	}
+	public ref struct ImplementorIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator ImplementorIface(IntPtr pointer) => new ImplementorIface { _pointer = pointer };
+		public static explicit operator IntPtr(ImplementorIface value) => value._pointer
+;	}
+	public ref struct KeyEventStruct
+	{
+		private IntPtr _pointer;
+		public static explicit operator KeyEventStruct(IntPtr pointer) => new KeyEventStruct { _pointer = pointer };
+		public static explicit operator IntPtr(KeyEventStruct value) => value._pointer
+;	}
 	public enum KeyEventType
 	{
 		press = 0,
 		release = 1,
 		last_defined = 2,
 	}
+	public ref struct Misc
+	{
+		private IntPtr _pointer;
+		public static explicit operator Misc(IntPtr pointer) => new Misc { _pointer = pointer };
+		public static explicit operator IntPtr(Misc value) => value._pointer
+;		public static implicit operator GObject.Object(Misc value) => (GObject.Object)value._pointer
+;		public static explicit operator Misc(GObject.Object value) => (Misc)(IntPtr)value
+;	}
+	public ref struct MiscClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator MiscClass(IntPtr pointer) => new MiscClass { _pointer = pointer };
+		public static explicit operator IntPtr(MiscClass value) => value._pointer
+;	}
+	public ref struct Selection
+	{
+		private IntPtr _pointer;
+		public static explicit operator Selection(IntPtr pointer) => new Selection { _pointer = pointer };
+		public static explicit operator IntPtr(Selection value) => value._pointer
+;	}
+	public ref struct Table
+	{
+		private IntPtr _pointer;
+		public static explicit operator Table(IntPtr pointer) => new Table { _pointer = pointer };
+		public static explicit operator IntPtr(Table value) => value._pointer
+;	}
+	public ref struct TableCell
+	{
+		private IntPtr _pointer;
+		public static explicit operator TableCell(IntPtr pointer) => new TableCell { _pointer = pointer };
+		public static explicit operator IntPtr(TableCell value) => value._pointer
+;	}
+	public ref struct Text
+	{
+		private IntPtr _pointer;
+		public static explicit operator Text(IntPtr pointer) => new Text { _pointer = pointer };
+		public static explicit operator IntPtr(Text value) => value._pointer
+;	}
+	public ref struct Value
+	{
+		private IntPtr _pointer;
+		public static explicit operator Value(IntPtr pointer) => new Value { _pointer = pointer };
+		public static explicit operator IntPtr(Value value) => value._pointer
+;	}
+	public ref struct Window
+	{
+		private IntPtr _pointer;
+		public static explicit operator Window(IntPtr pointer) => new Window { _pointer = pointer };
+		public static explicit operator IntPtr(Window value) => value._pointer
+;	}
+	public ref struct NoOpObject
+	{
+		private IntPtr _pointer;
+		public static explicit operator NoOpObject(IntPtr pointer) => new NoOpObject { _pointer = pointer };
+		public static explicit operator IntPtr(NoOpObject value) => value._pointer
+;		public static implicit operator Atk.Object(NoOpObject value) => (Atk.Object)value._pointer
+;		public static explicit operator NoOpObject(Atk.Object value) => (NoOpObject)(IntPtr)value
+;		public static implicit operator GObject.Object(NoOpObject value) => (GObject.Object)value._pointer
+;		public static explicit operator NoOpObject(GObject.Object value) => (NoOpObject)(IntPtr)value
+;	}
+	public ref struct NoOpObjectClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator NoOpObjectClass(IntPtr pointer) => new NoOpObjectClass { _pointer = pointer };
+		public static explicit operator IntPtr(NoOpObjectClass value) => value._pointer
+;	}
+	public ref struct ObjectFactory
+	{
+		private IntPtr _pointer;
+		public static explicit operator ObjectFactory(IntPtr pointer) => new ObjectFactory { _pointer = pointer };
+		public static explicit operator IntPtr(ObjectFactory value) => value._pointer
+;		public static implicit operator GObject.Object(ObjectFactory value) => (GObject.Object)value._pointer
+;		public static explicit operator ObjectFactory(GObject.Object value) => (ObjectFactory)(IntPtr)value
+;	}
+	public ref struct NoOpObjectFactory
+	{
+		private IntPtr _pointer;
+		public static explicit operator NoOpObjectFactory(IntPtr pointer) => new NoOpObjectFactory { _pointer = pointer };
+		public static explicit operator IntPtr(NoOpObjectFactory value) => value._pointer
+;		public static implicit operator Atk.ObjectFactory(NoOpObjectFactory value) => (Atk.ObjectFactory)value._pointer
+;		public static explicit operator NoOpObjectFactory(Atk.ObjectFactory value) => (NoOpObjectFactory)(IntPtr)value
+;		public static implicit operator GObject.Object(NoOpObjectFactory value) => (GObject.Object)value._pointer
+;		public static explicit operator NoOpObjectFactory(GObject.Object value) => (NoOpObjectFactory)(IntPtr)value
+;	}
+	public ref struct ObjectFactoryClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator ObjectFactoryClass(IntPtr pointer) => new ObjectFactoryClass { _pointer = pointer };
+		public static explicit operator IntPtr(ObjectFactoryClass value) => value._pointer
+;	}
+	public ref struct NoOpObjectFactoryClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator NoOpObjectFactoryClass(IntPtr pointer) => new NoOpObjectFactoryClass { _pointer = pointer };
+		public static explicit operator IntPtr(NoOpObjectFactoryClass value) => value._pointer
+;	}
 	public enum RelationType
 	{
 		@null = 0,
@@ -180,6 +434,106 @@ namespace Atk {
 		footnote = 122,
 		last_defined = 123,
 	}
+	public ref struct RelationSet
+	{
+		private IntPtr _pointer;
+		public static explicit operator RelationSet(IntPtr pointer) => new RelationSet { _pointer = pointer };
+		public static explicit operator IntPtr(RelationSet value) => value._pointer
+;		public static implicit operator GObject.Object(RelationSet value) => (GObject.Object)value._pointer
+;		public static explicit operator RelationSet(GObject.Object value) => (RelationSet)(IntPtr)value
+;	}
+	public ref struct StateSet
+	{
+		private IntPtr _pointer;
+		public static explicit operator StateSet(IntPtr pointer) => new StateSet { _pointer = pointer };
+		public static explicit operator IntPtr(StateSet value) => value._pointer
+;		public static implicit operator GObject.Object(StateSet value) => (GObject.Object)value._pointer
+;		public static explicit operator StateSet(GObject.Object value) => (StateSet)(IntPtr)value
+;	}
+	public ref struct PropertyValues
+	{
+		private IntPtr _pointer;
+		public static explicit operator PropertyValues(IntPtr pointer) => new PropertyValues { _pointer = pointer };
+		public static explicit operator IntPtr(PropertyValues value) => value._pointer
+;	}
+	public ref struct Plug
+	{
+		private IntPtr _pointer;
+		public static explicit operator Plug(IntPtr pointer) => new Plug { _pointer = pointer };
+		public static explicit operator IntPtr(Plug value) => value._pointer
+;		public static implicit operator Atk.Object(Plug value) => (Atk.Object)value._pointer
+;		public static explicit operator Plug(Atk.Object value) => (Plug)(IntPtr)value
+;		public static implicit operator GObject.Object(Plug value) => (GObject.Object)value._pointer
+;		public static explicit operator Plug(GObject.Object value) => (Plug)(IntPtr)value
+;	}
+	public ref struct PlugClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator PlugClass(IntPtr pointer) => new PlugClass { _pointer = pointer };
+		public static explicit operator IntPtr(PlugClass value) => value._pointer
+;	}
+	public ref struct Range
+	{
+		private IntPtr _pointer;
+		public static explicit operator Range(IntPtr pointer) => new Range { _pointer = pointer };
+		public static explicit operator IntPtr(Range value) => value._pointer
+;	}
+	public ref struct Registry
+	{
+		private IntPtr _pointer;
+		public static explicit operator Registry(IntPtr pointer) => new Registry { _pointer = pointer };
+		public static explicit operator IntPtr(Registry value) => value._pointer
+;		public static implicit operator GObject.Object(Registry value) => (GObject.Object)value._pointer
+;		public static explicit operator Registry(GObject.Object value) => (Registry)(IntPtr)value
+;	}
+	public ref struct RegistryClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator RegistryClass(IntPtr pointer) => new RegistryClass { _pointer = pointer };
+		public static explicit operator IntPtr(RegistryClass value) => value._pointer
+;	}
+	public ref struct Relation
+	{
+		private IntPtr _pointer;
+		public static explicit operator Relation(IntPtr pointer) => new Relation { _pointer = pointer };
+		public static explicit operator IntPtr(Relation value) => value._pointer
+;		public static implicit operator GObject.Object(Relation value) => (GObject.Object)value._pointer
+;		public static explicit operator Relation(GObject.Object value) => (Relation)(IntPtr)value
+;	}
+	public ref struct RelationClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator RelationClass(IntPtr pointer) => new RelationClass { _pointer = pointer };
+		public static explicit operator IntPtr(RelationClass value) => value._pointer
+;	}
+	public ref struct RelationSetClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator RelationSetClass(IntPtr pointer) => new RelationSetClass { _pointer = pointer };
+		public static explicit operator IntPtr(RelationSetClass value) => value._pointer
+;	}
+	public ref struct SelectionIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator SelectionIface(IntPtr pointer) => new SelectionIface { _pointer = pointer };
+		public static explicit operator IntPtr(SelectionIface value) => value._pointer
+;	}
+	public ref struct Socket
+	{
+		private IntPtr _pointer;
+		public static explicit operator Socket(IntPtr pointer) => new Socket { _pointer = pointer };
+		public static explicit operator IntPtr(Socket value) => value._pointer
+;		public static implicit operator Atk.Object(Socket value) => (Atk.Object)value._pointer
+;		public static explicit operator Socket(Atk.Object value) => (Socket)(IntPtr)value
+;		public static implicit operator GObject.Object(Socket value) => (GObject.Object)value._pointer
+;		public static explicit operator Socket(GObject.Object value) => (Socket)(IntPtr)value
+;	}
+	public ref struct SocketClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator SocketClass(IntPtr pointer) => new SocketClass { _pointer = pointer };
+		public static explicit operator IntPtr(SocketClass value) => value._pointer
+;	}
 	public enum StateType
 	{
 		invalid = 0,
@@ -227,6 +581,48 @@ namespace Atk {
 		read_only = 42,
 		last_defined = 43,
 	}
+	public ref struct StateSetClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator StateSetClass(IntPtr pointer) => new StateSetClass { _pointer = pointer };
+		public static explicit operator IntPtr(StateSetClass value) => value._pointer
+;	}
+	public ref struct StreamableContent
+	{
+		private IntPtr _pointer;
+		public static explicit operator StreamableContent(IntPtr pointer) => new StreamableContent { _pointer = pointer };
+		public static explicit operator IntPtr(StreamableContent value) => value._pointer
+;	}
+	public ref struct StreamableContentIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator StreamableContentIface(IntPtr pointer) => new StreamableContentIface { _pointer = pointer };
+		public static explicit operator IntPtr(StreamableContentIface value) => value._pointer
+;	}
+	public ref struct TableCellIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator TableCellIface(IntPtr pointer) => new TableCellIface { _pointer = pointer };
+		public static explicit operator IntPtr(TableCellIface value) => value._pointer
+;	}
+	public ref struct TableIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator TableIface(IntPtr pointer) => new TableIface { _pointer = pointer };
+		public static explicit operator IntPtr(TableIface value) => value._pointer
+;	}
+	public ref struct TextRange
+	{
+		private IntPtr _pointer;
+		public static explicit operator TextRange(IntPtr pointer) => new TextRange { _pointer = pointer };
+		public static explicit operator IntPtr(TextRange value) => value._pointer
+;	}
+	public ref struct TextRectangle
+	{
+		private IntPtr _pointer;
+		public static explicit operator TextRectangle(IntPtr pointer) => new TextRectangle { _pointer = pointer };
+		public static explicit operator IntPtr(TextRectangle value) => value._pointer
+;	}
 	public enum TextClipType
 	{
 		none = 0,
@@ -284,6 +680,32 @@ namespace Atk {
 		style = 27,
 		last_defined = 28,
 	}
+	public ref struct TextIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator TextIface(IntPtr pointer) => new TextIface { _pointer = pointer };
+		public static explicit operator IntPtr(TextIface value) => value._pointer
+;	}
+	public ref struct Util
+	{
+		private IntPtr _pointer;
+		public static explicit operator Util(IntPtr pointer) => new Util { _pointer = pointer };
+		public static explicit operator IntPtr(Util value) => value._pointer
+;		public static implicit operator GObject.Object(Util value) => (GObject.Object)value._pointer
+;		public static explicit operator Util(GObject.Object value) => (Util)(IntPtr)value
+;	}
+	public ref struct UtilClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator UtilClass(IntPtr pointer) => new UtilClass { _pointer = pointer };
+		public static explicit operator IntPtr(UtilClass value) => value._pointer
+;	}
+	public ref struct ValueIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator ValueIface(IntPtr pointer) => new ValueIface { _pointer = pointer };
+		public static explicit operator IntPtr(ValueIface value) => value._pointer
+;	}
 	public enum ValueType
 	{
 		very_weak = 0,
@@ -303,6 +725,12 @@ namespace Atk {
 		best = 14,
 		last_defined = 15,
 	}
+	public ref struct WindowIface
+	{
+		private IntPtr _pointer;
+		public static explicit operator WindowIface(IntPtr pointer) => new WindowIface { _pointer = pointer };
+		public static explicit operator IntPtr(WindowIface value) => value._pointer
+;	}
 	public static class AtkInterop {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_add_focus_tracker(System.IntPtr focus_tracker);
@@ -313,13 +741,13 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_focus_tracker_init(System.IntPtr init);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_focus_tracker_notify(System.IntPtr @object);
+		public static extern void atk_focus_tracker_notify(Atk.Object @object);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_get_binary_age();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_get_default_registry();
+		public static extern Atk.Registry atk_get_default_registry();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_get_focus_object();
+		public static extern Atk.Object atk_get_focus_object();
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_get_interface_age();
 		[DllImport("libatk-1.0.so.0")]
@@ -329,7 +757,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_get_minor_version();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_get_root();
+		public static extern Atk.Object atk_get_root();
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_get_toolkit_name();
 		[DllImport("libatk-1.0.so.0")]
@@ -343,331 +771,321 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_remove_key_event_listener(uint listener_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_action_do_action(System.IntPtr action, int i);
+		public static extern int atk_action_do_action(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_action_get_description(System.IntPtr action, int i);
+		public static extern string atk_action_get_description(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_action_get_keybinding(System.IntPtr action, int i);
+		public static extern string atk_action_get_keybinding(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_action_get_localized_name(System.IntPtr action, int i);
+		public static extern string atk_action_get_localized_name(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_action_get_n_actions(System.IntPtr action);
+		public static extern int atk_action_get_n_actions(Atk.Action action);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_action_get_name(System.IntPtr action, int i);
+		public static extern string atk_action_get_name(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_action_set_description(System.IntPtr action, int i, string desc);
+		public static extern int atk_action_set_description(Atk.Action action, int i, string desc);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_attribute_set_free(System.IntPtr attrib_set);
+		public static extern void atk_attribute_set_free(GLib.SList attrib_set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern uint atk_component_add_focus_handler(System.IntPtr component, System.IntPtr handler);
+		public static extern uint atk_component_add_focus_handler(Atk.Component component, System.IntPtr handler);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_contains(System.IntPtr component, int x, int y, Atk.CoordType coord_type);
+		public static extern int atk_component_contains(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern double atk_component_get_alpha(System.IntPtr component);
+		public static extern double atk_component_get_alpha(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_extents(System.IntPtr component, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type);
+		public static extern void atk_component_get_extents(Atk.Component component, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern Atk.Layer atk_component_get_layer(System.IntPtr component);
+		public static extern Atk.Layer atk_component_get_layer(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_get_mdi_zorder(System.IntPtr component);
+		public static extern int atk_component_get_mdi_zorder(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_position(System.IntPtr component, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
+		public static extern void atk_component_get_position(Atk.Component component, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_size(System.IntPtr component, System.IntPtr width, System.IntPtr height);
+		public static extern void atk_component_get_size(Atk.Component component, System.IntPtr width, System.IntPtr height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_grab_focus(System.IntPtr component);
+		public static extern int atk_component_grab_focus(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_component_ref_accessible_at_point(System.IntPtr component, int x, int y, Atk.CoordType coord_type);
+		public static extern Atk.Object atk_component_ref_accessible_at_point(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_remove_focus_handler(System.IntPtr component, uint handler_id);
+		public static extern void atk_component_remove_focus_handler(Atk.Component component, uint handler_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_extents(System.IntPtr component, int x, int y, int width, int height, Atk.CoordType coord_type);
+		public static extern int atk_component_set_extents(Atk.Component component, int x, int y, int width, int height, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_position(System.IntPtr component, int x, int y, Atk.CoordType coord_type);
+		public static extern int atk_component_set_position(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_size(System.IntPtr component, int width, int height);
+		public static extern int atk_component_set_size(Atk.Component component, int width, int height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_add_relationship(System.IntPtr @object, Atk.RelationType relationship, System.IntPtr target);
+		public static extern int atk_object_add_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern uint atk_object_connect_property_change_handler(System.IntPtr accessible, System.IntPtr handler);
+		public static extern uint atk_object_connect_property_change_handler(Atk.Object accessible, System.IntPtr handler);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_get_attributes(System.IntPtr accessible);
+		public static extern GLib.SList atk_object_get_attributes(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_object_get_description(System.IntPtr accessible);
+		public static extern string atk_object_get_description(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_get_index_in_parent(System.IntPtr accessible);
+		public static extern int atk_object_get_index_in_parent(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern Atk.Layer atk_object_get_layer(System.IntPtr accessible);
+		public static extern Atk.Layer atk_object_get_layer(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_get_mdi_zorder(System.IntPtr accessible);
+		public static extern int atk_object_get_mdi_zorder(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_get_n_accessible_children(System.IntPtr accessible);
+		public static extern int atk_object_get_n_accessible_children(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_object_get_name(System.IntPtr accessible);
+		public static extern string atk_object_get_name(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_object_get_object_locale(System.IntPtr accessible);
+		public static extern string atk_object_get_object_locale(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_get_parent(System.IntPtr accessible);
+		public static extern Atk.Object atk_object_get_parent(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern Atk.Role atk_object_get_role(System.IntPtr accessible);
+		public static extern Atk.Role atk_object_get_role(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_initialize(System.IntPtr accessible, System.IntPtr data);
+		public static extern void atk_object_initialize(Atk.Object accessible, System.IntPtr data);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_notify_state_change(System.IntPtr accessible, ulong state, int value);
+		public static extern void atk_object_notify_state_change(Atk.Object accessible, ulong state, int value);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_peek_parent(System.IntPtr accessible);
+		public static extern Atk.Object atk_object_peek_parent(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_ref_accessible_child(System.IntPtr accessible, int i);
+		public static extern Atk.Object atk_object_ref_accessible_child(Atk.Object accessible, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_ref_relation_set(System.IntPtr accessible);
+		public static extern Atk.RelationSet atk_object_ref_relation_set(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_ref_state_set(System.IntPtr accessible);
+		public static extern Atk.StateSet atk_object_ref_state_set(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_remove_property_change_handler(System.IntPtr accessible, uint handler_id);
+		public static extern void atk_object_remove_property_change_handler(Atk.Object accessible, uint handler_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_remove_relationship(System.IntPtr @object, Atk.RelationType relationship, System.IntPtr target);
+		public static extern int atk_object_remove_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_set_description(System.IntPtr accessible, string description);
+		public static extern void atk_object_set_description(Atk.Object accessible, string description);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_set_name(System.IntPtr accessible, string name);
+		public static extern void atk_object_set_name(Atk.Object accessible, string name);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_set_parent(System.IntPtr accessible, System.IntPtr parent);
+		public static extern void atk_object_set_parent(Atk.Object accessible, Atk.Object parent);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_set_role(System.IntPtr accessible, Atk.Role role);
+		public static extern void atk_object_set_role(Atk.Object accessible, Atk.Role role);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_document_get_attribute_value(System.IntPtr document, string attribute_name);
+		public static extern string atk_document_get_attribute_value(Atk.Document document, string attribute_name);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_document_get_attributes(System.IntPtr document);
+		public static extern GLib.SList atk_document_get_attributes(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_document_get_current_page_number(System.IntPtr document);
+		public static extern int atk_document_get_current_page_number(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_document_get_document(System.IntPtr document);
+		public static extern System.IntPtr atk_document_get_document(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_document_get_document_type(System.IntPtr document);
+		public static extern string atk_document_get_document_type(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_document_get_locale(System.IntPtr document);
+		public static extern string atk_document_get_locale(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_document_get_page_count(System.IntPtr document);
+		public static extern int atk_document_get_page_count(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_document_set_attribute_value(System.IntPtr document, string attribute_name, string attribute_value);
+		public static extern int atk_document_set_attribute_value(Atk.Document document, string attribute_name, string attribute_value);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_copy_text(System.IntPtr text, int start_pos, int end_pos);
+		public static extern void atk_editable_text_copy_text(Atk.EditableText text, int start_pos, int end_pos);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_cut_text(System.IntPtr text, int start_pos, int end_pos);
+		public static extern void atk_editable_text_cut_text(Atk.EditableText text, int start_pos, int end_pos);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_delete_text(System.IntPtr text, int start_pos, int end_pos);
+		public static extern void atk_editable_text_delete_text(Atk.EditableText text, int start_pos, int end_pos);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_insert_text(System.IntPtr text, string @string, int length, System.IntPtr position);
+		public static extern void atk_editable_text_insert_text(Atk.EditableText text, string @string, int length, System.IntPtr position);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_paste_text(System.IntPtr text, int position);
+		public static extern void atk_editable_text_paste_text(Atk.EditableText text, int position);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_editable_text_set_run_attributes(System.IntPtr text, System.IntPtr attrib_set, int start_offset, int end_offset);
+		public static extern int atk_editable_text_set_run_attributes(Atk.EditableText text, GLib.SList attrib_set, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_set_text_contents(System.IntPtr text, string @string);
+		public static extern void atk_editable_text_set_text_contents(Atk.EditableText text, string @string);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_gobject_accessible_for_object(System.IntPtr obj);
+		public static extern Atk.Object atk_gobject_accessible_for_object(GObject.Object obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_gobject_accessible_get_object(System.IntPtr obj);
+		public static extern GObject.Object atk_gobject_accessible_get_object(Atk.GObjectAccessible obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_get_end_index(System.IntPtr link_);
+		public static extern int atk_hyperlink_get_end_index(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_get_n_anchors(System.IntPtr link_);
+		public static extern int atk_hyperlink_get_n_anchors(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_hyperlink_get_object(System.IntPtr link_, int i);
+		public static extern Atk.Object atk_hyperlink_get_object(Atk.Hyperlink link_, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_get_start_index(System.IntPtr link_);
+		public static extern int atk_hyperlink_get_start_index(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_hyperlink_get_uri(System.IntPtr link_, int i);
+		public static extern string atk_hyperlink_get_uri(Atk.Hyperlink link_, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_inline(System.IntPtr link_);
+		public static extern int atk_hyperlink_is_inline(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_selected_link(System.IntPtr link_);
+		public static extern int atk_hyperlink_is_selected_link(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_valid(System.IntPtr link_);
+		public static extern int atk_hyperlink_is_valid(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_hyperlink_impl_get_hyperlink(System.IntPtr impl);
+		public static extern Atk.Hyperlink atk_hyperlink_impl_get_hyperlink(Atk.HyperlinkImpl impl);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_hypertext_get_link(System.IntPtr hypertext, int link_index);
+		public static extern Atk.Hyperlink atk_hypertext_get_link(Atk.Hypertext hypertext, int link_index);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hypertext_get_link_index(System.IntPtr hypertext, int char_index);
+		public static extern int atk_hypertext_get_link_index(Atk.Hypertext hypertext, int char_index);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hypertext_get_n_links(System.IntPtr hypertext);
+		public static extern int atk_hypertext_get_n_links(Atk.Hypertext hypertext);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_image_get_image_description(System.IntPtr image);
+		public static extern string atk_image_get_image_description(Atk.Image image);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_image_get_image_locale(System.IntPtr image);
+		public static extern string atk_image_get_image_locale(Atk.Image image);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_image_get_image_position(System.IntPtr image, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
+		public static extern void atk_image_get_image_position(Atk.Image image, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_image_get_image_size(System.IntPtr image, System.IntPtr width, System.IntPtr height);
+		public static extern void atk_image_get_image_size(Atk.Image image, System.IntPtr width, System.IntPtr height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_image_set_image_description(System.IntPtr image, string description);
+		public static extern int atk_image_set_image_description(Atk.Image image, string description);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_implementor_ref_accessible(System.IntPtr implementor);
+		public static extern Atk.Object atk_implementor_ref_accessible(Atk.Implementor implementor);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_misc_get_instance();
+		public static extern Atk.Misc atk_misc_get_instance();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_misc_threads_enter(System.IntPtr misc);
+		public static extern void atk_misc_threads_enter(Atk.Misc misc);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_misc_threads_leave(System.IntPtr misc);
+		public static extern void atk_misc_threads_leave(Atk.Misc misc);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_add_selection(System.IntPtr selection, int i);
+		public static extern int atk_selection_add_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_clear_selection(System.IntPtr selection);
+		public static extern int atk_selection_clear_selection(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_get_selection_count(System.IntPtr selection);
+		public static extern int atk_selection_get_selection_count(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_is_child_selected(System.IntPtr selection, int i);
+		public static extern int atk_selection_is_child_selected(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_selection_ref_selection(System.IntPtr selection, int i);
+		public static extern Atk.Object atk_selection_ref_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_remove_selection(System.IntPtr selection, int i);
+		public static extern int atk_selection_remove_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_select_all_selection(System.IntPtr selection);
+		public static extern int atk_selection_select_all_selection(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_add_column_selection(System.IntPtr table, int column);
+		public static extern int atk_table_add_column_selection(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_add_row_selection(System.IntPtr table, int row);
+		public static extern int atk_table_add_row_selection(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_get_caption(System.IntPtr table);
+		public static extern Atk.Object atk_table_get_caption(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_column_at_index(System.IntPtr table, int index_);
+		public static extern int atk_table_get_column_at_index(Atk.Table table, int index_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_table_get_column_description(System.IntPtr table, int column);
+		public static extern string atk_table_get_column_description(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_column_extent_at(System.IntPtr table, int row, int column);
+		public static extern int atk_table_get_column_extent_at(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_get_column_header(System.IntPtr table, int column);
+		public static extern Atk.Object atk_table_get_column_header(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_index_at(System.IntPtr table, int row, int column);
+		public static extern int atk_table_get_index_at(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_n_columns(System.IntPtr table);
+		public static extern int atk_table_get_n_columns(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_n_rows(System.IntPtr table);
+		public static extern int atk_table_get_n_rows(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_row_at_index(System.IntPtr table, int index_);
+		public static extern int atk_table_get_row_at_index(Atk.Table table, int index_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_table_get_row_description(System.IntPtr table, int row);
+		public static extern string atk_table_get_row_description(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_row_extent_at(System.IntPtr table, int row, int column);
+		public static extern int atk_table_get_row_extent_at(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_get_row_header(System.IntPtr table, int row);
+		public static extern Atk.Object atk_table_get_row_header(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_selected_columns(System.IntPtr table, System.IntPtr selected);
+		public static extern int atk_table_get_selected_columns(Atk.Table table, System.IntPtr selected);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_selected_rows(System.IntPtr table, System.IntPtr selected);
+		public static extern int atk_table_get_selected_rows(Atk.Table table, System.IntPtr selected);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_get_summary(System.IntPtr table);
+		public static extern Atk.Object atk_table_get_summary(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_column_selected(System.IntPtr table, int column);
+		public static extern int atk_table_is_column_selected(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_row_selected(System.IntPtr table, int row);
+		public static extern int atk_table_is_row_selected(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_selected(System.IntPtr table, int row, int column);
+		public static extern int atk_table_is_selected(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_ref_at(System.IntPtr table, int row, int column);
+		public static extern Atk.Object atk_table_ref_at(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_remove_column_selection(System.IntPtr table, int column);
+		public static extern int atk_table_remove_column_selection(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_remove_row_selection(System.IntPtr table, int row);
+		public static extern int atk_table_remove_row_selection(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_caption(System.IntPtr table, System.IntPtr caption);
+		public static extern void atk_table_set_caption(Atk.Table table, Atk.Object caption);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_column_description(System.IntPtr table, int column, string description);
+		public static extern void atk_table_set_column_description(Atk.Table table, int column, string description);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_column_header(System.IntPtr table, int column, System.IntPtr header);
+		public static extern void atk_table_set_column_header(Atk.Table table, int column, Atk.Object header);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_row_description(System.IntPtr table, int row, string description);
+		public static extern void atk_table_set_row_description(Atk.Table table, int row, string description);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_row_header(System.IntPtr table, int row, System.IntPtr header);
+		public static extern void atk_table_set_row_header(Atk.Table table, int row, Atk.Object header);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_table_set_summary(System.IntPtr table, System.IntPtr accessible);
+		public static extern void atk_table_set_summary(Atk.Table table, Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_cell_get_column_header_cells(System.IntPtr cell);
+		public static extern System.IntPtr atk_table_cell_get_column_header_cells(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_column_span(System.IntPtr cell);
+		public static extern int atk_table_cell_get_column_span(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_position(System.IntPtr cell, System.IntPtr row, System.IntPtr column);
+		public static extern int atk_table_cell_get_position(Atk.TableCell cell, System.IntPtr row, System.IntPtr column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_row_column_span(System.IntPtr cell, System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span);
+		public static extern int atk_table_cell_get_row_column_span(Atk.TableCell cell, System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_cell_get_row_header_cells(System.IntPtr cell);
+		public static extern System.IntPtr atk_table_cell_get_row_header_cells(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_row_span(System.IntPtr cell);
+		public static extern int atk_table_cell_get_row_span(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_table_cell_get_table(System.IntPtr cell);
+		public static extern Atk.Object atk_table_cell_get_table(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_text_free_ranges(System.IntPtr ranges);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_add_selection(System.IntPtr text, int start_offset, int end_offset);
+		public static extern int atk_text_add_selection(Atk.Text text, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_text_get_bounded_ranges(System.IntPtr text, System.IntPtr rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type);
+		public static extern System.IntPtr atk_text_get_bounded_ranges(Atk.Text text, Atk.TextRectangle rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_get_caret_offset(System.IntPtr text);
+		public static extern int atk_text_get_caret_offset(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern uint atk_text_get_character_at_offset(System.IntPtr text, int offset);
+		public static extern uint atk_text_get_character_at_offset(Atk.Text text, int offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_get_character_count(System.IntPtr text);
+		public static extern int atk_text_get_character_count(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_text_get_character_extents(System.IntPtr text, int offset, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coords);
+		public static extern void atk_text_get_character_extents(Atk.Text text, int offset, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coords);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_text_get_default_attributes(System.IntPtr text);
+		public static extern GLib.SList atk_text_get_default_attributes(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_get_n_selections(System.IntPtr text);
+		public static extern int atk_text_get_n_selections(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_get_offset_at_point(System.IntPtr text, int x, int y, Atk.CoordType coords);
+		public static extern int atk_text_get_offset_at_point(Atk.Text text, int x, int y, Atk.CoordType coords);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_text_get_range_extents(System.IntPtr text, int start_offset, int end_offset, Atk.CoordType coord_type, System.IntPtr rect);
+		public static extern GLib.SList atk_text_get_run_attributes(Atk.Text text, int offset, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_text_get_run_attributes(System.IntPtr text, int offset, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_selection(Atk.Text text, int selection_num, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_selection(System.IntPtr text, int selection_num, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_string_at_offset(Atk.Text text, int offset, Atk.TextGranularity granularity, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_string_at_offset(System.IntPtr text, int offset, Atk.TextGranularity granularity, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text(Atk.Text text, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text(System.IntPtr text, int start_offset, int end_offset);
+		public static extern string atk_text_get_text_after_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_after_offset(System.IntPtr text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text_at_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_at_offset(System.IntPtr text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text_before_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_before_offset(System.IntPtr text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern int atk_text_remove_selection(Atk.Text text, int selection_num);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_remove_selection(System.IntPtr text, int selection_num);
+		public static extern int atk_text_set_caret_offset(Atk.Text text, int offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_set_caret_offset(System.IntPtr text, int offset);
+		public static extern int atk_text_set_selection(Atk.Text text, int selection_num, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_set_selection(System.IntPtr text, int selection_num, int start_offset, int end_offset);
+		public static extern double atk_value_get_increment(Atk.Value obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_current_value(System.IntPtr obj, System.IntPtr value);
+		public static extern Atk.Range atk_value_get_range(Atk.Value obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern double atk_value_get_increment(System.IntPtr obj);
+		public static extern System.IntPtr atk_value_get_sub_ranges(Atk.Value obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_maximum_value(System.IntPtr obj, System.IntPtr value);
+		public static extern void atk_value_get_value_and_text(Atk.Value obj, System.IntPtr value, string text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_minimum_increment(System.IntPtr obj, System.IntPtr value);
+		public static extern int atk_value_set_current_value(Atk.Value obj, GObject.Value value);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_minimum_value(System.IntPtr obj, System.IntPtr value);
+		public static extern void atk_value_set_value(Atk.Value obj, double new_value);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_value_get_range(System.IntPtr obj);
+		public static extern Atk.Object atk_no_op_object_new(GObject.Object obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_value_get_sub_ranges(System.IntPtr obj);
+		public static extern Atk.Object atk_object_factory_create_accessible(Atk.ObjectFactory factory, GObject.Object obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_value_and_text(System.IntPtr obj, System.IntPtr value, string text);
+		public static extern ulong atk_object_factory_get_accessible_type(Atk.ObjectFactory factory);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_value_set_current_value(System.IntPtr obj, System.IntPtr value);
+		public static extern void atk_object_factory_invalidate(Atk.ObjectFactory factory);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_set_value(System.IntPtr obj, double new_value);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_no_op_object_new(System.IntPtr obj);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_object_factory_create_accessible(System.IntPtr factory, System.IntPtr obj);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern ulong atk_object_factory_get_accessible_type(System.IntPtr factory);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_factory_invalidate(System.IntPtr factory);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_no_op_object_factory_new();
+		public static extern Atk.ObjectFactory atk_no_op_object_factory_new();
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.RelationType atk_relation_type_for_name(string name);
 		[DllImport("libatk-1.0.so.0")]
@@ -683,83 +1101,83 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Role atk_role_register(string name);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_relation_set_new();
+		public static extern Atk.RelationSet atk_relation_set_new();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_relation_set_add(System.IntPtr set, System.IntPtr relation);
+		public static extern void atk_relation_set_add(Atk.RelationSet set, Atk.Relation relation);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_relation_set_add_relation_by_type(System.IntPtr set, Atk.RelationType relationship, System.IntPtr target);
+		public static extern void atk_relation_set_add_relation_by_type(Atk.RelationSet set, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_set_contains(System.IntPtr set, Atk.RelationType relationship);
+		public static extern int atk_relation_set_contains(Atk.RelationSet set, Atk.RelationType relationship);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_set_contains_target(System.IntPtr set, Atk.RelationType relationship, System.IntPtr target);
+		public static extern int atk_relation_set_contains_target(Atk.RelationSet set, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_set_get_n_relations(System.IntPtr set);
+		public static extern int atk_relation_set_get_n_relations(Atk.RelationSet set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_relation_set_get_relation(System.IntPtr set, int i);
+		public static extern Atk.Relation atk_relation_set_get_relation(Atk.RelationSet set, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_relation_set_get_relation_by_type(System.IntPtr set, Atk.RelationType relationship);
+		public static extern Atk.Relation atk_relation_set_get_relation_by_type(Atk.RelationSet set, Atk.RelationType relationship);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_relation_set_remove(System.IntPtr set, System.IntPtr relation);
+		public static extern void atk_relation_set_remove(Atk.RelationSet set, Atk.Relation relation);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_state_set_new();
+		public static extern Atk.StateSet atk_state_set_new();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_add_state(System.IntPtr set, Atk.StateType type);
+		public static extern int atk_state_set_add_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_state_set_add_states(System.IntPtr set, System.IntPtr types, int n_types);
+		public static extern void atk_state_set_add_states(Atk.StateSet set, System.IntPtr types, int n_types);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_state_set_and_sets(System.IntPtr set, System.IntPtr compare_set);
+		public static extern Atk.StateSet atk_state_set_and_sets(Atk.StateSet set, Atk.StateSet compare_set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_state_set_clear_states(System.IntPtr set);
+		public static extern void atk_state_set_clear_states(Atk.StateSet set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_contains_state(System.IntPtr set, Atk.StateType type);
+		public static extern int atk_state_set_contains_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_contains_states(System.IntPtr set, System.IntPtr types, int n_types);
+		public static extern int atk_state_set_contains_states(Atk.StateSet set, System.IntPtr types, int n_types);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_is_empty(System.IntPtr set);
+		public static extern int atk_state_set_is_empty(Atk.StateSet set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_state_set_or_sets(System.IntPtr set, System.IntPtr compare_set);
+		public static extern Atk.StateSet atk_state_set_or_sets(Atk.StateSet set, Atk.StateSet compare_set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_remove_state(System.IntPtr set, Atk.StateType type);
+		public static extern int atk_state_set_remove_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_state_set_xor_sets(System.IntPtr set, System.IntPtr compare_set);
+		public static extern Atk.StateSet atk_state_set_xor_sets(Atk.StateSet set, Atk.StateSet compare_set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_plug_new();
+		public static extern Atk.Object atk_plug_new();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_plug_get_id(System.IntPtr plug);
+		public static extern string atk_plug_get_id(Atk.Plug plug);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_range_new(double lower_limit, double upper_limit, string description);
+		public static extern Atk.Range atk_range_new(double lower_limit, double upper_limit, string description);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_range_copy(System.IntPtr src);
+		public static extern Atk.Range atk_range_copy(Atk.Range src);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_range_free(System.IntPtr range);
+		public static extern void atk_range_free(Atk.Range range);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_range_get_description(System.IntPtr range);
+		public static extern string atk_range_get_description(Atk.Range range);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern double atk_range_get_lower_limit(System.IntPtr range);
+		public static extern double atk_range_get_lower_limit(Atk.Range range);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern double atk_range_get_upper_limit(System.IntPtr range);
+		public static extern double atk_range_get_upper_limit(Atk.Range range);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_registry_get_factory(System.IntPtr registry, ulong type);
+		public static extern Atk.ObjectFactory atk_registry_get_factory(Atk.Registry registry, ulong type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern ulong atk_registry_get_factory_type(System.IntPtr registry, ulong type);
+		public static extern ulong atk_registry_get_factory_type(Atk.Registry registry, ulong type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_registry_set_factory_type(System.IntPtr registry, ulong type, ulong factory_type);
+		public static extern void atk_registry_set_factory_type(Atk.Registry registry, ulong type, ulong factory_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_relation_new(System.IntPtr targets, int n_targets, Atk.RelationType relationship);
+		public static extern Atk.Relation atk_relation_new(System.IntPtr targets, int n_targets, Atk.RelationType relationship);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_relation_add_target(System.IntPtr relation, System.IntPtr target);
+		public static extern void atk_relation_add_target(Atk.Relation relation, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern Atk.RelationType atk_relation_get_relation_type(System.IntPtr relation);
+		public static extern Atk.RelationType atk_relation_get_relation_type(Atk.Relation relation);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_relation_get_target(System.IntPtr relation);
+		public static extern System.IntPtr atk_relation_get_target(Atk.Relation relation);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_remove_target(System.IntPtr relation, System.IntPtr target);
+		public static extern int atk_relation_remove_target(Atk.Relation relation, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_socket_new();
+		public static extern Atk.Object atk_socket_new();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_socket_embed(System.IntPtr obj, string plug_id);
+		public static extern void atk_socket_embed(Atk.Socket obj, string plug_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_socket_is_occupied(System.IntPtr obj);
+		public static extern int atk_socket_is_occupied(Atk.Socket obj);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateType atk_state_type_for_name(string name);
 		[DllImport("libatk-1.0.so.0")]
@@ -767,13 +1185,13 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateType atk_state_type_register(string name);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_streamable_content_get_mime_type(System.IntPtr streamable, int i);
+		public static extern string atk_streamable_content_get_mime_type(Atk.StreamableContent streamable, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_streamable_content_get_n_mime_types(System.IntPtr streamable);
+		public static extern int atk_streamable_content_get_n_mime_types(Atk.StreamableContent streamable);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_streamable_content_get_stream(System.IntPtr streamable, string mime_type);
+		public static extern GLib.IOChannel atk_streamable_content_get_stream(Atk.StreamableContent streamable, string mime_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_streamable_content_get_uri(System.IntPtr streamable, string mime_type);
+		public static extern string atk_streamable_content_get_uri(Atk.StreamableContent streamable, string mime_type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.TextAttribute atk_text_attribute_for_name(string name);
 		[DllImport("libatk-1.0.so.0")]

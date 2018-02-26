@@ -81,7 +81,23 @@ namespace Tmds.Gir
 
         private void AddRefStruct(GLibType type)
         {
-            
+            _sb.AppendFormat("\tpublic ref struct {0}\n", type.Name);
+            _sb.Append("\t{\n");
+            _sb.Append("\t\tprivate IntPtr _pointer;\n");
+            _sb.AppendFormat("\t\tpublic static explicit operator {0}(IntPtr pointer) => new {0} {{ _pointer = pointer }};\n", type.Name);
+            _sb.AppendFormat("\t\tpublic static explicit operator IntPtr({0} value) => value._pointer\n;", type.Name);
+            if (type is ClassType cls)
+            {
+                ClassType parent = cls.Parent as ClassType;
+                while (parent != null)
+                {
+                    _sb.AppendFormat("\t\tpublic static implicit operator {0}({1} value) => ({0})value._pointer\n;", parent.FullName, type.Name);
+                    // TODO: add type check
+                    _sb.AppendFormat("\t\tpublic static explicit operator {0}({1} value) => ({0})(IntPtr)value\n;", type.Name, parent.FullName);
+                    parent = parent.Parent as ClassType;
+                }
+            }
+            _sb.Append("\t}\n");
         }
 
         private void AddInteropClass(Namespace ns)
@@ -181,10 +197,24 @@ namespace Tmds.Gir
         {
             GLibType type = p.Type;
             string cType = p.CType;
+
             (cType, type) = ResolveType(cType, type);
+
             int starCount = 0;
             while (cType.Length > 0 && cType[cType.Length - 1 - starCount] == '*') { starCount++; };
-            if (type is BitfieldType || type is EnumerationType)
+
+            bool enumType = type is BitfieldType || type is EnumerationType;
+            bool byRefType = type is RecordType || type is ClassType || type is InterfaceType;
+            if (byRefType)
+            {
+                if (starCount == 0)
+                {
+                    return null;
+                }
+                starCount--;
+                cType = cType.Substring(0, cType.Length - 1);
+            }
+            if (enumType || byRefType)
             {   
                 string typeName = type.FullName;
                 string modifier = null;
@@ -217,8 +247,7 @@ namespace Tmds.Gir
                     return $"{modifier} {typeName}";
                 }
             }
-            bool isPointer = cType.EndsWith("*") || cType == "gpointer" || cType == "gconstpointer" ||
-                            (type is RecordType rec && rec.Disguised);
+            bool isPointer = cType.EndsWith("*") || (type is RecordType rec && rec.Disguised);
             bool isUtf8String = (type is FundamentalType fund && fund.Fundamental == Fundamental.Utf8);
             if (isPointer && !isUtf8String)
             {
@@ -278,6 +307,8 @@ namespace Tmds.Gir
 
         private static (string cType, GLibType type) ResolveType(string cType, GLibType type)
         {
+            cType = cType.Replace("gpointer", "void*");
+            cType = cType.Replace("gconstpointer", "void*");
             if (type is AliasType a)
             {
                 cType = cType.Replace(a.CIdentifier, a.TargetCType);

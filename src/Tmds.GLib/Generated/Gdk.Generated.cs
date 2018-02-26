@@ -14,6 +14,38 @@ namespace Gdk {
 		slide = 12,
 		resize = 48,
 	}
+	public ref struct AppLaunchContext
+	{
+		private IntPtr _pointer;
+		public static explicit operator AppLaunchContext(IntPtr pointer) => new AppLaunchContext { _pointer = pointer };
+		public static explicit operator IntPtr(AppLaunchContext value) => value._pointer
+;		public static implicit operator Gio.AppLaunchContext(AppLaunchContext value) => (Gio.AppLaunchContext)value._pointer
+;		public static explicit operator AppLaunchContext(Gio.AppLaunchContext value) => (AppLaunchContext)(IntPtr)value
+;		public static implicit operator GObject.Object(AppLaunchContext value) => (GObject.Object)value._pointer
+;		public static explicit operator AppLaunchContext(GObject.Object value) => (AppLaunchContext)(IntPtr)value
+;	}
+	public ref struct Display
+	{
+		private IntPtr _pointer;
+		public static explicit operator Display(IntPtr pointer) => new Display { _pointer = pointer };
+		public static explicit operator IntPtr(Display value) => value._pointer
+;		public static implicit operator GObject.Object(Display value) => (GObject.Object)value._pointer
+;		public static explicit operator Display(GObject.Object value) => (Display)(IntPtr)value
+;	}
+	public ref struct Screen
+	{
+		private IntPtr _pointer;
+		public static explicit operator Screen(IntPtr pointer) => new Screen { _pointer = pointer };
+		public static explicit operator IntPtr(Screen value) => value._pointer
+;		public static implicit operator GObject.Object(Screen value) => (GObject.Object)value._pointer
+;		public static explicit operator Screen(GObject.Object value) => (Screen)(IntPtr)value
+;	}
+	public ref struct Atom
+	{
+		private IntPtr _pointer;
+		public static explicit operator Atom(IntPtr pointer) => new Atom { _pointer = pointer };
+		public static explicit operator IntPtr(Atom value) => value._pointer
+;	}
 	[Flags]
 	public enum AxisFlags
 	{
@@ -46,6 +78,12 @@ namespace Gdk {
 		lsb_first = 0,
 		msb_first = 1,
 	}
+	public ref struct Color
+	{
+		private IntPtr _pointer;
+		public static explicit operator Color(IntPtr pointer) => new Color { _pointer = pointer };
+		public static explicit operator IntPtr(Color value) => value._pointer
+;	}
 	public enum CrossingMode
 	{
 		normal = 0,
@@ -58,6 +96,14 @@ namespace Gdk {
 		touch_end = 7,
 		device_switch = 8,
 	}
+	public ref struct Cursor
+	{
+		private IntPtr _pointer;
+		public static explicit operator Cursor(IntPtr pointer) => new Cursor { _pointer = pointer };
+		public static explicit operator IntPtr(Cursor value) => value._pointer
+;		public static implicit operator GObject.Object(Cursor value) => (GObject.Object)value._pointer
+;		public static explicit operator Cursor(GObject.Object value) => (Cursor)(IntPtr)value
+;	}
 	public enum CursorType
 	{
 		x_cursor = 0,
@@ -141,6 +187,28 @@ namespace Gdk {
 		blank_cursor = -2,
 		cursor_is_pixmap = -1,
 	}
+	public ref struct TimeCoord
+	{
+		private IntPtr _pointer;
+		public static explicit operator TimeCoord(IntPtr pointer) => new TimeCoord { _pointer = pointer };
+		public static explicit operator IntPtr(TimeCoord value) => value._pointer
+;	}
+	public ref struct Device
+	{
+		private IntPtr _pointer;
+		public static explicit operator Device(IntPtr pointer) => new Device { _pointer = pointer };
+		public static explicit operator IntPtr(Device value) => value._pointer
+;		public static implicit operator GObject.Object(Device value) => (GObject.Object)value._pointer
+;		public static explicit operator Device(GObject.Object value) => (Device)(IntPtr)value
+;	}
+	public ref struct Window
+	{
+		private IntPtr _pointer;
+		public static explicit operator Window(IntPtr pointer) => new Window { _pointer = pointer };
+		public static explicit operator IntPtr(Window value) => value._pointer
+;		public static implicit operator GObject.Object(Window value) => (GObject.Object)value._pointer
+;		public static explicit operator Window(GObject.Object value) => (Window)(IntPtr)value
+;	}
 	public enum DeviceType
 	{
 		master = 0,
@@ -189,6 +257,14 @@ namespace Gdk {
 		screen = 1,
 		window = 2,
 	}
+	public ref struct Seat
+	{
+		private IntPtr _pointer;
+		public static explicit operator Seat(IntPtr pointer) => new Seat { _pointer = pointer };
+		public static explicit operator IntPtr(Seat value) => value._pointer
+;		public static implicit operator GObject.Object(Seat value) => (GObject.Object)value._pointer
+;		public static explicit operator Seat(GObject.Object value) => (Seat)(IntPtr)value
+;	}
 	public enum InputSource
 	{
 		mouse = 0,
@@ -246,12 +322,40 @@ namespace Gdk {
 		tablet_pad_mask = 33554432,
 		all_events_mask = 16777214,
 	}
+	public ref struct DeviceManager
+	{
+		private IntPtr _pointer;
+		public static explicit operator DeviceManager(IntPtr pointer) => new DeviceManager { _pointer = pointer };
+		public static explicit operator IntPtr(DeviceManager value) => value._pointer
+;		public static implicit operator GObject.Object(DeviceManager value) => (GObject.Object)value._pointer
+;		public static explicit operator DeviceManager(GObject.Object value) => (DeviceManager)(IntPtr)value
+;	}
+	public ref struct DeviceTool
+	{
+		private IntPtr _pointer;
+		public static explicit operator DeviceTool(IntPtr pointer) => new DeviceTool { _pointer = pointer };
+		public static explicit operator IntPtr(DeviceTool value) => value._pointer
+;		public static implicit operator GObject.Object(DeviceTool value) => (GObject.Object)value._pointer
+;		public static explicit operator DeviceTool(GObject.Object value) => (DeviceTool)(IntPtr)value
+;	}
+	public ref struct DevicePad
+	{
+		private IntPtr _pointer;
+		public static explicit operator DevicePad(IntPtr pointer) => new DevicePad { _pointer = pointer };
+		public static explicit operator IntPtr(DevicePad value) => value._pointer
+;	}
 	public enum DevicePadFeature
 	{
 		button = 0,
 		ring = 1,
 		strip = 2,
 	}
+	public ref struct DevicePadInterface
+	{
+		private IntPtr _pointer;
+		public static explicit operator DevicePadInterface(IntPtr pointer) => new DevicePadInterface { _pointer = pointer };
+		public static explicit operator IntPtr(DevicePadInterface value) => value._pointer
+;	}
 	public enum DeviceToolType
 	{
 		unknown = 0,
@@ -263,6 +367,22 @@ namespace Gdk {
 		mouse = 6,
 		lens = 7,
 	}
+	public ref struct Monitor
+	{
+		private IntPtr _pointer;
+		public static explicit operator Monitor(IntPtr pointer) => new Monitor { _pointer = pointer };
+		public static explicit operator IntPtr(Monitor value) => value._pointer
+;		public static implicit operator GObject.Object(Monitor value) => (GObject.Object)value._pointer
+;		public static explicit operator Monitor(GObject.Object value) => (Monitor)(IntPtr)value
+;	}
+	public ref struct DisplayManager
+	{
+		private IntPtr _pointer;
+		public static explicit operator DisplayManager(IntPtr pointer) => new DisplayManager { _pointer = pointer };
+		public static explicit operator IntPtr(DisplayManager value) => value._pointer
+;		public static implicit operator GObject.Object(DisplayManager value) => (GObject.Object)value._pointer
+;		public static explicit operator DisplayManager(GObject.Object value) => (DisplayManager)(IntPtr)value
+;	}
 	[Flags]
 	public enum DragAction
 	{
@@ -279,6 +399,14 @@ namespace Gdk {
 		user_cancelled = 1,
 		error = 2,
 	}
+	public ref struct DragContext
+	{
+		private IntPtr _pointer;
+		public static explicit operator DragContext(IntPtr pointer) => new DragContext { _pointer = pointer };
+		public static explicit operator IntPtr(DragContext value) => value._pointer
+;		public static implicit operator GObject.Object(DragContext value) => (GObject.Object)value._pointer
+;		public static explicit operator DragContext(GObject.Object value) => (DragContext)(IntPtr)value
+;	}
 	public enum DragProtocol
 	{
 		none = 0,
@@ -290,6 +418,20 @@ namespace Gdk {
 		local = 6,
 		wayland = 7,
 	}
+	public ref struct DrawingContext
+	{
+		private IntPtr _pointer;
+		public static explicit operator DrawingContext(IntPtr pointer) => new DrawingContext { _pointer = pointer };
+		public static explicit operator IntPtr(DrawingContext value) => value._pointer
+;		public static implicit operator GObject.Object(DrawingContext value) => (GObject.Object)value._pointer
+;		public static explicit operator DrawingContext(GObject.Object value) => (DrawingContext)(IntPtr)value
+;	}
+	public ref struct DrawingContextClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator DrawingContextClass(IntPtr pointer) => new DrawingContextClass { _pointer = pointer };
+		public static explicit operator IntPtr(DrawingContextClass value) => value._pointer
+;	}
 	public enum EventType
 	{
 		nothing = -1,
@@ -344,6 +486,156 @@ namespace Gdk {
 		pad_group_mode = 47,
 		event_last = 48,
 	}
+	public ref struct EventAny
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventAny(IntPtr pointer) => new EventAny { _pointer = pointer };
+		public static explicit operator IntPtr(EventAny value) => value._pointer
+;	}
+	public ref struct EventExpose
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventExpose(IntPtr pointer) => new EventExpose { _pointer = pointer };
+		public static explicit operator IntPtr(EventExpose value) => value._pointer
+;	}
+	public ref struct EventVisibility
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventVisibility(IntPtr pointer) => new EventVisibility { _pointer = pointer };
+		public static explicit operator IntPtr(EventVisibility value) => value._pointer
+;	}
+	public ref struct EventMotion
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventMotion(IntPtr pointer) => new EventMotion { _pointer = pointer };
+		public static explicit operator IntPtr(EventMotion value) => value._pointer
+;	}
+	public ref struct EventButton
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventButton(IntPtr pointer) => new EventButton { _pointer = pointer };
+		public static explicit operator IntPtr(EventButton value) => value._pointer
+;	}
+	public ref struct EventTouch
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventTouch(IntPtr pointer) => new EventTouch { _pointer = pointer };
+		public static explicit operator IntPtr(EventTouch value) => value._pointer
+;	}
+	public ref struct EventScroll
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventScroll(IntPtr pointer) => new EventScroll { _pointer = pointer };
+		public static explicit operator IntPtr(EventScroll value) => value._pointer
+;	}
+	public ref struct EventKey
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventKey(IntPtr pointer) => new EventKey { _pointer = pointer };
+		public static explicit operator IntPtr(EventKey value) => value._pointer
+;	}
+	public ref struct EventCrossing
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventCrossing(IntPtr pointer) => new EventCrossing { _pointer = pointer };
+		public static explicit operator IntPtr(EventCrossing value) => value._pointer
+;	}
+	public ref struct EventFocus
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventFocus(IntPtr pointer) => new EventFocus { _pointer = pointer };
+		public static explicit operator IntPtr(EventFocus value) => value._pointer
+;	}
+	public ref struct EventConfigure
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventConfigure(IntPtr pointer) => new EventConfigure { _pointer = pointer };
+		public static explicit operator IntPtr(EventConfigure value) => value._pointer
+;	}
+	public ref struct EventProperty
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventProperty(IntPtr pointer) => new EventProperty { _pointer = pointer };
+		public static explicit operator IntPtr(EventProperty value) => value._pointer
+;	}
+	public ref struct EventSelection
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventSelection(IntPtr pointer) => new EventSelection { _pointer = pointer };
+		public static explicit operator IntPtr(EventSelection value) => value._pointer
+;	}
+	public ref struct EventOwnerChange
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventOwnerChange(IntPtr pointer) => new EventOwnerChange { _pointer = pointer };
+		public static explicit operator IntPtr(EventOwnerChange value) => value._pointer
+;	}
+	public ref struct EventProximity
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventProximity(IntPtr pointer) => new EventProximity { _pointer = pointer };
+		public static explicit operator IntPtr(EventProximity value) => value._pointer
+;	}
+	public ref struct EventDND
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventDND(IntPtr pointer) => new EventDND { _pointer = pointer };
+		public static explicit operator IntPtr(EventDND value) => value._pointer
+;	}
+	public ref struct EventWindowState
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventWindowState(IntPtr pointer) => new EventWindowState { _pointer = pointer };
+		public static explicit operator IntPtr(EventWindowState value) => value._pointer
+;	}
+	public ref struct EventSetting
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventSetting(IntPtr pointer) => new EventSetting { _pointer = pointer };
+		public static explicit operator IntPtr(EventSetting value) => value._pointer
+;	}
+	public ref struct EventGrabBroken
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventGrabBroken(IntPtr pointer) => new EventGrabBroken { _pointer = pointer };
+		public static explicit operator IntPtr(EventGrabBroken value) => value._pointer
+;	}
+	public ref struct EventTouchpadSwipe
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventTouchpadSwipe(IntPtr pointer) => new EventTouchpadSwipe { _pointer = pointer };
+		public static explicit operator IntPtr(EventTouchpadSwipe value) => value._pointer
+;	}
+	public ref struct EventTouchpadPinch
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventTouchpadPinch(IntPtr pointer) => new EventTouchpadPinch { _pointer = pointer };
+		public static explicit operator IntPtr(EventTouchpadPinch value) => value._pointer
+;	}
+	public ref struct EventPadButton
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventPadButton(IntPtr pointer) => new EventPadButton { _pointer = pointer };
+		public static explicit operator IntPtr(EventPadButton value) => value._pointer
+;	}
+	public ref struct EventPadAxis
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventPadAxis(IntPtr pointer) => new EventPadAxis { _pointer = pointer };
+		public static explicit operator IntPtr(EventPadAxis value) => value._pointer
+;	}
+	public ref struct EventPadGroupMode
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventPadGroupMode(IntPtr pointer) => new EventPadGroupMode { _pointer = pointer };
+		public static explicit operator IntPtr(EventPadGroupMode value) => value._pointer
+;	}
+	public ref struct EventSequence
+	{
+		private IntPtr _pointer;
+		public static explicit operator EventSequence(IntPtr pointer) => new EventSequence { _pointer = pointer };
+		public static explicit operator IntPtr(EventSequence value) => value._pointer
+;	}
 	public enum ScrollDirection
 	{
 		up = 0,
@@ -361,6 +653,12 @@ namespace Gdk {
 		nonlinear_virtual = 4,
 		unknown = 5,
 	}
+	public ref struct Rectangle
+	{
+		private IntPtr _pointer;
+		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle { _pointer = pointer };
+		public static explicit operator IntPtr(Rectangle value) => value._pointer
+;	}
 	public enum OwnerChange
 	{
 		new_owner = 0,
@@ -418,6 +716,20 @@ namespace Gdk {
 		translate = 1,
 		remove = 2,
 	}
+	public ref struct FrameClock
+	{
+		private IntPtr _pointer;
+		public static explicit operator FrameClock(IntPtr pointer) => new FrameClock { _pointer = pointer };
+		public static explicit operator IntPtr(FrameClock value) => value._pointer
+;		public static implicit operator GObject.Object(FrameClock value) => (GObject.Object)value._pointer
+;		public static explicit operator FrameClock(GObject.Object value) => (FrameClock)(IntPtr)value
+;	}
+	public ref struct FrameTimings
+	{
+		private IntPtr _pointer;
+		public static explicit operator FrameTimings(IntPtr pointer) => new FrameTimings { _pointer = pointer };
+		public static explicit operator IntPtr(FrameTimings value) => value._pointer
+;	}
 	[Flags]
 	public enum FrameClockPhase
 	{
@@ -430,11 +742,31 @@ namespace Gdk {
 		resume_events = 32,
 		after_paint = 64,
 	}
+	public ref struct FrameClockClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator FrameClockClass(IntPtr pointer) => new FrameClockClass { _pointer = pointer };
+		public static explicit operator IntPtr(FrameClockClass value) => value._pointer
+;	}
+	public ref struct FrameClockPrivate
+	{
+		private IntPtr _pointer;
+		public static explicit operator FrameClockPrivate(IntPtr pointer) => new FrameClockPrivate { _pointer = pointer };
+		public static explicit operator IntPtr(FrameClockPrivate value) => value._pointer
+;	}
 	public enum FullscreenMode
 	{
 		current_monitor = 0,
 		all_monitors = 1,
 	}
+	public ref struct GLContext
+	{
+		private IntPtr _pointer;
+		public static explicit operator GLContext(IntPtr pointer) => new GLContext { _pointer = pointer };
+		public static explicit operator IntPtr(GLContext value) => value._pointer
+;		public static implicit operator GObject.Object(GLContext value) => (GObject.Object)value._pointer
+;		public static explicit operator GLContext(GObject.Object value) => (GLContext)(IntPtr)value
+;	}
 	public enum GLError
 	{
 		not_available = 0,
@@ -454,6 +786,26 @@ namespace Gdk {
 		south_east = 9,
 		@static = 10,
 	}
+	public ref struct Geometry
+	{
+		private IntPtr _pointer;
+		public static explicit operator Geometry(IntPtr pointer) => new Geometry { _pointer = pointer };
+		public static explicit operator IntPtr(Geometry value) => value._pointer
+;	}
+	public ref struct Keymap
+	{
+		private IntPtr _pointer;
+		public static explicit operator Keymap(IntPtr pointer) => new Keymap { _pointer = pointer };
+		public static explicit operator IntPtr(Keymap value) => value._pointer
+;		public static implicit operator GObject.Object(Keymap value) => (GObject.Object)value._pointer
+;		public static explicit operator Keymap(GObject.Object value) => (Keymap)(IntPtr)value
+;	}
+	public ref struct KeymapKey
+	{
+		private IntPtr _pointer;
+		public static explicit operator KeymapKey(IntPtr pointer) => new KeymapKey { _pointer = pointer };
+		public static explicit operator IntPtr(KeymapKey value) => value._pointer
+;	}
 	public enum ModifierIntent
 	{
 		primary_accelerator = 0,
@@ -473,12 +825,38 @@ namespace Gdk {
 		vertical_rgb = 4,
 		vertical_bgr = 5,
 	}
+	public ref struct MonitorClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator MonitorClass(IntPtr pointer) => new MonitorClass { _pointer = pointer };
+		public static explicit operator IntPtr(MonitorClass value) => value._pointer
+;	}
+	public ref struct Point
+	{
+		private IntPtr _pointer;
+		public static explicit operator Point(IntPtr pointer) => new Point { _pointer = pointer };
+		public static explicit operator IntPtr(Point value) => value._pointer
+;	}
 	public enum PropMode
 	{
 		replace = 0,
 		prepend = 1,
 		append = 2,
 	}
+	public ref struct RGBA
+	{
+		private IntPtr _pointer;
+		public static explicit operator RGBA(IntPtr pointer) => new RGBA { _pointer = pointer };
+		public static explicit operator IntPtr(RGBA value) => value._pointer
+;	}
+	public ref struct Visual
+	{
+		private IntPtr _pointer;
+		public static explicit operator Visual(IntPtr pointer) => new Visual { _pointer = pointer };
+		public static explicit operator IntPtr(Visual value) => value._pointer
+;		public static implicit operator GObject.Object(Visual value) => (GObject.Object)value._pointer
+;		public static explicit operator Visual(GObject.Object value) => (Visual)(IntPtr)value
+;	}
 	[Flags]
 	public enum SeatCapabilities
 	{
@@ -528,6 +906,12 @@ namespace Gdk {
 		maximize = 16,
 		close = 32,
 	}
+	public ref struct WindowAttr
+	{
+		private IntPtr _pointer;
+		public static explicit operator WindowAttr(IntPtr pointer) => new WindowAttr { _pointer = pointer };
+		public static explicit operator IntPtr(WindowAttr value) => value._pointer
+;	}
 	[Flags]
 	public enum WindowAttributesType
 	{
@@ -596,63 +980,71 @@ namespace Gdk {
 		input_output = 0,
 		input_only = 1,
 	}
+	public ref struct WindowClass
+	{
+		private IntPtr _pointer;
+		public static explicit operator WindowClass(IntPtr pointer) => new WindowClass { _pointer = pointer };
+		public static explicit operator IntPtr(WindowClass value) => value._pointer
+;	}
+	public ref struct WindowRedirect
+	{
+		private IntPtr _pointer;
+		public static explicit operator WindowRedirect(IntPtr pointer) => new WindowRedirect { _pointer = pointer };
+		public static explicit operator IntPtr(WindowRedirect value) => value._pointer
+;	}
 	public static class GdkInterop {
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_add_option_entries_libgtk_only(System.IntPtr group);
+		public static extern void gdk_add_option_entries_libgtk_only(GLib.OptionGroup group);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_beep();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cairo_create(System.IntPtr window);
+		public static extern cairo.Context gdk_cairo_create(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_draw_from_gl(System.IntPtr cr, System.IntPtr window, int source, int source_type, int buffer_scale, int x, int y, int width, int height);
+		public static extern void gdk_cairo_draw_from_gl(cairo.Context cr, Gdk.Window window, int source, int source_type, int buffer_scale, int x, int y, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_cairo_get_clip_rectangle(System.IntPtr cr, System.IntPtr rect);
+		public static extern Gdk.DrawingContext gdk_cairo_get_drawing_context(cairo.Context cr);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cairo_get_drawing_context(System.IntPtr cr);
+		public static extern void gdk_cairo_rectangle(cairo.Context cr, Gdk.Rectangle rectangle);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_rectangle(System.IntPtr cr, System.IntPtr rectangle);
+		public static extern void gdk_cairo_region(cairo.Context cr, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_region(System.IntPtr cr, System.IntPtr region);
+		public static extern cairo.Region gdk_cairo_region_create_from_surface(cairo.Surface surface);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cairo_region_create_from_surface(System.IntPtr surface);
+		public static extern void gdk_cairo_set_source_color(cairo.Context cr, Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_color(System.IntPtr cr, System.IntPtr color);
+		public static extern void gdk_cairo_set_source_pixbuf(cairo.Context cr, GdkPixbuf.Pixbuf pixbuf, double pixbuf_x, double pixbuf_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_pixbuf(System.IntPtr cr, System.IntPtr pixbuf, double pixbuf_x, double pixbuf_y);
+		public static extern void gdk_cairo_set_source_rgba(cairo.Context cr, Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_rgba(System.IntPtr cr, System.IntPtr rgba);
+		public static extern void gdk_cairo_set_source_window(cairo.Context cr, Gdk.Window window, double x, double y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_window(System.IntPtr cr, System.IntPtr window, double x, double y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cairo_surface_create_from_pixbuf(System.IntPtr pixbuf, int scale, System.IntPtr for_window);
+		public static extern cairo.Surface gdk_cairo_surface_create_from_pixbuf(GdkPixbuf.Pixbuf pixbuf, int scale, Gdk.Window for_window);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_disable_multidevice();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_abort(System.IntPtr context, uint time_);
+		public static extern void gdk_drag_abort(Gdk.DragContext context, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_begin(System.IntPtr window, System.IntPtr targets);
+		public static extern Gdk.DragContext gdk_drag_begin(Gdk.Window window, System.IntPtr targets);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_begin_for_device(System.IntPtr window, System.IntPtr device, System.IntPtr targets);
+		public static extern Gdk.DragContext gdk_drag_begin_for_device(Gdk.Window window, Gdk.Device device, System.IntPtr targets);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_begin_from_point(System.IntPtr window, System.IntPtr device, System.IntPtr targets, int x_root, int y_root);
+		public static extern Gdk.DragContext gdk_drag_begin_from_point(Gdk.Window window, Gdk.Device device, System.IntPtr targets, int x_root, int y_root);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_drop(System.IntPtr context, uint time_);
+		public static extern void gdk_drag_drop(Gdk.DragContext context, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_drop_done(System.IntPtr context, int success);
+		public static extern void gdk_drag_drop_done(Gdk.DragContext context, int success);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_drag_drop_succeeded(System.IntPtr context);
+		public static extern int gdk_drag_drop_succeeded(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_find_window_for_screen(System.IntPtr context, System.IntPtr drag_window, System.IntPtr screen, int x_root, int y_root, System.IntPtr dest_window, out Gdk.DragProtocol protocol);
+		public static extern void gdk_drag_find_window_for_screen(Gdk.DragContext context, Gdk.Window drag_window, Gdk.Screen screen, int x_root, int y_root, out Gdk.Window dest_window, out Gdk.DragProtocol protocol);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_get_selection(System.IntPtr context);
+		public static extern int gdk_drag_motion(Gdk.DragContext context, Gdk.Window dest_window, Gdk.DragProtocol protocol, int x_root, int y_root, Gdk.DragAction suggested_action, Gdk.DragAction possible_actions, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_drag_motion(System.IntPtr context, System.IntPtr dest_window, Gdk.DragProtocol protocol, int x_root, int y_root, Gdk.DragAction suggested_action, Gdk.DragAction possible_actions, uint time_);
+		public static extern void gdk_drag_status(Gdk.DragContext context, Gdk.DragAction action, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_status(System.IntPtr context, Gdk.DragAction action, uint time_);
+		public static extern void gdk_drop_finish(Gdk.DragContext context, int success, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drop_finish(System.IntPtr context, int success, uint time_);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drop_reply(System.IntPtr context, int accepted, uint time_);
+		public static extern void gdk_drop_reply(Gdk.DragContext context, int accepted, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_error_trap_pop();
 		[DllImport("libgdk-3.so.0")]
@@ -670,7 +1062,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_flush();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_get_default_root_window();
+		public static extern Gdk.Window gdk_get_default_root_window();
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_get_display();
 		[DllImport("libgdk-3.so.0")]
@@ -684,7 +1076,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_init_check(System.IntPtr argc, System.IntPtr argv);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.GrabStatus gdk_keyboard_grab(System.IntPtr window, int owner_events, uint time_);
+		public static extern Gdk.GrabStatus gdk_keyboard_grab(Gdk.Window window, int owner_events, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_keyboard_ungrab(uint time_);
 		[DllImport("libgdk-3.so.0")]
@@ -710,29 +1102,29 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_notify_startup_complete_with_id(string startup_id);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_offscreen_window_get_embedder(System.IntPtr window);
+		public static extern Gdk.Window gdk_offscreen_window_get_embedder(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_offscreen_window_get_surface(System.IntPtr window);
+		public static extern cairo.Surface gdk_offscreen_window_get_surface(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_offscreen_window_set_embedder(System.IntPtr window, System.IntPtr embedder);
+		public static extern void gdk_offscreen_window_set_embedder(Gdk.Window window, Gdk.Window embedder);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pango_context_get();
+		public static extern Pango.Context gdk_pango_context_get();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pango_context_get_for_display(System.IntPtr display);
+		public static extern Pango.Context gdk_pango_context_get_for_display(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pango_context_get_for_screen(System.IntPtr screen);
+		public static extern Pango.Context gdk_pango_context_get_for_screen(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pango_layout_get_clip_region(System.IntPtr layout, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
+		public static extern cairo.Region gdk_pango_layout_get_clip_region(Pango.Layout layout, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pango_layout_line_get_clip_region(System.IntPtr line, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
+		public static extern cairo.Region gdk_pango_layout_line_get_clip_region(Pango.LayoutLine line, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_parse_args(System.IntPtr argc, System.IntPtr argv);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_get_from_surface(System.IntPtr surface, int src_x, int src_y, int width, int height);
+		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_get_from_surface(cairo.Surface surface, int src_x, int src_y, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_get_from_window(System.IntPtr window, int src_x, int src_y, int width, int height);
+		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_get_from_window(Gdk.Window window, int src_x, int src_y, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.GrabStatus gdk_pointer_grab(System.IntPtr window, int owner_events, Gdk.EventMask event_mask, System.IntPtr confine_to, System.IntPtr cursor, uint time_);
+		public static extern Gdk.GrabStatus gdk_pointer_grab(Gdk.Window window, int owner_events, Gdk.EventMask event_mask, Gdk.Window confine_to, Gdk.Cursor cursor, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_pointer_is_grabbed();
 		[DllImport("libgdk-3.so.0")]
@@ -740,31 +1132,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_pre_parse_libgtk_only();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_property_change(System.IntPtr window, System.IntPtr property, System.IntPtr type, int format, Gdk.PropMode mode, System.IntPtr data, int nelements);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_property_delete(System.IntPtr window, System.IntPtr property);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_property_get(System.IntPtr window, System.IntPtr property, System.IntPtr type, ulong offset, ulong length, int pdelete, System.IntPtr actual_property_type, System.IntPtr actual_format, System.IntPtr actual_length, System.IntPtr data);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_query_depths(System.IntPtr depths, System.IntPtr count);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_query_visual_types(System.IntPtr visual_types, System.IntPtr count);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_selection_convert(System.IntPtr requestor, System.IntPtr selection, System.IntPtr target, uint time_);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_selection_owner_get(System.IntPtr selection);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_selection_owner_get_for_display(System.IntPtr display, System.IntPtr selection);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_selection_owner_set(System.IntPtr owner, System.IntPtr selection, uint time_, int send_event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_selection_owner_set_for_display(System.IntPtr display, System.IntPtr owner, System.IntPtr selection, uint time_, int send_event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_selection_property_get(System.IntPtr requestor, System.IntPtr data, System.IntPtr prop_type, System.IntPtr prop_format);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_selection_send_notify(System.IntPtr requestor, System.IntPtr selection, System.IntPtr target, System.IntPtr property, uint time_);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_selection_send_notify_for_display(System.IntPtr display, System.IntPtr requestor, System.IntPtr selection, System.IntPtr target, System.IntPtr property, uint time_);
+		public static extern int gdk_selection_property_get(Gdk.Window requestor, System.IntPtr data, Gdk.Atom prop_type, System.IntPtr prop_format);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_set_allowed_backends(string backends);
 		[DllImport("libgdk-3.so.0")]
@@ -774,17 +1146,15 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_set_show_events(int show_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_setting_get(string name, System.IntPtr value);
+		public static extern int gdk_setting_get(string name, GObject.Value value);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_synthesize_window_state(System.IntPtr window, Gdk.WindowState unset_flags, Gdk.WindowState set_flags);
+		public static extern void gdk_synthesize_window_state(Gdk.Window window, Gdk.WindowState unset_flags, Gdk.WindowState set_flags);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_test_render_sync(System.IntPtr window);
+		public static extern void gdk_test_render_sync(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_test_simulate_button(System.IntPtr window, int x, int y, uint button, Gdk.ModifierType modifiers, Gdk.EventType button_pressrelease);
+		public static extern int gdk_test_simulate_button(Gdk.Window window, int x, int y, uint button, Gdk.ModifierType modifiers, Gdk.EventType button_pressrelease);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_test_simulate_key(System.IntPtr window, int x, int y, uint keyval, Gdk.ModifierType modifiers, Gdk.EventType key_pressrelease);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_text_property_to_utf8_list_for_display(System.IntPtr display, System.IntPtr encoding, int format, System.IntPtr text, int length, System.IntPtr list);
+		public static extern int gdk_test_simulate_key(Gdk.Window window, int x, int y, uint keyval, Gdk.ModifierType modifiers, Gdk.EventType key_pressrelease);
 		[DllImport("libgdk-3.so.0")]
 		public static extern uint gdk_threads_add_idle(System.IntPtr function, System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
@@ -810,117 +1180,115 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_utf8_to_string_target(string str);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_app_launch_context_new();
+		public static extern Gdk.AppLaunchContext gdk_app_launch_context_new();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_desktop(System.IntPtr context, int desktop);
+		public static extern void gdk_app_launch_context_set_desktop(Gdk.AppLaunchContext context, int desktop);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_display(System.IntPtr context, System.IntPtr display);
+		public static extern void gdk_app_launch_context_set_display(Gdk.AppLaunchContext context, Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_icon(System.IntPtr context, System.IntPtr icon);
+		public static extern void gdk_app_launch_context_set_icon(Gdk.AppLaunchContext context, Gio.Icon icon);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_icon_name(System.IntPtr context, string icon_name);
+		public static extern void gdk_app_launch_context_set_icon_name(Gdk.AppLaunchContext context, string icon_name);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_screen(System.IntPtr context, System.IntPtr screen);
+		public static extern void gdk_app_launch_context_set_screen(Gdk.AppLaunchContext context, Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_app_launch_context_set_timestamp(System.IntPtr context, uint timestamp);
+		public static extern void gdk_app_launch_context_set_timestamp(Gdk.AppLaunchContext context, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_default();
+		public static extern Gdk.Display gdk_display_get_default();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_open(string display_name);
+		public static extern Gdk.Display gdk_display_open(string display_name);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_open_default_libgtk_only();
+		public static extern Gdk.Display gdk_display_open_default_libgtk_only();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_beep(System.IntPtr display);
+		public static extern void gdk_display_beep(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_close(System.IntPtr display);
+		public static extern void gdk_display_close(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_device_is_grabbed(System.IntPtr display, System.IntPtr device);
+		public static extern int gdk_display_device_is_grabbed(Gdk.Display display, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_flush(System.IntPtr display);
+		public static extern void gdk_display_flush(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_app_launch_context(System.IntPtr display);
+		public static extern Gdk.AppLaunchContext gdk_display_get_app_launch_context(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_display_get_default_cursor_size(System.IntPtr display);
+		public static extern uint gdk_display_get_default_cursor_size(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_default_group(System.IntPtr display);
+		public static extern Gdk.Window gdk_display_get_default_group(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_default_screen(System.IntPtr display);
+		public static extern Gdk.Screen gdk_display_get_default_screen(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_default_seat(System.IntPtr display);
+		public static extern Gdk.Seat gdk_display_get_default_seat(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_device_manager(System.IntPtr display);
+		public static extern Gdk.DeviceManager gdk_display_get_device_manager(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_event(System.IntPtr display);
+		public static extern System.IntPtr gdk_display_get_event(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_get_maximal_cursor_size(System.IntPtr display, System.IntPtr width, System.IntPtr height);
+		public static extern void gdk_display_get_maximal_cursor_size(Gdk.Display display, System.IntPtr width, System.IntPtr height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_monitor(System.IntPtr display, int monitor_num);
+		public static extern Gdk.Monitor gdk_display_get_monitor(Gdk.Display display, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_monitor_at_point(System.IntPtr display, int x, int y);
+		public static extern Gdk.Monitor gdk_display_get_monitor_at_point(Gdk.Display display, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_monitor_at_window(System.IntPtr display, System.IntPtr window);
+		public static extern Gdk.Monitor gdk_display_get_monitor_at_window(Gdk.Display display, Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_get_n_monitors(System.IntPtr display);
+		public static extern int gdk_display_get_n_monitors(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_get_n_screens(System.IntPtr display);
+		public static extern int gdk_display_get_n_screens(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_display_get_name(System.IntPtr display);
+		public static extern string gdk_display_get_name(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_get_pointer(System.IntPtr display, System.IntPtr screen, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern void gdk_display_get_pointer(Gdk.Display display, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_primary_monitor(System.IntPtr display);
+		public static extern Gdk.Monitor gdk_display_get_primary_monitor(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_screen(System.IntPtr display, int screen_num);
+		public static extern Gdk.Screen gdk_display_get_screen(Gdk.Display display, int screen_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_window_at_pointer(System.IntPtr display, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_display_get_window_at_pointer(Gdk.Display display, System.IntPtr win_x, System.IntPtr win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_has_pending(System.IntPtr display);
+		public static extern int gdk_display_has_pending(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_is_closed(System.IntPtr display);
+		public static extern int gdk_display_is_closed(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_keyboard_ungrab(System.IntPtr display, uint time_);
+		public static extern void gdk_display_keyboard_ungrab(Gdk.Display display, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_list_devices(System.IntPtr display);
+		public static extern System.IntPtr gdk_display_list_devices(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_list_seats(System.IntPtr display);
+		public static extern System.IntPtr gdk_display_list_seats(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_notify_startup_complete(System.IntPtr display, string startup_id);
+		public static extern void gdk_display_notify_startup_complete(Gdk.Display display, string startup_id);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_peek_event(System.IntPtr display);
+		public static extern System.IntPtr gdk_display_peek_event(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_pointer_is_grabbed(System.IntPtr display);
+		public static extern int gdk_display_pointer_is_grabbed(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_pointer_ungrab(System.IntPtr display, uint time_);
+		public static extern void gdk_display_pointer_ungrab(Gdk.Display display, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_put_event(System.IntPtr display, System.IntPtr @event);
+		public static extern void gdk_display_put_event(Gdk.Display display, System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_request_selection_notification(System.IntPtr display, System.IntPtr selection);
+		public static extern void gdk_display_set_double_click_distance(Gdk.Display display, uint distance);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_set_double_click_distance(System.IntPtr display, uint distance);
+		public static extern void gdk_display_set_double_click_time(Gdk.Display display, uint msec);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_set_double_click_time(System.IntPtr display, uint msec);
+		public static extern void gdk_display_store_clipboard(Gdk.Display display, Gdk.Window clipboard_window, uint time_, System.IntPtr targets, int n_targets);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_store_clipboard(System.IntPtr display, System.IntPtr clipboard_window, uint time_, System.IntPtr targets, int n_targets);
+		public static extern int gdk_display_supports_clipboard_persistence(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_clipboard_persistence(System.IntPtr display);
+		public static extern int gdk_display_supports_composite(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_composite(System.IntPtr display);
+		public static extern int gdk_display_supports_cursor_alpha(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_cursor_alpha(System.IntPtr display);
+		public static extern int gdk_display_supports_cursor_color(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_cursor_color(System.IntPtr display);
+		public static extern int gdk_display_supports_input_shapes(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_input_shapes(System.IntPtr display);
+		public static extern int gdk_display_supports_selection_notification(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_selection_notification(System.IntPtr display);
+		public static extern int gdk_display_supports_shapes(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_display_supports_shapes(System.IntPtr display);
+		public static extern void gdk_display_sync(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_sync(System.IntPtr display);
+		public static extern void gdk_display_warp_pointer(Gdk.Display display, Gdk.Screen screen, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_warp_pointer(System.IntPtr display, System.IntPtr screen, int x, int y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_default();
+		public static extern Gdk.Screen gdk_screen_get_default();
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_screen_height();
 		[DllImport("libgdk-3.so.0")]
@@ -930,529 +1298,513 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_screen_width_mm();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_active_window(System.IntPtr screen);
+		public static extern Gdk.Window gdk_screen_get_active_window(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_display(System.IntPtr screen);
+		public static extern Gdk.Display gdk_screen_get_display(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_font_options(System.IntPtr screen);
+		public static extern cairo.FontOptions gdk_screen_get_font_options(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_height(System.IntPtr screen);
+		public static extern int gdk_screen_get_height(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_height_mm(System.IntPtr screen);
+		public static extern int gdk_screen_get_height_mm(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_monitor_at_point(System.IntPtr screen, int x, int y);
+		public static extern int gdk_screen_get_monitor_at_point(Gdk.Screen screen, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_monitor_at_window(System.IntPtr screen, System.IntPtr window);
+		public static extern int gdk_screen_get_monitor_at_window(Gdk.Screen screen, Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_screen_get_monitor_geometry(System.IntPtr screen, int monitor_num, System.IntPtr dest);
+		public static extern int gdk_screen_get_monitor_height_mm(Gdk.Screen screen, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_monitor_height_mm(System.IntPtr screen, int monitor_num);
+		public static extern string gdk_screen_get_monitor_plug_name(Gdk.Screen screen, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_screen_get_monitor_plug_name(System.IntPtr screen, int monitor_num);
+		public static extern int gdk_screen_get_monitor_scale_factor(Gdk.Screen screen, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_monitor_scale_factor(System.IntPtr screen, int monitor_num);
+		public static extern int gdk_screen_get_monitor_width_mm(Gdk.Screen screen, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_monitor_width_mm(System.IntPtr screen, int monitor_num);
+		public static extern int gdk_screen_get_n_monitors(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_screen_get_monitor_workarea(System.IntPtr screen, int monitor_num, System.IntPtr dest);
+		public static extern int gdk_screen_get_number(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_n_monitors(System.IntPtr screen);
+		public static extern int gdk_screen_get_primary_monitor(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_number(System.IntPtr screen);
+		public static extern double gdk_screen_get_resolution(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_primary_monitor(System.IntPtr screen);
+		public static extern Gdk.Visual gdk_screen_get_rgba_visual(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern double gdk_screen_get_resolution(System.IntPtr screen);
+		public static extern Gdk.Window gdk_screen_get_root_window(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_rgba_visual(System.IntPtr screen);
+		public static extern int gdk_screen_get_setting(Gdk.Screen screen, string name, GObject.Value value);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_root_window(System.IntPtr screen);
+		public static extern Gdk.Visual gdk_screen_get_system_visual(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_setting(System.IntPtr screen, string name, System.IntPtr value);
+		public static extern System.IntPtr gdk_screen_get_toplevel_windows(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_system_visual(System.IntPtr screen);
+		public static extern int gdk_screen_get_width(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_toplevel_windows(System.IntPtr screen);
+		public static extern int gdk_screen_get_width_mm(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_width(System.IntPtr screen);
+		public static extern System.IntPtr gdk_screen_get_window_stack(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_get_width_mm(System.IntPtr screen);
+		public static extern int gdk_screen_is_composited(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_get_window_stack(System.IntPtr screen);
+		public static extern System.IntPtr gdk_screen_list_visuals(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_screen_is_composited(System.IntPtr screen);
+		public static extern string gdk_screen_make_display_name(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_screen_list_visuals(System.IntPtr screen);
+		public static extern void gdk_screen_set_font_options(Gdk.Screen screen, cairo.FontOptions options);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_screen_make_display_name(System.IntPtr screen);
+		public static extern void gdk_screen_set_resolution(Gdk.Screen screen, double dpi);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_screen_set_font_options(System.IntPtr screen, System.IntPtr options);
+		public static extern Gdk.Color gdk_color_copy(Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_screen_set_resolution(System.IntPtr screen, double dpi);
+		public static extern int gdk_color_equal(Gdk.Color colora, Gdk.Color colorb);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_atom_name(System.IntPtr atom);
+		public static extern void gdk_color_free(Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_atom_intern(string atom_name, int only_if_exists);
+		public static extern uint gdk_color_hash(Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_atom_intern_static_string(string atom_name);
+		public static extern string gdk_color_to_string(Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_color_copy(System.IntPtr color);
+		public static extern Gdk.Cursor gdk_cursor_new(Gdk.CursorType cursor_type);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_color_equal(System.IntPtr colora, System.IntPtr colorb);
+		public static extern Gdk.Cursor gdk_cursor_new_for_display(Gdk.Display display, Gdk.CursorType cursor_type);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_color_free(System.IntPtr color);
+		public static extern Gdk.Cursor gdk_cursor_new_from_name(Gdk.Display display, string name);
 		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_color_hash(System.IntPtr color);
+		public static extern Gdk.Cursor gdk_cursor_new_from_pixbuf(Gdk.Display display, GdkPixbuf.Pixbuf pixbuf, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_color_to_string(System.IntPtr color);
+		public static extern Gdk.Cursor gdk_cursor_new_from_surface(Gdk.Display display, cairo.Surface surface, double x, double y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_color_parse(string spec, System.IntPtr color);
+		public static extern Gdk.CursorType gdk_cursor_get_cursor_type(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_new(Gdk.CursorType cursor_type);
+		public static extern Gdk.Display gdk_cursor_get_display(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_new_for_display(System.IntPtr display, Gdk.CursorType cursor_type);
+		public static extern GdkPixbuf.Pixbuf gdk_cursor_get_image(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_new_from_name(System.IntPtr display, string name);
+		public static extern cairo.Surface gdk_cursor_get_surface(Gdk.Cursor cursor, System.IntPtr x_hot, System.IntPtr y_hot);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_new_from_pixbuf(System.IntPtr display, System.IntPtr pixbuf, int x, int y);
+		public static extern Gdk.Cursor gdk_cursor_ref(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_new_from_surface(System.IntPtr display, System.IntPtr surface, double x, double y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.CursorType gdk_cursor_get_cursor_type(System.IntPtr cursor);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_get_display(System.IntPtr cursor);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_get_image(System.IntPtr cursor);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_get_surface(System.IntPtr cursor, System.IntPtr x_hot, System.IntPtr y_hot);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_cursor_ref(System.IntPtr cursor);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cursor_unref(System.IntPtr cursor);
+		public static extern void gdk_cursor_unref(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_device_free_history(System.IntPtr events, int n_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_grab_info_libgtk_only(System.IntPtr display, System.IntPtr device, System.IntPtr grab_window, System.IntPtr owner_events);
+		public static extern int gdk_device_grab_info_libgtk_only(Gdk.Display display, Gdk.Device device, out Gdk.Window grab_window, System.IntPtr owner_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_associated_device(System.IntPtr device);
+		public static extern Gdk.Device gdk_device_get_associated_device(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.AxisFlags gdk_device_get_axes(System.IntPtr device);
+		public static extern Gdk.AxisFlags gdk_device_get_axes(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_axis(System.IntPtr device, System.IntPtr axes, Gdk.AxisUse use, System.IntPtr value);
+		public static extern int gdk_device_get_axis(Gdk.Device device, System.IntPtr axes, Gdk.AxisUse use, System.IntPtr value);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.AxisUse gdk_device_get_axis_use(System.IntPtr device, uint index_);
+		public static extern Gdk.AxisUse gdk_device_get_axis_use(Gdk.Device device, uint index_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_axis_value(System.IntPtr device, System.IntPtr axes, System.IntPtr axis_label, System.IntPtr value);
+		public static extern Gdk.DeviceType gdk_device_get_device_type(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DeviceType gdk_device_get_device_type(System.IntPtr device);
+		public static extern Gdk.Display gdk_device_get_display(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_display(System.IntPtr device);
+		public static extern int gdk_device_get_has_cursor(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_has_cursor(System.IntPtr device);
+		public static extern int gdk_device_get_history(Gdk.Device device, Gdk.Window window, uint start, uint stop, System.IntPtr events, System.IntPtr n_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_history(System.IntPtr device, System.IntPtr window, uint start, uint stop, System.IntPtr events, System.IntPtr n_events);
+		public static extern int gdk_device_get_key(Gdk.Device device, uint index_, System.IntPtr keyval, out Gdk.ModifierType modifiers);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_key(System.IntPtr device, uint index_, System.IntPtr keyval, out Gdk.ModifierType modifiers);
+		public static extern Gdk.Window gdk_device_get_last_event_window(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_last_event_window(System.IntPtr device);
+		public static extern Gdk.InputMode gdk_device_get_mode(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.InputMode gdk_device_get_mode(System.IntPtr device);
+		public static extern int gdk_device_get_n_axes(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_n_axes(System.IntPtr device);
+		public static extern int gdk_device_get_n_keys(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_get_n_keys(System.IntPtr device);
+		public static extern string gdk_device_get_name(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_device_get_name(System.IntPtr device);
+		public static extern void gdk_device_get_position(Gdk.Device device, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_get_position(System.IntPtr device, System.IntPtr screen, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_device_get_position_double(Gdk.Device device, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_get_position_double(System.IntPtr device, System.IntPtr screen, System.IntPtr x, System.IntPtr y);
+		public static extern string gdk_device_get_product_id(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_device_get_product_id(System.IntPtr device);
+		public static extern Gdk.Seat gdk_device_get_seat(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_seat(System.IntPtr device);
+		public static extern Gdk.InputSource gdk_device_get_source(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.InputSource gdk_device_get_source(System.IntPtr device);
+		public static extern void gdk_device_get_state(Gdk.Device device, Gdk.Window window, System.IntPtr axes, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_get_state(System.IntPtr device, System.IntPtr window, System.IntPtr axes, out Gdk.ModifierType mask);
+		public static extern string gdk_device_get_vendor_id(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_device_get_vendor_id(System.IntPtr device);
+		public static extern Gdk.Window gdk_device_get_window_at_position(Gdk.Device device, System.IntPtr win_x, System.IntPtr win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_window_at_position(System.IntPtr device, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_device_get_window_at_position_double(Gdk.Device device, System.IntPtr win_x, System.IntPtr win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_get_window_at_position_double(System.IntPtr device, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.GrabStatus gdk_device_grab(Gdk.Device device, Gdk.Window window, Gdk.GrabOwnership grab_ownership, int owner_events, Gdk.EventMask event_mask, Gdk.Cursor cursor, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.GrabStatus gdk_device_grab(System.IntPtr device, System.IntPtr window, Gdk.GrabOwnership grab_ownership, int owner_events, Gdk.EventMask event_mask, System.IntPtr cursor, uint time_);
+		public static extern System.IntPtr gdk_device_list_axes(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_list_axes(System.IntPtr device);
+		public static extern System.IntPtr gdk_device_list_slave_devices(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_list_slave_devices(System.IntPtr device);
+		public static extern void gdk_device_set_axis_use(Gdk.Device device, uint index_, Gdk.AxisUse use);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_set_axis_use(System.IntPtr device, uint index_, Gdk.AxisUse use);
+		public static extern void gdk_device_set_key(Gdk.Device device, uint index_, uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_set_key(System.IntPtr device, uint index_, uint keyval, Gdk.ModifierType modifiers);
+		public static extern int gdk_device_set_mode(Gdk.Device device, Gdk.InputMode mode);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_set_mode(System.IntPtr device, Gdk.InputMode mode);
+		public static extern void gdk_device_ungrab(Gdk.Device device, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_ungrab(System.IntPtr device, uint time_);
+		public static extern void gdk_device_warp(Gdk.Device device, Gdk.Screen screen, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_warp(System.IntPtr device, System.IntPtr screen, int x, int y);
+		public static extern Gdk.Window gdk_window_new(Gdk.Window parent, Gdk.WindowAttr attributes, Gdk.WindowAttributesType attributes_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_new(System.IntPtr parent, System.IntPtr attributes, Gdk.WindowAttributesType attributes_mask);
+		public static extern Gdk.Window gdk_window_at_pointer(System.IntPtr win_x, System.IntPtr win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_at_pointer(System.IntPtr win_x, System.IntPtr win_y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_constrain_size(System.IntPtr geometry, Gdk.WindowHints flags, int width, int height, System.IntPtr new_width, System.IntPtr new_height);
+		public static extern void gdk_window_constrain_size(Gdk.Geometry geometry, Gdk.WindowHints flags, int width, int height, System.IntPtr new_width, System.IntPtr new_height);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_process_all_updates();
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_set_debug_updates(int setting);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_add_filter(System.IntPtr window, System.IntPtr function, System.IntPtr data);
+		public static extern void gdk_window_add_filter(Gdk.Window window, System.IntPtr function, System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_beep(System.IntPtr window);
+		public static extern void gdk_window_beep(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_begin_draw_frame(System.IntPtr window, System.IntPtr region);
+		public static extern Gdk.DrawingContext gdk_window_begin_draw_frame(Gdk.Window window, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_move_drag(System.IntPtr window, int button, int root_x, int root_y, uint timestamp);
+		public static extern void gdk_window_begin_move_drag(Gdk.Window window, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_move_drag_for_device(System.IntPtr window, System.IntPtr device, int button, int root_x, int root_y, uint timestamp);
+		public static extern void gdk_window_begin_move_drag_for_device(Gdk.Window window, Gdk.Device device, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_paint_rect(System.IntPtr window, System.IntPtr rectangle);
+		public static extern void gdk_window_begin_paint_rect(Gdk.Window window, Gdk.Rectangle rectangle);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_paint_region(System.IntPtr window, System.IntPtr region);
+		public static extern void gdk_window_begin_paint_region(Gdk.Window window, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_resize_drag(System.IntPtr window, Gdk.WindowEdge edge, int button, int root_x, int root_y, uint timestamp);
+		public static extern void gdk_window_begin_resize_drag(Gdk.Window window, Gdk.WindowEdge edge, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_resize_drag_for_device(System.IntPtr window, Gdk.WindowEdge edge, System.IntPtr device, int button, int root_x, int root_y, uint timestamp);
+		public static extern void gdk_window_begin_resize_drag_for_device(Gdk.Window window, Gdk.WindowEdge edge, Gdk.Device device, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_configure_finished(System.IntPtr window);
+		public static extern void gdk_window_configure_finished(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_coords_from_parent(System.IntPtr window, double parent_x, double parent_y, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_window_coords_from_parent(Gdk.Window window, double parent_x, double parent_y, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_coords_to_parent(System.IntPtr window, double x, double y, System.IntPtr parent_x, System.IntPtr parent_y);
+		public static extern void gdk_window_coords_to_parent(Gdk.Window window, double x, double y, System.IntPtr parent_x, System.IntPtr parent_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_create_gl_context(System.IntPtr window, System.IntPtr error);
+		public static extern Gdk.GLContext gdk_window_create_gl_context(Gdk.Window window, out GLib.Error error);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_create_similar_image_surface(System.IntPtr window, int format, int width, int height, int scale);
+		public static extern cairo.Surface gdk_window_create_similar_image_surface(Gdk.Window window, int format, int width, int height, int scale);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_create_similar_surface(System.IntPtr window, cairo.Content content, int width, int height);
+		public static extern cairo.Surface gdk_window_create_similar_surface(Gdk.Window window, cairo.Content content, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_deiconify(System.IntPtr window);
+		public static extern void gdk_window_deiconify(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_destroy(System.IntPtr window);
+		public static extern void gdk_window_destroy(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_destroy_notify(System.IntPtr window);
+		public static extern void gdk_window_destroy_notify(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_enable_synchronized_configure(System.IntPtr window);
+		public static extern void gdk_window_enable_synchronized_configure(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_end_draw_frame(System.IntPtr window, System.IntPtr context);
+		public static extern void gdk_window_end_draw_frame(Gdk.Window window, Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_end_paint(System.IntPtr window);
+		public static extern void gdk_window_end_paint(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_ensure_native(System.IntPtr window);
+		public static extern int gdk_window_ensure_native(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_flush(System.IntPtr window);
+		public static extern void gdk_window_flush(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_focus(System.IntPtr window, uint timestamp);
+		public static extern void gdk_window_focus(Gdk.Window window, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_freeze_toplevel_updates_libgtk_only(System.IntPtr window);
+		public static extern void gdk_window_freeze_toplevel_updates_libgtk_only(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_freeze_updates(System.IntPtr window);
+		public static extern void gdk_window_freeze_updates(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_fullscreen(System.IntPtr window);
+		public static extern void gdk_window_fullscreen(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_fullscreen_on_monitor(System.IntPtr window, int monitor);
+		public static extern void gdk_window_fullscreen_on_monitor(Gdk.Window window, int monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_geometry_changed(System.IntPtr window);
+		public static extern void gdk_window_geometry_changed(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_accept_focus(System.IntPtr window);
+		public static extern int gdk_window_get_accept_focus(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_background_pattern(System.IntPtr window);
+		public static extern cairo.Pattern gdk_window_get_background_pattern(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_children(System.IntPtr window);
+		public static extern System.IntPtr gdk_window_get_children(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_children_with_user_data(System.IntPtr window, System.IntPtr user_data);
+		public static extern System.IntPtr gdk_window_get_children_with_user_data(Gdk.Window window, System.IntPtr user_data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_clip_region(System.IntPtr window);
+		public static extern cairo.Region gdk_window_get_clip_region(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_composited(System.IntPtr window);
+		public static extern int gdk_window_get_composited(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_cursor(System.IntPtr window);
+		public static extern Gdk.Cursor gdk_window_get_cursor(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_decorations(System.IntPtr window, out Gdk.WMDecoration decorations);
+		public static extern int gdk_window_get_decorations(Gdk.Window window, out Gdk.WMDecoration decorations);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_device_cursor(System.IntPtr window, System.IntPtr device);
+		public static extern Gdk.Cursor gdk_window_get_device_cursor(Gdk.Window window, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.EventMask gdk_window_get_device_events(System.IntPtr window, System.IntPtr device);
+		public static extern Gdk.EventMask gdk_window_get_device_events(Gdk.Window window, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_device_position(System.IntPtr window, System.IntPtr device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern Gdk.Window gdk_window_get_device_position(Gdk.Window window, Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_device_position_double(System.IntPtr window, System.IntPtr device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern Gdk.Window gdk_window_get_device_position_double(Gdk.Window window, Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_display(System.IntPtr window);
+		public static extern Gdk.Display gdk_window_get_display(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DragProtocol gdk_window_get_drag_protocol(System.IntPtr window, System.IntPtr target);
+		public static extern Gdk.DragProtocol gdk_window_get_drag_protocol(Gdk.Window window, out Gdk.Window target);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_effective_parent(System.IntPtr window);
+		public static extern Gdk.Window gdk_window_get_effective_parent(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_effective_toplevel(System.IntPtr window);
+		public static extern Gdk.Window gdk_window_get_effective_toplevel(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_event_compression(System.IntPtr window);
+		public static extern int gdk_window_get_event_compression(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.EventMask gdk_window_get_events(System.IntPtr window);
+		public static extern Gdk.EventMask gdk_window_get_events(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_focus_on_map(System.IntPtr window);
+		public static extern int gdk_window_get_focus_on_map(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_frame_clock(System.IntPtr window);
+		public static extern Gdk.FrameClock gdk_window_get_frame_clock(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_frame_extents(System.IntPtr window, System.IntPtr rect);
+		public static extern Gdk.FullscreenMode gdk_window_get_fullscreen_mode(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.FullscreenMode gdk_window_get_fullscreen_mode(System.IntPtr window);
+		public static extern void gdk_window_get_geometry(Gdk.Window window, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_geometry(System.IntPtr window, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height);
+		public static extern Gdk.Window gdk_window_get_group(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_group(System.IntPtr window);
+		public static extern int gdk_window_get_height(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_height(System.IntPtr window);
+		public static extern int gdk_window_get_modal_hint(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_modal_hint(System.IntPtr window);
+		public static extern int gdk_window_get_origin(Gdk.Window window, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_origin(System.IntPtr window, System.IntPtr x, System.IntPtr y);
+		public static extern Gdk.Window gdk_window_get_parent(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_parent(System.IntPtr window);
+		public static extern int gdk_window_get_pass_through(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_pass_through(System.IntPtr window);
+		public static extern Gdk.Window gdk_window_get_pointer(Gdk.Window window, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_pointer(System.IntPtr window, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern void gdk_window_get_position(Gdk.Window window, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_position(System.IntPtr window, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_window_get_root_coords(Gdk.Window window, int x, int y, System.IntPtr root_x, System.IntPtr root_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_root_coords(System.IntPtr window, int x, int y, System.IntPtr root_x, System.IntPtr root_y);
+		public static extern void gdk_window_get_root_origin(Gdk.Window window, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_root_origin(System.IntPtr window, System.IntPtr x, System.IntPtr y);
+		public static extern int gdk_window_get_scale_factor(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_scale_factor(System.IntPtr window);
+		public static extern Gdk.Screen gdk_window_get_screen(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_screen(System.IntPtr window);
+		public static extern Gdk.EventMask gdk_window_get_source_events(Gdk.Window window, Gdk.InputSource source);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.EventMask gdk_window_get_source_events(System.IntPtr window, Gdk.InputSource source);
+		public static extern Gdk.WindowState gdk_window_get_state(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.WindowState gdk_window_get_state(System.IntPtr window);
+		public static extern int gdk_window_get_support_multidevice(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_support_multidevice(System.IntPtr window);
+		public static extern Gdk.Window gdk_window_get_toplevel(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_toplevel(System.IntPtr window);
+		public static extern Gdk.WindowTypeHint gdk_window_get_type_hint(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.WindowTypeHint gdk_window_get_type_hint(System.IntPtr window);
+		public static extern cairo.Region gdk_window_get_update_area(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_update_area(System.IntPtr window);
+		public static extern void gdk_window_get_user_data(Gdk.Window window, System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_user_data(System.IntPtr window, System.IntPtr data);
+		public static extern cairo.Region gdk_window_get_visible_region(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_visible_region(System.IntPtr window);
+		public static extern Gdk.Visual gdk_window_get_visual(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_get_visual(System.IntPtr window);
+		public static extern int gdk_window_get_width(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_width(System.IntPtr window);
+		public static extern Gdk.WindowType gdk_window_get_window_type(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.WindowType gdk_window_get_window_type(System.IntPtr window);
+		public static extern int gdk_window_has_native(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_has_native(System.IntPtr window);
+		public static extern void gdk_window_hide(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_hide(System.IntPtr window);
+		public static extern void gdk_window_iconify(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_iconify(System.IntPtr window);
+		public static extern void gdk_window_input_shape_combine_region(Gdk.Window window, cairo.Region shape_region, int offset_x, int offset_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_input_shape_combine_region(System.IntPtr window, System.IntPtr shape_region, int offset_x, int offset_y);
+		public static extern void gdk_window_invalidate_maybe_recurse(Gdk.Window window, cairo.Region region, System.IntPtr child_func, System.IntPtr user_data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_invalidate_maybe_recurse(System.IntPtr window, System.IntPtr region, System.IntPtr child_func, System.IntPtr user_data);
+		public static extern void gdk_window_invalidate_rect(Gdk.Window window, Gdk.Rectangle rect, int invalidate_children);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_invalidate_rect(System.IntPtr window, System.IntPtr rect, int invalidate_children);
+		public static extern void gdk_window_invalidate_region(Gdk.Window window, cairo.Region region, int invalidate_children);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_invalidate_region(System.IntPtr window, System.IntPtr region, int invalidate_children);
+		public static extern int gdk_window_is_destroyed(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_is_destroyed(System.IntPtr window);
+		public static extern int gdk_window_is_input_only(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_is_input_only(System.IntPtr window);
+		public static extern int gdk_window_is_shaped(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_is_shaped(System.IntPtr window);
+		public static extern int gdk_window_is_viewable(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_is_viewable(System.IntPtr window);
+		public static extern int gdk_window_is_visible(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_is_visible(System.IntPtr window);
+		public static extern void gdk_window_lower(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_lower(System.IntPtr window);
+		public static extern void gdk_window_mark_paint_from_clip(Gdk.Window window, cairo.Context cr);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_mark_paint_from_clip(System.IntPtr window, System.IntPtr cr);
+		public static extern void gdk_window_maximize(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_maximize(System.IntPtr window);
+		public static extern void gdk_window_merge_child_input_shapes(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_merge_child_input_shapes(System.IntPtr window);
+		public static extern void gdk_window_merge_child_shapes(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_merge_child_shapes(System.IntPtr window);
+		public static extern void gdk_window_move(Gdk.Window window, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_move(System.IntPtr window, int x, int y);
+		public static extern void gdk_window_move_region(Gdk.Window window, cairo.Region region, int dx, int dy);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_move_region(System.IntPtr window, System.IntPtr region, int dx, int dy);
+		public static extern void gdk_window_move_resize(Gdk.Window window, int x, int y, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_move_resize(System.IntPtr window, int x, int y, int width, int height);
+		public static extern System.IntPtr gdk_window_peek_children(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_window_peek_children(System.IntPtr window);
+		public static extern void gdk_window_process_updates(Gdk.Window window, int update_children);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_process_updates(System.IntPtr window, int update_children);
+		public static extern void gdk_window_raise(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_raise(System.IntPtr window);
+		public static extern void gdk_window_register_dnd(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_register_dnd(System.IntPtr window);
+		public static extern void gdk_window_remove_filter(Gdk.Window window, System.IntPtr function, System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_remove_filter(System.IntPtr window, System.IntPtr function, System.IntPtr data);
+		public static extern void gdk_window_reparent(Gdk.Window window, Gdk.Window new_parent, int x, int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_reparent(System.IntPtr window, System.IntPtr new_parent, int x, int y);
+		public static extern void gdk_window_resize(Gdk.Window window, int width, int height);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_resize(System.IntPtr window, int width, int height);
+		public static extern void gdk_window_restack(Gdk.Window window, Gdk.Window sibling, int above);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_restack(System.IntPtr window, System.IntPtr sibling, int above);
+		public static extern void gdk_window_scroll(Gdk.Window window, int dx, int dy);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_scroll(System.IntPtr window, int dx, int dy);
+		public static extern void gdk_window_set_accept_focus(Gdk.Window window, int accept_focus);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_accept_focus(System.IntPtr window, int accept_focus);
+		public static extern void gdk_window_set_background(Gdk.Window window, Gdk.Color color);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_background(System.IntPtr window, System.IntPtr color);
+		public static extern void gdk_window_set_background_pattern(Gdk.Window window, cairo.Pattern pattern);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_background_pattern(System.IntPtr window, System.IntPtr pattern);
+		public static extern void gdk_window_set_background_rgba(Gdk.Window window, Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_background_rgba(System.IntPtr window, System.IntPtr rgba);
+		public static extern void gdk_window_set_child_input_shapes(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_child_input_shapes(System.IntPtr window);
+		public static extern void gdk_window_set_child_shapes(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_child_shapes(System.IntPtr window);
+		public static extern void gdk_window_set_composited(Gdk.Window window, int composited);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_composited(System.IntPtr window, int composited);
+		public static extern void gdk_window_set_cursor(Gdk.Window window, Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_cursor(System.IntPtr window, System.IntPtr cursor);
+		public static extern void gdk_window_set_decorations(Gdk.Window window, Gdk.WMDecoration decorations);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_decorations(System.IntPtr window, Gdk.WMDecoration decorations);
+		public static extern void gdk_window_set_device_cursor(Gdk.Window window, Gdk.Device device, Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_device_cursor(System.IntPtr window, System.IntPtr device, System.IntPtr cursor);
+		public static extern void gdk_window_set_device_events(Gdk.Window window, Gdk.Device device, Gdk.EventMask event_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_device_events(System.IntPtr window, System.IntPtr device, Gdk.EventMask event_mask);
+		public static extern void gdk_window_set_event_compression(Gdk.Window window, int event_compression);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_event_compression(System.IntPtr window, int event_compression);
+		public static extern void gdk_window_set_events(Gdk.Window window, Gdk.EventMask event_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_events(System.IntPtr window, Gdk.EventMask event_mask);
+		public static extern void gdk_window_set_focus_on_map(Gdk.Window window, int focus_on_map);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_focus_on_map(System.IntPtr window, int focus_on_map);
+		public static extern void gdk_window_set_fullscreen_mode(Gdk.Window window, Gdk.FullscreenMode mode);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_fullscreen_mode(System.IntPtr window, Gdk.FullscreenMode mode);
+		public static extern void gdk_window_set_functions(Gdk.Window window, Gdk.WMFunction functions);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_functions(System.IntPtr window, Gdk.WMFunction functions);
+		public static extern void gdk_window_set_geometry_hints(Gdk.Window window, Gdk.Geometry geometry, Gdk.WindowHints geom_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_geometry_hints(System.IntPtr window, System.IntPtr geometry, Gdk.WindowHints geom_mask);
+		public static extern void gdk_window_set_group(Gdk.Window window, Gdk.Window leader);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_group(System.IntPtr window, System.IntPtr leader);
+		public static extern void gdk_window_set_icon_list(Gdk.Window window, System.IntPtr pixbufs);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_icon_list(System.IntPtr window, System.IntPtr pixbufs);
+		public static extern void gdk_window_set_icon_name(Gdk.Window window, string name);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_icon_name(System.IntPtr window, string name);
+		public static extern void gdk_window_set_invalidate_handler(Gdk.Window window, System.IntPtr handler);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_invalidate_handler(System.IntPtr window, System.IntPtr handler);
+		public static extern void gdk_window_set_keep_above(Gdk.Window window, int setting);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_keep_above(System.IntPtr window, int setting);
+		public static extern void gdk_window_set_keep_below(Gdk.Window window, int setting);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_keep_below(System.IntPtr window, int setting);
+		public static extern void gdk_window_set_modal_hint(Gdk.Window window, int modal);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_modal_hint(System.IntPtr window, int modal);
+		public static extern void gdk_window_set_opacity(Gdk.Window window, double opacity);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_opacity(System.IntPtr window, double opacity);
+		public static extern void gdk_window_set_opaque_region(Gdk.Window window, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_opaque_region(System.IntPtr window, System.IntPtr region);
+		public static extern void gdk_window_set_override_redirect(Gdk.Window window, int override_redirect);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_override_redirect(System.IntPtr window, int override_redirect);
+		public static extern void gdk_window_set_pass_through(Gdk.Window window, int pass_through);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_pass_through(System.IntPtr window, int pass_through);
+		public static extern void gdk_window_set_role(Gdk.Window window, string role);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_role(System.IntPtr window, string role);
+		public static extern void gdk_window_set_shadow_width(Gdk.Window window, int left, int right, int top, int bottom);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_shadow_width(System.IntPtr window, int left, int right, int top, int bottom);
+		public static extern void gdk_window_set_skip_pager_hint(Gdk.Window window, int skips_pager);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_skip_pager_hint(System.IntPtr window, int skips_pager);
+		public static extern void gdk_window_set_skip_taskbar_hint(Gdk.Window window, int skips_taskbar);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_skip_taskbar_hint(System.IntPtr window, int skips_taskbar);
+		public static extern void gdk_window_set_source_events(Gdk.Window window, Gdk.InputSource source, Gdk.EventMask event_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_source_events(System.IntPtr window, Gdk.InputSource source, Gdk.EventMask event_mask);
+		public static extern void gdk_window_set_startup_id(Gdk.Window window, string startup_id);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_startup_id(System.IntPtr window, string startup_id);
+		public static extern int gdk_window_set_static_gravities(Gdk.Window window, int use_static);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_set_static_gravities(System.IntPtr window, int use_static);
+		public static extern void gdk_window_set_support_multidevice(Gdk.Window window, int support_multidevice);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_support_multidevice(System.IntPtr window, int support_multidevice);
+		public static extern void gdk_window_set_title(Gdk.Window window, string title);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_title(System.IntPtr window, string title);
+		public static extern void gdk_window_set_transient_for(Gdk.Window window, Gdk.Window parent);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_transient_for(System.IntPtr window, System.IntPtr parent);
+		public static extern void gdk_window_set_type_hint(Gdk.Window window, Gdk.WindowTypeHint hint);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_type_hint(System.IntPtr window, Gdk.WindowTypeHint hint);
+		public static extern void gdk_window_set_urgency_hint(Gdk.Window window, int urgent);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_urgency_hint(System.IntPtr window, int urgent);
+		public static extern void gdk_window_set_user_data(Gdk.Window window, GObject.Object user_data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_user_data(System.IntPtr window, System.IntPtr user_data);
+		public static extern void gdk_window_shape_combine_region(Gdk.Window window, cairo.Region shape_region, int offset_x, int offset_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_shape_combine_region(System.IntPtr window, System.IntPtr shape_region, int offset_x, int offset_y);
+		public static extern void gdk_window_show(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_show(System.IntPtr window);
+		public static extern void gdk_window_show_unraised(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_show_unraised(System.IntPtr window);
+		public static extern int gdk_window_show_window_menu(Gdk.Window window, System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_show_window_menu(System.IntPtr window, System.IntPtr @event);
+		public static extern void gdk_window_stick(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_stick(System.IntPtr window);
+		public static extern void gdk_window_thaw_toplevel_updates_libgtk_only(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_thaw_toplevel_updates_libgtk_only(System.IntPtr window);
+		public static extern void gdk_window_thaw_updates(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_thaw_updates(System.IntPtr window);
+		public static extern void gdk_window_unfullscreen(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_unfullscreen(System.IntPtr window);
+		public static extern void gdk_window_unmaximize(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_unmaximize(System.IntPtr window);
+		public static extern void gdk_window_unstick(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_unstick(System.IntPtr window);
+		public static extern void gdk_window_withdraw(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_withdraw(System.IntPtr window);
+		public static extern Gdk.SeatCapabilities gdk_seat_get_capabilities(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.SeatCapabilities gdk_seat_get_capabilities(System.IntPtr seat);
+		public static extern Gdk.Display gdk_seat_get_display(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_seat_get_display(System.IntPtr seat);
+		public static extern Gdk.Device gdk_seat_get_keyboard(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_seat_get_keyboard(System.IntPtr seat);
+		public static extern Gdk.Device gdk_seat_get_pointer(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_seat_get_pointer(System.IntPtr seat);
+		public static extern System.IntPtr gdk_seat_get_slaves(Gdk.Seat seat, Gdk.SeatCapabilities capabilities);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_seat_get_slaves(System.IntPtr seat, Gdk.SeatCapabilities capabilities);
+		public static extern Gdk.GrabStatus gdk_seat_grab(Gdk.Seat seat, Gdk.Window window, Gdk.SeatCapabilities capabilities, int owner_events, Gdk.Cursor cursor, System.IntPtr @event, System.IntPtr prepare_func, System.IntPtr prepare_func_data);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.GrabStatus gdk_seat_grab(System.IntPtr seat, System.IntPtr window, Gdk.SeatCapabilities capabilities, int owner_events, System.IntPtr cursor, System.IntPtr @event, System.IntPtr prepare_func, System.IntPtr prepare_func_data);
+		public static extern void gdk_seat_ungrab(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_seat_ungrab(System.IntPtr seat);
+		public static extern Gdk.Device gdk_device_manager_get_client_pointer(Gdk.DeviceManager device_manager);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_manager_get_client_pointer(System.IntPtr device_manager);
+		public static extern Gdk.Display gdk_device_manager_get_display(Gdk.DeviceManager device_manager);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_manager_get_display(System.IntPtr device_manager);
+		public static extern System.IntPtr gdk_device_manager_list_devices(Gdk.DeviceManager device_manager, Gdk.DeviceType type);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_device_manager_list_devices(System.IntPtr device_manager, Gdk.DeviceType type);
+		public static extern ulong gdk_device_tool_get_hardware_id(Gdk.DeviceTool tool);
 		[DllImport("libgdk-3.so.0")]
-		public static extern ulong gdk_device_tool_get_hardware_id(System.IntPtr tool);
+		public static extern ulong gdk_device_tool_get_serial(Gdk.DeviceTool tool);
 		[DllImport("libgdk-3.so.0")]
-		public static extern ulong gdk_device_tool_get_serial(System.IntPtr tool);
+		public static extern Gdk.DeviceToolType gdk_device_tool_get_tool_type(Gdk.DeviceTool tool);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DeviceToolType gdk_device_tool_get_tool_type(System.IntPtr tool);
+		public static extern int gdk_device_pad_get_feature_group(Gdk.DevicePad pad, Gdk.DevicePadFeature feature, int feature_idx);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_pad_get_feature_group(System.IntPtr pad, Gdk.DevicePadFeature feature, int feature_idx);
+		public static extern int gdk_device_pad_get_group_n_modes(Gdk.DevicePad pad, int group_idx);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_pad_get_group_n_modes(System.IntPtr pad, int group_idx);
+		public static extern int gdk_device_pad_get_n_features(Gdk.DevicePad pad, Gdk.DevicePadFeature feature);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_pad_get_n_features(System.IntPtr pad, Gdk.DevicePadFeature feature);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_device_pad_get_n_groups(System.IntPtr pad);
+		public static extern int gdk_device_pad_get_n_groups(Gdk.DevicePad pad);
 		[DllImport("libgdk-3.so.0")]
 		public static extern System.IntPtr gdk_event_new(Gdk.EventType type);
 		[DllImport("libgdk-3.so.0")]
@@ -1468,11 +1820,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_get_coords(System.IntPtr @event, System.IntPtr x_win, System.IntPtr y_win);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_device(System.IntPtr @event);
+		public static extern Gdk.Device gdk_event_get_device(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_device_tool(System.IntPtr @event);
+		public static extern Gdk.DeviceTool gdk_event_get_device_tool(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_event_sequence(System.IntPtr @event);
+		public static extern Gdk.EventSequence gdk_event_get_event_sequence(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.EventType gdk_event_get_event_type(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
@@ -1486,33 +1838,33 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_get_scancode(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_screen(System.IntPtr @event);
+		public static extern Gdk.Screen gdk_event_get_screen(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_get_scroll_deltas(System.IntPtr @event, System.IntPtr delta_x, System.IntPtr delta_y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_get_scroll_direction(System.IntPtr @event, out Gdk.ScrollDirection direction);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_seat(System.IntPtr @event);
+		public static extern Gdk.Seat gdk_event_get_seat(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_source_device(System.IntPtr @event);
+		public static extern Gdk.Device gdk_event_get_source_device(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_get_state(System.IntPtr @event, out Gdk.ModifierType state);
 		[DllImport("libgdk-3.so.0")]
 		public static extern uint gdk_event_get_time(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get_window(System.IntPtr @event);
+		public static extern Gdk.Window gdk_event_get_window(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_is_scroll_stop_event(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_event_put(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_device(System.IntPtr @event, System.IntPtr device);
+		public static extern void gdk_event_set_device(System.IntPtr @event, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_device_tool(System.IntPtr @event, System.IntPtr tool);
+		public static extern void gdk_event_set_device_tool(System.IntPtr @event, Gdk.DeviceTool tool);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_screen(System.IntPtr @event, System.IntPtr screen);
+		public static extern void gdk_event_set_screen(System.IntPtr @event, Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_source_device(System.IntPtr @event, System.IntPtr device);
+		public static extern void gdk_event_set_source_device(System.IntPtr @event, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_event_triggers_context_menu(System.IntPtr @event);
 		[DllImport("libgdk-3.so.0")]
@@ -1522,220 +1874,212 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern System.IntPtr gdk_event_peek();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_request_motions(System.IntPtr @event);
+		public static extern void gdk_event_request_motions(Gdk.EventMotion @event);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_monitor_get_display(System.IntPtr monitor);
+		public static extern Gdk.Display gdk_monitor_get_display(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_monitor_get_geometry(System.IntPtr monitor, System.IntPtr geometry);
+		public static extern int gdk_monitor_get_height_mm(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_monitor_get_height_mm(System.IntPtr monitor);
+		public static extern string gdk_monitor_get_manufacturer(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_monitor_get_manufacturer(System.IntPtr monitor);
+		public static extern string gdk_monitor_get_model(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_monitor_get_model(System.IntPtr monitor);
+		public static extern int gdk_monitor_get_refresh_rate(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_monitor_get_refresh_rate(System.IntPtr monitor);
+		public static extern int gdk_monitor_get_scale_factor(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_monitor_get_scale_factor(System.IntPtr monitor);
+		public static extern Gdk.SubpixelLayout gdk_monitor_get_subpixel_layout(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.SubpixelLayout gdk_monitor_get_subpixel_layout(System.IntPtr monitor);
+		public static extern int gdk_monitor_get_width_mm(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_monitor_get_width_mm(System.IntPtr monitor);
+		public static extern int gdk_monitor_is_primary(Gdk.Monitor monitor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_monitor_get_workarea(System.IntPtr monitor, System.IntPtr workarea);
+		public static extern Gdk.DisplayManager gdk_display_manager_get();
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_monitor_is_primary(System.IntPtr monitor);
+		public static extern Gdk.Display gdk_display_manager_get_default_display(Gdk.DisplayManager manager);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_manager_get();
+		public static extern System.IntPtr gdk_display_manager_list_displays(Gdk.DisplayManager manager);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_manager_get_default_display(System.IntPtr manager);
+		public static extern Gdk.Display gdk_display_manager_open_display(Gdk.DisplayManager manager, string name);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_manager_list_displays(System.IntPtr manager);
+		public static extern void gdk_display_manager_set_default_display(Gdk.DisplayManager manager, Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_manager_open_display(System.IntPtr manager, string name);
+		public static extern Gdk.DragAction gdk_drag_context_get_actions(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_manager_set_default_display(System.IntPtr manager, System.IntPtr display);
+		public static extern Gdk.Window gdk_drag_context_get_dest_window(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DragAction gdk_drag_context_get_actions(System.IntPtr context);
+		public static extern Gdk.Device gdk_drag_context_get_device(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_context_get_dest_window(System.IntPtr context);
+		public static extern Gdk.Window gdk_drag_context_get_drag_window(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_context_get_device(System.IntPtr context);
+		public static extern Gdk.DragProtocol gdk_drag_context_get_protocol(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_context_get_drag_window(System.IntPtr context);
+		public static extern Gdk.DragAction gdk_drag_context_get_selected_action(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DragProtocol gdk_drag_context_get_protocol(System.IntPtr context);
+		public static extern Gdk.Window gdk_drag_context_get_source_window(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DragAction gdk_drag_context_get_selected_action(System.IntPtr context);
+		public static extern Gdk.DragAction gdk_drag_context_get_suggested_action(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_context_get_source_window(System.IntPtr context);
+		public static extern System.IntPtr gdk_drag_context_list_targets(Gdk.DragContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DragAction gdk_drag_context_get_suggested_action(System.IntPtr context);
+		public static extern int gdk_drag_context_manage_dnd(Gdk.DragContext context, Gdk.Window ipc_window, Gdk.DragAction actions);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drag_context_list_targets(System.IntPtr context);
+		public static extern void gdk_drag_context_set_device(Gdk.DragContext context, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_drag_context_manage_dnd(System.IntPtr context, System.IntPtr ipc_window, Gdk.DragAction actions);
+		public static extern void gdk_drag_context_set_hotspot(Gdk.DragContext context, int hot_x, int hot_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_context_set_device(System.IntPtr context, System.IntPtr device);
+		public static extern cairo.Context gdk_drawing_context_get_cairo_context(Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_drag_context_set_hotspot(System.IntPtr context, int hot_x, int hot_y);
+		public static extern cairo.Region gdk_drawing_context_get_clip(Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drawing_context_get_cairo_context(System.IntPtr context);
+		public static extern Gdk.Window gdk_drawing_context_get_window(Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drawing_context_get_clip(System.IntPtr context);
+		public static extern int gdk_drawing_context_is_valid(Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_drawing_context_get_window(System.IntPtr context);
+		public static extern int gdk_rectangle_equal(Gdk.Rectangle rect1, Gdk.Rectangle rect2);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_drawing_context_is_valid(System.IntPtr context);
+		public static extern void gdk_frame_clock_begin_updating(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_rectangle_equal(System.IntPtr rect1, System.IntPtr rect2);
+		public static extern void gdk_frame_clock_end_updating(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_rectangle_intersect(System.IntPtr src1, System.IntPtr src2, System.IntPtr dest);
+		public static extern Gdk.FrameTimings gdk_frame_clock_get_current_timings(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_rectangle_union(System.IntPtr src1, System.IntPtr src2, System.IntPtr dest);
+		public static extern long gdk_frame_clock_get_frame_counter(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_clock_begin_updating(System.IntPtr frame_clock);
+		public static extern long gdk_frame_clock_get_frame_time(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_clock_end_updating(System.IntPtr frame_clock);
+		public static extern long gdk_frame_clock_get_history_start(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_frame_clock_get_current_timings(System.IntPtr frame_clock);
+		public static extern void gdk_frame_clock_get_refresh_info(Gdk.FrameClock frame_clock, long base_time, System.IntPtr refresh_interval_return, System.IntPtr presentation_time_return);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_clock_get_frame_counter(System.IntPtr frame_clock);
+		public static extern Gdk.FrameTimings gdk_frame_clock_get_timings(Gdk.FrameClock frame_clock, long frame_counter);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_clock_get_frame_time(System.IntPtr frame_clock);
+		public static extern void gdk_frame_clock_request_phase(Gdk.FrameClock frame_clock, Gdk.FrameClockPhase phase);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_clock_get_history_start(System.IntPtr frame_clock);
+		public static extern int gdk_frame_timings_get_complete(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_clock_get_refresh_info(System.IntPtr frame_clock, long base_time, System.IntPtr refresh_interval_return, System.IntPtr presentation_time_return);
+		public static extern long gdk_frame_timings_get_frame_counter(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_frame_clock_get_timings(System.IntPtr frame_clock, long frame_counter);
+		public static extern long gdk_frame_timings_get_frame_time(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_clock_request_phase(System.IntPtr frame_clock, Gdk.FrameClockPhase phase);
+		public static extern long gdk_frame_timings_get_predicted_presentation_time(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_frame_timings_get_complete(System.IntPtr timings);
+		public static extern long gdk_frame_timings_get_presentation_time(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_timings_get_frame_counter(System.IntPtr timings);
+		public static extern long gdk_frame_timings_get_refresh_interval(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_timings_get_frame_time(System.IntPtr timings);
+		public static extern Gdk.FrameTimings gdk_frame_timings_ref(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_timings_get_predicted_presentation_time(System.IntPtr timings);
-		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_timings_get_presentation_time(System.IntPtr timings);
-		[DllImport("libgdk-3.so.0")]
-		public static extern long gdk_frame_timings_get_refresh_interval(System.IntPtr timings);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_frame_timings_ref(System.IntPtr timings);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_timings_unref(System.IntPtr timings);
+		public static extern void gdk_frame_timings_unref(Gdk.FrameTimings timings);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_gl_context_clear_current();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_gl_context_get_current();
+		public static extern Gdk.GLContext gdk_gl_context_get_current();
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_gl_context_get_debug_enabled(System.IntPtr context);
+		public static extern int gdk_gl_context_get_debug_enabled(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_gl_context_get_display(System.IntPtr context);
+		public static extern Gdk.Display gdk_gl_context_get_display(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_gl_context_get_forward_compatible(System.IntPtr context);
+		public static extern int gdk_gl_context_get_forward_compatible(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_get_required_version(System.IntPtr context, System.IntPtr major, System.IntPtr minor);
+		public static extern void gdk_gl_context_get_required_version(Gdk.GLContext context, System.IntPtr major, System.IntPtr minor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_gl_context_get_shared_context(System.IntPtr context);
+		public static extern Gdk.GLContext gdk_gl_context_get_shared_context(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_gl_context_get_use_es(System.IntPtr context);
+		public static extern int gdk_gl_context_get_use_es(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_get_version(System.IntPtr context, System.IntPtr major, System.IntPtr minor);
+		public static extern void gdk_gl_context_get_version(Gdk.GLContext context, System.IntPtr major, System.IntPtr minor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_gl_context_get_window(System.IntPtr context);
+		public static extern Gdk.Window gdk_gl_context_get_window(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_gl_context_is_legacy(System.IntPtr context);
+		public static extern int gdk_gl_context_is_legacy(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_make_current(System.IntPtr context);
+		public static extern void gdk_gl_context_make_current(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_gl_context_realize(System.IntPtr context, System.IntPtr error);
+		public static extern int gdk_gl_context_realize(Gdk.GLContext context, out GLib.Error error);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_set_debug_enabled(System.IntPtr context, int enabled);
+		public static extern void gdk_gl_context_set_debug_enabled(Gdk.GLContext context, int enabled);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_set_forward_compatible(System.IntPtr context, int compatible);
+		public static extern void gdk_gl_context_set_forward_compatible(Gdk.GLContext context, int compatible);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_set_required_version(System.IntPtr context, int major, int minor);
+		public static extern void gdk_gl_context_set_required_version(Gdk.GLContext context, int major, int minor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_set_use_es(System.IntPtr context, int use_es);
+		public static extern void gdk_gl_context_set_use_es(Gdk.GLContext context, int use_es);
 		[DllImport("libgdk-3.so.0")]
 		public static extern uint gdk_gl_error_quark();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_keymap_get_default();
+		public static extern Gdk.Keymap gdk_keymap_get_default();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_keymap_get_for_display(System.IntPtr display);
+		public static extern Gdk.Keymap gdk_keymap_get_for_display(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_keymap_add_virtual_modifiers(System.IntPtr keymap, ref Gdk.ModifierType state);
+		public static extern void gdk_keymap_add_virtual_modifiers(Gdk.Keymap keymap, ref Gdk.ModifierType state);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_get_caps_lock_state(System.IntPtr keymap);
+		public static extern int gdk_keymap_get_caps_lock_state(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Pango.Direction gdk_keymap_get_direction(System.IntPtr keymap);
+		public static extern Pango.Direction gdk_keymap_get_direction(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_get_entries_for_keycode(System.IntPtr keymap, uint hardware_keycode, System.IntPtr keys, System.IntPtr keyvals, System.IntPtr n_entries);
+		public static extern int gdk_keymap_get_entries_for_keycode(Gdk.Keymap keymap, uint hardware_keycode, System.IntPtr keys, System.IntPtr keyvals, System.IntPtr n_entries);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_get_entries_for_keyval(System.IntPtr keymap, uint keyval, System.IntPtr keys, System.IntPtr n_keys);
+		public static extern int gdk_keymap_get_entries_for_keyval(Gdk.Keymap keymap, uint keyval, System.IntPtr keys, System.IntPtr n_keys);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.ModifierType gdk_keymap_get_modifier_mask(System.IntPtr keymap, Gdk.ModifierIntent intent);
+		public static extern Gdk.ModifierType gdk_keymap_get_modifier_mask(Gdk.Keymap keymap, Gdk.ModifierIntent intent);
 		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_keymap_get_modifier_state(System.IntPtr keymap);
+		public static extern uint gdk_keymap_get_modifier_state(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_get_num_lock_state(System.IntPtr keymap);
+		public static extern int gdk_keymap_get_num_lock_state(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_get_scroll_lock_state(System.IntPtr keymap);
+		public static extern int gdk_keymap_get_scroll_lock_state(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_have_bidi_layouts(System.IntPtr keymap);
+		public static extern int gdk_keymap_have_bidi_layouts(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_keymap_lookup_key(System.IntPtr keymap, System.IntPtr key);
+		public static extern uint gdk_keymap_lookup_key(Gdk.Keymap keymap, Gdk.KeymapKey key);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_map_virtual_modifiers(System.IntPtr keymap, ref Gdk.ModifierType state);
+		public static extern int gdk_keymap_map_virtual_modifiers(Gdk.Keymap keymap, ref Gdk.ModifierType state);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_keymap_translate_keyboard_state(System.IntPtr keymap, uint hardware_keycode, Gdk.ModifierType state, int group, System.IntPtr keyval, System.IntPtr effective_group, System.IntPtr level, out Gdk.ModifierType consumed_modifiers);
+		public static extern int gdk_keymap_translate_keyboard_state(Gdk.Keymap keymap, uint hardware_keycode, Gdk.ModifierType state, int group, System.IntPtr keyval, System.IntPtr effective_group, System.IntPtr level, out Gdk.ModifierType consumed_modifiers);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_rgba_copy(System.IntPtr rgba);
+		public static extern Gdk.RGBA gdk_rgba_copy(Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_rgba_equal(System.IntPtr p1, System.IntPtr p2);
+		public static extern int gdk_rgba_equal(Gdk.RGBA p1, Gdk.RGBA p2);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_rgba_free(System.IntPtr rgba);
+		public static extern void gdk_rgba_free(Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_rgba_hash(System.IntPtr p);
+		public static extern uint gdk_rgba_hash(Gdk.RGBA p);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_rgba_parse(System.IntPtr rgba, string spec);
+		public static extern int gdk_rgba_parse(Gdk.RGBA rgba, string spec);
 		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_rgba_to_string(System.IntPtr rgba);
+		public static extern string gdk_rgba_to_string(Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_best();
+		public static extern Gdk.Visual gdk_visual_get_best();
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_visual_get_best_depth();
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.VisualType gdk_visual_get_best_type();
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_best_with_both(int depth, Gdk.VisualType visual_type);
+		public static extern Gdk.Visual gdk_visual_get_best_with_both(int depth, Gdk.VisualType visual_type);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_best_with_depth(int depth);
+		public static extern Gdk.Visual gdk_visual_get_best_with_depth(int depth);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_best_with_type(Gdk.VisualType visual_type);
+		public static extern Gdk.Visual gdk_visual_get_best_with_type(Gdk.VisualType visual_type);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_system();
+		public static extern Gdk.Visual gdk_visual_get_system();
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_visual_get_bits_per_rgb(System.IntPtr visual);
+		public static extern int gdk_visual_get_bits_per_rgb(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_blue_pixel_details(System.IntPtr visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_blue_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.ByteOrder gdk_visual_get_byte_order(System.IntPtr visual);
+		public static extern Gdk.ByteOrder gdk_visual_get_byte_order(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_visual_get_colormap_size(System.IntPtr visual);
+		public static extern int gdk_visual_get_colormap_size(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_visual_get_depth(System.IntPtr visual);
+		public static extern int gdk_visual_get_depth(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_green_pixel_details(System.IntPtr visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_green_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_red_pixel_details(System.IntPtr visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_red_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_visual_get_screen(System.IntPtr visual);
+		public static extern Gdk.Screen gdk_visual_get_screen(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.VisualType gdk_visual_get_visual_type(System.IntPtr visual);
+		public static extern Gdk.VisualType gdk_visual_get_visual_type(Gdk.Visual visual);
 	}
 }
