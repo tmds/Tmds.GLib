@@ -1,13 +1,70 @@
 using System;
 using System.Runtime.InteropServices;
 namespace GdkPixbuf {
+	public enum Colorspace
+	{
+		rgb = 0,
+	}
+	public enum InterpType
+	{
+		nearest = 0,
+		tiles = 1,
+		bilinear = 2,
+		hyper = 3,
+	}
+	public enum PixbufRotation
+	{
+		none = 0,
+		counterclockwise = 90,
+		upsidedown = 180,
+		clockwise = 270,
+	}
+	public enum PixbufAlphaMode
+	{
+		bilevel = 0,
+		full = 1,
+	}
+	public enum PixbufError
+	{
+		corrupt_image = 0,
+		insufficient_memory = 1,
+		bad_option = 2,
+		unknown_type = 3,
+		unsupported_operation = 4,
+		failed = 5,
+		incomplete_animation = 6,
+	}
+	[Flags]
+	public enum PixdataDumpType
+	{
+		pixdata_stream = 0,
+		pixdata_struct = 1,
+		macros = 2,
+		gtypes = 0,
+		ctypes = 256,
+		@static = 512,
+		@const = 1024,
+		rle_decoder = 65536,
+	}
+	[Flags]
+	public enum PixdataType
+	{
+		color_type_rgb = 1,
+		color_type_rgba = 2,
+		color_type_mask = 255,
+		sample_width_8 = 65536,
+		sample_width_mask = 983040,
+		encoding_raw = 16777216,
+		encoding_rle = 33554432,
+		encoding_mask = 251658240,
+	}
 	public static class GdkPixbufInterop {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_new(int colorspace, int has_alpha, int bits_per_sample, int width, int height);
+		public static extern System.IntPtr gdk_pixbuf_new(GdkPixbuf.Colorspace colorspace, int has_alpha, int bits_per_sample, int width, int height);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_new_from_bytes(System.IntPtr data, int colorspace, int has_alpha, int bits_per_sample, int width, int height, int rowstride);
+		public static extern System.IntPtr gdk_pixbuf_new_from_bytes(System.IntPtr data, GdkPixbuf.Colorspace colorspace, int has_alpha, int bits_per_sample, int width, int height, int rowstride);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_new_from_data(System.IntPtr data, int colorspace, int has_alpha, int bits_per_sample, int width, int height, int rowstride, System.IntPtr destroy_fn, System.IntPtr destroy_fn_data);
+		public static extern System.IntPtr gdk_pixbuf_new_from_data(System.IntPtr data, GdkPixbuf.Colorspace colorspace, int has_alpha, int bits_per_sample, int width, int height, int rowstride, System.IntPtr destroy_fn, System.IntPtr destroy_fn_data);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_new_from_file(string filename, System.IntPtr error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -29,7 +86,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_new_from_xpm_data(System.IntPtr data);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern int gdk_pixbuf_calculate_rowstride(int colorspace, int has_alpha, int bits_per_sample, int width, int height);
+		public static extern int gdk_pixbuf_calculate_rowstride(GdkPixbuf.Colorspace colorspace, int has_alpha, int bits_per_sample, int width, int height);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_from_pixdata(System.IntPtr pixdata, int copy_pixels, System.IntPtr error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -51,11 +108,11 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_apply_embedded_orientation(System.IntPtr src);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern void gdk_pixbuf_composite(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, int interp_type, int overall_alpha);
+		public static extern void gdk_pixbuf_composite(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, GdkPixbuf.InterpType interp_type, int overall_alpha);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern void gdk_pixbuf_composite_color(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, int interp_type, int overall_alpha, int check_x, int check_y, int check_size, uint color1, uint color2);
+		public static extern void gdk_pixbuf_composite_color(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, GdkPixbuf.InterpType interp_type, int overall_alpha, int check_x, int check_y, int check_size, uint color1, uint color2);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_composite_color_simple(System.IntPtr src, int dest_width, int dest_height, int interp_type, int overall_alpha, int check_size, uint color1, uint color2);
+		public static extern System.IntPtr gdk_pixbuf_composite_color_simple(System.IntPtr src, int dest_width, int dest_height, GdkPixbuf.InterpType interp_type, int overall_alpha, int check_size, uint color1, uint color2);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_copy(System.IntPtr pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -71,7 +128,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern ulong gdk_pixbuf_get_byte_length(System.IntPtr pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern int gdk_pixbuf_get_colorspace(System.IntPtr pixbuf);
+		public static extern GdkPixbuf.Colorspace gdk_pixbuf_get_colorspace(System.IntPtr pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_get_has_alpha(System.IntPtr pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -101,7 +158,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_remove_option(System.IntPtr pixbuf, string key);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_rotate_simple(System.IntPtr src, int angle);
+		public static extern System.IntPtr gdk_pixbuf_rotate_simple(System.IntPtr src, GdkPixbuf.PixbufRotation angle);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern void gdk_pixbuf_saturate_and_pixelate(System.IntPtr src, System.IntPtr dest, float saturation, int pixelate);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -115,9 +172,9 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_savev(System.IntPtr pixbuf, string filename, string type, System.IntPtr option_keys, System.IntPtr option_values, System.IntPtr error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern void gdk_pixbuf_scale(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, int interp_type);
+		public static extern void gdk_pixbuf_scale(System.IntPtr src, System.IntPtr dest, int dest_x, int dest_y, int dest_width, int dest_height, double offset_x, double offset_y, double scale_x, double scale_y, GdkPixbuf.InterpType interp_type);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_scale_simple(System.IntPtr src, int dest_width, int dest_height, int interp_type);
+		public static extern System.IntPtr gdk_pixbuf_scale_simple(System.IntPtr src, int dest_width, int dest_height, GdkPixbuf.InterpType interp_type);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_set_option(System.IntPtr pixbuf, string key, string value);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -129,7 +186,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixdata_serialize(System.IntPtr pixdata, System.IntPtr stream_length_p);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixdata_to_csource(System.IntPtr pixdata, string name, int dump_type);
+		public static extern System.IntPtr gdk_pixdata_to_csource(System.IntPtr pixdata, string name, GdkPixbuf.PixdataDumpType dump_type);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_format_copy(System.IntPtr format);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]

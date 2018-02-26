@@ -1,6 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 namespace GModule {
+	[Flags]
+	public enum ModuleFlags
+	{
+		lazy = 1,
+		local = 2,
+		mask = 3,
+	}
 	public static class GModuleInterop {
 		[DllImport("libgmodule-2.0.so.0")]
 		public static extern int g_module_close(System.IntPtr module);
@@ -15,7 +22,7 @@ namespace GModule {
 		[DllImport("libgmodule-2.0.so.0")]
 		public static extern string g_module_error();
 		[DllImport("libgmodule-2.0.so.0")]
-		public static extern System.IntPtr g_module_open(string file_name, int flags);
+		public static extern System.IntPtr g_module_open(string file_name, GModule.ModuleFlags flags);
 		[DllImport("libgmodule-2.0.so.0")]
 		public static extern int g_module_supported();
 	}

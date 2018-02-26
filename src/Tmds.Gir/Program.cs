@@ -23,9 +23,65 @@ namespace Tmds.Gir
                 _sb.AppendFormat("using {0};\n", usingNamespace);
             }
             _sb.AppendFormat("namespace {0} {{\n", ns.Name);
+            AddTypes(ns);
             AddInteropClass(ns);
             _sb.Append("}\n");
             return _sb.ToString();
+        }
+
+        private void AddTypes(Namespace ns)
+        {
+            foreach (var type in ns.Types)
+            {
+                switch (type)
+                {
+                    case RecordType rec:
+                    case ClassType cls:
+                    case InterfaceType interf:
+                        AddRefStruct(type);
+                        break;
+                    case EnumerationType en:
+                        AddEnum(type, en.Members, flags: false);
+                        break;
+                    case BitfieldType bit:
+                        AddEnum(type, bit.Members, flags: true);
+                        break;
+                }
+            }
+        }
+
+        private void AddEnum(GLibType type, List<Member> members, bool flags)
+        {
+            if (flags)
+            {
+                _sb.Append("\t[Flags]\n");
+            }
+            _sb.AppendFormat("\tpublic enum {0}\n", type.Name);
+            _sb.Append("\t{\n");
+            foreach (var member in members)
+            {
+                string value = member.Value;
+                if (!int.TryParse(value, out int res))
+                {
+                    if (uint.TryParse(value, out uint uintvalue))
+                    {
+                        value = $"unchecked((int){value}U)";
+                    }
+                    else
+                    {
+                        // skip
+                        continue;
+                    }
+                }
+                // TODO: prettify name
+                _sb.AppendFormat("\t\t{0} = {1},\n", EscapeIdentifier(member.Name), value);
+            }
+            _sb.Append("\t}\n");
+        }
+
+        private void AddRefStruct(GLibType type)
+        {
+            
         }
 
         private void AddInteropClass(Namespace ns)
@@ -110,6 +166,10 @@ namespace Tmds.Gir
 
         private static string EscapeIdentifier(string identifier)
         {
+            if (char.IsDigit(identifier[0]))
+            {
+                identifier = "_" + identifier;
+            }
             if (s_keywords.Contains(identifier))
             {
                 return "@" + identifier;
@@ -122,6 +182,41 @@ namespace Tmds.Gir
             GLibType type = p.Type;
             string cType = p.CType;
             (cType, type) = ResolveType(cType, type);
+            int starCount = 0;
+            while (cType.Length > 0 && cType[cType.Length - 1 - starCount] == '*') { starCount++; };
+            if (type is BitfieldType || type is EnumerationType)
+            {   
+                string typeName = type.FullName;
+                string modifier = null;
+                switch (p.Direction)
+                {
+                    case ParameterDirection.In:
+                    case ParameterDirection.Return:
+                        break;
+                    case ParameterDirection.InOut:
+                        modifier = "ref";
+                        break;
+                    case ParameterDirection.Out:
+                        modifier = "out";
+                        break;
+                }
+                if (modifier == null)
+                {
+                    if (starCount != 0)
+                    {
+                        return null;
+                    }
+                    return typeName;
+                }
+                else
+                {
+                    if (starCount != 1)
+                    {
+                        return null;
+                    }
+                    return $"{modifier} {typeName}";
+                }
+            }
             bool isPointer = cType.EndsWith("*") || cType == "gpointer" || cType == "gconstpointer" ||
                             (type is RecordType rec && rec.Disguised);
             bool isUtf8String = (type is FundamentalType fund && fund.Fundamental == Fundamental.Utf8);
@@ -132,10 +227,6 @@ namespace Tmds.Gir
             if (type is ListType || type is HashTableType || type is CallbackType || type is ClassType || type is InterfaceType)
             {
                 return "System.IntPtr";
-            }
-            if (type is BitfieldType || type is EnumerationType)
-            {
-                return "int";
             }
             if (type is FundamentalType f)
             {

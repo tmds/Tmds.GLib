@@ -1,6 +1,834 @@
 using System;
 using System.Runtime.InteropServices;
 namespace GLib {
+	[Flags]
+	public enum AsciiType
+	{
+		alnum = 1,
+		alpha = 2,
+		cntrl = 4,
+		digit = 8,
+		graph = 16,
+		lower = 32,
+		print = 64,
+		punct = 128,
+		space = 256,
+		upper = 512,
+		xdigit = 1024,
+	}
+	public enum BookmarkFileError
+	{
+		invalid_uri = 0,
+		invalid_value = 1,
+		app_not_registered = 2,
+		uri_not_found = 3,
+		read = 4,
+		unknown_encoding = 5,
+		write = 6,
+		file_not_found = 7,
+	}
+	public enum ChecksumType
+	{
+		md5 = 0,
+		sha1 = 1,
+		sha256 = 2,
+		sha512 = 3,
+		sha384 = 4,
+	}
+	public enum ConvertError
+	{
+		no_conversion = 0,
+		illegal_sequence = 1,
+		failed = 2,
+		partial_input = 3,
+		bad_uri = 4,
+		not_absolute_path = 5,
+		no_memory = 6,
+	}
+	public enum DateMonth
+	{
+		bad_month = 0,
+		january = 1,
+		february = 2,
+		march = 3,
+		april = 4,
+		may = 5,
+		june = 6,
+		july = 7,
+		august = 8,
+		september = 9,
+		october = 10,
+		november = 11,
+		december = 12,
+	}
+	public enum DateWeekday
+	{
+		bad_weekday = 0,
+		monday = 1,
+		tuesday = 2,
+		wednesday = 3,
+		thursday = 4,
+		friday = 5,
+		saturday = 6,
+		sunday = 7,
+	}
+	public enum DateDMY
+	{
+		day = 0,
+		month = 1,
+		year = 2,
+	}
+	public enum ErrorType
+	{
+		unknown = 0,
+		unexp_eof = 1,
+		unexp_eof_in_string = 2,
+		unexp_eof_in_comment = 3,
+		non_digit_in_const = 4,
+		digit_radix = 5,
+		float_radix = 6,
+		float_malformed = 7,
+	}
+	public enum FileError
+	{
+		exist = 0,
+		isdir = 1,
+		acces = 2,
+		nametoolong = 3,
+		noent = 4,
+		notdir = 5,
+		nxio = 6,
+		nodev = 7,
+		rofs = 8,
+		txtbsy = 9,
+		fault = 10,
+		loop = 11,
+		nospc = 12,
+		nomem = 13,
+		mfile = 14,
+		nfile = 15,
+		badf = 16,
+		inval = 17,
+		pipe = 18,
+		again = 19,
+		intr = 20,
+		io = 21,
+		perm = 22,
+		nosys = 23,
+		failed = 24,
+	}
+	[Flags]
+	public enum FileTest
+	{
+		is_regular = 1,
+		is_symlink = 2,
+		is_dir = 4,
+		is_executable = 8,
+		exists = 16,
+	}
+	[Flags]
+	public enum FormatSizeFlags
+	{
+		@default = 0,
+		long_format = 1,
+		iec_units = 2,
+	}
+	[Flags]
+	public enum HookFlagMask
+	{
+		active = 1,
+		in_call = 2,
+		mask = 15,
+	}
+	public enum IOStatus
+	{
+		error = 0,
+		normal = 1,
+		eof = 2,
+		again = 3,
+	}
+	[Flags]
+	public enum IOCondition
+	{
+		@in = 1,
+		@out = 4,
+		pri = 2,
+		err = 8,
+		hup = 16,
+		nval = 32,
+	}
+	[Flags]
+	public enum IOFlags
+	{
+		append = 1,
+		nonblock = 2,
+		is_readable = 4,
+		is_writable = 8,
+		is_writeable = 8,
+		is_seekable = 16,
+		mask = 31,
+		get_mask = 31,
+		set_mask = 3,
+	}
+	public enum IOError
+	{
+		none = 0,
+		again = 1,
+		inval = 2,
+		unknown = 3,
+	}
+	public enum SeekType
+	{
+		cur = 0,
+		set = 1,
+		end = 2,
+	}
+	public enum IOChannelError
+	{
+		fbig = 0,
+		inval = 1,
+		io = 2,
+		isdir = 3,
+		nospc = 4,
+		nxio = 5,
+		overflow = 6,
+		pipe = 7,
+		failed = 8,
+	}
+	[Flags]
+	public enum KeyFileFlags
+	{
+		none = 0,
+		keep_comments = 1,
+		keep_translations = 2,
+	}
+	public enum KeyFileError
+	{
+		unknown_encoding = 0,
+		parse = 1,
+		not_found = 2,
+		key_not_found = 3,
+		group_not_found = 4,
+		invalid_value = 5,
+	}
+	[Flags]
+	public enum LogLevelFlags
+	{
+		flag_recursion = 1,
+		flag_fatal = 2,
+		level_error = 4,
+		level_critical = 8,
+		level_warning = 16,
+		level_message = 32,
+		level_info = 64,
+		level_debug = 128,
+		level_mask = -4,
+	}
+	public enum LogWriterOutput
+	{
+		handled = 1,
+		unhandled = 0,
+	}
+	[Flags]
+	public enum MarkupCollectType
+	{
+		invalid = 0,
+		@string = 1,
+		strdup = 2,
+		boolean = 3,
+		tristate = 4,
+		optional = 65536,
+	}
+	public enum MarkupError
+	{
+		bad_utf8 = 0,
+		empty = 1,
+		parse = 2,
+		unknown_element = 3,
+		unknown_attribute = 4,
+		invalid_content = 5,
+		missing_attribute = 6,
+	}
+	[Flags]
+	public enum MarkupParseFlags
+	{
+		do_not_use_this_unsupported_flag = 1,
+		treat_cdata_as_text = 2,
+		prefix_error_position = 4,
+		ignore_qualified = 8,
+	}
+	[Flags]
+	public enum TraverseFlags
+	{
+		leaves = 1,
+		non_leaves = 2,
+		all = 3,
+		mask = 3,
+		leafs = 1,
+		non_leafs = 2,
+	}
+	public enum TraverseType
+	{
+		in_order = 0,
+		pre_order = 1,
+		post_order = 2,
+		level_order = 3,
+	}
+	public enum NormalizeMode
+	{
+		@default = 0,
+		nfd = 0,
+		default_compose = 1,
+		nfc = 1,
+		all = 2,
+		nfkd = 2,
+		all_compose = 3,
+		nfkc = 3,
+	}
+	public enum NumberParserError
+	{
+		invalid = 0,
+		out_of_bounds = 1,
+	}
+	public enum OnceStatus
+	{
+		notcalled = 0,
+		progress = 1,
+		ready = 2,
+	}
+	public enum OptionArg
+	{
+		none = 0,
+		@string = 1,
+		@int = 2,
+		callback = 3,
+		filename = 4,
+		string_array = 5,
+		filename_array = 6,
+		@double = 7,
+		int64 = 8,
+	}
+	public enum OptionError
+	{
+		unknown_option = 0,
+		bad_value = 1,
+		failed = 2,
+	}
+	[Flags]
+	public enum OptionFlags
+	{
+		none = 0,
+		hidden = 1,
+		in_main = 2,
+		reverse = 4,
+		no_arg = 8,
+		filename = 16,
+		optional_arg = 32,
+		noalias = 64,
+	}
+	[Flags]
+	public enum RegexCompileFlags
+	{
+		caseless = 1,
+		multiline = 2,
+		dotall = 4,
+		extended = 8,
+		anchored = 16,
+		dollar_endonly = 32,
+		ungreedy = 512,
+		raw = 2048,
+		no_auto_capture = 4096,
+		optimize = 8192,
+		firstline = 262144,
+		dupnames = 524288,
+		newline_cr = 1048576,
+		newline_lf = 2097152,
+		newline_crlf = 3145728,
+		newline_anycrlf = 5242880,
+		bsr_anycrlf = 8388608,
+		javascript_compat = 33554432,
+	}
+	[Flags]
+	public enum RegexMatchFlags
+	{
+		anchored = 16,
+		notbol = 128,
+		noteol = 256,
+		notempty = 1024,
+		partial = 32768,
+		newline_cr = 1048576,
+		newline_lf = 2097152,
+		newline_crlf = 3145728,
+		newline_any = 4194304,
+		newline_anycrlf = 5242880,
+		bsr_anycrlf = 8388608,
+		bsr_any = 16777216,
+		partial_soft = 32768,
+		partial_hard = 134217728,
+		notempty_atstart = 268435456,
+	}
+	public enum RegexError
+	{
+		compile = 0,
+		optimize = 1,
+		replace = 2,
+		match = 3,
+		@internal = 4,
+		stray_backslash = 101,
+		missing_control_char = 102,
+		unrecognized_escape = 103,
+		quantifiers_out_of_order = 104,
+		quantifier_too_big = 105,
+		unterminated_character_class = 106,
+		invalid_escape_in_character_class = 107,
+		range_out_of_order = 108,
+		nothing_to_repeat = 109,
+		unrecognized_character = 112,
+		posix_named_class_outside_class = 113,
+		unmatched_parenthesis = 114,
+		inexistent_subpattern_reference = 115,
+		unterminated_comment = 118,
+		expression_too_large = 120,
+		memory_error = 121,
+		variable_length_lookbehind = 125,
+		malformed_condition = 126,
+		too_many_conditional_branches = 127,
+		assertion_expected = 128,
+		unknown_posix_class_name = 130,
+		posix_collating_elements_not_supported = 131,
+		hex_code_too_large = 134,
+		invalid_condition = 135,
+		single_byte_match_in_lookbehind = 136,
+		infinite_loop = 140,
+		missing_subpattern_name_terminator = 142,
+		duplicate_subpattern_name = 143,
+		malformed_property = 146,
+		unknown_property = 147,
+		subpattern_name_too_long = 148,
+		too_many_subpatterns = 149,
+		invalid_octal_value = 151,
+		too_many_branches_in_define = 154,
+		define_repetion = 155,
+		inconsistent_newline_options = 156,
+		missing_back_reference = 157,
+		invalid_relative_reference = 158,
+		backtracking_control_verb_argument_forbidden = 159,
+		unknown_backtracking_control_verb = 160,
+		number_too_big = 161,
+		missing_subpattern_name = 162,
+		missing_digit = 163,
+		invalid_data_character = 164,
+		extra_subpattern_name = 165,
+		backtracking_control_verb_argument_required = 166,
+		invalid_control_char = 168,
+		missing_name = 169,
+		not_supported_in_class = 171,
+		too_many_forward_references = 172,
+		name_too_long = 175,
+		character_value_too_large = 176,
+	}
+	public enum TokenType
+	{
+		eof = 0,
+		left_paren = 40,
+		right_paren = 41,
+		left_curly = 123,
+		right_curly = 125,
+		left_brace = 91,
+		right_brace = 93,
+		equal_sign = 61,
+		comma = 44,
+		none = 256,
+		error = 257,
+		@char = 258,
+		binary = 259,
+		octal = 260,
+		@int = 261,
+		hex = 262,
+		@float = 263,
+		@string = 264,
+		symbol = 265,
+		identifier = 266,
+		identifier_null = 267,
+		comment_single = 268,
+		comment_multi = 269,
+	}
+	public enum ShellError
+	{
+		bad_quoting = 0,
+		empty_string = 1,
+		failed = 2,
+	}
+	public enum SliceConfig
+	{
+		always_malloc = 1,
+		bypass_magazines = 2,
+		working_set_msecs = 3,
+		color_increment = 4,
+		chunk_sizes = 5,
+		contention_counter = 6,
+	}
+	public enum SpawnError
+	{
+		fork = 0,
+		read = 1,
+		chdir = 2,
+		acces = 3,
+		perm = 4,
+		too_big = 5,
+		_2big = 5,
+		noexec = 6,
+		nametoolong = 7,
+		noent = 8,
+		nomem = 9,
+		notdir = 10,
+		loop = 11,
+		txtbusy = 12,
+		io = 13,
+		nfile = 14,
+		mfile = 15,
+		inval = 16,
+		isdir = 17,
+		libbad = 18,
+		failed = 19,
+	}
+	[Flags]
+	public enum SpawnFlags
+	{
+		@default = 0,
+		leave_descriptors_open = 1,
+		do_not_reap_child = 2,
+		search_path = 4,
+		stdout_to_dev_null = 8,
+		stderr_to_dev_null = 16,
+		child_inherits_stdin = 32,
+		file_and_argv_zero = 64,
+		search_path_from_envp = 128,
+		cloexec_pipes = 256,
+	}
+	public enum TestFileType
+	{
+		dist = 0,
+		built = 1,
+	}
+	public enum TestLogType
+	{
+		none = 0,
+		error = 1,
+		start_binary = 2,
+		list_case = 3,
+		skip_case = 4,
+		start_case = 5,
+		stop_case = 6,
+		min_result = 7,
+		max_result = 8,
+		message = 9,
+		start_suite = 10,
+		stop_suite = 11,
+	}
+	[Flags]
+	public enum TestSubprocessFlags
+	{
+		stdin = 1,
+		stdout = 2,
+		stderr = 4,
+	}
+	[Flags]
+	public enum TestTrapFlags
+	{
+		silence_stdout = 128,
+		silence_stderr = 256,
+		inherit_stdin = 512,
+	}
+	public enum ThreadError
+	{
+		thread_error_again = 0,
+	}
+	public enum TimeType
+	{
+		standard = 0,
+		daylight = 1,
+		universal = 2,
+	}
+	public enum UnicodeBreakType
+	{
+		mandatory = 0,
+		carriage_return = 1,
+		line_feed = 2,
+		combining_mark = 3,
+		surrogate = 4,
+		zero_width_space = 5,
+		inseparable = 6,
+		non_breaking_glue = 7,
+		contingent = 8,
+		space = 9,
+		after = 10,
+		before = 11,
+		before_and_after = 12,
+		hyphen = 13,
+		non_starter = 14,
+		open_punctuation = 15,
+		close_punctuation = 16,
+		quotation = 17,
+		exclamation = 18,
+		ideographic = 19,
+		numeric = 20,
+		infix_separator = 21,
+		symbol = 22,
+		alphabetic = 23,
+		prefix = 24,
+		postfix = 25,
+		complex_context = 26,
+		ambiguous = 27,
+		unknown = 28,
+		next_line = 29,
+		word_joiner = 30,
+		hangul_l_jamo = 31,
+		hangul_v_jamo = 32,
+		hangul_t_jamo = 33,
+		hangul_lv_syllable = 34,
+		hangul_lvt_syllable = 35,
+		close_paranthesis = 36,
+		conditional_japanese_starter = 37,
+		hebrew_letter = 38,
+		regional_indicator = 39,
+		emoji_base = 40,
+		emoji_modifier = 41,
+		zero_width_joiner = 42,
+	}
+	public enum UnicodeScript
+	{
+		invalid_code = -1,
+		common = 0,
+		inherited = 1,
+		arabic = 2,
+		armenian = 3,
+		bengali = 4,
+		bopomofo = 5,
+		cherokee = 6,
+		coptic = 7,
+		cyrillic = 8,
+		deseret = 9,
+		devanagari = 10,
+		ethiopic = 11,
+		georgian = 12,
+		gothic = 13,
+		greek = 14,
+		gujarati = 15,
+		gurmukhi = 16,
+		han = 17,
+		hangul = 18,
+		hebrew = 19,
+		hiragana = 20,
+		kannada = 21,
+		katakana = 22,
+		khmer = 23,
+		lao = 24,
+		latin = 25,
+		malayalam = 26,
+		mongolian = 27,
+		myanmar = 28,
+		ogham = 29,
+		old_italic = 30,
+		oriya = 31,
+		runic = 32,
+		sinhala = 33,
+		syriac = 34,
+		tamil = 35,
+		telugu = 36,
+		thaana = 37,
+		thai = 38,
+		tibetan = 39,
+		canadian_aboriginal = 40,
+		yi = 41,
+		tagalog = 42,
+		hanunoo = 43,
+		buhid = 44,
+		tagbanwa = 45,
+		braille = 46,
+		cypriot = 47,
+		limbu = 48,
+		osmanya = 49,
+		shavian = 50,
+		linear_b = 51,
+		tai_le = 52,
+		ugaritic = 53,
+		new_tai_lue = 54,
+		buginese = 55,
+		glagolitic = 56,
+		tifinagh = 57,
+		syloti_nagri = 58,
+		old_persian = 59,
+		kharoshthi = 60,
+		unknown = 61,
+		balinese = 62,
+		cuneiform = 63,
+		phoenician = 64,
+		phags_pa = 65,
+		nko = 66,
+		kayah_li = 67,
+		lepcha = 68,
+		rejang = 69,
+		sundanese = 70,
+		saurashtra = 71,
+		cham = 72,
+		ol_chiki = 73,
+		vai = 74,
+		carian = 75,
+		lycian = 76,
+		lydian = 77,
+		avestan = 78,
+		bamum = 79,
+		egyptian_hieroglyphs = 80,
+		imperial_aramaic = 81,
+		inscriptional_pahlavi = 82,
+		inscriptional_parthian = 83,
+		javanese = 84,
+		kaithi = 85,
+		lisu = 86,
+		meetei_mayek = 87,
+		old_south_arabian = 88,
+		old_turkic = 89,
+		samaritan = 90,
+		tai_tham = 91,
+		tai_viet = 92,
+		batak = 93,
+		brahmi = 94,
+		mandaic = 95,
+		chakma = 96,
+		meroitic_cursive = 97,
+		meroitic_hieroglyphs = 98,
+		miao = 99,
+		sharada = 100,
+		sora_sompeng = 101,
+		takri = 102,
+		bassa_vah = 103,
+		caucasian_albanian = 104,
+		duployan = 105,
+		elbasan = 106,
+		grantha = 107,
+		khojki = 108,
+		khudawadi = 109,
+		linear_a = 110,
+		mahajani = 111,
+		manichaean = 112,
+		mende_kikakui = 113,
+		modi = 114,
+		mro = 115,
+		nabataean = 116,
+		old_north_arabian = 117,
+		old_permic = 118,
+		pahawh_hmong = 119,
+		palmyrene = 120,
+		pau_cin_hau = 121,
+		psalter_pahlavi = 122,
+		siddham = 123,
+		tirhuta = 124,
+		warang_citi = 125,
+		ahom = 126,
+		anatolian_hieroglyphs = 127,
+		hatran = 128,
+		multani = 129,
+		old_hungarian = 130,
+		signwriting = 131,
+		adlam = 132,
+		bhaiksuki = 133,
+		marchen = 134,
+		newa = 135,
+		osage = 136,
+		tangut = 137,
+		masaram_gondi = 138,
+		nushu = 139,
+		soyombo = 140,
+		zanabazar_square = 141,
+	}
+	public enum UnicodeType
+	{
+		control = 0,
+		format = 1,
+		unassigned = 2,
+		private_use = 3,
+		surrogate = 4,
+		lowercase_letter = 5,
+		modifier_letter = 6,
+		other_letter = 7,
+		titlecase_letter = 8,
+		uppercase_letter = 9,
+		spacing_mark = 10,
+		enclosing_mark = 11,
+		non_spacing_mark = 12,
+		decimal_number = 13,
+		letter_number = 14,
+		other_number = 15,
+		connect_punctuation = 16,
+		dash_punctuation = 17,
+		close_punctuation = 18,
+		final_punctuation = 19,
+		initial_punctuation = 20,
+		other_punctuation = 21,
+		open_punctuation = 22,
+		currency_symbol = 23,
+		modifier_symbol = 24,
+		math_symbol = 25,
+		other_symbol = 26,
+		line_separator = 27,
+		paragraph_separator = 28,
+		space_separator = 29,
+	}
+	public enum UserDirectory
+	{
+		directory_desktop = 0,
+		directory_documents = 1,
+		directory_download = 2,
+		directory_music = 3,
+		directory_pictures = 4,
+		directory_public_share = 5,
+		directory_templates = 6,
+		directory_videos = 7,
+		n_directories = 8,
+	}
+	public enum VariantClass
+	{
+		boolean = 98,
+		@byte = 121,
+		int16 = 110,
+		uint16 = 113,
+		int32 = 105,
+		uint32 = 117,
+		int64 = 120,
+		uint64 = 116,
+		handle = 104,
+		@double = 100,
+		@string = 115,
+		object_path = 111,
+		signature = 103,
+		variant = 118,
+		maybe = 109,
+		array = 97,
+		tuple = 40,
+		dict_entry = 123,
+	}
+	public enum VariantParseError
+	{
+		failed = 0,
+		basic_type_expected = 1,
+		cannot_infer_type = 2,
+		definite_type_expected = 3,
+		input_not_at_end = 4,
+		invalid_character = 5,
+		invalid_format_string = 6,
+		invalid_object_path = 7,
+		invalid_signature = 8,
+		invalid_type_string = 9,
+		no_common_type = 10,
+		number_out_of_range = 11,
+		number_too_big = 12,
+		type_error = 13,
+		unexpected_token = 14,
+		unknown_keyword = 15,
+		unterminated_string_constant = 16,
+		value_expected = 17,
+	}
 	public static class GLibInterop {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_access(System.IntPtr filename, int mode);
@@ -127,17 +955,17 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_close(int fd, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_checksum_for_bytes(int checksum_type, System.IntPtr data);
+		public static extern string g_compute_checksum_for_bytes(GLib.ChecksumType checksum_type, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_checksum_for_data(int checksum_type, System.IntPtr data, ulong length);
+		public static extern string g_compute_checksum_for_data(GLib.ChecksumType checksum_type, System.IntPtr data, ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_checksum_for_string(int checksum_type, string str, long length);
+		public static extern string g_compute_checksum_for_string(GLib.ChecksumType checksum_type, string str, long length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_hmac_for_bytes(int digest_type, System.IntPtr key, System.IntPtr data);
+		public static extern string g_compute_hmac_for_bytes(GLib.ChecksumType digest_type, System.IntPtr key, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_hmac_for_data(int digest_type, System.IntPtr key, ulong key_len, System.IntPtr data, ulong length);
+		public static extern string g_compute_hmac_for_data(GLib.ChecksumType digest_type, System.IntPtr key, ulong key_len, System.IntPtr data, ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_compute_hmac_for_string(int digest_type, System.IntPtr key, ulong key_len, string str, long length);
+		public static extern string g_compute_hmac_for_string(GLib.ChecksumType digest_type, System.IntPtr key, ulong key_len, string str, long length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_convert(string str, long len, string to_codeset, string from_codeset, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
@@ -205,7 +1033,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_environ_unsetenv(System.IntPtr envp, string variable);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_file_error_from_errno(int err_no);
+		public static extern GLib.FileError g_file_error_from_errno(int err_no);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_file_error_quark();
 		[DllImport("libglib-2.0.so.0")]
@@ -217,7 +1045,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_file_set_contents(System.IntPtr filename, System.IntPtr contents, long length, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_file_test(System.IntPtr filename, int test);
+		public static extern int g_file_test(System.IntPtr filename, GLib.FileTest test);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_filename_display_basename(System.IntPtr filename);
 		[DllImport("libglib-2.0.so.0")]
@@ -237,7 +1065,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_format_size_for_display(long size);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_format_size_full(ulong size, int flags);
+		public static extern string g_format_size_full(ulong size, GLib.FormatSizeFlags flags);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_free(System.IntPtr mem);
 		[DllImport("libglib-2.0.so.0")]
@@ -289,7 +1117,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_get_user_runtime_dir();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_get_user_special_dir(int directory);
+		public static extern System.IntPtr g_get_user_special_dir(GLib.UserDirectory directory);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_getenv(string variable);
 		[DllImport("libglib-2.0.so.0")]
@@ -325,11 +1153,11 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_intern_string(string @string);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_io_add_watch(System.IntPtr channel, int condition, System.IntPtr func, System.IntPtr user_data);
+		public static extern uint g_io_add_watch(System.IntPtr channel, GLib.IOCondition condition, System.IntPtr func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_io_add_watch_full(System.IntPtr channel, int priority, int condition, System.IntPtr func, System.IntPtr user_data, System.IntPtr notify);
+		public static extern uint g_io_add_watch_full(System.IntPtr channel, int priority, GLib.IOCondition condition, System.IntPtr func, System.IntPtr user_data, System.IntPtr notify);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_io_create_watch(System.IntPtr channel, int condition);
+		public static extern System.IntPtr g_io_create_watch(System.IntPtr channel, GLib.IOCondition condition);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_listenv();
 		[DllImport("libglib-2.0.so.0")]
@@ -337,35 +1165,35 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_locale_to_utf8(string opsysstring, long len, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_log_default_handler(string log_domain, int log_level, string message, System.IntPtr unused_data);
+		public static extern void g_log_default_handler(string log_domain, GLib.LogLevelFlags log_level, string message, System.IntPtr unused_data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_log_remove_handler(string log_domain, uint handler_id);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_log_set_always_fatal(int fatal_mask);
+		public static extern GLib.LogLevelFlags g_log_set_always_fatal(GLib.LogLevelFlags fatal_mask);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_log_set_default_handler(System.IntPtr log_func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_log_set_fatal_mask(string log_domain, int fatal_mask);
+		public static extern GLib.LogLevelFlags g_log_set_fatal_mask(string log_domain, GLib.LogLevelFlags fatal_mask);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_log_set_handler(string log_domain, int log_levels, System.IntPtr log_func, System.IntPtr user_data);
+		public static extern uint g_log_set_handler(string log_domain, GLib.LogLevelFlags log_levels, System.IntPtr log_func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_log_set_handler_full(string log_domain, int log_levels, System.IntPtr log_func, System.IntPtr user_data, System.IntPtr destroy);
+		public static extern uint g_log_set_handler_full(string log_domain, GLib.LogLevelFlags log_levels, System.IntPtr log_func, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_log_set_writer_func(System.IntPtr func, System.IntPtr user_data, System.IntPtr user_data_free);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_log_structured_array(int log_level, System.IntPtr fields, ulong n_fields);
+		public static extern void g_log_structured_array(GLib.LogLevelFlags log_level, System.IntPtr fields, ulong n_fields);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_log_variant(string log_domain, int log_level, System.IntPtr fields);
+		public static extern void g_log_variant(string log_domain, GLib.LogLevelFlags log_level, System.IntPtr fields);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_log_writer_default(int log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
+		public static extern GLib.LogWriterOutput g_log_writer_default(GLib.LogLevelFlags log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_log_writer_format_fields(int log_level, System.IntPtr fields, ulong n_fields, int use_color);
+		public static extern string g_log_writer_format_fields(GLib.LogLevelFlags log_level, System.IntPtr fields, ulong n_fields, int use_color);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_log_writer_is_journald(int output_fd);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_log_writer_journald(int log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
+		public static extern GLib.LogWriterOutput g_log_writer_journald(GLib.LogLevelFlags log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_log_writer_standard_streams(int log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
+		public static extern GLib.LogWriterOutput g_log_writer_standard_streams(GLib.LogLevelFlags log_level, System.IntPtr fields, ulong n_fields, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_log_writer_supports_color(int output_fd);
 		[DllImport("libglib-2.0.so.0")]
@@ -499,17 +1327,17 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_slice_free_chain_with_offset(ulong block_size, System.IntPtr mem_chain, ulong next_offset);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern long g_slice_get_config(int ckey);
+		public static extern long g_slice_get_config(GLib.SliceConfig ckey);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_slice_get_config_state(int ckey, long address, System.IntPtr n_values);
+		public static extern System.IntPtr g_slice_get_config_state(GLib.SliceConfig ckey, long address, System.IntPtr n_values);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_slice_set_config(int ckey, long value);
+		public static extern void g_slice_set_config(GLib.SliceConfig ckey, long value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_spaced_primes_closest(uint num);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_spawn_async(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, int flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, System.IntPtr error);
+		public static extern int g_spawn_async(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_spawn_async_with_pipes(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, int flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, System.IntPtr standard_input, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr error);
+		public static extern int g_spawn_async_with_pipes(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, System.IntPtr standard_input, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_spawn_check_exit_status(int exit_status, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
@@ -523,7 +1351,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_spawn_exit_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_spawn_sync(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, int flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr exit_status, System.IntPtr error);
+		public static extern int g_spawn_sync(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr exit_status, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_stpcpy(string dest, string src);
 		[DllImport("libglib-2.0.so.0")]
@@ -631,13 +1459,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_test_create_suite(string suite_name);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_test_expect_message(string log_domain, int log_level, string pattern);
+		public static extern void g_test_expect_message(string log_domain, GLib.LogLevelFlags log_level, string pattern);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_test_fail();
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_test_failed();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_test_get_dir(int file_type);
+		public static extern System.IntPtr g_test_get_dir(GLib.TestFileType file_type);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_test_get_root();
 		[DllImport("libglib-2.0.so.0")]
@@ -645,7 +1473,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_test_log_set_fatal_handler(System.IntPtr log_func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_test_log_type_name(int log_type);
+		public static extern string g_test_log_type_name(GLib.TestLogType log_type);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_test_queue_destroy(System.IntPtr destroy_func, System.IntPtr destroy_data);
 		[DllImport("libglib-2.0.so.0")]
@@ -677,13 +1505,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_test_trap_assertions(string domain, string file, int line, string func, ulong assertion_flags, string pattern);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_test_trap_fork(ulong usec_timeout, int test_trap_flags);
+		public static extern int g_test_trap_fork(ulong usec_timeout, GLib.TestTrapFlags test_trap_flags);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_test_trap_has_passed();
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_test_trap_reached_timeout();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_test_trap_subprocess(string test_path, ulong usec_timeout, int test_flags);
+		public static extern void g_test_trap_subprocess(string test_path, ulong usec_timeout, GLib.TestSubprocessFlags test_flags);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_timeout_add(uint interval, System.IntPtr function, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
@@ -713,7 +1541,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_ucs4_to_utf8(System.IntPtr str, long len, System.IntPtr items_read, System.IntPtr items_written, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_unichar_break_type(uint c);
+		public static extern GLib.UnicodeBreakType g_unichar_break_type(uint c);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_combining_class(uint uc);
 		[DllImport("libglib-2.0.so.0")]
@@ -727,7 +1555,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_get_mirror_char(uint ch, System.IntPtr mirrored_ch);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_unichar_get_script(uint ch);
+		public static extern GLib.UnicodeScript g_unichar_get_script(uint ch);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_isalnum(uint c);
 		[DllImport("libglib-2.0.so.0")]
@@ -771,7 +1599,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_unichar_toupper(uint c);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_unichar_type(uint c);
+		public static extern GLib.UnicodeType g_unichar_type(uint c);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_validate(uint ch);
 		[DllImport("libglib-2.0.so.0")]
@@ -781,17 +1609,17 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_unicode_canonical_ordering(System.IntPtr @string, ulong len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_unicode_script_from_iso15924(uint iso15924);
+		public static extern GLib.UnicodeScript g_unicode_script_from_iso15924(uint iso15924);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_unicode_script_to_iso15924(int script);
+		public static extern uint g_unicode_script_to_iso15924(GLib.UnicodeScript script);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_unix_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_unix_fd_add(int fd, int condition, System.IntPtr function, System.IntPtr user_data);
+		public static extern uint g_unix_fd_add(int fd, GLib.IOCondition condition, System.IntPtr function, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_unix_fd_add_full(int priority, int fd, int condition, System.IntPtr function, System.IntPtr user_data, System.IntPtr notify);
+		public static extern uint g_unix_fd_add_full(int priority, int fd, GLib.IOCondition condition, System.IntPtr function, System.IntPtr user_data, System.IntPtr notify);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_unix_fd_source_new(int fd, int condition);
+		public static extern System.IntPtr g_unix_fd_source_new(int fd, GLib.IOCondition condition);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unix_open_pipe(System.IntPtr fds, int flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
@@ -841,7 +1669,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_utf8_make_valid(string str, long len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_utf8_normalize(string str, long len, int mode);
+		public static extern string g_utf8_normalize(string str, long len, GLib.NormalizeMode mode);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_utf8_offset_to_pointer(string str, long offset);
 		[DllImport("libglib-2.0.so.0")]
@@ -1121,7 +1949,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_bytes_unref_to_data(System.IntPtr bytes, System.IntPtr size);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_checksum_new(int checksum_type);
+		public static extern System.IntPtr g_checksum_new(GLib.ChecksumType checksum_type);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_checksum_copy(System.IntPtr checksum);
 		[DllImport("libglib-2.0.so.0")]
@@ -1135,7 +1963,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_checksum_update(System.IntPtr checksum, System.IntPtr data, long length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern long g_checksum_type_get_length(int checksum_type);
+		public static extern long g_checksum_type_get_length(GLib.ChecksumType checksum_type);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_cond_broadcast(System.IntPtr cond);
 		[DllImport("libglib-2.0.so.0")]
@@ -1161,7 +1989,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_date_new();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_date_new_dmy(byte day, int month, ushort year);
+		public static extern System.IntPtr g_date_new_dmy(byte day, GLib.DateMonth month, ushort year);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_date_new_julian(uint julian_day);
 		[DllImport("libglib-2.0.so.0")]
@@ -1191,11 +2019,11 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_date_get_monday_week_of_year(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_date_get_month(System.IntPtr date);
+		public static extern GLib.DateMonth g_date_get_month(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_date_get_sunday_week_of_year(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_date_get_weekday(System.IntPtr date);
+		public static extern GLib.DateWeekday g_date_get_weekday(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ushort g_date_get_year(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
@@ -1207,11 +2035,11 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_set_day(System.IntPtr date, byte day);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_date_set_dmy(System.IntPtr date, byte day, int month, ushort y);
+		public static extern void g_date_set_dmy(System.IntPtr date, byte day, GLib.DateMonth month, ushort y);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_set_julian(System.IntPtr date, uint julian_date);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_date_set_month(System.IntPtr date, int month);
+		public static extern void g_date_set_month(System.IntPtr date, GLib.DateMonth month);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_set_parse(System.IntPtr date, string str);
 		[DllImport("libglib-2.0.so.0")]
@@ -1233,7 +2061,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_date_valid(System.IntPtr date);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern byte g_date_get_days_in_month(int month, ushort year);
+		public static extern byte g_date_get_days_in_month(GLib.DateMonth month, ushort year);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern byte g_date_get_monday_weeks_in_year(ushort year);
 		[DllImport("libglib-2.0.so.0")]
@@ -1245,13 +2073,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_date_valid_day(byte day);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_date_valid_dmy(byte day, int month, ushort year);
+		public static extern int g_date_valid_dmy(byte day, GLib.DateMonth month, ushort year);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_date_valid_julian(uint julian_date);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_date_valid_month(int month);
+		public static extern int g_date_valid_month(GLib.DateMonth month);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_date_valid_weekday(int weekday);
+		public static extern int g_date_valid_weekday(GLib.DateWeekday weekday);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_date_valid_year(ushort year);
 		[DllImport("libglib-2.0.so.0")]
@@ -1355,9 +2183,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_time_zone_new_utc();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_time_zone_adjust_time(System.IntPtr tz, int type, System.IntPtr time_);
+		public static extern int g_time_zone_adjust_time(System.IntPtr tz, GLib.TimeType type, System.IntPtr time_);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_time_zone_find_interval(System.IntPtr tz, int type, long time_);
+		public static extern int g_time_zone_find_interval(System.IntPtr tz, GLib.TimeType type, long time_);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_time_zone_get_abbreviation(System.IntPtr tz, int interval);
 		[DllImport("libglib-2.0.so.0")]
@@ -1449,7 +2277,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_hmac_update(System.IntPtr hmac, System.IntPtr data, long length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_hmac_new(int digest_type, System.IntPtr key, ulong key_len);
+		public static extern System.IntPtr g_hmac_new(GLib.ChecksumType digest_type, System.IntPtr key, ulong key_len);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_hook_compare_ids(System.IntPtr new_hook, System.IntPtr sibling);
 		[DllImport("libglib-2.0.so.0")]
@@ -1561,9 +2389,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_close(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_flush(System.IntPtr channel, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_flush(System.IntPtr channel, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_get_buffer_condition(System.IntPtr channel);
+		public static extern GLib.IOCondition g_io_channel_get_buffer_condition(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_io_channel_get_buffer_size(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
@@ -1573,29 +2401,29 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_io_channel_get_encoding(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_get_flags(System.IntPtr channel);
+		public static extern GLib.IOFlags g_io_channel_get_flags(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_io_channel_get_line_term(System.IntPtr channel, System.IntPtr length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_init(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read(System.IntPtr channel, string buf, ulong count, System.IntPtr bytes_read);
+		public static extern GLib.IOError g_io_channel_read(System.IntPtr channel, string buf, ulong count, System.IntPtr bytes_read);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read_chars(System.IntPtr channel, System.IntPtr buf, ulong count, System.IntPtr bytes_read, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_read_chars(System.IntPtr channel, System.IntPtr buf, ulong count, System.IntPtr bytes_read, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read_line(System.IntPtr channel, string str_return, System.IntPtr length, System.IntPtr terminator_pos, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_read_line(System.IntPtr channel, string str_return, System.IntPtr length, System.IntPtr terminator_pos, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read_line_string(System.IntPtr channel, System.IntPtr buffer, System.IntPtr terminator_pos, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_read_line_string(System.IntPtr channel, System.IntPtr buffer, System.IntPtr terminator_pos, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read_to_end(System.IntPtr channel, System.IntPtr str_return, System.IntPtr length, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_read_to_end(System.IntPtr channel, System.IntPtr str_return, System.IntPtr length, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_read_unichar(System.IntPtr channel, System.IntPtr thechar, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_read_unichar(System.IntPtr channel, System.IntPtr thechar, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_io_channel_ref(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_seek(System.IntPtr channel, long offset, int type);
+		public static extern GLib.IOError g_io_channel_seek(System.IntPtr channel, long offset, GLib.SeekType type);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_seek_position(System.IntPtr channel, long offset, int type, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_seek_position(System.IntPtr channel, long offset, GLib.SeekType type, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_set_buffer_size(System.IntPtr channel, ulong size);
 		[DllImport("libglib-2.0.so.0")]
@@ -1603,25 +2431,25 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_set_close_on_unref(System.IntPtr channel, int do_close);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_set_encoding(System.IntPtr channel, string encoding, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_set_encoding(System.IntPtr channel, string encoding, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_set_flags(System.IntPtr channel, int flags, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_set_flags(System.IntPtr channel, GLib.IOFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_set_line_term(System.IntPtr channel, string line_term, int length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_shutdown(System.IntPtr channel, int flush, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_shutdown(System.IntPtr channel, int flush, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_io_channel_unix_get_fd(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_unref(System.IntPtr channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_write(System.IntPtr channel, string buf, ulong count, System.IntPtr bytes_written);
+		public static extern GLib.IOError g_io_channel_write(System.IntPtr channel, string buf, ulong count, System.IntPtr bytes_written);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_write_chars(System.IntPtr channel, System.IntPtr buf, long count, System.IntPtr bytes_written, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_write_chars(System.IntPtr channel, System.IntPtr buf, long count, System.IntPtr bytes_written, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_write_unichar(System.IntPtr channel, uint thechar, System.IntPtr error);
+		public static extern GLib.IOStatus g_io_channel_write_unichar(System.IntPtr channel, uint thechar, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_io_channel_error_from_errno(int en);
+		public static extern GLib.IOChannelError g_io_channel_error_from_errno(int en);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_io_channel_error_quark();
 		[DllImport("libglib-2.0.so.0")]
@@ -1631,7 +2459,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_source_add_poll(System.IntPtr source, System.IntPtr fd);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_source_add_unix_fd(System.IntPtr source, int fd, int events);
+		public static extern System.IntPtr g_source_add_unix_fd(System.IntPtr source, int fd, GLib.IOCondition events);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_source_attach(System.IntPtr source, System.IntPtr context);
 		[DllImport("libglib-2.0.so.0")]
@@ -1655,9 +2483,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_source_is_destroyed(System.IntPtr source);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_source_modify_unix_fd(System.IntPtr source, System.IntPtr tag, int new_events);
+		public static extern void g_source_modify_unix_fd(System.IntPtr source, System.IntPtr tag, GLib.IOCondition new_events);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_source_query_unix_fd(System.IntPtr source, System.IntPtr tag);
+		public static extern GLib.IOCondition g_source_query_unix_fd(System.IntPtr source, System.IntPtr tag);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_source_ref(System.IntPtr source);
 		[DllImport("libglib-2.0.so.0")]
@@ -1733,15 +2561,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_key_file_has_key(System.IntPtr key_file, string group_name, string key, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_key_file_load_from_bytes(System.IntPtr key_file, System.IntPtr bytes, int flags, System.IntPtr error);
+		public static extern int g_key_file_load_from_bytes(System.IntPtr key_file, System.IntPtr bytes, GLib.KeyFileFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_key_file_load_from_data(System.IntPtr key_file, string data, ulong length, int flags, System.IntPtr error);
+		public static extern int g_key_file_load_from_data(System.IntPtr key_file, string data, ulong length, GLib.KeyFileFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_key_file_load_from_data_dirs(System.IntPtr key_file, System.IntPtr file, System.IntPtr full_path, int flags, System.IntPtr error);
+		public static extern int g_key_file_load_from_data_dirs(System.IntPtr key_file, System.IntPtr file, System.IntPtr full_path, GLib.KeyFileFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_key_file_load_from_dirs(System.IntPtr key_file, System.IntPtr file, System.IntPtr search_dirs, System.IntPtr full_path, int flags, System.IntPtr error);
+		public static extern int g_key_file_load_from_dirs(System.IntPtr key_file, System.IntPtr file, System.IntPtr search_dirs, System.IntPtr full_path, GLib.KeyFileFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_key_file_load_from_file(System.IntPtr key_file, System.IntPtr file, int flags, System.IntPtr error);
+		public static extern int g_key_file_load_from_file(System.IntPtr key_file, System.IntPtr file, GLib.KeyFileFlags flags, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_key_file_ref(System.IntPtr key_file);
 		[DllImport("libglib-2.0.so.0")]
@@ -1937,7 +2765,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_mapped_file_unref(System.IntPtr file);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_markup_parse_context_new(System.IntPtr parser, int flags, System.IntPtr user_data, System.IntPtr user_data_dnotify);
+		public static extern System.IntPtr g_markup_parse_context_new(System.IntPtr parser, GLib.MarkupParseFlags flags, System.IntPtr user_data, System.IntPtr user_data_dnotify);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_markup_parse_context_end_parse(System.IntPtr context, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
@@ -1991,15 +2819,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_match_info_unref(System.IntPtr match_info);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_regex_new(string pattern, int compile_options, int match_options, System.IntPtr error);
+		public static extern System.IntPtr g_regex_new(string pattern, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_regex_get_capture_count(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_get_compile_flags(System.IntPtr regex);
+		public static extern GLib.RegexCompileFlags g_regex_get_compile_flags(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_regex_get_has_cr_or_lf(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_get_match_flags(System.IntPtr regex);
+		public static extern GLib.RegexMatchFlags g_regex_get_match_flags(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_regex_get_max_backref(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
@@ -2009,25 +2837,25 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_regex_get_string_number(System.IntPtr regex, string name);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_match(System.IntPtr regex, string @string, int match_options, System.IntPtr match_info);
+		public static extern int g_regex_match(System.IntPtr regex, string @string, GLib.RegexMatchFlags match_options, System.IntPtr match_info);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_match_all(System.IntPtr regex, string @string, int match_options, System.IntPtr match_info);
+		public static extern int g_regex_match_all(System.IntPtr regex, string @string, GLib.RegexMatchFlags match_options, System.IntPtr match_info);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_match_all_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, int match_options, System.IntPtr match_info, System.IntPtr error);
+		public static extern int g_regex_match_all_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, System.IntPtr match_info, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_match_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, int match_options, System.IntPtr match_info, System.IntPtr error);
+		public static extern int g_regex_match_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, System.IntPtr match_info, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_regex_ref(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_regex_replace(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, string replacement, int match_options, System.IntPtr error);
+		public static extern string g_regex_replace(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, string replacement, GLib.RegexMatchFlags match_options, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_regex_replace_eval(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, int match_options, System.IntPtr eval, System.IntPtr user_data, System.IntPtr error);
+		public static extern string g_regex_replace_eval(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, System.IntPtr eval, System.IntPtr user_data, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_regex_replace_literal(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, string replacement, int match_options, System.IntPtr error);
+		public static extern string g_regex_replace_literal(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, string replacement, GLib.RegexMatchFlags match_options, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_regex_split(System.IntPtr regex, string @string, int match_options);
+		public static extern System.IntPtr g_regex_split(System.IntPtr regex, string @string, GLib.RegexMatchFlags match_options);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_regex_split_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, int match_options, int max_tokens, System.IntPtr error);
+		public static extern System.IntPtr g_regex_split_full(System.IntPtr regex, System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, int max_tokens, System.IntPtr error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_regex_unref(System.IntPtr regex);
 		[DllImport("libglib-2.0.so.0")]
@@ -2039,15 +2867,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_regex_escape_string(System.IntPtr @string, int length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_regex_match_simple(string pattern, string @string, int compile_options, int match_options);
+		public static extern int g_regex_match_simple(string pattern, string @string, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_regex_split_simple(string pattern, string @string, int compile_options, int match_options);
+		public static extern System.IntPtr g_regex_split_simple(string pattern, string @string, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_node_child_index(System.IntPtr node, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_node_child_position(System.IntPtr node, System.IntPtr child);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_node_children_foreach(System.IntPtr node, int flags, System.IntPtr func, System.IntPtr data);
+		public static extern void g_node_children_foreach(System.IntPtr node, GLib.TraverseFlags flags, System.IntPtr func, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_node_copy(System.IntPtr node);
 		[DllImport("libglib-2.0.so.0")]
@@ -2057,9 +2885,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_node_destroy(System.IntPtr root);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_node_find(System.IntPtr root, int order, int flags, System.IntPtr data);
+		public static extern System.IntPtr g_node_find(System.IntPtr root, GLib.TraverseType order, GLib.TraverseFlags flags, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_node_find_child(System.IntPtr node, int flags, System.IntPtr data);
+		public static extern System.IntPtr g_node_find_child(System.IntPtr node, GLib.TraverseFlags flags, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_node_first_sibling(System.IntPtr node);
 		[DllImport("libglib-2.0.so.0")]
@@ -2081,7 +2909,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_node_n_children(System.IntPtr node);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_node_n_nodes(System.IntPtr root, int flags);
+		public static extern uint g_node_n_nodes(System.IntPtr root, GLib.TraverseFlags flags);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_node_nth_child(System.IntPtr node, uint n);
 		[DllImport("libglib-2.0.so.0")]
@@ -2089,7 +2917,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_node_reverse_children(System.IntPtr node);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_node_traverse(System.IntPtr root, int order, int flags, int max_depth, System.IntPtr func, System.IntPtr data);
+		public static extern void g_node_traverse(System.IntPtr root, GLib.TraverseType order, GLib.TraverseFlags flags, int max_depth, System.IntPtr func, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_node_unlink(System.IntPtr node);
 		[DllImport("libglib-2.0.so.0")]
@@ -2405,13 +3233,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_scanner_cur_position(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_scanner_cur_token(System.IntPtr scanner);
+		public static extern GLib.TokenType g_scanner_cur_token(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_scanner_destroy(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_scanner_eof(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_scanner_get_next_token(System.IntPtr scanner);
+		public static extern GLib.TokenType g_scanner_get_next_token(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_scanner_input_file(System.IntPtr scanner, int input_fd);
 		[DllImport("libglib-2.0.so.0")]
@@ -2419,7 +3247,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_scanner_lookup_symbol(System.IntPtr scanner, string symbol);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_scanner_peek_next_token(System.IntPtr scanner);
+		public static extern GLib.TokenType g_scanner_peek_next_token(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_scanner_scope_add_symbol(System.IntPtr scanner, uint scope_id, string symbol, System.IntPtr value);
 		[DllImport("libglib-2.0.so.0")]
@@ -2433,7 +3261,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_scanner_sync_file_offset(System.IntPtr scanner);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_scanner_unexp_token(System.IntPtr scanner, int expected_token, string identifier_spec, string symbol_spec, string symbol_name, string message, int is_error);
+		public static extern void g_scanner_unexp_token(System.IntPtr scanner, GLib.TokenType expected_token, string identifier_spec, string symbol_spec, string symbol_name, string message, int is_error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_scanner_new(System.IntPtr config_templ);
 		[DllImport("libglib-2.0.so.0")]
@@ -2633,7 +3461,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_tree_steal(System.IntPtr tree, System.IntPtr key);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_tree_traverse(System.IntPtr tree, System.IntPtr traverse_func, int traverse_type, System.IntPtr user_data);
+		public static extern void g_tree_traverse(System.IntPtr tree, System.IntPtr traverse_func, GLib.TraverseType traverse_type, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_tree_unref(System.IntPtr tree);
 		[DllImport("libglib-2.0.so.0")]
@@ -2703,7 +3531,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_variant_check_format_string(System.IntPtr value, string format_string, int copy_only);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_variant_classify(System.IntPtr value);
+		public static extern GLib.VariantClass g_variant_classify(System.IntPtr value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_variant_compare(System.IntPtr one, System.IntPtr two);
 		[DllImport("libglib-2.0.so.0")]

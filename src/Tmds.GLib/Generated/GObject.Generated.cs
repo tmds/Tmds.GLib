@@ -1,6 +1,82 @@
 using System;
 using System.Runtime.InteropServices;
 namespace GObject {
+	[Flags]
+	public enum BindingFlags
+	{
+		@default = 0,
+		bidirectional = 1,
+		sync_create = 2,
+		invert_boolean = 4,
+	}
+	[Flags]
+	public enum ConnectFlags
+	{
+		after = 1,
+		swapped = 2,
+	}
+	[Flags]
+	public enum ParamFlags
+	{
+		readable = 1,
+		writable = 2,
+		readwrite = 3,
+		construct = 4,
+		construct_only = 8,
+		lax_validation = 16,
+		static_name = 32,
+		@private = 32,
+		static_nick = 64,
+		static_blurb = 128,
+		explicit_notify = 1073741824,
+		deprecated = unchecked((int)2147483648U),
+	}
+	[Flags]
+	public enum SignalFlags
+	{
+		run_first = 1,
+		run_last = 2,
+		run_cleanup = 4,
+		no_recurse = 8,
+		detailed = 16,
+		action = 32,
+		no_hooks = 64,
+		must_collect = 128,
+		deprecated = 256,
+	}
+	[Flags]
+	public enum SignalMatchType
+	{
+		id = 1,
+		detail = 2,
+		closure = 4,
+		func = 8,
+		data = 16,
+		unblocked = 32,
+	}
+	[Flags]
+	public enum TypeDebugFlags
+	{
+		none = 0,
+		objects = 1,
+		signals = 2,
+		instance_count = 4,
+		mask = 7,
+	}
+	[Flags]
+	public enum TypeFlags
+	{
+		@abstract = 16,
+		value_abstract = 32,
+	}
+	[Flags]
+	public enum TypeFundamentalFlags
+	{
+		classed = 1,
+		instantiatable = 2,
+		derivable = 4,
+		deep_derivable = 8,
+	}
 	public static class GObjectInterop {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_boxed_copy(ulong boxed_type, System.IntPtr src_boxed);
@@ -37,51 +113,51 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_gtype_get_type();
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_boolean(string name, string nick, string blurb, int default_value, int flags);
+		public static extern System.IntPtr g_param_spec_boolean(string name, string nick, string blurb, int default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_boxed(string name, string nick, string blurb, ulong boxed_type, int flags);
+		public static extern System.IntPtr g_param_spec_boxed(string name, string nick, string blurb, ulong boxed_type, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_char(string name, string nick, string blurb, sbyte minimum, sbyte maximum, sbyte default_value, int flags);
+		public static extern System.IntPtr g_param_spec_char(string name, string nick, string blurb, sbyte minimum, sbyte maximum, sbyte default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_double(string name, string nick, string blurb, double minimum, double maximum, double default_value, int flags);
+		public static extern System.IntPtr g_param_spec_double(string name, string nick, string blurb, double minimum, double maximum, double default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_enum(string name, string nick, string blurb, ulong enum_type, int default_value, int flags);
+		public static extern System.IntPtr g_param_spec_enum(string name, string nick, string blurb, ulong enum_type, int default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_flags(string name, string nick, string blurb, ulong flags_type, uint default_value, int flags);
+		public static extern System.IntPtr g_param_spec_flags(string name, string nick, string blurb, ulong flags_type, uint default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_float(string name, string nick, string blurb, float minimum, float maximum, float default_value, int flags);
+		public static extern System.IntPtr g_param_spec_float(string name, string nick, string blurb, float minimum, float maximum, float default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_gtype(string name, string nick, string blurb, ulong is_a_type, int flags);
+		public static extern System.IntPtr g_param_spec_gtype(string name, string nick, string blurb, ulong is_a_type, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_int(string name, string nick, string blurb, int minimum, int maximum, int default_value, int flags);
+		public static extern System.IntPtr g_param_spec_int(string name, string nick, string blurb, int minimum, int maximum, int default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_int64(string name, string nick, string blurb, long minimum, long maximum, long default_value, int flags);
+		public static extern System.IntPtr g_param_spec_int64(string name, string nick, string blurb, long minimum, long maximum, long default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_long(string name, string nick, string blurb, long minimum, long maximum, long default_value, int flags);
+		public static extern System.IntPtr g_param_spec_long(string name, string nick, string blurb, long minimum, long maximum, long default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_object(string name, string nick, string blurb, ulong object_type, int flags);
+		public static extern System.IntPtr g_param_spec_object(string name, string nick, string blurb, ulong object_type, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_param_spec_override(string name, System.IntPtr overridden);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_param(string name, string nick, string blurb, ulong param_type, int flags);
+		public static extern System.IntPtr g_param_spec_param(string name, string nick, string blurb, ulong param_type, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_pointer(string name, string nick, string blurb, int flags);
+		public static extern System.IntPtr g_param_spec_pointer(string name, string nick, string blurb, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_string(string name, string nick, string blurb, string default_value, int flags);
+		public static extern System.IntPtr g_param_spec_string(string name, string nick, string blurb, string default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_uchar(string name, string nick, string blurb, byte minimum, byte maximum, byte default_value, int flags);
+		public static extern System.IntPtr g_param_spec_uchar(string name, string nick, string blurb, byte minimum, byte maximum, byte default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_uint(string name, string nick, string blurb, uint minimum, uint maximum, uint default_value, int flags);
+		public static extern System.IntPtr g_param_spec_uint(string name, string nick, string blurb, uint minimum, uint maximum, uint default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_uint64(string name, string nick, string blurb, ulong minimum, ulong maximum, ulong default_value, int flags);
+		public static extern System.IntPtr g_param_spec_uint64(string name, string nick, string blurb, ulong minimum, ulong maximum, ulong default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_ulong(string name, string nick, string blurb, ulong minimum, ulong maximum, ulong default_value, int flags);
+		public static extern System.IntPtr g_param_spec_ulong(string name, string nick, string blurb, ulong minimum, ulong maximum, ulong default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_unichar(string name, string nick, string blurb, uint default_value, int flags);
+		public static extern System.IntPtr g_param_spec_unichar(string name, string nick, string blurb, uint default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_value_array(string name, string nick, string blurb, System.IntPtr element_spec, int flags);
+		public static extern System.IntPtr g_param_spec_value_array(string name, string nick, string blurb, System.IntPtr element_spec, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_variant(string name, string nick, string blurb, System.IntPtr type, System.IntPtr default_value, int flags);
+		public static extern System.IntPtr g_param_spec_variant(string name, string nick, string blurb, System.IntPtr type, System.IntPtr default_value, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_param_type_register_static(string name, System.IntPtr pspec_info);
 		[DllImport("libgobject-2.0.so.0")]
@@ -109,9 +185,9 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_signal_connect_closure_by_id(System.IntPtr instance, uint signal_id, uint detail, System.IntPtr closure, int after);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_signal_connect_data(System.IntPtr instance, string detailed_signal, System.IntPtr c_handler, System.IntPtr data, System.IntPtr destroy_data, int connect_flags);
+		public static extern ulong g_signal_connect_data(System.IntPtr instance, string detailed_signal, System.IntPtr c_handler, System.IntPtr data, System.IntPtr destroy_data, GObject.ConnectFlags connect_flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_signal_connect_object(System.IntPtr instance, string detailed_signal, System.IntPtr c_handler, System.IntPtr gobject, int connect_flags);
+		public static extern ulong g_signal_connect_object(System.IntPtr instance, string detailed_signal, System.IntPtr c_handler, System.IntPtr gobject, GObject.ConnectFlags connect_flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_emitv(System.IntPtr instance_and_params, uint signal_id, uint detail, System.IntPtr return_value);
 		[DllImport("libgobject-2.0.so.0")]
@@ -121,19 +197,19 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_handler_disconnect(System.IntPtr instance, ulong handler_id);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_signal_handler_find(System.IntPtr instance, int mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
+		public static extern ulong g_signal_handler_find(System.IntPtr instance, GObject.SignalMatchType mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern int g_signal_handler_is_connected(System.IntPtr instance, ulong handler_id);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_handler_unblock(System.IntPtr instance, ulong handler_id);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_signal_handlers_block_matched(System.IntPtr instance, int mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
+		public static extern uint g_signal_handlers_block_matched(System.IntPtr instance, GObject.SignalMatchType mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_handlers_destroy(System.IntPtr instance);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_signal_handlers_disconnect_matched(System.IntPtr instance, int mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
+		public static extern uint g_signal_handlers_disconnect_matched(System.IntPtr instance, GObject.SignalMatchType mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_signal_handlers_unblock_matched(System.IntPtr instance, int mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
+		public static extern uint g_signal_handlers_unblock_matched(System.IntPtr instance, GObject.SignalMatchType mask, uint signal_id, uint detail, System.IntPtr closure, System.IntPtr func, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern int g_signal_has_handler_pending(System.IntPtr instance, uint signal_id, uint detail, int may_be_blocked);
 		[DllImport("libgobject-2.0.so.0")]
@@ -143,7 +219,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern string g_signal_name(uint signal_id);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_signal_newv(string signal_name, ulong itype, int signal_flags, System.IntPtr class_closure, System.IntPtr accumulator, System.IntPtr accu_data, System.IntPtr c_marshaller, ulong return_type, uint n_params, System.IntPtr param_types);
+		public static extern uint g_signal_newv(string signal_name, ulong itype, GObject.SignalFlags signal_flags, System.IntPtr class_closure, System.IntPtr accumulator, System.IntPtr accu_data, System.IntPtr c_marshaller, ulong return_type, uint n_params, System.IntPtr param_types);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_override_class_closure(uint signal_id, ulong instance_type, System.IntPtr class_closure);
 		[DllImport("libgobject-2.0.so.0")]
@@ -231,7 +307,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_init();
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_type_init_with_debug_flags(int debug_flags);
+		public static extern void g_type_init_with_debug_flags(GObject.TypeDebugFlags debug_flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_type_interfaces(ulong type, System.IntPtr n_interfaces);
 		[DllImport("libgobject-2.0.so.0")]
@@ -251,13 +327,13 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_query(ulong type, System.IntPtr query);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_type_register_dynamic(ulong parent_type, string type_name, System.IntPtr plugin, int flags);
+		public static extern ulong g_type_register_dynamic(ulong parent_type, string type_name, System.IntPtr plugin, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_type_register_fundamental(ulong type_id, string type_name, System.IntPtr info, System.IntPtr finfo, int flags);
+		public static extern ulong g_type_register_fundamental(ulong type_id, string type_name, System.IntPtr info, System.IntPtr finfo, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_type_register_static(ulong parent_type, string type_name, System.IntPtr info, int flags);
+		public static extern ulong g_type_register_static(ulong parent_type, string type_name, System.IntPtr info, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_type_register_static_simple(ulong parent_type, string type_name, uint class_size, System.IntPtr class_init, uint instance_size, System.IntPtr instance_init, int flags);
+		public static extern ulong g_type_register_static_simple(ulong parent_type, string type_name, uint class_size, System.IntPtr class_init, uint instance_size, System.IntPtr instance_init, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_remove_class_cache_func(System.IntPtr cache_data, System.IntPtr cache_func);
 		[DllImport("libgobject-2.0.so.0")]
@@ -287,7 +363,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_type_class_ref(ulong type);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern int g_binding_get_flags(System.IntPtr binding);
+		public static extern GObject.BindingFlags g_binding_get_flags(System.IntPtr binding);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_binding_get_source(System.IntPtr binding);
 		[DllImport("libgobject-2.0.so.0")]
@@ -315,11 +391,11 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_add_weak_pointer(System.IntPtr @object, System.IntPtr weak_pointer_location);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_object_bind_property(System.IntPtr source, string source_property, System.IntPtr target, string target_property, int flags);
+		public static extern System.IntPtr g_object_bind_property(System.IntPtr source, string source_property, System.IntPtr target, string target_property, GObject.BindingFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_object_bind_property_full(System.IntPtr source, string source_property, System.IntPtr target, string target_property, int flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify);
+		public static extern System.IntPtr g_object_bind_property_full(System.IntPtr source, string source_property, System.IntPtr target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_object_bind_property_with_closures(System.IntPtr source, string source_property, System.IntPtr target, string target_property, int flags, System.IntPtr transform_to, System.IntPtr transform_from);
+		public static extern System.IntPtr g_object_bind_property_with_closures(System.IntPtr source, string source_property, System.IntPtr target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_object_dup_data(System.IntPtr @object, string key, System.IntPtr dup_func, System.IntPtr user_data);
 		[DllImport("libgobject-2.0.so.0")]
@@ -607,7 +683,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_cclosure_new_swap(System.IntPtr callback_func, System.IntPtr user_data, System.IntPtr destroy_data);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_internal(ulong param_type, string name, string nick, string blurb, int flags);
+		public static extern System.IntPtr g_param_spec_internal(ulong param_type, string name, string nick, string blurb, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern string g_param_spec_get_blurb(System.IntPtr pspec);
 		[DllImport("libgobject-2.0.so.0")]
@@ -685,7 +761,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_type_module_register_flags(System.IntPtr module, string name, System.IntPtr const_static_values);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_type_module_register_type(System.IntPtr module, ulong parent_type, string type_name, System.IntPtr type_info, int flags);
+		public static extern ulong g_type_module_register_type(System.IntPtr module, ulong parent_type, string type_name, System.IntPtr type_info, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_module_set_name(System.IntPtr module, string name);
 		[DllImport("libgobject-2.0.so.0")]

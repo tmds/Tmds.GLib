@@ -1,33 +1,688 @@
 using System;
 using System.Runtime.InteropServices;
 namespace Gio {
+	[Flags]
+	public enum AppInfoCreateFlags
+	{
+		none = 0,
+		needs_terminal = 1,
+		supports_uris = 2,
+		supports_startup_notification = 4,
+	}
+	[Flags]
+	public enum ApplicationFlags
+	{
+		flags_none = 0,
+		is_service = 1,
+		is_launcher = 2,
+		handles_open = 4,
+		handles_command_line = 8,
+		send_environment = 16,
+		non_unique = 32,
+		can_override_app_id = 64,
+	}
+	[Flags]
+	public enum AskPasswordFlags
+	{
+		need_password = 1,
+		need_username = 2,
+		need_domain = 4,
+		saving_supported = 8,
+		anonymous_supported = 16,
+	}
+	[Flags]
+	public enum BusNameOwnerFlags
+	{
+		none = 0,
+		allow_replacement = 1,
+		replace = 2,
+		do_not_queue = 4,
+	}
+	[Flags]
+	public enum BusNameWatcherFlags
+	{
+		none = 0,
+		auto_start = 1,
+	}
+	public enum BusType
+	{
+		starter = -1,
+		none = 0,
+		system = 1,
+		session = 2,
+	}
+	public enum ConverterResult
+	{
+		error = 0,
+		converted = 1,
+		finished = 2,
+		flushed = 3,
+	}
+	[Flags]
+	public enum ConverterFlags
+	{
+		none = 0,
+		input_at_end = 1,
+		flush = 2,
+	}
+	public enum CredentialsType
+	{
+		invalid = 0,
+		linux_ucred = 1,
+		freebsd_cmsgcred = 2,
+		openbsd_sockpeercred = 3,
+		solaris_ucred = 4,
+		netbsd_unpcbid = 5,
+	}
+	[Flags]
+	public enum DBusCallFlags
+	{
+		none = 0,
+		no_auto_start = 1,
+		allow_interactive_authorization = 2,
+	}
+	[Flags]
+	public enum DBusCapabilityFlags
+	{
+		none = 0,
+		unix_fd_passing = 1,
+	}
+	[Flags]
+	public enum DBusConnectionFlags
+	{
+		none = 0,
+		authentication_client = 1,
+		authentication_server = 2,
+		authentication_allow_anonymous = 4,
+		message_bus_connection = 8,
+		delay_message_processing = 16,
+	}
+	[Flags]
+	public enum DBusSubtreeFlags
+	{
+		none = 0,
+		dispatch_to_unenumerated_nodes = 1,
+	}
+	[Flags]
+	public enum DBusSendMessageFlags
+	{
+		none = 0,
+		preserve_serial = 1,
+	}
+	[Flags]
+	public enum DBusSignalFlags
+	{
+		none = 0,
+		no_match_rule = 1,
+		match_arg0_namespace = 2,
+		match_arg0_path = 4,
+	}
+	public enum DBusError
+	{
+		failed = 0,
+		no_memory = 1,
+		service_unknown = 2,
+		name_has_no_owner = 3,
+		no_reply = 4,
+		io_error = 5,
+		bad_address = 6,
+		not_supported = 7,
+		limits_exceeded = 8,
+		access_denied = 9,
+		auth_failed = 10,
+		no_server = 11,
+		timeout = 12,
+		no_network = 13,
+		address_in_use = 14,
+		disconnected = 15,
+		invalid_args = 16,
+		file_not_found = 17,
+		file_exists = 18,
+		unknown_method = 19,
+		timed_out = 20,
+		match_rule_not_found = 21,
+		match_rule_invalid = 22,
+		spawn_exec_failed = 23,
+		spawn_fork_failed = 24,
+		spawn_child_exited = 25,
+		spawn_child_signaled = 26,
+		spawn_failed = 27,
+		spawn_setup_failed = 28,
+		spawn_config_invalid = 29,
+		spawn_service_invalid = 30,
+		spawn_service_not_found = 31,
+		spawn_permissions_invalid = 32,
+		spawn_file_invalid = 33,
+		spawn_no_memory = 34,
+		unix_process_id_unknown = 35,
+		invalid_signature = 36,
+		invalid_file_content = 37,
+		selinux_security_context_unknown = 38,
+		adt_audit_data_unknown = 39,
+		object_path_in_use = 40,
+		unknown_object = 41,
+		unknown_interface = 42,
+		unknown_property = 43,
+		property_read_only = 44,
+	}
+	[Flags]
+	public enum DBusInterfaceSkeletonFlags
+	{
+		none = 0,
+		handle_method_invocations_in_thread = 1,
+	}
+	public enum DBusMessageByteOrder
+	{
+		big_endian = 66,
+		little_endian = 108,
+	}
+	[Flags]
+	public enum DBusMessageFlags
+	{
+		none = 0,
+		no_reply_expected = 1,
+		no_auto_start = 2,
+		allow_interactive_authorization = 4,
+	}
+	public enum DBusMessageHeaderField
+	{
+		invalid = 0,
+		path = 1,
+		@interface = 2,
+		member = 3,
+		error_name = 4,
+		reply_serial = 5,
+		destination = 6,
+		sender = 7,
+		signature = 8,
+		num_unix_fds = 9,
+	}
+	public enum DBusMessageType
+	{
+		invalid = 0,
+		method_call = 1,
+		method_return = 2,
+		error = 3,
+		signal = 4,
+	}
+	[Flags]
+	public enum DBusObjectManagerClientFlags
+	{
+		none = 0,
+		do_not_auto_start = 1,
+	}
+	[Flags]
+	public enum DBusPropertyInfoFlags
+	{
+		none = 0,
+		readable = 1,
+		writable = 2,
+	}
+	[Flags]
+	public enum DBusProxyFlags
+	{
+		none = 0,
+		do_not_load_properties = 1,
+		do_not_connect_signals = 2,
+		do_not_auto_start = 4,
+		get_invalidated_properties = 8,
+		do_not_auto_start_at_construction = 16,
+	}
+	[Flags]
+	public enum DBusServerFlags
+	{
+		none = 0,
+		run_in_thread = 1,
+		authentication_allow_anonymous = 2,
+	}
+	public enum DataStreamByteOrder
+	{
+		big_endian = 0,
+		little_endian = 1,
+		host_endian = 2,
+	}
+	public enum DataStreamNewlineType
+	{
+		lf = 0,
+		cr = 1,
+		cr_lf = 2,
+		any = 3,
+	}
+	[Flags]
+	public enum MountUnmountFlags
+	{
+		none = 0,
+		force = 1,
+	}
+	public enum DriveStartStopType
+	{
+		unknown = 0,
+		shutdown = 1,
+		network = 2,
+		multidisk = 3,
+		password = 4,
+	}
+	[Flags]
+	public enum DriveStartFlags
+	{
+		none = 0,
+	}
+	[Flags]
+	public enum TlsCertificateFlags
+	{
+		unknown_ca = 1,
+		bad_identity = 2,
+		not_activated = 4,
+		expired = 8,
+		revoked = 16,
+		insecure = 32,
+		generic_error = 64,
+		validate_all = 127,
+	}
+	public enum TlsRehandshakeMode
+	{
+		never = 0,
+		safely = 1,
+		unsafely = 2,
+	}
+	public enum TlsAuthenticationMode
+	{
+		none = 0,
+		requested = 1,
+		required = 2,
+	}
+	public enum EmblemOrigin
+	{
+		unknown = 0,
+		device = 1,
+		livemetadata = 2,
+		tag = 3,
+	}
+	[Flags]
+	public enum FileCreateFlags
+	{
+		none = 0,
+		@private = 1,
+		replace_destination = 2,
+	}
+	[Flags]
+	public enum FileCopyFlags
+	{
+		none = 0,
+		overwrite = 1,
+		backup = 2,
+		nofollow_symlinks = 4,
+		all_metadata = 8,
+		no_fallback_for_move = 16,
+		target_default_perms = 32,
+	}
+	[Flags]
+	public enum FileQueryInfoFlags
+	{
+		none = 0,
+		nofollow_symlinks = 1,
+	}
+	[Flags]
+	public enum FileMeasureFlags
+	{
+		none = 0,
+		report_any_error = 2,
+		apparent_size = 4,
+		no_xdev = 8,
+	}
+	[Flags]
+	public enum FileMonitorFlags
+	{
+		none = 0,
+		watch_mounts = 1,
+		send_moved = 2,
+		watch_hard_links = 4,
+		watch_moves = 8,
+	}
+	[Flags]
+	public enum MountMountFlags
+	{
+		none = 0,
+	}
+	public enum FileType
+	{
+		unknown = 0,
+		regular = 1,
+		directory = 2,
+		symbolic_link = 3,
+		special = 4,
+		shortcut = 5,
+		mountable = 6,
+	}
+	public enum FileAttributeType
+	{
+		invalid = 0,
+		@string = 1,
+		byte_string = 2,
+		boolean = 3,
+		uint32 = 4,
+		int32 = 5,
+		uint64 = 6,
+		int64 = 7,
+		@object = 8,
+		stringv = 9,
+	}
+	[Flags]
+	public enum FileAttributeInfoFlags
+	{
+		none = 0,
+		copy_with_file = 1,
+		copy_when_moved = 2,
+	}
+	public enum FileAttributeStatus
+	{
+		unset = 0,
+		set = 1,
+		error_setting = 2,
+	}
+	public enum FileMonitorEvent
+	{
+		changed = 0,
+		changes_done_hint = 1,
+		deleted = 2,
+		created = 3,
+		attribute_changed = 4,
+		pre_unmount = 5,
+		unmounted = 6,
+		moved = 7,
+		renamed = 8,
+		moved_in = 9,
+		moved_out = 10,
+	}
+	public enum FilesystemPreviewType
+	{
+		if_always = 0,
+		if_local = 1,
+		never = 2,
+	}
+	public enum IOErrorEnum
+	{
+		failed = 0,
+		not_found = 1,
+		exists = 2,
+		is_directory = 3,
+		not_directory = 4,
+		not_empty = 5,
+		not_regular_file = 6,
+		not_symbolic_link = 7,
+		not_mountable_file = 8,
+		filename_too_long = 9,
+		invalid_filename = 10,
+		too_many_links = 11,
+		no_space = 12,
+		invalid_argument = 13,
+		permission_denied = 14,
+		not_supported = 15,
+		not_mounted = 16,
+		already_mounted = 17,
+		closed = 18,
+		cancelled = 19,
+		pending = 20,
+		read_only = 21,
+		cant_create_backup = 22,
+		wrong_etag = 23,
+		timed_out = 24,
+		would_recurse = 25,
+		busy = 26,
+		would_block = 27,
+		host_not_found = 28,
+		would_merge = 29,
+		failed_handled = 30,
+		too_many_open_files = 31,
+		not_initialized = 32,
+		address_in_use = 33,
+		partial_input = 34,
+		invalid_data = 35,
+		dbus_error = 36,
+		host_unreachable = 37,
+		network_unreachable = 38,
+		connection_refused = 39,
+		proxy_failed = 40,
+		proxy_auth_failed = 41,
+		proxy_need_auth = 42,
+		proxy_not_allowed = 43,
+		broken_pipe = 44,
+		connection_closed = 44,
+		not_connected = 45,
+		message_too_large = 46,
+	}
+	public enum IOModuleScopeFlags
+	{
+		none = 0,
+		block_duplicates = 1,
+	}
+	[Flags]
+	public enum IOStreamSpliceFlags
+	{
+		none = 0,
+		close_stream1 = 1,
+		close_stream2 = 2,
+		wait_for_both = 4,
+	}
+	public enum SocketFamily
+	{
+		invalid = 0,
+		unix = 1,
+		ipv4 = 2,
+		ipv6 = 10,
+	}
+	public enum PasswordSave
+	{
+		never = 0,
+		for_session = 1,
+		permanently = 2,
+	}
+	public enum MountOperationResult
+	{
+		handled = 0,
+		aborted = 1,
+		unhandled = 2,
+	}
+	public enum NetworkConnectivity
+	{
+		local = 1,
+		limited = 2,
+		portal = 3,
+		full = 4,
+	}
+	public enum NotificationPriority
+	{
+		normal = 0,
+		low = 1,
+		high = 2,
+		urgent = 3,
+	}
+	[Flags]
+	public enum OutputStreamSpliceFlags
+	{
+		none = 0,
+		close_source = 1,
+		close_target = 2,
+	}
+	public enum ResolverRecordType
+	{
+		srv = 1,
+		mx = 2,
+		txt = 3,
+		soa = 4,
+		ns = 5,
+	}
+	public enum ResolverError
+	{
+		not_found = 0,
+		temporary_failure = 1,
+		@internal = 2,
+	}
+	[Flags]
+	public enum ResourceLookupFlags
+	{
+		none = 0,
+	}
+	public enum ResourceError
+	{
+		not_found = 0,
+		@internal = 1,
+	}
+	[Flags]
+	public enum ResourceFlags
+	{
+		none = 0,
+		compressed = 1,
+	}
+	[Flags]
+	public enum SettingsBindFlags
+	{
+		@default = 0,
+		get = 1,
+		set = 2,
+		no_sensitivity = 4,
+		get_no_changes = 8,
+		invert_boolean = 16,
+	}
+	public enum SocketType
+	{
+		invalid = 0,
+		stream = 1,
+		datagram = 2,
+		seqpacket = 3,
+	}
+	public enum SocketProtocol
+	{
+		unknown = -1,
+		@default = 0,
+		tcp = 6,
+		udp = 17,
+		sctp = 132,
+	}
+	public enum SocketClientEvent
+	{
+		resolving = 0,
+		resolved = 1,
+		connecting = 2,
+		connected = 3,
+		proxy_negotiating = 4,
+		proxy_negotiated = 5,
+		tls_handshaking = 6,
+		tls_handshaked = 7,
+		complete = 8,
+	}
+	public enum SocketListenerEvent
+	{
+		binding = 0,
+		bound = 1,
+		listening = 2,
+		listened = 3,
+	}
+	[Flags]
+	public enum SocketMsgFlags
+	{
+		none = 0,
+		oob = 1,
+		peek = 2,
+		dontroute = 4,
+	}
+	[Flags]
+	public enum SubprocessFlags
+	{
+		none = 0,
+		stdin_pipe = 1,
+		stdin_inherit = 2,
+		stdout_pipe = 4,
+		stdout_silence = 8,
+		stderr_pipe = 16,
+		stderr_silence = 32,
+		stderr_merge = 64,
+		inherit_fds = 128,
+	}
+	[Flags]
+	public enum TestDBusFlags
+	{
+		none = 0,
+	}
+	public enum TlsCertificateRequestFlags
+	{
+		none = 0,
+	}
+	public enum TlsDatabaseLookupFlags
+	{
+		none = 0,
+		keypair = 1,
+	}
+	[Flags]
+	public enum TlsDatabaseVerifyFlags
+	{
+		none = 0,
+	}
+	public enum TlsError
+	{
+		unavailable = 0,
+		misc = 1,
+		bad_certificate = 2,
+		not_tls = 3,
+		handshake = 4,
+		certificate_required = 5,
+		eof = 6,
+	}
+	public enum TlsInteractionResult
+	{
+		unhandled = 0,
+		handled = 1,
+		failed = 2,
+	}
+	[Flags]
+	public enum TlsPasswordFlags
+	{
+		none = 0,
+		retry = 2,
+		many_tries = 4,
+		final_try = 8,
+	}
+	public enum UnixSocketAddressType
+	{
+		invalid = 0,
+		anonymous = 1,
+		path = 2,
+		@abstract = 3,
+		abstract_padded = 4,
+	}
+	public enum ZlibCompressorFormat
+	{
+		zlib = 0,
+		gzip = 1,
+		raw = 2,
+	}
 	public static class GioInterop {
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_bus_get(int bus_type, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_bus_get(Gio.BusType bus_type, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_bus_get_finish(System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_bus_get_sync(int bus_type, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_bus_get_sync(Gio.BusType bus_type, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_own_name(int bus_type, string name, int flags, System.IntPtr bus_acquired_handler, System.IntPtr name_acquired_handler, System.IntPtr name_lost_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
+		public static extern uint g_bus_own_name(Gio.BusType bus_type, string name, Gio.BusNameOwnerFlags flags, System.IntPtr bus_acquired_handler, System.IntPtr name_acquired_handler, System.IntPtr name_lost_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_own_name_on_connection(System.IntPtr connection, string name, int flags, System.IntPtr name_acquired_handler, System.IntPtr name_lost_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
+		public static extern uint g_bus_own_name_on_connection(System.IntPtr connection, string name, Gio.BusNameOwnerFlags flags, System.IntPtr name_acquired_handler, System.IntPtr name_lost_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_own_name_on_connection_with_closures(System.IntPtr connection, string name, int flags, System.IntPtr name_acquired_closure, System.IntPtr name_lost_closure);
+		public static extern uint g_bus_own_name_on_connection_with_closures(System.IntPtr connection, string name, Gio.BusNameOwnerFlags flags, System.IntPtr name_acquired_closure, System.IntPtr name_lost_closure);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_own_name_with_closures(int bus_type, string name, int flags, System.IntPtr bus_acquired_closure, System.IntPtr name_acquired_closure, System.IntPtr name_lost_closure);
+		public static extern uint g_bus_own_name_with_closures(Gio.BusType bus_type, string name, Gio.BusNameOwnerFlags flags, System.IntPtr bus_acquired_closure, System.IntPtr name_acquired_closure, System.IntPtr name_lost_closure);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_bus_unown_name(uint owner_id);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_bus_unwatch_name(uint watcher_id);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_watch_name(int bus_type, string name, int flags, System.IntPtr name_appeared_handler, System.IntPtr name_vanished_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
+		public static extern uint g_bus_watch_name(Gio.BusType bus_type, string name, Gio.BusNameWatcherFlags flags, System.IntPtr name_appeared_handler, System.IntPtr name_vanished_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_watch_name_on_connection(System.IntPtr connection, string name, int flags, System.IntPtr name_appeared_handler, System.IntPtr name_vanished_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
+		public static extern uint g_bus_watch_name_on_connection(System.IntPtr connection, string name, Gio.BusNameWatcherFlags flags, System.IntPtr name_appeared_handler, System.IntPtr name_vanished_handler, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_watch_name_on_connection_with_closures(System.IntPtr connection, string name, int flags, System.IntPtr name_appeared_closure, System.IntPtr name_vanished_closure);
+		public static extern uint g_bus_watch_name_on_connection_with_closures(System.IntPtr connection, string name, Gio.BusNameWatcherFlags flags, System.IntPtr name_appeared_closure, System.IntPtr name_vanished_closure);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_bus_watch_name_with_closures(int bus_type, string name, int flags, System.IntPtr name_appeared_closure, System.IntPtr name_vanished_closure);
+		public static extern uint g_bus_watch_name_with_closures(Gio.BusType bus_type, string name, Gio.BusNameWatcherFlags flags, System.IntPtr name_appeared_closure, System.IntPtr name_vanished_closure);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_content_type_can_be_executable(string type);
 		[DllImport("libgio-2.0.so.0")]
@@ -59,7 +714,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_address_escape_value(string @string);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_dbus_address_get_for_bus_sync(int bus_type, System.IntPtr cancellable, System.IntPtr error);
+		public static extern string g_dbus_address_get_for_bus_sync(Gio.BusType bus_type, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_address_get_stream(string address, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
@@ -87,7 +742,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_is_unique_name(string @string);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_io_error_from_errno(int err_no);
+		public static extern Gio.IOErrorEnum g_io_error_from_errno(int err_no);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_io_error_quark();
 		[DllImport("libgio-2.0.so.0")]
@@ -121,13 +776,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_pollable_stream_write_all(System.IntPtr stream, System.IntPtr buffer, ulong count, int blocking, System.IntPtr bytes_written, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resources_enumerate_children(string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resources_enumerate_children(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_resources_get_info(string path, int lookup_flags, System.IntPtr size, System.IntPtr flags, System.IntPtr error);
+		public static extern int g_resources_get_info(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr size, System.IntPtr flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resources_lookup_data(string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resources_lookup_data(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resources_open_stream(string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resources_open_stream(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_resources_register(System.IntPtr resource);
 		[DllImport("libgio-2.0.so.0")]
@@ -245,7 +900,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_action_map_remove_action(System.IntPtr action_map, string action_name);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_app_info_create_from_commandline(string commandline, string application_name, int flags, System.IntPtr error);
+		public static extern System.IntPtr g_app_info_create_from_commandline(string commandline, string application_name, Gio.AppInfoCreateFlags flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_app_info_get_all();
 		[DllImport("libgio-2.0.so.0")]
@@ -387,29 +1042,29 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_parse_name(string parse_name);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_append_to(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_append_to(System.IntPtr file, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_append_to_async(System.IntPtr file, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_append_to_async(System.IntPtr file, Gio.FileCreateFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_append_to_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_copy(System.IntPtr source, System.IntPtr destination, int flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr error);
+		public static extern int g_file_copy(System.IntPtr source, System.IntPtr destination, Gio.FileCopyFlags flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_copy_async(System.IntPtr source, System.IntPtr destination, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_copy_async(System.IntPtr source, System.IntPtr destination, Gio.FileCopyFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_copy_attributes(System.IntPtr source, System.IntPtr destination, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_copy_attributes(System.IntPtr source, System.IntPtr destination, Gio.FileCopyFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_copy_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_create(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_create(System.IntPtr file, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_create_async(System.IntPtr file, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_create_async(System.IntPtr file, Gio.FileCreateFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_create_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_create_readwrite(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_create_readwrite(System.IntPtr file, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_create_readwrite_async(System.IntPtr file, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_create_readwrite_async(System.IntPtr file, Gio.FileCreateFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_create_readwrite_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -421,17 +1076,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_dup(System.IntPtr file);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_eject_mountable(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_eject_mountable(System.IntPtr file, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_eject_mountable_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_eject_mountable_with_operation(System.IntPtr file, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_eject_mountable_with_operation(System.IntPtr file, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_eject_mountable_with_operation_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_enumerate_children(System.IntPtr file, string attributes, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_enumerate_children(System.IntPtr file, string attributes, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_enumerate_children_async(System.IntPtr file, string attributes, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_enumerate_children_async(System.IntPtr file, string attributes, Gio.FileQueryInfoFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_enumerate_children_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -491,27 +1146,27 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_make_symbolic_link(System.IntPtr file, System.IntPtr symlink_value, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_measure_disk_usage(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, System.IntPtr error);
+		public static extern int g_file_measure_disk_usage(System.IntPtr file, Gio.FileMeasureFlags flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_measure_disk_usage_async(System.IntPtr file, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_measure_disk_usage_async(System.IntPtr file, Gio.FileMeasureFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_measure_disk_usage_finish(System.IntPtr file, System.IntPtr result, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_monitor(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_monitor(System.IntPtr file, Gio.FileMonitorFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_monitor_directory(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_monitor_directory(System.IntPtr file, Gio.FileMonitorFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_monitor_file(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_monitor_file(System.IntPtr file, Gio.FileMonitorFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_mount_enclosing_volume(System.IntPtr location, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_mount_enclosing_volume(System.IntPtr location, Gio.MountMountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_mount_enclosing_volume_finish(System.IntPtr location, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_mount_mountable(System.IntPtr file, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_mount_mountable(System.IntPtr file, Gio.MountMountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_mount_mountable_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_move(System.IntPtr source, System.IntPtr destination, int flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr error);
+		public static extern int g_file_move(System.IntPtr source, System.IntPtr destination, Gio.FileCopyFlags flags, System.IntPtr cancellable, System.IntPtr progress_callback, System.IntPtr progress_callback_data, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_open_readwrite(System.IntPtr file, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -527,7 +1182,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_query_exists(System.IntPtr file, System.IntPtr cancellable);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_query_file_type(System.IntPtr file, int flags, System.IntPtr cancellable);
+		public static extern Gio.FileType g_file_query_file_type(System.IntPtr file, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_query_filesystem_info(System.IntPtr file, string attributes, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -535,9 +1190,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_query_filesystem_info_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_query_info(System.IntPtr file, string attributes, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_query_info(System.IntPtr file, string attributes, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_query_info_async(System.IntPtr file, string attributes, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_query_info_async(System.IntPtr file, string attributes, Gio.FileQueryInfoFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_query_info_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -551,47 +1206,47 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_read_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_replace(System.IntPtr file, string etag, int make_backup, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_replace(System.IntPtr file, string etag, int make_backup, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_replace_async(System.IntPtr file, string etag, int make_backup, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_replace_async(System.IntPtr file, string etag, int make_backup, Gio.FileCreateFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_replace_contents(System.IntPtr file, System.IntPtr contents, ulong length, string etag, int make_backup, int flags, string new_etag, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_replace_contents(System.IntPtr file, System.IntPtr contents, ulong length, string etag, int make_backup, Gio.FileCreateFlags flags, string new_etag, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_replace_contents_async(System.IntPtr file, System.IntPtr contents, ulong length, string etag, int make_backup, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_replace_contents_async(System.IntPtr file, System.IntPtr contents, ulong length, string etag, int make_backup, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_replace_contents_bytes_async(System.IntPtr file, System.IntPtr contents, string etag, int make_backup, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_replace_contents_bytes_async(System.IntPtr file, System.IntPtr contents, string etag, int make_backup, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_replace_contents_finish(System.IntPtr file, System.IntPtr res, string new_etag, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_replace_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_file_replace_readwrite(System.IntPtr file, string etag, int make_backup, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_file_replace_readwrite(System.IntPtr file, string etag, int make_backup, Gio.FileCreateFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_replace_readwrite_async(System.IntPtr file, string etag, int make_backup, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_replace_readwrite_async(System.IntPtr file, string etag, int make_backup, Gio.FileCreateFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_replace_readwrite_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_resolve_relative_path(System.IntPtr file, System.IntPtr relative_path);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute(System.IntPtr file, string attribute, int type, System.IntPtr value_p, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute(System.IntPtr file, string attribute, Gio.FileAttributeType type, System.IntPtr value_p, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_byte_string(System.IntPtr file, string attribute, string value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_byte_string(System.IntPtr file, string attribute, string value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_int32(System.IntPtr file, string attribute, int value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_int32(System.IntPtr file, string attribute, int value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_int64(System.IntPtr file, string attribute, long value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_int64(System.IntPtr file, string attribute, long value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_string(System.IntPtr file, string attribute, string value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_string(System.IntPtr file, string attribute, string value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_uint32(System.IntPtr file, string attribute, uint value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_uint32(System.IntPtr file, string attribute, uint value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attribute_uint64(System.IntPtr file, string attribute, ulong value, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attribute_uint64(System.IntPtr file, string attribute, ulong value, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_set_attributes_async(System.IntPtr file, System.IntPtr info, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_set_attributes_async(System.IntPtr file, System.IntPtr info, Gio.FileQueryInfoFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_set_attributes_finish(System.IntPtr file, System.IntPtr result, System.IntPtr info, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_set_attributes_from_info(System.IntPtr file, System.IntPtr info, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_file_set_attributes_from_info(System.IntPtr file, System.IntPtr info, Gio.FileQueryInfoFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_set_display_name(System.IntPtr file, string display_name, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -599,11 +1254,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_set_display_name_finish(System.IntPtr file, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_start_mountable(System.IntPtr file, int flags, System.IntPtr start_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_start_mountable(System.IntPtr file, Gio.DriveStartFlags flags, System.IntPtr start_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_start_mountable_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_stop_mountable(System.IntPtr file, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_stop_mountable(System.IntPtr file, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_stop_mountable_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -615,17 +1270,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_trash_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_unmount_mountable(System.IntPtr file, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_unmount_mountable(System.IntPtr file, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_unmount_mountable_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_unmount_mountable_with_operation(System.IntPtr file, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_file_unmount_mountable_with_operation(System.IntPtr file, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_unmount_mountable_with_operation_finish(System.IntPtr file, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_app_info_monitor_get();
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_application_new(string application_id, int flags);
+		public static extern System.IntPtr g_application_new(string application_id, Gio.ApplicationFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_application_get_default();
 		[DllImport("libgio-2.0.so.0")]
@@ -633,7 +1288,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_application_activate(System.IntPtr application);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_application_add_main_option(System.IntPtr application, string long_name, sbyte short_name, int flags, int arg, string description, string arg_description);
+		public static extern void g_application_add_main_option(System.IntPtr application, string long_name, sbyte short_name, GLib.OptionFlags flags, GLib.OptionArg arg, string description, string arg_description);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_application_add_main_option_entries(System.IntPtr application, System.IntPtr entries);
 		[DllImport("libgio-2.0.so.0")]
@@ -647,7 +1302,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_application_get_dbus_object_path(System.IntPtr application);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_application_get_flags(System.IntPtr application);
+		public static extern Gio.ApplicationFlags g_application_get_flags(System.IntPtr application);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_application_get_inactivity_timeout(System.IntPtr application);
 		[DllImport("libgio-2.0.so.0")]
@@ -681,7 +1336,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_application_set_default(System.IntPtr application);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_application_set_flags(System.IntPtr application, int flags);
+		public static extern void g_application_set_flags(System.IntPtr application, Gio.ApplicationFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_application_set_inactivity_timeout(System.IntPtr application, uint inactivity_timeout);
 		[DllImport("libgio-2.0.so.0")]
@@ -697,27 +1352,27 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_connection_new_for_address_finish(System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_connection_new_for_address_sync(string address, int flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_connection_new_for_address_sync(string address, Gio.DBusConnectionFlags flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_connection_new_sync(System.IntPtr stream, string guid, int flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_connection_new_sync(System.IntPtr stream, string guid, Gio.DBusConnectionFlags flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_new(System.IntPtr stream, string guid, int flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_new(System.IntPtr stream, string guid, Gio.DBusConnectionFlags flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_new_for_address(string address, int flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_new_for_address(string address, Gio.DBusConnectionFlags flags, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_dbus_connection_add_filter(System.IntPtr connection, System.IntPtr filter_function, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_call(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, int flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_call(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_connection_call_finish(System.IntPtr connection, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_connection_call_sync(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, int flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_connection_call_sync(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_call_with_unix_fd_list(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, int flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_call_with_unix_fd_list(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_connection_call_with_unix_fd_list_finish(System.IntPtr connection, System.IntPtr out_fd_list, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_connection_call_with_unix_fd_list_sync(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, int flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr out_fd_list, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_connection_call_with_unix_fd_list_sync(System.IntPtr connection, string bus_name, string object_path, string interface_name, string method_name, System.IntPtr parameters, System.IntPtr reply_type, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr out_fd_list, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_close(System.IntPtr connection, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
@@ -737,7 +1392,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_connection_flush_sync(System.IntPtr connection, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_connection_get_capabilities(System.IntPtr connection);
+		public static extern Gio.DBusCapabilityFlags g_dbus_connection_get_capabilities(System.IntPtr connection);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_connection_get_exit_on_close(System.IntPtr connection);
 		[DllImport("libgio-2.0.so.0")]
@@ -757,21 +1412,21 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_dbus_connection_register_object_with_closures(System.IntPtr connection, string object_path, System.IntPtr interface_info, System.IntPtr method_call_closure, System.IntPtr get_property_closure, System.IntPtr set_property_closure, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_dbus_connection_register_subtree(System.IntPtr connection, string object_path, System.IntPtr vtable, int flags, System.IntPtr user_data, System.IntPtr user_data_free_func, System.IntPtr error);
+		public static extern uint g_dbus_connection_register_subtree(System.IntPtr connection, string object_path, System.IntPtr vtable, Gio.DBusSubtreeFlags flags, System.IntPtr user_data, System.IntPtr user_data_free_func, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_remove_filter(System.IntPtr connection, uint filter_id);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_connection_send_message(System.IntPtr connection, System.IntPtr message, int flags, System.IntPtr out_serial, System.IntPtr error);
+		public static extern int g_dbus_connection_send_message(System.IntPtr connection, System.IntPtr message, Gio.DBusSendMessageFlags flags, System.IntPtr out_serial, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_send_message_with_reply(System.IntPtr connection, System.IntPtr message, int flags, int timeout_msec, System.IntPtr out_serial, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_send_message_with_reply(System.IntPtr connection, System.IntPtr message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_connection_send_message_with_reply_finish(System.IntPtr connection, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_connection_send_message_with_reply_sync(System.IntPtr connection, System.IntPtr message, int flags, int timeout_msec, System.IntPtr out_serial, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_connection_send_message_with_reply_sync(System.IntPtr connection, System.IntPtr message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_set_exit_on_close(System.IntPtr connection, int exit_on_close);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern uint g_dbus_connection_signal_subscribe(System.IntPtr connection, string sender, string interface_name, string member, string object_path, string arg0, int flags, System.IntPtr callback, System.IntPtr user_data, System.IntPtr user_data_free_func);
+		public static extern uint g_dbus_connection_signal_subscribe(System.IntPtr connection, string sender, string interface_name, string member, string object_path, string arg0, Gio.DBusSignalFlags flags, System.IntPtr callback, System.IntPtr user_data, System.IntPtr user_data_free_func);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_signal_unsubscribe(System.IntPtr connection, uint subscription_id);
 		[DllImport("libgio-2.0.so.0")]
@@ -799,7 +1454,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_notification_set_icon(System.IntPtr notification, System.IntPtr icon);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_notification_set_priority(System.IntPtr notification, int priority);
+		public static extern void g_notification_set_priority(System.IntPtr notification, Gio.NotificationPriority priority);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_notification_set_title(System.IntPtr notification, string title);
 		[DllImport("libgio-2.0.so.0")]
@@ -877,7 +1532,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_seekable_can_truncate(System.IntPtr seekable);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_seekable_seek(System.IntPtr seekable, long offset, int type, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_seekable_seek(System.IntPtr seekable, long offset, GLib.SeekType type, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_seekable_tell(System.IntPtr seekable);
 		[DllImport("libgio-2.0.so.0")]
@@ -933,9 +1588,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_output_stream_set_pending(System.IntPtr stream, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern long g_output_stream_splice(System.IntPtr stream, System.IntPtr source, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern long g_output_stream_splice(System.IntPtr stream, System.IntPtr source, Gio.OutputStreamSpliceFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_output_stream_splice_async(System.IntPtr stream, System.IntPtr source, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_output_stream_splice_async(System.IntPtr stream, System.IntPtr source, Gio.OutputStreamSpliceFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_output_stream_splice_finish(System.IntPtr stream, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -985,7 +1640,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_bytes_icon_get_bytes(System.IntPtr icon);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_converter_convert(System.IntPtr converter, System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, int flags, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
+		public static extern Gio.ConverterResult g_converter_convert(System.IntPtr converter, System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, Gio.ConverterFlags flags, System.IntPtr bytes_read, System.IntPtr bytes_written, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_converter_reset(System.IntPtr converter);
 		[DllImport("libgio-2.0.so.0")]
@@ -1027,7 +1682,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_credentials_new();
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_credentials_get_native(System.IntPtr credentials, int native_type);
+		public static extern System.IntPtr g_credentials_get_native(System.IntPtr credentials, Gio.CredentialsType native_type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_credentials_get_unix_pid(System.IntPtr credentials, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1035,7 +1690,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_credentials_is_same_user(System.IntPtr credentials, System.IntPtr other_credentials, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_credentials_set_native(System.IntPtr credentials, int native_type, System.IntPtr native);
+		public static extern void g_credentials_set_native(System.IntPtr credentials, Gio.CredentialsType native_type, System.IntPtr native);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_credentials_set_unix_user(System.IntPtr credentials, uint uid, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1083,7 +1738,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_io_stream_set_pending(System.IntPtr stream, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_io_stream_splice_async(System.IntPtr stream1, System.IntPtr stream2, int flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_io_stream_splice_async(System.IntPtr stream1, System.IntPtr stream2, Gio.IOStreamSpliceFlags flags, int io_priority, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_unix_fd_list_new();
 		[DllImport("libgio-2.0.so.0")]
@@ -1131,7 +1786,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_message_new();
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_message_new_from_blob(System.IntPtr blob, ulong blob_len, int capabilities, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_message_new_from_blob(System.IntPtr blob, ulong blob_len, Gio.DBusCapabilityFlags capabilities, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_message_new_method_call(string name, string path, string interface_, string method);
 		[DllImport("libgio-2.0.so.0")]
@@ -1145,15 +1800,15 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_message_get_body(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_message_get_byte_order(System.IntPtr message);
+		public static extern Gio.DBusMessageByteOrder g_dbus_message_get_byte_order(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_message_get_destination(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_message_get_error_name(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_message_get_flags(System.IntPtr message);
+		public static extern Gio.DBusMessageFlags g_dbus_message_get_flags(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_message_get_header(System.IntPtr message, int header_field);
+		public static extern System.IntPtr g_dbus_message_get_header(System.IntPtr message, Gio.DBusMessageHeaderField header_field);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_message_get_header_fields(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
@@ -1163,7 +1818,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_message_get_member(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_message_get_message_type(System.IntPtr message);
+		public static extern Gio.DBusMessageType g_dbus_message_get_message_type(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_dbus_message_get_num_unix_fds(System.IntPtr message);
 		[DllImport("libgio-2.0.so.0")]
@@ -1189,21 +1844,21 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_body(System.IntPtr message, System.IntPtr body);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_message_set_byte_order(System.IntPtr message, int byte_order);
+		public static extern void g_dbus_message_set_byte_order(System.IntPtr message, Gio.DBusMessageByteOrder byte_order);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_destination(System.IntPtr message, string value);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_error_name(System.IntPtr message, string value);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_message_set_flags(System.IntPtr message, int flags);
+		public static extern void g_dbus_message_set_flags(System.IntPtr message, Gio.DBusMessageFlags flags);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_message_set_header(System.IntPtr message, int header_field, System.IntPtr value);
+		public static extern void g_dbus_message_set_header(System.IntPtr message, Gio.DBusMessageHeaderField header_field, System.IntPtr value);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_interface(System.IntPtr message, string value);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_member(System.IntPtr message, string value);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_message_set_message_type(System.IntPtr message, int type);
+		public static extern void g_dbus_message_set_message_type(System.IntPtr message, Gio.DBusMessageType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_num_unix_fds(System.IntPtr message, uint value);
 		[DllImport("libgio-2.0.so.0")]
@@ -1219,7 +1874,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_unix_fd_list(System.IntPtr message, System.IntPtr fd_list);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_message_to_blob(System.IntPtr message, System.IntPtr out_size, int capabilities, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_message_to_blob(System.IntPtr message, System.IntPtr out_size, Gio.DBusCapabilityFlags capabilities, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_message_to_gerror(System.IntPtr message, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1307,7 +1962,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_interface_skeleton_get_connections(System.IntPtr interface_);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_interface_skeleton_get_flags(System.IntPtr interface_);
+		public static extern Gio.DBusInterfaceSkeletonFlags g_dbus_interface_skeleton_get_flags(System.IntPtr interface_);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_interface_skeleton_get_info(System.IntPtr interface_);
 		[DllImport("libgio-2.0.so.0")]
@@ -1319,7 +1974,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_interface_skeleton_has_connection(System.IntPtr interface_, System.IntPtr connection);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_interface_skeleton_set_flags(System.IntPtr interface_, int flags);
+		public static extern void g_dbus_interface_skeleton_set_flags(System.IntPtr interface_, Gio.DBusInterfaceSkeletonFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_interface_skeleton_unexport(System.IntPtr interface_);
 		[DllImport("libgio-2.0.so.0")]
@@ -1349,17 +2004,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_object_manager_client_new_for_bus_finish(System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_object_manager_client_new_for_bus_sync(int bus_type, int flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_object_manager_client_new_for_bus_sync(Gio.BusType bus_type, Gio.DBusObjectManagerClientFlags flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_object_manager_client_new_sync(System.IntPtr connection, int flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_object_manager_client_new_sync(System.IntPtr connection, Gio.DBusObjectManagerClientFlags flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_object_manager_client_new(System.IntPtr connection, int flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_object_manager_client_new(System.IntPtr connection, Gio.DBusObjectManagerClientFlags flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_object_manager_client_new_for_bus(int bus_type, int flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_object_manager_client_new_for_bus(Gio.BusType bus_type, Gio.DBusObjectManagerClientFlags flags, string name, string object_path, System.IntPtr get_proxy_type_func, System.IntPtr get_proxy_type_user_data, System.IntPtr get_proxy_type_destroy_notify, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_object_manager_client_get_connection(System.IntPtr manager);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_object_manager_client_get_flags(System.IntPtr manager);
+		public static extern Gio.DBusObjectManagerClientFlags g_dbus_object_manager_client_get_flags(System.IntPtr manager);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_object_manager_client_get_name(System.IntPtr manager);
 		[DllImport("libgio-2.0.so.0")]
@@ -1373,25 +2028,25 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_proxy_new_for_bus_finish(System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_proxy_new_for_bus_sync(int bus_type, int flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_proxy_new_for_bus_sync(Gio.BusType bus_type, Gio.DBusProxyFlags flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_proxy_new_sync(System.IntPtr connection, int flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_proxy_new_sync(System.IntPtr connection, Gio.DBusProxyFlags flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_proxy_new(System.IntPtr connection, int flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_proxy_new(System.IntPtr connection, Gio.DBusProxyFlags flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_proxy_new_for_bus(int bus_type, int flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_proxy_new_for_bus(Gio.BusType bus_type, Gio.DBusProxyFlags flags, System.IntPtr info, string name, string object_path, string interface_name, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_proxy_call(System.IntPtr proxy, string method_name, System.IntPtr parameters, int flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_proxy_call(System.IntPtr proxy, string method_name, System.IntPtr parameters, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_proxy_call_finish(System.IntPtr proxy, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_proxy_call_sync(System.IntPtr proxy, string method_name, System.IntPtr parameters, int flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_proxy_call_sync(System.IntPtr proxy, string method_name, System.IntPtr parameters, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_proxy_call_with_unix_fd_list(System.IntPtr proxy, string method_name, System.IntPtr parameters, int flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_proxy_call_with_unix_fd_list(System.IntPtr proxy, string method_name, System.IntPtr parameters, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_proxy_call_with_unix_fd_list_finish(System.IntPtr proxy, System.IntPtr out_fd_list, System.IntPtr res, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_proxy_call_with_unix_fd_list_sync(System.IntPtr proxy, string method_name, System.IntPtr parameters, int flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr out_fd_list, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_proxy_call_with_unix_fd_list_sync(System.IntPtr proxy, string method_name, System.IntPtr parameters, Gio.DBusCallFlags flags, int timeout_msec, System.IntPtr fd_list, System.IntPtr out_fd_list, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_proxy_get_cached_property(System.IntPtr proxy, string property_name);
 		[DllImport("libgio-2.0.so.0")]
@@ -1401,7 +2056,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dbus_proxy_get_default_timeout(System.IntPtr proxy);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_proxy_get_flags(System.IntPtr proxy);
+		public static extern Gio.DBusProxyFlags g_dbus_proxy_get_flags(System.IntPtr proxy);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dbus_proxy_get_interface_info(System.IntPtr proxy);
 		[DllImport("libgio-2.0.so.0")]
@@ -1445,11 +2100,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_object_skeleton_set_object_path(System.IntPtr @object, string object_path);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_server_new_sync(string address, int flags, string guid, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_dbus_server_new_sync(string address, Gio.DBusServerFlags flags, string guid, System.IntPtr observer, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_server_get_client_address(System.IntPtr server);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dbus_server_get_flags(System.IntPtr server);
+		public static extern Gio.DBusServerFlags g_dbus_server_get_flags(System.IntPtr server);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_server_get_guid(System.IntPtr server);
 		[DllImport("libgio-2.0.so.0")]
@@ -1461,9 +2116,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_data_input_stream_new(System.IntPtr base_stream);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_data_input_stream_get_byte_order(System.IntPtr stream);
+		public static extern Gio.DataStreamByteOrder g_data_input_stream_get_byte_order(System.IntPtr stream);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_data_input_stream_get_newline_type(System.IntPtr stream);
+		public static extern Gio.DataStreamNewlineType g_data_input_stream_get_newline_type(System.IntPtr stream);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern byte g_data_input_stream_read_byte(System.IntPtr stream, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1501,13 +2156,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_data_input_stream_read_upto_finish(System.IntPtr stream, System.IntPtr result, System.IntPtr length, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_data_input_stream_set_byte_order(System.IntPtr stream, int order);
+		public static extern void g_data_input_stream_set_byte_order(System.IntPtr stream, Gio.DataStreamByteOrder order);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_data_input_stream_set_newline_type(System.IntPtr stream, int type);
+		public static extern void g_data_input_stream_set_newline_type(System.IntPtr stream, Gio.DataStreamNewlineType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_data_output_stream_new(System.IntPtr base_stream);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_data_output_stream_get_byte_order(System.IntPtr stream);
+		public static extern Gio.DataStreamByteOrder g_data_output_stream_get_byte_order(System.IntPtr stream);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_data_output_stream_put_byte(System.IntPtr stream, byte data, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1525,13 +2180,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_data_output_stream_put_uint64(System.IntPtr stream, ulong data, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_data_output_stream_set_byte_order(System.IntPtr stream, int order);
+		public static extern void g_data_output_stream_set_byte_order(System.IntPtr stream, Gio.DataStreamByteOrder order);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_datagram_based_condition_check(System.IntPtr datagram_based, int condition);
+		public static extern GLib.IOCondition g_datagram_based_condition_check(System.IntPtr datagram_based, GLib.IOCondition condition);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_datagram_based_condition_wait(System.IntPtr datagram_based, int condition, long timeout, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_datagram_based_condition_wait(System.IntPtr datagram_based, GLib.IOCondition condition, long timeout, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_datagram_based_create_source(System.IntPtr datagram_based, int condition, System.IntPtr cancellable);
+		public static extern System.IntPtr g_datagram_based_create_source(System.IntPtr datagram_based, GLib.IOCondition condition, System.IntPtr cancellable);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_datagram_based_receive_messages(System.IntPtr datagram_based, System.IntPtr messages, uint num_messages, int flags, long timeout, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1575,7 +2230,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_desktop_app_info_launch_action(System.IntPtr info, string action_name, System.IntPtr launch_context);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_desktop_app_info_launch_uris_as_manager(System.IntPtr appinfo, System.IntPtr uris, System.IntPtr launch_context, int spawn_flags, System.IntPtr user_setup, System.IntPtr user_setup_data, System.IntPtr pid_callback, System.IntPtr pid_callback_data, System.IntPtr error);
+		public static extern int g_desktop_app_info_launch_uris_as_manager(System.IntPtr appinfo, System.IntPtr uris, System.IntPtr launch_context, GLib.SpawnFlags spawn_flags, System.IntPtr user_setup, System.IntPtr user_setup_data, System.IntPtr pid_callback, System.IntPtr pid_callback_data, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_desktop_app_info_list_actions(System.IntPtr info);
 		[DllImport("libgio-2.0.so.0")]
@@ -1591,11 +2246,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_can_stop(System.IntPtr drive);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_drive_eject(System.IntPtr drive, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_drive_eject(System.IntPtr drive, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_eject_finish(System.IntPtr drive, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_drive_eject_with_operation(System.IntPtr drive, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_drive_eject_with_operation(System.IntPtr drive, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_eject_with_operation_finish(System.IntPtr drive, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1609,7 +2264,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_drive_get_sort_key(System.IntPtr drive);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_drive_get_start_stop_type(System.IntPtr drive);
+		public static extern Gio.DriveStartStopType g_drive_get_start_stop_type(System.IntPtr drive);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_drive_get_symbolic_icon(System.IntPtr drive);
 		[DllImport("libgio-2.0.so.0")]
@@ -1629,11 +2284,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_poll_for_media_finish(System.IntPtr drive, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_drive_start(System.IntPtr drive, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_drive_start(System.IntPtr drive, Gio.DriveStartFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_start_finish(System.IntPtr drive, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_drive_stop(System.IntPtr drive, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_drive_stop(System.IntPtr drive, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_drive_stop_finish(System.IntPtr drive, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1647,11 +2302,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_mount_operation_get_password(System.IntPtr op);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_mount_operation_get_password_save(System.IntPtr op);
+		public static extern Gio.PasswordSave g_mount_operation_get_password_save(System.IntPtr op);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_mount_operation_get_username(System.IntPtr op);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_operation_reply(System.IntPtr op, int result);
+		public static extern void g_mount_operation_reply(System.IntPtr op, Gio.MountOperationResult result);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_mount_operation_set_anonymous(System.IntPtr op, int anonymous);
 		[DllImport("libgio-2.0.so.0")]
@@ -1661,7 +2316,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_mount_operation_set_password(System.IntPtr op, string password);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_operation_set_password_save(System.IntPtr op, int save);
+		public static extern void g_mount_operation_set_password_save(System.IntPtr op, Gio.PasswordSave save);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_mount_operation_set_username(System.IntPtr op, string username);
 		[DllImport("libgio-2.0.so.0")]
@@ -1669,11 +2324,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_volume_can_mount(System.IntPtr volume);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_volume_eject(System.IntPtr volume, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_volume_eject(System.IntPtr volume, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_volume_eject_finish(System.IntPtr volume, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_volume_eject_with_operation(System.IntPtr volume, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_volume_eject_with_operation(System.IntPtr volume, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_volume_eject_with_operation_finish(System.IntPtr volume, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1697,7 +2352,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_volume_get_uuid(System.IntPtr volume);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_volume_mount(System.IntPtr volume, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_volume_mount(System.IntPtr volume, Gio.MountMountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_volume_mount_finish(System.IntPtr volume, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1709,7 +2364,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dtls_connection_close_finish(System.IntPtr conn, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dtls_connection_emit_accept_certificate(System.IntPtr conn, System.IntPtr peer_cert, int errors);
+		public static extern int g_dtls_connection_emit_accept_certificate(System.IntPtr conn, System.IntPtr peer_cert, Gio.TlsCertificateFlags errors);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dtls_connection_get_certificate(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
@@ -1719,9 +2374,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dtls_connection_get_peer_certificate(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dtls_connection_get_peer_certificate_errors(System.IntPtr conn);
+		public static extern Gio.TlsCertificateFlags g_dtls_connection_get_peer_certificate_errors(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dtls_connection_get_rehandshake_mode(System.IntPtr conn);
+		public static extern Gio.TlsRehandshakeMode g_dtls_connection_get_rehandshake_mode(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_dtls_connection_get_require_close_notify(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
@@ -1737,7 +2392,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dtls_connection_set_interaction(System.IntPtr conn, System.IntPtr interaction);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dtls_connection_set_rehandshake_mode(System.IntPtr conn, int mode);
+		public static extern void g_dtls_connection_set_rehandshake_mode(System.IntPtr conn, Gio.TlsRehandshakeMode mode);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dtls_connection_set_require_close_notify(System.IntPtr conn, int require_close_notify);
 		[DllImport("libgio-2.0.so.0")]
@@ -1753,11 +2408,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dtls_client_connection_get_server_identity(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_dtls_client_connection_get_validation_flags(System.IntPtr conn);
+		public static extern Gio.TlsCertificateFlags g_dtls_client_connection_get_validation_flags(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dtls_client_connection_set_server_identity(System.IntPtr conn, System.IntPtr identity);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dtls_client_connection_set_validation_flags(System.IntPtr conn, int flags);
+		public static extern void g_dtls_client_connection_set_validation_flags(System.IntPtr conn, Gio.TlsCertificateFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_connectable_enumerate(System.IntPtr connectable);
 		[DllImport("libgio-2.0.so.0")]
@@ -1777,59 +2432,59 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_tls_certificate_is_same(System.IntPtr cert_one, System.IntPtr cert_two);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_certificate_verify(System.IntPtr cert, System.IntPtr identity, System.IntPtr trusted_ca);
+		public static extern Gio.TlsCertificateFlags g_tls_certificate_verify(System.IntPtr cert, System.IntPtr identity, System.IntPtr trusted_ca);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_tls_database_create_certificate_handle(System.IntPtr self, System.IntPtr certificate);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_tls_database_lookup_certificate_for_handle(System.IntPtr self, string handle, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_tls_database_lookup_certificate_for_handle(System.IntPtr self, string handle, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_database_lookup_certificate_for_handle_async(System.IntPtr self, string handle, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_tls_database_lookup_certificate_for_handle_async(System.IntPtr self, string handle, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_database_lookup_certificate_for_handle_finish(System.IntPtr self, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_tls_database_lookup_certificate_issuer(System.IntPtr self, System.IntPtr certificate, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_tls_database_lookup_certificate_issuer(System.IntPtr self, System.IntPtr certificate, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_database_lookup_certificate_issuer_async(System.IntPtr self, System.IntPtr certificate, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_tls_database_lookup_certificate_issuer_async(System.IntPtr self, System.IntPtr certificate, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_database_lookup_certificate_issuer_finish(System.IntPtr self, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_tls_database_lookup_certificates_issued_by(System.IntPtr self, System.IntPtr issuer_raw_dn, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_tls_database_lookup_certificates_issued_by(System.IntPtr self, System.IntPtr issuer_raw_dn, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_database_lookup_certificates_issued_by_async(System.IntPtr self, System.IntPtr issuer_raw_dn, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_tls_database_lookup_certificates_issued_by_async(System.IntPtr self, System.IntPtr issuer_raw_dn, System.IntPtr interaction, Gio.TlsDatabaseLookupFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_database_lookup_certificates_issued_by_finish(System.IntPtr self, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_database_verify_chain(System.IntPtr self, System.IntPtr chain, string purpose, System.IntPtr identity, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern Gio.TlsCertificateFlags g_tls_database_verify_chain(System.IntPtr self, System.IntPtr chain, string purpose, System.IntPtr identity, System.IntPtr interaction, Gio.TlsDatabaseVerifyFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_database_verify_chain_async(System.IntPtr self, System.IntPtr chain, string purpose, System.IntPtr identity, System.IntPtr interaction, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_tls_database_verify_chain_async(System.IntPtr self, System.IntPtr chain, string purpose, System.IntPtr identity, System.IntPtr interaction, Gio.TlsDatabaseVerifyFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_database_verify_chain_finish(System.IntPtr self, System.IntPtr result, System.IntPtr error);
+		public static extern Gio.TlsCertificateFlags g_tls_database_verify_chain_finish(System.IntPtr self, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_ask_password(System.IntPtr interaction, System.IntPtr password, System.IntPtr cancellable, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_ask_password(System.IntPtr interaction, System.IntPtr password, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_interaction_ask_password_async(System.IntPtr interaction, System.IntPtr password, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_ask_password_finish(System.IntPtr interaction, System.IntPtr result, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_ask_password_finish(System.IntPtr interaction, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_invoke_ask_password(System.IntPtr interaction, System.IntPtr password, System.IntPtr cancellable, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_invoke_ask_password(System.IntPtr interaction, System.IntPtr password, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_invoke_request_certificate(System.IntPtr interaction, System.IntPtr connection, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_invoke_request_certificate(System.IntPtr interaction, System.IntPtr connection, Gio.TlsCertificateRequestFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_request_certificate(System.IntPtr interaction, System.IntPtr connection, int flags, System.IntPtr cancellable, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_request_certificate(System.IntPtr interaction, System.IntPtr connection, Gio.TlsCertificateRequestFlags flags, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_interaction_request_certificate_async(System.IntPtr interaction, System.IntPtr connection, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_tls_interaction_request_certificate_async(System.IntPtr interaction, System.IntPtr connection, Gio.TlsCertificateRequestFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_interaction_request_certificate_finish(System.IntPtr interaction, System.IntPtr result, System.IntPtr error);
+		public static extern Gio.TlsInteractionResult g_tls_interaction_request_certificate_finish(System.IntPtr interaction, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_dtls_server_connection_new(System.IntPtr base_socket, System.IntPtr certificate, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_emblem_new(System.IntPtr icon);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_emblem_new_with_origin(System.IntPtr icon, int origin);
+		public static extern System.IntPtr g_emblem_new_with_origin(System.IntPtr icon, Gio.EmblemOrigin origin);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_emblem_get_icon(System.IntPtr emblem);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_emblem_get_origin(System.IntPtr emblem);
+		public static extern Gio.EmblemOrigin g_emblem_get_origin(System.IntPtr emblem);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_emblemed_icon_new(System.IntPtr icon, System.IntPtr emblem);
 		[DllImport("libgio-2.0.so.0")]
@@ -1885,11 +2540,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_can_unmount(System.IntPtr mount);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_eject(System.IntPtr mount, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_mount_eject(System.IntPtr mount, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_eject_finish(System.IntPtr mount, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_eject_with_operation(System.IntPtr mount, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_mount_eject_with_operation(System.IntPtr mount, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_eject_with_operation_finish(System.IntPtr mount, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1919,17 +2574,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_is_shadowed(System.IntPtr mount);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_remount(System.IntPtr mount, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_mount_remount(System.IntPtr mount, Gio.MountMountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_remount_finish(System.IntPtr mount, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_mount_shadow(System.IntPtr mount);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_unmount(System.IntPtr mount, int flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_mount_unmount(System.IntPtr mount, Gio.MountUnmountFlags flags, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_unmount_finish(System.IntPtr mount, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_mount_unmount_with_operation(System.IntPtr mount, int flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_mount_unmount_with_operation(System.IntPtr mount, Gio.MountUnmountFlags flags, System.IntPtr mount_operation, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_mount_unmount_with_operation_finish(System.IntPtr mount, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -1937,7 +2592,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_monitor_cancel(System.IntPtr monitor);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_monitor_emit_event(System.IntPtr monitor, System.IntPtr child, System.IntPtr other_file, int event_type);
+		public static extern void g_file_monitor_emit_event(System.IntPtr monitor, System.IntPtr child, System.IntPtr other_file, Gio.FileMonitorEvent event_type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_monitor_is_cancelled(System.IntPtr monitor);
 		[DllImport("libgio-2.0.so.0")]
@@ -1957,7 +2612,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_file_info_get_attribute_byte_string(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_info_get_attribute_data(System.IntPtr info, string attribute, System.IntPtr type, System.IntPtr value_pp, System.IntPtr status);
+		public static extern int g_file_info_get_attribute_data(System.IntPtr info, string attribute, out Gio.FileAttributeType type, System.IntPtr value_pp, out Gio.FileAttributeStatus status);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_info_get_attribute_int32(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
@@ -1965,13 +2620,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_info_get_attribute_object(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_info_get_attribute_status(System.IntPtr info, string attribute);
+		public static extern Gio.FileAttributeStatus g_file_info_get_attribute_status(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_file_info_get_attribute_string(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_info_get_attribute_stringv(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_info_get_attribute_type(System.IntPtr info, string attribute);
+		public static extern Gio.FileAttributeType g_file_info_get_attribute_type(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_file_info_get_attribute_uint32(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
@@ -1987,7 +2642,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_file_info_get_etag(System.IntPtr info);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_info_get_file_type(System.IntPtr info);
+		public static extern Gio.FileType g_file_info_get_file_type(System.IntPtr info);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_info_get_icon(System.IntPtr info);
 		[DllImport("libgio-2.0.so.0")]
@@ -2017,7 +2672,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_remove_attribute(System.IntPtr info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_info_set_attribute(System.IntPtr info, string attribute, int type, System.IntPtr value_p);
+		public static extern void g_file_info_set_attribute(System.IntPtr info, string attribute, Gio.FileAttributeType type, System.IntPtr value_p);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_attribute_boolean(System.IntPtr info, string attribute, int attr_value);
 		[DllImport("libgio-2.0.so.0")]
@@ -2031,7 +2686,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_attribute_object(System.IntPtr info, string attribute, System.IntPtr attr_value);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_file_info_set_attribute_status(System.IntPtr info, string attribute, int status);
+		public static extern int g_file_info_set_attribute_status(System.IntPtr info, string attribute, Gio.FileAttributeStatus status);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_attribute_string(System.IntPtr info, string attribute, string attr_value);
 		[DllImport("libgio-2.0.so.0")]
@@ -2047,7 +2702,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_edit_name(System.IntPtr info, string edit_name);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_info_set_file_type(System.IntPtr info, int type);
+		public static extern void g_file_info_set_file_type(System.IntPtr info, Gio.FileType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_icon(System.IntPtr info, System.IntPtr icon);
 		[DllImport("libgio-2.0.so.0")]
@@ -2071,7 +2726,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_attribute_info_list_new();
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_attribute_info_list_add(System.IntPtr list, string name, int type, int flags);
+		public static extern void g_file_attribute_info_list_add(System.IntPtr list, string name, Gio.FileAttributeType type, Gio.FileAttributeInfoFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_file_attribute_info_list_dup(System.IntPtr list);
 		[DllImport("libgio-2.0.so.0")]
@@ -2153,23 +2808,23 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_io_module_scope_free(System.IntPtr scope);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_io_module_scope_new(int flags);
+		public static extern System.IntPtr g_io_module_scope_new(Gio.IOModuleScopeFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_io_scheduler_job_send_to_mainloop(System.IntPtr job, System.IntPtr func, System.IntPtr user_data, System.IntPtr notify);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_io_scheduler_job_send_to_mainloop_async(System.IntPtr job, System.IntPtr func, System.IntPtr user_data, System.IntPtr notify);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_inet_address_new_any(int family);
+		public static extern System.IntPtr g_inet_address_new_any(Gio.SocketFamily family);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_inet_address_new_from_bytes(System.IntPtr bytes, int family);
+		public static extern System.IntPtr g_inet_address_new_from_bytes(System.IntPtr bytes, Gio.SocketFamily family);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_inet_address_new_from_string(string @string);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_inet_address_new_loopback(int family);
+		public static extern System.IntPtr g_inet_address_new_loopback(Gio.SocketFamily family);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_inet_address_equal(System.IntPtr address, System.IntPtr other_address);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_inet_address_get_family(System.IntPtr address);
+		public static extern Gio.SocketFamily g_inet_address_get_family(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_inet_address_get_is_any(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
@@ -2205,7 +2860,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_inet_address_mask_get_address(System.IntPtr mask);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_inet_address_mask_get_family(System.IntPtr mask);
+		public static extern Gio.SocketFamily g_inet_address_mask_get_family(System.IntPtr mask);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_inet_address_mask_get_length(System.IntPtr mask);
 		[DllImport("libgio-2.0.so.0")]
@@ -2215,7 +2870,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_address_new_from_native(System.IntPtr native, ulong len);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_address_get_family(System.IntPtr address);
+		public static extern Gio.SocketFamily g_socket_address_get_family(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_socket_address_get_native_size(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
@@ -2405,7 +3060,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_network_monitor_can_reach_finish(System.IntPtr monitor, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_network_monitor_get_connectivity(System.IntPtr monitor);
+		public static extern Gio.NetworkConnectivity g_network_monitor_get_connectivity(System.IntPtr monitor);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_network_monitor_get_network_available(System.IntPtr monitor);
 		[DllImport("libgio-2.0.so.0")]
@@ -2505,9 +3160,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resolver_lookup_by_name_finish(System.IntPtr resolver, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resolver_lookup_records(System.IntPtr resolver, string rrname, int record_type, System.IntPtr cancellable, System.IntPtr error);
+		public static extern System.IntPtr g_resolver_lookup_records(System.IntPtr resolver, string rrname, Gio.ResolverRecordType record_type, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_resolver_lookup_records_async(System.IntPtr resolver, string rrname, int record_type, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_resolver_lookup_records_async(System.IntPtr resolver, string rrname, Gio.ResolverRecordType record_type, System.IntPtr cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resolver_lookup_records_finish(System.IntPtr resolver, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -2539,13 +3194,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resource_new_from_data(System.IntPtr data, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resource_enumerate_children(System.IntPtr resource, string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resource_enumerate_children(System.IntPtr resource, string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_resource_get_info(System.IntPtr resource, string path, int lookup_flags, System.IntPtr size, System.IntPtr flags, System.IntPtr error);
+		public static extern int g_resource_get_info(System.IntPtr resource, string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr size, System.IntPtr flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resource_lookup_data(System.IntPtr resource, string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resource_lookup_data(System.IntPtr resource, string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_resource_open_stream(System.IntPtr resource, string path, int lookup_flags, System.IntPtr error);
+		public static extern System.IntPtr g_resource_open_stream(System.IntPtr resource, string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resource_ref(System.IntPtr resource);
 		[DllImport("libgio-2.0.so.0")]
@@ -2575,9 +3230,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_settings_apply(System.IntPtr settings);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_settings_bind(System.IntPtr settings, string key, System.IntPtr @object, string property, int flags);
+		public static extern void g_settings_bind(System.IntPtr settings, string key, System.IntPtr @object, string property, Gio.SettingsBindFlags flags);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_settings_bind_with_mapping(System.IntPtr settings, string key, System.IntPtr @object, string property, int flags, System.IntPtr get_mapping, System.IntPtr set_mapping, System.IntPtr user_data, System.IntPtr destroy);
+		public static extern void g_settings_bind_with_mapping(System.IntPtr settings, string key, System.IntPtr @object, string property, Gio.SettingsBindFlags flags, System.IntPtr get_mapping, System.IntPtr set_mapping, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_settings_bind_writable(System.IntPtr settings, string key, System.IntPtr @object, string property, int inverted);
 		[DllImport("libgio-2.0.so.0")]
@@ -2775,7 +3430,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_simple_proxy_resolver_set_uri_proxy(System.IntPtr resolver, string uri_scheme, string proxy);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_socket_new(int family, int type, int protocol, System.IntPtr error);
+		public static extern System.IntPtr g_socket_new(Gio.SocketFamily family, Gio.SocketType type, Gio.SocketProtocol protocol, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_new_from_fd(int fd, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -2787,17 +3442,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_close(System.IntPtr socket, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_condition_check(System.IntPtr socket, int condition);
+		public static extern GLib.IOCondition g_socket_condition_check(System.IntPtr socket, GLib.IOCondition condition);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_condition_timed_wait(System.IntPtr socket, int condition, long timeout, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_socket_condition_timed_wait(System.IntPtr socket, GLib.IOCondition condition, long timeout, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_condition_wait(System.IntPtr socket, int condition, System.IntPtr cancellable, System.IntPtr error);
+		public static extern int g_socket_condition_wait(System.IntPtr socket, GLib.IOCondition condition, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_connect(System.IntPtr socket, System.IntPtr address, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_connection_factory_create_connection(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_socket_create_source(System.IntPtr socket, int condition, System.IntPtr cancellable);
+		public static extern System.IntPtr g_socket_create_source(System.IntPtr socket, GLib.IOCondition condition, System.IntPtr cancellable);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_socket_get_available_bytes(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
@@ -2807,7 +3462,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_get_credentials(System.IntPtr socket, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_get_family(System.IntPtr socket);
+		public static extern Gio.SocketFamily g_socket_get_family(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_get_fd(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
@@ -2823,11 +3478,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_get_option(System.IntPtr socket, int level, int optname, System.IntPtr value, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_get_protocol(System.IntPtr socket);
+		public static extern Gio.SocketProtocol g_socket_get_protocol(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_get_remote_address(System.IntPtr socket, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_get_socket_type(System.IntPtr socket);
+		public static extern Gio.SocketType g_socket_get_socket_type(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_socket_get_timeout(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
@@ -2885,9 +3540,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_speaks_ipv4(System.IntPtr socket);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern ulong g_socket_connection_factory_lookup_type(int family, int type, int protocol_id);
+		public static extern ulong g_socket_connection_factory_lookup_type(Gio.SocketFamily family, Gio.SocketType type, int protocol_id);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_socket_connection_factory_register_type(ulong g_type, int family, int type, int protocol);
+		public static extern void g_socket_connection_factory_register_type(ulong g_type, Gio.SocketFamily family, Gio.SocketType type, int protocol);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_connection_connect(System.IntPtr connection, System.IntPtr address, System.IntPtr cancellable, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -2933,39 +3588,39 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_client_get_enable_proxy(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_client_get_family(System.IntPtr client);
+		public static extern Gio.SocketFamily g_socket_client_get_family(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_client_get_local_address(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_client_get_protocol(System.IntPtr client);
+		public static extern Gio.SocketProtocol g_socket_client_get_protocol(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_client_get_proxy_resolver(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_client_get_socket_type(System.IntPtr client);
+		public static extern Gio.SocketType g_socket_client_get_socket_type(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_socket_client_get_timeout(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_client_get_tls(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_client_get_tls_validation_flags(System.IntPtr client);
+		public static extern Gio.TlsCertificateFlags g_socket_client_get_tls_validation_flags(System.IntPtr client);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_socket_client_set_enable_proxy(System.IntPtr client, int enable);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_socket_client_set_family(System.IntPtr client, int family);
+		public static extern void g_socket_client_set_family(System.IntPtr client, Gio.SocketFamily family);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_socket_client_set_local_address(System.IntPtr client, System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_socket_client_set_protocol(System.IntPtr client, int protocol);
+		public static extern void g_socket_client_set_protocol(System.IntPtr client, Gio.SocketProtocol protocol);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_socket_client_set_proxy_resolver(System.IntPtr client, System.IntPtr proxy_resolver);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_socket_client_set_socket_type(System.IntPtr client, int type);
+		public static extern void g_socket_client_set_socket_type(System.IntPtr client, Gio.SocketType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_socket_client_set_timeout(System.IntPtr client, uint timeout);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_socket_client_set_tls(System.IntPtr client, int tls);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_socket_client_set_tls_validation_flags(System.IntPtr client, int flags);
+		public static extern void g_socket_client_set_tls_validation_flags(System.IntPtr client, Gio.TlsCertificateFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_listener_new();
 		[DllImport("libgio-2.0.so.0")]
@@ -2981,7 +3636,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_socket_listener_accept_socket_finish(System.IntPtr listener, System.IntPtr result, System.IntPtr source_object, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_socket_listener_add_address(System.IntPtr listener, System.IntPtr address, int type, int protocol, System.IntPtr source_object, System.IntPtr effective_address, System.IntPtr error);
+		public static extern int g_socket_listener_add_address(System.IntPtr listener, System.IntPtr address, Gio.SocketType type, Gio.SocketProtocol protocol, System.IntPtr source_object, System.IntPtr effective_address, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern ushort g_socket_listener_add_any_inet_port(System.IntPtr listener, System.IntPtr source_object, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -3007,7 +3662,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_static_resource_init(System.IntPtr static_resource);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_subprocess_newv(System.IntPtr argv, int flags, System.IntPtr error);
+		public static extern System.IntPtr g_subprocess_newv(System.IntPtr argv, Gio.SubprocessFlags flags, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_subprocess_communicate(System.IntPtr subprocess, System.IntPtr stdin_buf, System.IntPtr cancellable, System.IntPtr stdout_buf, System.IntPtr stderr_buf, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
@@ -3057,7 +3712,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_subprocess_wait_finish(System.IntPtr subprocess, System.IntPtr result, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_subprocess_launcher_new(int flags);
+		public static extern System.IntPtr g_subprocess_launcher_new(Gio.SubprocessFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_subprocess_launcher_getenv(System.IntPtr self, string variable);
 		[DllImport("libgio-2.0.so.0")]
@@ -3067,7 +3722,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_subprocess_launcher_set_environ(System.IntPtr self, System.IntPtr env);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_subprocess_launcher_set_flags(System.IntPtr self, int flags);
+		public static extern void g_subprocess_launcher_set_flags(System.IntPtr self, Gio.SubprocessFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_subprocess_launcher_set_stderr_file_path(System.IntPtr self, System.IntPtr path);
 		[DllImport("libgio-2.0.so.0")]
@@ -3155,7 +3810,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tcp_wrapper_connection_get_base_io_stream(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_test_dbus_new(int flags);
+		public static extern System.IntPtr g_test_dbus_new(Gio.TestDBusFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_test_dbus_unset();
 		[DllImport("libgio-2.0.so.0")]
@@ -3165,7 +3820,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_test_dbus_get_bus_address(System.IntPtr self);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_test_dbus_get_flags(System.IntPtr self);
+		public static extern Gio.TestDBusFlags g_test_dbus_get_flags(System.IntPtr self);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_test_dbus_stop(System.IntPtr self);
 		[DllImport("libgio-2.0.so.0")]
@@ -3205,7 +3860,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_tls_backend_supports_tls(System.IntPtr backend);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_connection_emit_accept_certificate(System.IntPtr conn, System.IntPtr peer_cert, int errors);
+		public static extern int g_tls_connection_emit_accept_certificate(System.IntPtr conn, System.IntPtr peer_cert, Gio.TlsCertificateFlags errors);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_connection_get_certificate(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
@@ -3215,9 +3870,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_connection_get_peer_certificate(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_connection_get_peer_certificate_errors(System.IntPtr conn);
+		public static extern Gio.TlsCertificateFlags g_tls_connection_get_peer_certificate_errors(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_connection_get_rehandshake_mode(System.IntPtr conn);
+		public static extern Gio.TlsRehandshakeMode g_tls_connection_get_rehandshake_mode(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_tls_connection_get_require_close_notify(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
@@ -3235,7 +3890,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_connection_set_interaction(System.IntPtr conn, System.IntPtr interaction);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_connection_set_rehandshake_mode(System.IntPtr conn, int mode);
+		public static extern void g_tls_connection_set_rehandshake_mode(System.IntPtr conn, Gio.TlsRehandshakeMode mode);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_connection_set_require_close_notify(System.IntPtr conn, int require_close_notify);
 		[DllImport("libgio-2.0.so.0")]
@@ -3251,23 +3906,23 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_tls_client_connection_get_use_ssl3(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_client_connection_get_validation_flags(System.IntPtr conn);
+		public static extern Gio.TlsCertificateFlags g_tls_client_connection_get_validation_flags(System.IntPtr conn);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_client_connection_set_server_identity(System.IntPtr conn, System.IntPtr identity);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_client_connection_set_use_ssl3(System.IntPtr conn, int use_ssl3);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_client_connection_set_validation_flags(System.IntPtr conn, int flags);
+		public static extern void g_tls_client_connection_set_validation_flags(System.IntPtr conn, Gio.TlsCertificateFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_tls_error_quark();
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_file_database_new(System.IntPtr anchors, System.IntPtr error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_tls_password_new(int flags, string description);
+		public static extern System.IntPtr g_tls_password_new(Gio.TlsPasswordFlags flags, string description);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_tls_password_get_description(System.IntPtr password);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_tls_password_get_flags(System.IntPtr password);
+		public static extern Gio.TlsPasswordFlags g_tls_password_get_flags(System.IntPtr password);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_tls_password_get_value(System.IntPtr password, System.IntPtr length);
 		[DllImport("libgio-2.0.so.0")]
@@ -3275,7 +3930,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_password_set_description(System.IntPtr password, string description);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_password_set_flags(System.IntPtr password, int flags);
+		public static extern void g_tls_password_set_flags(System.IntPtr password, Gio.TlsPasswordFlags flags);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_password_set_value(System.IntPtr password, System.IntPtr value, long length);
 		[DllImport("libgio-2.0.so.0")]
@@ -3373,11 +4028,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_unix_socket_address_new_abstract(System.IntPtr path, int path_len);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_socket_address_new_with_type(System.IntPtr path, int path_len, int type);
+		public static extern System.IntPtr g_unix_socket_address_new_with_type(System.IntPtr path, int path_len, Gio.UnixSocketAddressType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_unix_socket_address_abstract_names_supported();
 		[DllImport("libgio-2.0.so.0")]
-		public static extern int g_unix_socket_address_get_address_type(System.IntPtr address);
+		public static extern Gio.UnixSocketAddressType g_unix_socket_address_get_address_type(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_unix_socket_address_get_is_abstract(System.IntPtr address);
 		[DllImport("libgio-2.0.so.0")]
@@ -3403,13 +4058,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_vfs_unregister_uri_scheme(System.IntPtr vfs, string scheme);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_zlib_compressor_new(int format, int level);
+		public static extern System.IntPtr g_zlib_compressor_new(Gio.ZlibCompressorFormat format, int level);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_zlib_compressor_get_file_info(System.IntPtr compressor);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_zlib_compressor_set_file_info(System.IntPtr compressor, System.IntPtr file_info);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_zlib_decompressor_new(int format);
+		public static extern System.IntPtr g_zlib_decompressor_new(Gio.ZlibCompressorFormat format);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_zlib_decompressor_get_file_info(System.IntPtr decompressor);
 	}

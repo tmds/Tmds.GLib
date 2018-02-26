@@ -1,33 +1,1065 @@
 using System;
 using System.Runtime.InteropServices;
 namespace Gtk {
+	public enum License
+	{
+		unknown = 0,
+		custom = 1,
+		gpl_2_0 = 2,
+		gpl_3_0 = 3,
+		lgpl_2_1 = 4,
+		lgpl_3_0 = 5,
+		bsd = 6,
+		mit_x11 = 7,
+		artistic = 8,
+		gpl_2_0_only = 9,
+		gpl_3_0_only = 10,
+		lgpl_2_1_only = 11,
+		lgpl_3_0_only = 12,
+		agpl_3_0 = 13,
+	}
+	[Flags]
+	public enum AccelFlags
+	{
+		visible = 1,
+		locked = 2,
+		mask = 7,
+	}
+	public enum Align
+	{
+		fill = 0,
+		start = 1,
+		end = 2,
+		center = 3,
+		baseline = 4,
+	}
+	[Flags]
+	public enum DialogFlags
+	{
+		modal = 1,
+		destroy_with_parent = 2,
+		use_header_bar = 4,
+	}
+	[Flags]
+	public enum ApplicationInhibitFlags
+	{
+		logout = 1,
+		@switch = 2,
+		suspend = 4,
+		idle = 8,
+	}
+	public enum ArrowType
+	{
+		up = 0,
+		down = 1,
+		left = 2,
+		right = 3,
+		none = 4,
+	}
+	public enum ShadowType
+	{
+		none = 0,
+		@in = 1,
+		@out = 2,
+		etched_in = 3,
+		etched_out = 4,
+	}
+	public enum ArrowPlacement
+	{
+		both = 0,
+		start = 1,
+		end = 2,
+	}
+	public enum AssistantPageType
+	{
+		content = 0,
+		intro = 1,
+		confirm = 2,
+		summary = 3,
+		progress = 4,
+		custom = 5,
+	}
+	[Flags]
+	public enum AttachOptions
+	{
+		expand = 1,
+		shrink = 2,
+		fill = 4,
+	}
+	public enum BaselinePosition
+	{
+		top = 0,
+		center = 1,
+		bottom = 2,
+	}
+	public enum PathType
+	{
+		widget = 0,
+		widget_class = 1,
+		@class = 2,
+	}
+	public enum PathPriorityType
+	{
+		lowest = 0,
+		gtk = 4,
+		application = 8,
+		theme = 10,
+		rc = 12,
+		highest = 15,
+	}
+	public enum BorderStyle
+	{
+		none = 0,
+		solid = 1,
+		inset = 2,
+		outset = 3,
+		hidden = 4,
+		dotted = 5,
+		dashed = 6,
+		@double = 7,
+		groove = 8,
+		ridge = 9,
+	}
+	public enum Orientation
+	{
+		horizontal = 0,
+		vertical = 1,
+	}
+	public enum PackType
+	{
+		start = 0,
+		end = 1,
+	}
+	public enum BuilderError
+	{
+		invalid_type_function = 0,
+		unhandled_tag = 1,
+		missing_attribute = 2,
+		invalid_attribute = 3,
+		invalid_tag = 4,
+		missing_property_value = 5,
+		invalid_value = 6,
+		version_mismatch = 7,
+		duplicate_id = 8,
+		object_type_refused = 9,
+		template_mismatch = 10,
+		invalid_property = 11,
+		invalid_signal = 12,
+		invalid_id = 13,
+	}
+	public enum PositionType
+	{
+		left = 0,
+		right = 1,
+		top = 2,
+		bottom = 3,
+	}
+	public enum ReliefStyle
+	{
+		normal = 0,
+		half = 1,
+		none = 2,
+	}
+	public enum ButtonBoxStyle
+	{
+		spread = 1,
+		edge = 2,
+		start = 3,
+		end = 4,
+		center = 5,
+		expand = 6,
+	}
+	public enum ButtonRole
+	{
+		normal = 0,
+		check = 1,
+		radio = 2,
+	}
+	public enum ButtonsType
+	{
+		none = 0,
+		ok = 1,
+		close = 2,
+		cancel = 3,
+		yes_no = 4,
+		ok_cancel = 5,
+	}
+	[Flags]
+	public enum CalendarDisplayOptions
+	{
+		show_heading = 1,
+		show_day_names = 2,
+		no_month_change = 4,
+		show_week_numbers = 8,
+		show_details = 32,
+	}
+	[Flags]
+	public enum CellRendererState
+	{
+		selected = 1,
+		prelit = 2,
+		insensitive = 4,
+		sorted = 8,
+		focused = 16,
+		expandable = 32,
+		expanded = 64,
+	}
+	public enum DirectionType
+	{
+		tab_forward = 0,
+		tab_backward = 1,
+		up = 2,
+		down = 3,
+		left = 4,
+		right = 5,
+	}
+	public enum SizeRequestMode
+	{
+		height_for_width = 0,
+		width_for_height = 1,
+		constant_size = 2,
+	}
+	[Flags]
+	public enum StateFlags
+	{
+		normal = 0,
+		active = 1,
+		prelight = 2,
+		selected = 4,
+		insensitive = 8,
+		inconsistent = 16,
+		focused = 32,
+		backdrop = 64,
+		dir_ltr = 128,
+		dir_rtl = 256,
+		link = 512,
+		visited = 1024,
+		@checked = 2048,
+		drop_active = 4096,
+	}
+	public enum CellRendererMode
+	{
+		inert = 0,
+		activatable = 1,
+		editable = 2,
+	}
+	public enum CellRendererAccelMode
+	{
+		gtk = 0,
+		other = 1,
+		modifier_tap = 2,
+	}
+	public enum IconSize
+	{
+		invalid = 0,
+		menu = 1,
+		small_toolbar = 2,
+		large_toolbar = 3,
+		button = 4,
+		dnd = 5,
+		dialog = 6,
+	}
+	public enum SensitivityType
+	{
+		auto = 0,
+		on = 1,
+		off = 2,
+	}
+	public enum ResizeMode
+	{
+		parent = 0,
+		queue = 1,
+		immediate = 2,
+	}
+	public enum CornerType
+	{
+		top_left = 0,
+		bottom_left = 1,
+		top_right = 2,
+		bottom_right = 3,
+	}
+	public enum CssProviderError
+	{
+		failed = 0,
+		syntax = 1,
+		import = 2,
+		name = 3,
+		deprecated = 4,
+		unknown_value = 5,
+	}
+	public enum CssSectionType
+	{
+		document = 0,
+		import = 1,
+		color_definition = 2,
+		binding_set = 3,
+		ruleset = 4,
+		selector = 5,
+		declaration = 6,
+		value = 7,
+		keyframes = 8,
+	}
+	[Flags]
+	public enum DebugFlag
+	{
+		misc = 1,
+		plugsocket = 2,
+		text = 4,
+		tree = 8,
+		updates = 16,
+		keybindings = 32,
+		multihead = 64,
+		modules = 128,
+		geometry = 256,
+		icontheme = 512,
+		printing = 1024,
+		builder = 2048,
+		size_request = 4096,
+		no_css_cache = 8192,
+		baselines = 16384,
+		pixel_cache = 32768,
+		no_pixel_cache = 65536,
+		interactive = 131072,
+		touchscreen = 262144,
+		actions = 524288,
+		resize = 1048576,
+		layout = 2097152,
+	}
+	public enum DeleteType
+	{
+		chars = 0,
+		word_ends = 1,
+		words = 2,
+		display_lines = 3,
+		display_line_ends = 4,
+		paragraph_ends = 5,
+		paragraphs = 6,
+		whitespace = 7,
+	}
+	[Flags]
+	public enum DestDefaults
+	{
+		motion = 1,
+		highlight = 2,
+		drop = 4,
+		all = 7,
+	}
+	public enum DragResult
+	{
+		success = 0,
+		no_target = 1,
+		user_cancelled = 2,
+		timeout_expired = 3,
+		grab_broken = 4,
+		error = 5,
+	}
+	public enum EntryIconPosition
+	{
+		primary = 0,
+		secondary = 1,
+	}
+	public enum ImageType
+	{
+		empty = 0,
+		pixbuf = 1,
+		stock = 2,
+		icon_set = 3,
+		animation = 4,
+		icon_name = 5,
+		gicon = 6,
+		surface = 7,
+	}
+	[Flags]
+	public enum InputHints
+	{
+		none = 0,
+		spellcheck = 1,
+		no_spellcheck = 2,
+		word_completion = 4,
+		lowercase = 8,
+		uppercase_chars = 16,
+		uppercase_words = 32,
+		uppercase_sentences = 64,
+		inhibit_osk = 128,
+		vertical_writing = 256,
+		emoji = 512,
+		no_emoji = 1024,
+	}
+	public enum InputPurpose
+	{
+		free_form = 0,
+		alpha = 1,
+		digits = 2,
+		number = 3,
+		phone = 4,
+		url = 5,
+		email = 6,
+		name = 7,
+		password = 8,
+		pin = 9,
+	}
+	public enum MovementStep
+	{
+		logical_positions = 0,
+		visual_positions = 1,
+		words = 2,
+		display_lines = 3,
+		display_line_ends = 4,
+		paragraphs = 5,
+		paragraph_ends = 6,
+		pages = 7,
+		buffer_ends = 8,
+		horizontal_pages = 9,
+	}
+	public enum PropagationPhase
+	{
+		none = 0,
+		capture = 1,
+		bubble = 2,
+		target = 3,
+	}
+	public enum EventSequenceState
+	{
+		none = 0,
+		claimed = 1,
+		denied = 2,
+	}
+	public enum ExpanderStyle
+	{
+		collapsed = 0,
+		semi_collapsed = 1,
+		semi_expanded = 2,
+		expanded = 3,
+	}
+	public enum FileChooserAction
+	{
+		open = 0,
+		save = 1,
+		select_folder = 2,
+		create_folder = 3,
+	}
+	public enum FileChooserConfirmation
+	{
+		confirm = 0,
+		accept_filename = 1,
+		select_again = 2,
+	}
+	public enum FileChooserError
+	{
+		nonexistent = 0,
+		bad_filename = 1,
+		already_exists = 2,
+		incomplete_hostname = 3,
+	}
+	[Flags]
+	public enum FileFilterFlags
+	{
+		filename = 1,
+		uri = 2,
+		display_name = 4,
+		mime_type = 8,
+	}
+	public enum SelectionMode
+	{
+		none = 0,
+		single = 1,
+		browse = 2,
+		multiple = 3,
+	}
+	public enum IMPreeditStyle
+	{
+		nothing = 0,
+		callback = 1,
+		none = 2,
+	}
+	public enum IMStatusStyle
+	{
+		nothing = 0,
+		callback = 1,
+		none = 2,
+	}
+	public enum StateType
+	{
+		normal = 0,
+		active = 1,
+		prelight = 2,
+		selected = 3,
+		insensitive = 4,
+		inconsistent = 5,
+		focused = 6,
+	}
+	[Flags]
+	public enum IconLookupFlags
+	{
+		no_svg = 1,
+		force_svg = 2,
+		use_builtin = 4,
+		generic_fallback = 8,
+		force_size = 16,
+		force_regular = 32,
+		force_symbolic = 64,
+		dir_ltr = 128,
+		dir_rtl = 256,
+	}
+	public enum TextDirection
+	{
+		none = 0,
+		ltr = 1,
+		rtl = 2,
+	}
+	public enum IconThemeError
+	{
+		not_found = 0,
+		failed = 1,
+	}
+	public enum IconViewDropPosition
+	{
+		no_drop = 0,
+		drop_into = 1,
+		drop_left = 2,
+		drop_right = 3,
+		drop_above = 4,
+		drop_below = 5,
+	}
+	public enum MessageType
+	{
+		info = 0,
+		warning = 1,
+		question = 2,
+		error = 3,
+		other = 4,
+	}
+	[Flags]
+	public enum JunctionSides
+	{
+		none = 0,
+		corner_topleft = 1,
+		corner_topright = 2,
+		corner_bottomleft = 4,
+		corner_bottomright = 8,
+		top = 3,
+		bottom = 12,
+		left = 5,
+		right = 10,
+	}
+	public enum Justification
+	{
+		left = 0,
+		right = 1,
+		center = 2,
+		fill = 3,
+	}
+	public enum LevelBarMode
+	{
+		continuous = 0,
+		discrete = 1,
+	}
+	public enum PackDirection
+	{
+		ltr = 0,
+		rtl = 1,
+		ttb = 2,
+		btt = 3,
+	}
+	public enum MenuDirectionType
+	{
+		parent = 0,
+		child = 1,
+		next = 2,
+		prev = 3,
+	}
+	public enum NotebookTab
+	{
+		first = 0,
+		last = 1,
+	}
+	public enum NumberUpLayout
+	{
+		lrtb = 0,
+		lrbt = 1,
+		rltb = 2,
+		rlbt = 3,
+		tblr = 4,
+		tbrl = 5,
+		btlr = 6,
+		btrl = 7,
+	}
+	public enum PadActionType
+	{
+		button = 0,
+		ring = 1,
+		strip = 2,
+	}
+	public enum PageOrientation
+	{
+		portrait = 0,
+		landscape = 1,
+		reverse_portrait = 2,
+		reverse_landscape = 3,
+	}
+	public enum PageSet
+	{
+		all = 0,
+		even = 1,
+		odd = 2,
+	}
+	public enum Unit
+	{
+		none = 0,
+		points = 1,
+		inch = 2,
+		mm = 3,
+	}
+	public enum PanDirection
+	{
+		left = 0,
+		right = 1,
+		up = 2,
+		down = 3,
+	}
+	public enum ScrollType
+	{
+		none = 0,
+		jump = 1,
+		step_backward = 2,
+		step_forward = 3,
+		page_backward = 4,
+		page_forward = 5,
+		step_up = 6,
+		step_down = 7,
+		page_up = 8,
+		page_down = 9,
+		step_left = 10,
+		step_right = 11,
+		page_left = 12,
+		page_right = 13,
+		start = 14,
+		end = 15,
+	}
+	[Flags]
+	public enum PlacesOpenFlags
+	{
+		normal = 1,
+		new_tab = 2,
+		new_window = 4,
+	}
+	public enum PolicyType
+	{
+		always = 0,
+		automatic = 1,
+		never = 2,
+		external = 3,
+	}
+	public enum PopoverConstraint
+	{
+		none = 0,
+		window = 1,
+	}
+	public enum PrintDuplex
+	{
+		simplex = 0,
+		horizontal = 1,
+		vertical = 2,
+	}
+	public enum PrintError
+	{
+		general = 0,
+		internal_error = 1,
+		nomem = 2,
+		invalid_file = 3,
+	}
+	public enum PrintStatus
+	{
+		initial = 0,
+		preparing = 1,
+		generating_data = 2,
+		sending_data = 3,
+		pending = 4,
+		pending_issue = 5,
+		printing = 6,
+		finished = 7,
+		finished_aborted = 8,
+	}
+	public enum PrintOperationResult
+	{
+		error = 0,
+		apply = 1,
+		cancel = 2,
+		in_progress = 3,
+	}
+	public enum PrintOperationAction
+	{
+		print_dialog = 0,
+		print = 1,
+		preview = 2,
+		export = 3,
+	}
+	public enum PrintPages
+	{
+		all = 0,
+		current = 1,
+		ranges = 2,
+		selection = 3,
+	}
+	public enum PrintQuality
+	{
+		low = 0,
+		normal = 1,
+		high = 2,
+		draft = 3,
+	}
+	[Flags]
+	public enum RcFlags
+	{
+		fg = 1,
+		bg = 2,
+		text = 4,
+		@base = 8,
+	}
+	public enum RcTokenType
+	{
+		invalid = 270,
+		include = 271,
+		normal = 272,
+		active = 273,
+		prelight = 274,
+		selected = 275,
+		insensitive = 276,
+		fg = 277,
+		bg = 278,
+		text = 279,
+		@base = 280,
+		xthickness = 281,
+		ythickness = 282,
+		font = 283,
+		fontset = 284,
+		font_name = 285,
+		bg_pixmap = 286,
+		pixmap_path = 287,
+		style = 288,
+		binding = 289,
+		bind = 290,
+		widget = 291,
+		widget_class = 292,
+		@class = 293,
+		lowest = 294,
+		gtk = 295,
+		application = 296,
+		theme = 297,
+		rc = 298,
+		highest = 299,
+		engine = 300,
+		module_path = 301,
+		im_module_path = 302,
+		im_module_file = 303,
+		stock = 304,
+		ltr = 305,
+		rtl = 306,
+		color = 307,
+		unbind = 308,
+		last = 309,
+	}
+	public enum RecentSortType
+	{
+		none = 0,
+		mru = 1,
+		lru = 2,
+		custom = 3,
+	}
+	public enum RecentChooserError
+	{
+		not_found = 0,
+		invalid_uri = 1,
+	}
+	[Flags]
+	public enum RecentFilterFlags
+	{
+		uri = 1,
+		display_name = 2,
+		mime_type = 4,
+		application = 8,
+		group = 16,
+		age = 32,
+	}
+	public enum RecentManagerError
+	{
+		not_found = 0,
+		invalid_uri = 1,
+		invalid_encoding = 2,
+		not_registered = 3,
+		read = 4,
+		write = 5,
+		unknown = 6,
+	}
+	[Flags]
+	public enum RegionFlags
+	{
+		even = 1,
+		odd = 2,
+		first = 4,
+		last = 8,
+		only = 16,
+		sorted = 32,
+	}
+	public enum ResponseType
+	{
+		none = -1,
+		reject = -2,
+		accept = -3,
+		delete_event = -4,
+		ok = -5,
+		cancel = -6,
+		close = -7,
+		yes = -8,
+		no = -9,
+		apply = -10,
+		help = -11,
+	}
+	public enum RevealerTransitionType
+	{
+		none = 0,
+		crossfade = 1,
+		slide_right = 2,
+		slide_left = 3,
+		slide_up = 4,
+		slide_down = 5,
+	}
+	public enum ScrollStep
+	{
+		steps = 0,
+		pages = 1,
+		ends = 2,
+		horizontal_steps = 3,
+		horizontal_pages = 4,
+		horizontal_ends = 5,
+	}
+	public enum ScrollablePolicy
+	{
+		minimum = 0,
+		natural = 1,
+	}
+	public enum ToolbarStyle
+	{
+		icons = 0,
+		text = 1,
+		both = 2,
+		both_horiz = 3,
+	}
+	public enum ShortcutType
+	{
+		accelerator = 0,
+		gesture_pinch = 1,
+		gesture_stretch = 2,
+		gesture_rotate_clockwise = 3,
+		gesture_rotate_counterclockwise = 4,
+		gesture_two_finger_swipe_left = 5,
+		gesture_two_finger_swipe_right = 6,
+		gesture = 7,
+	}
+	public enum SizeGroupMode
+	{
+		none = 0,
+		horizontal = 1,
+		vertical = 2,
+		both = 3,
+	}
+	public enum SortType
+	{
+		ascending = 0,
+		descending = 1,
+	}
+	public enum SpinButtonUpdatePolicy
+	{
+		always = 0,
+		if_valid = 1,
+	}
+	public enum SpinType
+	{
+		step_forward = 0,
+		step_backward = 1,
+		page_forward = 2,
+		page_backward = 3,
+		home = 4,
+		end = 5,
+		user_defined = 6,
+	}
+	public enum StackTransitionType
+	{
+		none = 0,
+		crossfade = 1,
+		slide_right = 2,
+		slide_left = 3,
+		slide_up = 4,
+		slide_down = 5,
+		slide_left_right = 6,
+		slide_up_down = 7,
+		over_up = 8,
+		over_down = 9,
+		over_left = 10,
+		over_right = 11,
+		under_up = 12,
+		under_down = 13,
+		under_left = 14,
+		under_right = 15,
+		over_up_down = 16,
+		over_down_up = 17,
+		over_left_right = 18,
+		over_right_left = 19,
+	}
+	[Flags]
+	public enum StyleContextPrintFlags
+	{
+		none = 0,
+		recurse = 1,
+		show_style = 2,
+	}
+	[Flags]
+	public enum TargetFlags
+	{
+		same_app = 1,
+		same_widget = 2,
+		other_app = 4,
+		other_widget = 8,
+	}
+	public enum WrapMode
+	{
+		none = 0,
+		@char = 1,
+		word = 2,
+		word_char = 3,
+	}
+	public enum TextBufferTargetInfo
+	{
+		buffer_contents = -1,
+		rich_text = -2,
+		text = -3,
+	}
+	public enum TextExtendSelection
+	{
+		word = 0,
+		line = 1,
+	}
+	[Flags]
+	public enum TextSearchFlags
+	{
+		visible_only = 1,
+		text_only = 2,
+		case_insensitive = 4,
+	}
+	public enum TextWindowType
+	{
+		@private = 0,
+		widget = 1,
+		text = 2,
+		left = 3,
+		right = 4,
+		top = 5,
+		bottom = 6,
+	}
+	public enum TextViewLayer
+	{
+		below = 0,
+		above = 1,
+		below_text = 2,
+		above_text = 3,
+	}
+	[Flags]
+	public enum ToolPaletteDragTargets
+	{
+		items = 1,
+		groups = 2,
+	}
+	public enum ToolbarSpaceStyle
+	{
+		empty = 0,
+		line = 1,
+	}
+	[Flags]
+	public enum TreeModelFlags
+	{
+		iters_persist = 1,
+		list_only = 2,
+	}
+	public enum TreeViewDropPosition
+	{
+		before = 0,
+		after = 1,
+		into_or_before = 2,
+		into_or_after = 3,
+	}
+	public enum TreeViewGridLines
+	{
+		none = 0,
+		horizontal = 1,
+		vertical = 2,
+		both = 3,
+	}
+	public enum TreeViewColumnSizing
+	{
+		grow_only = 0,
+		autosize = 1,
+		@fixed = 2,
+	}
+	[Flags]
+	public enum UIManagerItemType
+	{
+		auto = 0,
+		menubar = 1,
+		menu = 2,
+		toolbar = 4,
+		placeholder = 8,
+		popup = 16,
+		menuitem = 32,
+		toolitem = 64,
+		separator = 128,
+		accelerator = 256,
+		popup_with_accels = 512,
+	}
+	public enum WidgetHelpType
+	{
+		tooltip = 0,
+		whats_this = 1,
+	}
+	public enum WindowType
+	{
+		toplevel = 0,
+		popup = 1,
+	}
+	public enum WindowPosition
+	{
+		none = 0,
+		center = 1,
+		mouse = 2,
+		center_always = 3,
+		center_on_parent = 4,
+	}
 	public static class GtkInterop {
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accel_groups_activate(System.IntPtr @object, uint accel_key, int accel_mods);
+		public static extern int gtk_accel_groups_activate(System.IntPtr @object, uint accel_key, Gdk.ModifierType accel_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_accel_groups_from_object(System.IntPtr @object);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accelerator_get_default_mod_mask();
+		public static extern Gdk.ModifierType gtk_accelerator_get_default_mod_mask();
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_accelerator_get_label(uint accelerator_key, int accelerator_mods);
+		public static extern string gtk_accelerator_get_label(uint accelerator_key, Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_accelerator_get_label_with_keycode(System.IntPtr display, uint accelerator_key, uint keycode, int accelerator_mods);
+		public static extern string gtk_accelerator_get_label_with_keycode(System.IntPtr display, uint accelerator_key, uint keycode, Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_accelerator_name(uint accelerator_key, int accelerator_mods);
+		public static extern string gtk_accelerator_name(uint accelerator_key, Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_accelerator_name_with_keycode(System.IntPtr display, uint accelerator_key, uint keycode, int accelerator_mods);
+		public static extern string gtk_accelerator_name_with_keycode(System.IntPtr display, uint accelerator_key, uint keycode, Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accelerator_parse(string accelerator, System.IntPtr accelerator_key, System.IntPtr accelerator_mods);
+		public static extern void gtk_accelerator_parse(string accelerator, System.IntPtr accelerator_key, out Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accelerator_parse_with_keycode(string accelerator, System.IntPtr accelerator_key, System.IntPtr accelerator_codes, System.IntPtr accelerator_mods);
+		public static extern void gtk_accelerator_parse_with_keycode(string accelerator, System.IntPtr accelerator_key, System.IntPtr accelerator_codes, out Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accelerator_set_default_mod_mask(int default_mod_mask);
+		public static extern void gtk_accelerator_set_default_mod_mask(Gdk.ModifierType default_mod_mask);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accelerator_valid(uint keyval, int modifiers);
+		public static extern int gtk_accelerator_valid(uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_alternative_dialog_button_order(System.IntPtr screen);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_bindings_activate(System.IntPtr @object, uint keyval, int modifiers);
+		public static extern int gtk_bindings_activate(System.IntPtr @object, uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_bindings_activate_event(System.IntPtr @object, System.IntPtr @event);
 		[DllImport("libgtk-3.so.0")]
@@ -65,7 +1097,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_drag_set_icon_widget(System.IntPtr context, System.IntPtr widget, int hot_x, int hot_y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_draw_insertion_cursor(System.IntPtr widget, System.IntPtr cr, System.IntPtr location, int is_primary, int direction, int draw_arrow);
+		public static extern void gtk_draw_insertion_cursor(System.IntPtr widget, System.IntPtr cr, System.IntPtr location, int is_primary, Gtk.TextDirection direction, int draw_arrow);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_events_pending();
 		[DllImport("libgtk-3.so.0")]
@@ -77,7 +1109,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_get_current_event_device();
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_get_current_event_state(System.IntPtr state);
+		public static extern int gtk_get_current_event_state(out Gdk.ModifierType state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_get_current_event_time();
 		[DllImport("libgtk-3.so.0")]
@@ -89,7 +1121,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_get_interface_age();
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_get_locale_direction();
+		public static extern Gtk.TextDirection gtk_get_locale_direction();
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_get_major_version();
 		[DllImport("libgtk-3.so.0")]
@@ -123,45 +1155,45 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_main_quit();
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_arrow(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int arrow_type, int fill, int x, int y, int width, int height);
+		public static extern void gtk_paint_arrow(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, Gtk.ArrowType arrow_type, int fill, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_box(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_box(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_box_gap(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, int gap_side, int gap_x, int gap_width);
+		public static extern void gtk_paint_box_gap(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, Gtk.PositionType gap_side, int gap_x, int gap_width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_check(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_check(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_diamond(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_diamond(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_expander(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, int x, int y, int expander_style);
+		public static extern void gtk_paint_expander(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, int x, int y, Gtk.ExpanderStyle expander_style);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_extension(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, int gap_side);
+		public static extern void gtk_paint_extension(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, Gtk.PositionType gap_side);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_flat_box(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_flat_box(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_focus(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_focus(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_handle(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, int orientation);
+		public static extern void gtk_paint_handle(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_hline(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, int x1, int x2, int y);
+		public static extern void gtk_paint_hline(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, int x1, int x2, int y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_layout(System.IntPtr style, System.IntPtr cr, int state_type, int use_text, System.IntPtr widget, string detail, int x, int y, System.IntPtr layout);
+		public static extern void gtk_paint_layout(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, int use_text, System.IntPtr widget, string detail, int x, int y, System.IntPtr layout);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_option(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_option(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_resize_grip(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, int edge, int x, int y, int width, int height);
+		public static extern void gtk_paint_resize_grip(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, Gdk.WindowEdge edge, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_shadow(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_shadow(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_shadow_gap(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, int gap_side, int gap_x, int gap_width);
+		public static extern void gtk_paint_shadow_gap(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, Gtk.PositionType gap_side, int gap_x, int gap_width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_slider(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, int orientation);
+		public static extern void gtk_paint_slider(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_spinner(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, uint step, int x, int y, int width, int height);
+		public static extern void gtk_paint_spinner(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, uint step, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_tab(System.IntPtr style, System.IntPtr cr, int state_type, int shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
+		public static extern void gtk_paint_tab(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, Gtk.ShadowType shadow_type, System.IntPtr widget, string detail, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paint_vline(System.IntPtr style, System.IntPtr cr, int state_type, System.IntPtr widget, string detail, int y1_, int y2_, int x);
+		public static extern void gtk_paint_vline(System.IntPtr style, System.IntPtr cr, Gtk.StateType state_type, System.IntPtr widget, string detail, int y1_, int y2_, int x);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_parse_args(System.IntPtr argc, System.IntPtr argv);
 		[DllImport("libgtk-3.so.0")]
@@ -197,9 +1229,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_rc_parse_color_full(System.IntPtr scanner, System.IntPtr style, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern uint gtk_rc_parse_priority(System.IntPtr scanner, System.IntPtr priority);
-		[DllImport("libgtk-3.so.0")]
-		public static extern uint gtk_rc_parse_state(System.IntPtr scanner, System.IntPtr state);
+		public static extern uint gtk_rc_parse_state(System.IntPtr scanner, out Gtk.StateType state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_rc_parse_string(string rc_string);
 		[DllImport("libgtk-3.so.0")]
@@ -225,13 +1255,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_expander(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_render_extension(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, int gap_side);
+		public static extern void gtk_render_extension(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, Gtk.PositionType gap_side);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_focus(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_frame(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_render_frame_gap(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, int gap_side, double xy0_gap, double xy1_gap);
+		public static extern void gtk_render_frame_gap(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, Gtk.PositionType gap_side, double xy0_gap, double xy1_gap);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_handle(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height);
 		[DllImport("libgtk-3.so.0")]
@@ -241,7 +1271,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_icon_surface(System.IntPtr context, System.IntPtr cr, System.IntPtr surface, double x, double y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_render_insertion_cursor(System.IntPtr context, System.IntPtr cr, double x, double y, System.IntPtr layout, int index, int direction);
+		public static extern void gtk_render_insertion_cursor(System.IntPtr context, System.IntPtr cr, double x, double y, System.IntPtr layout, int index, Pango.Direction direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_layout(System.IntPtr context, System.IntPtr cr, double x, double y, System.IntPtr layout);
 		[DllImport("libgtk-3.so.0")]
@@ -249,7 +1279,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_render_option(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_render_slider(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, int orientation);
+		public static extern void gtk_render_slider(System.IntPtr context, System.IntPtr cr, double x, double y, double width, double height, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_rgb_to_hsv(double r, double g, double b, System.IntPtr h, System.IntPtr s, System.IntPtr v);
 		[DllImport("libgtk-3.so.0")]
@@ -317,9 +1347,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_test_text_set(System.IntPtr widget, string @string);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_test_widget_click(System.IntPtr widget, uint button, int modifiers);
+		public static extern int gtk_test_widget_click(System.IntPtr widget, uint button, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_test_widget_send_key(System.IntPtr widget, uint keyval, int modifiers);
+		public static extern int gtk_test_widget_send_key(System.IntPtr widget, uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_test_widget_wait_for_draw(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -349,7 +1379,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_buildable_set_name(System.IntPtr buildable, string name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_default_direction();
+		public static extern Gtk.TextDirection gtk_widget_get_default_direction();
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_default_style();
 		[DllImport("libgtk-3.so.0")]
@@ -357,13 +1387,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_push_composite_child();
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_default_direction(int dir);
+		public static extern void gtk_widget_set_default_direction(Gtk.TextDirection dir);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_activate(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_add_accelerator(System.IntPtr widget, string accel_signal, System.IntPtr accel_group, uint accel_key, int accel_mods, int accel_flags);
+		public static extern void gtk_widget_add_accelerator(System.IntPtr widget, string accel_signal, System.IntPtr accel_group, uint accel_key, Gdk.ModifierType accel_mods, Gtk.AccelFlags accel_flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_add_device_events(System.IntPtr widget, System.IntPtr device, int events);
+		public static extern void gtk_widget_add_device_events(System.IntPtr widget, System.IntPtr device, Gdk.EventMask events);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_add_events(System.IntPtr widget, int events);
 		[DllImport("libgtk-3.so.0")]
@@ -373,13 +1403,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_can_activate_accel(System.IntPtr widget, uint signal_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_child_focus(System.IntPtr widget, int direction);
+		public static extern int gtk_widget_child_focus(System.IntPtr widget, Gtk.DirectionType direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_child_notify(System.IntPtr widget, string child_property);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_class_path(System.IntPtr widget, System.IntPtr path_length, string path, string path_reversed);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_compute_expand(System.IntPtr widget, int orientation);
+		public static extern int gtk_widget_compute_expand(System.IntPtr widget, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_create_pango_context(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -391,9 +1421,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_device_is_shadowed(System.IntPtr widget, System.IntPtr device);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_drag_begin(System.IntPtr widget, System.IntPtr targets, int actions, int button, System.IntPtr @event);
+		public static extern System.IntPtr gtk_drag_begin(System.IntPtr widget, System.IntPtr targets, Gdk.DragAction actions, int button, System.IntPtr @event);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_drag_begin_with_coordinates(System.IntPtr widget, System.IntPtr targets, int actions, int button, System.IntPtr @event, int x, int y);
+		public static extern System.IntPtr gtk_drag_begin_with_coordinates(System.IntPtr widget, System.IntPtr targets, Gdk.DragAction actions, int button, System.IntPtr @event, int x, int y);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_drag_check_threshold(System.IntPtr widget, int start_x, int start_y, int current_x, int current_y);
 		[DllImport("libgtk-3.so.0")]
@@ -409,9 +1439,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_drag_dest_get_track_motion(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_drag_dest_set(System.IntPtr widget, int flags, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_drag_dest_set(System.IntPtr widget, Gtk.DestDefaults flags, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_drag_dest_set_proxy(System.IntPtr widget, System.IntPtr proxy_window, int protocol, int use_coordinates);
+		public static extern void gtk_drag_dest_set_proxy(System.IntPtr widget, System.IntPtr proxy_window, Gdk.DragProtocol protocol, int use_coordinates);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_drag_dest_set_target_list(System.IntPtr widget, System.IntPtr target_list);
 		[DllImport("libgtk-3.so.0")]
@@ -431,7 +1461,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_drag_source_get_target_list(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_drag_source_set(System.IntPtr widget, int start_button_mask, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_drag_source_set(System.IntPtr widget, Gdk.ModifierType start_button_mask, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_drag_source_set_icon_gicon(System.IntPtr widget, System.IntPtr icon);
 		[DllImport("libgtk-3.so.0")]
@@ -491,9 +1521,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_get_device_enabled(System.IntPtr widget, System.IntPtr device);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_device_events(System.IntPtr widget, System.IntPtr device);
+		public static extern Gdk.EventMask gtk_widget_get_device_events(System.IntPtr widget, System.IntPtr device);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_direction(System.IntPtr widget);
+		public static extern Gtk.TextDirection gtk_widget_get_direction(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_display(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -509,7 +1539,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_frame_clock(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_halign(System.IntPtr widget);
+		public static extern Gtk.Align gtk_widget_get_halign(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_get_has_tooltip(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -533,7 +1563,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_get_margin_top(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_modifier_mask(System.IntPtr widget, int intent);
+		public static extern Gdk.ModifierType gtk_widget_get_modifier_mask(System.IntPtr widget, Gdk.ModifierIntent intent);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_modifier_style(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -569,7 +1599,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_get_receives_default(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_request_mode(System.IntPtr widget);
+		public static extern Gtk.SizeRequestMode gtk_widget_get_request_mode(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_get_requisition(System.IntPtr widget, System.IntPtr requisition);
 		[DllImport("libgtk-3.so.0")]
@@ -585,9 +1615,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_get_size_request(System.IntPtr widget, System.IntPtr width, System.IntPtr height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_state(System.IntPtr widget);
+		public static extern Gtk.StateType gtk_widget_get_state(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_state_flags(System.IntPtr widget);
+		public static extern Gtk.StateFlags gtk_widget_get_state_flags(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_style(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -605,9 +1635,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_get_toplevel(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_valign(System.IntPtr widget);
+		public static extern Gtk.Align gtk_widget_get_valign(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_get_valign_with_baseline(System.IntPtr widget);
+		public static extern Gtk.Align gtk_widget_get_valign_with_baseline(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_get_vexpand(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -667,7 +1697,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_is_visible(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_keynav_failed(System.IntPtr widget, int direction);
+		public static extern int gtk_widget_keynav_failed(System.IntPtr widget, Gtk.DirectionType direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_list_accel_closures(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -679,23 +1709,23 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_mnemonic_activate(System.IntPtr widget, int group_cycling);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_modify_base(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_modify_base(System.IntPtr widget, Gtk.StateType state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_modify_bg(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_modify_bg(System.IntPtr widget, Gtk.StateType state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_modify_cursor(System.IntPtr widget, System.IntPtr primary, System.IntPtr secondary);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_modify_fg(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_modify_fg(System.IntPtr widget, Gtk.StateType state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_modify_font(System.IntPtr widget, System.IntPtr font_desc);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_modify_style(System.IntPtr widget, System.IntPtr style);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_modify_text(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_modify_text(System.IntPtr widget, Gtk.StateType state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_override_background_color(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_override_background_color(System.IntPtr widget, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_override_color(System.IntPtr widget, int state, System.IntPtr color);
+		public static extern void gtk_widget_override_color(System.IntPtr widget, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_override_cursor(System.IntPtr widget, System.IntPtr cursor, System.IntPtr secondary_cursor);
 		[DllImport("libgtk-3.so.0")]
@@ -725,7 +1755,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_register_window(System.IntPtr widget, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_remove_accelerator(System.IntPtr widget, System.IntPtr accel_group, uint accel_key, int accel_mods);
+		public static extern int gtk_widget_remove_accelerator(System.IntPtr widget, System.IntPtr accel_group, uint accel_key, Gdk.ModifierType accel_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_remove_mnemonic_label(System.IntPtr widget, System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
@@ -763,9 +1793,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_device_enabled(System.IntPtr widget, System.IntPtr device, int enabled);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_device_events(System.IntPtr widget, System.IntPtr device, int events);
+		public static extern void gtk_widget_set_device_events(System.IntPtr widget, System.IntPtr device, Gdk.EventMask events);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_direction(System.IntPtr widget, int dir);
+		public static extern void gtk_widget_set_direction(System.IntPtr widget, Gtk.TextDirection dir);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_double_buffered(System.IntPtr widget, int double_buffered);
 		[DllImport("libgtk-3.so.0")]
@@ -777,7 +1807,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_font_options(System.IntPtr widget, System.IntPtr options);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_halign(System.IntPtr widget, int align);
+		public static extern void gtk_widget_set_halign(System.IntPtr widget, Gtk.Align align);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_has_tooltip(System.IntPtr widget, int has_tooltip);
 		[DllImport("libgtk-3.so.0")]
@@ -821,9 +1851,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_size_request(System.IntPtr widget, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_state(System.IntPtr widget, int state);
+		public static extern void gtk_widget_set_state(System.IntPtr widget, Gtk.StateType state);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_state_flags(System.IntPtr widget, int flags, int clear);
+		public static extern void gtk_widget_set_state_flags(System.IntPtr widget, Gtk.StateFlags flags, int clear);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_style(System.IntPtr widget, System.IntPtr style);
 		[DllImport("libgtk-3.so.0")]
@@ -835,7 +1865,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_tooltip_window(System.IntPtr widget, System.IntPtr custom_window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_set_valign(System.IntPtr widget, int align);
+		public static extern void gtk_widget_set_valign(System.IntPtr widget, Gtk.Align align);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_set_vexpand(System.IntPtr widget, int expand);
 		[DllImport("libgtk-3.so.0")]
@@ -879,7 +1909,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_unregister_window(System.IntPtr widget, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_unset_state_flags(System.IntPtr widget, int flags);
+		public static extern void gtk_widget_unset_state_flags(System.IntPtr widget, Gtk.StateFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_about_dialog_new();
 		[DllImport("libgtk-3.so.0")]
@@ -897,7 +1927,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_about_dialog_get_license(System.IntPtr about);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_about_dialog_get_license_type(System.IntPtr about);
+		public static extern Gtk.License gtk_about_dialog_get_license_type(System.IntPtr about);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_about_dialog_get_logo(System.IntPtr about);
 		[DllImport("libgtk-3.so.0")]
@@ -927,7 +1957,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_about_dialog_set_license(System.IntPtr about, string license);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_about_dialog_set_license_type(System.IntPtr about, int license_type);
+		public static extern void gtk_about_dialog_set_license_type(System.IntPtr about, Gtk.License license_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_about_dialog_set_logo(System.IntPtr about, System.IntPtr logo);
 		[DllImport("libgtk-3.so.0")]
@@ -975,31 +2005,31 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_accel_group_from_accel_closure(System.IntPtr closure);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accel_group_activate(System.IntPtr accel_group, uint accel_quark, System.IntPtr acceleratable, uint accel_key, int accel_mods);
+		public static extern int gtk_accel_group_activate(System.IntPtr accel_group, uint accel_quark, System.IntPtr acceleratable, uint accel_key, Gdk.ModifierType accel_mods);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accel_group_connect(System.IntPtr accel_group, uint accel_key, int accel_mods, int accel_flags, System.IntPtr closure);
+		public static extern void gtk_accel_group_connect(System.IntPtr accel_group, uint accel_key, Gdk.ModifierType accel_mods, Gtk.AccelFlags accel_flags, System.IntPtr closure);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_group_connect_by_path(System.IntPtr accel_group, string accel_path, System.IntPtr closure);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_accel_group_disconnect(System.IntPtr accel_group, System.IntPtr closure);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accel_group_disconnect_key(System.IntPtr accel_group, uint accel_key, int accel_mods);
+		public static extern int gtk_accel_group_disconnect_key(System.IntPtr accel_group, uint accel_key, Gdk.ModifierType accel_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_accel_group_find(System.IntPtr accel_group, System.IntPtr find_func, System.IntPtr data);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_accel_group_get_is_locked(System.IntPtr accel_group);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accel_group_get_modifier_mask(System.IntPtr accel_group);
+		public static extern Gdk.ModifierType gtk_accel_group_get_modifier_mask(System.IntPtr accel_group);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_group_lock(System.IntPtr accel_group);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_accel_group_query(System.IntPtr accel_group, uint accel_key, int accel_mods, System.IntPtr n_entries);
+		public static extern System.IntPtr gtk_accel_group_query(System.IntPtr accel_group, uint accel_key, Gdk.ModifierType accel_mods, System.IntPtr n_entries);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_group_unlock(System.IntPtr accel_group);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_accel_label_new(string @string);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accel_label_get_accel(System.IntPtr accel_label, System.IntPtr accelerator_key, System.IntPtr accelerator_mods);
+		public static extern void gtk_accel_label_get_accel(System.IntPtr accel_label, System.IntPtr accelerator_key, out Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_accel_label_get_accel_widget(System.IntPtr accel_label);
 		[DllImport("libgtk-3.so.0")]
@@ -1007,7 +2037,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_accel_label_refetch(System.IntPtr accel_label);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accel_label_set_accel(System.IntPtr accel_label, uint accelerator_key, int accelerator_mods);
+		public static extern void gtk_accel_label_set_accel(System.IntPtr accel_label, uint accelerator_key, Gdk.ModifierType accelerator_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_label_set_accel_closure(System.IntPtr accel_label, System.IntPtr accel_closure);
 		[DllImport("libgtk-3.so.0")]
@@ -1023,9 +2053,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_label_get_current_uri(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_label_get_ellipsize(System.IntPtr label);
+		public static extern Pango.EllipsizeMode gtk_label_get_ellipsize(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_label_get_justify(System.IntPtr label);
+		public static extern Gtk.Justification gtk_label_get_justify(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_label_get_label(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
@@ -1035,7 +2065,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_label_get_line_wrap(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_label_get_line_wrap_mode(System.IntPtr label);
+		public static extern Pango.WrapMode gtk_label_get_line_wrap_mode(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_label_get_lines(System.IntPtr label);
 		[DllImport("libgtk-3.so.0")]
@@ -1071,15 +2101,15 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_label_set_attributes(System.IntPtr label, System.IntPtr attrs);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_label_set_ellipsize(System.IntPtr label, int mode);
+		public static extern void gtk_label_set_ellipsize(System.IntPtr label, Pango.EllipsizeMode mode);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_label_set_justify(System.IntPtr label, int jtype);
+		public static extern void gtk_label_set_justify(System.IntPtr label, Gtk.Justification jtype);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_label_set_label(System.IntPtr label, string str);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_label_set_line_wrap(System.IntPtr label, int wrap);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_label_set_line_wrap_mode(System.IntPtr label, int wrap_mode);
+		public static extern void gtk_label_set_line_wrap_mode(System.IntPtr label, Pango.WrapMode wrap_mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_label_set_lines(System.IntPtr label, int lines);
 		[DllImport("libgtk-3.so.0")]
@@ -1113,11 +2143,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_label_set_yalign(System.IntPtr label, float yalign);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_accel_map_add_entry(string accel_path, uint accel_key, int accel_mods);
+		public static extern void gtk_accel_map_add_entry(string accel_path, uint accel_key, Gdk.ModifierType accel_mods);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_map_add_filter(string filter_pattern);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_accel_map_change_entry(string accel_path, uint accel_key, int accel_mods, int replace);
+		public static extern int gtk_accel_map_change_entry(string accel_path, uint accel_key, Gdk.ModifierType accel_mods, int replace);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_accel_map_foreach(System.IntPtr data, System.IntPtr foreach_func);
 		[DllImport("libgtk-3.so.0")]
@@ -1423,7 +2453,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_combo_box_get_add_tearoffs(System.IntPtr combo_box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_combo_box_get_button_sensitivity(System.IntPtr combo_box);
+		public static extern Gtk.SensitivityType gtk_combo_box_get_button_sensitivity(System.IntPtr combo_box);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_combo_box_get_column_span_column(System.IntPtr combo_box);
 		[DllImport("libgtk-3.so.0")]
@@ -1463,7 +2493,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_combo_box_set_add_tearoffs(System.IntPtr combo_box, int add_tearoffs);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_combo_box_set_button_sensitivity(System.IntPtr combo_box, int sensitivity);
+		public static extern void gtk_combo_box_set_button_sensitivity(System.IntPtr combo_box, Gtk.SensitivityType sensitivity);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_combo_box_set_column_span_column(System.IntPtr combo_box, int column_span);
 		[DllImport("libgtk-3.so.0")]
@@ -1485,7 +2515,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_combo_box_set_wrap_width(System.IntPtr combo_box, int width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_window_new(int type);
+		public static extern System.IntPtr gtk_window_new(Gtk.WindowType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_window_get_default_icon_list();
 		[DllImport("libgtk-3.so.0")]
@@ -1517,7 +2547,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_begin_move_drag(System.IntPtr window, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_begin_resize_drag(System.IntPtr window, int edge, int button, int root_x, int root_y, uint timestamp);
+		public static extern void gtk_window_begin_resize_drag(System.IntPtr window, Gdk.WindowEdge edge, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_close(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -1549,7 +2579,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_window_get_focus_visible(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_window_get_gravity(System.IntPtr window);
+		public static extern Gdk.Gravity gtk_window_get_gravity(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_window_get_group(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -1563,7 +2593,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_window_get_icon_name(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_window_get_mnemonic_modifier(System.IntPtr window);
+		public static extern Gdk.ModifierType gtk_window_get_mnemonic_modifier(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_window_get_mnemonics_visible(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -1593,11 +2623,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_window_get_transient_for(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_window_get_type_hint(System.IntPtr window);
+		public static extern Gdk.WindowTypeHint gtk_window_get_type_hint(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_window_get_urgency_hint(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_window_get_window_type(System.IntPtr window);
+		public static extern Gtk.WindowType gtk_window_get_window_type(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_window_has_group(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -1611,7 +2641,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_maximize(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_window_mnemonic_activate(System.IntPtr window, uint keyval, int modifier);
+		public static extern int gtk_window_mnemonic_activate(System.IntPtr window, uint keyval, Gdk.ModifierType modifier);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_move(System.IntPtr window, int x, int y);
 		[DllImport("libgtk-3.so.0")]
@@ -1659,9 +2689,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_focus_visible(System.IntPtr window, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_set_geometry_hints(System.IntPtr window, System.IntPtr geometry_widget, System.IntPtr geometry, int geom_mask);
+		public static extern void gtk_window_set_geometry_hints(System.IntPtr window, System.IntPtr geometry_widget, System.IntPtr geometry, Gdk.WindowHints geom_mask);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_set_gravity(System.IntPtr window, int gravity);
+		public static extern void gtk_window_set_gravity(System.IntPtr window, Gdk.Gravity gravity);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_has_resize_grip(System.IntPtr window, int value);
 		[DllImport("libgtk-3.so.0")]
@@ -1681,7 +2711,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_keep_below(System.IntPtr window, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_set_mnemonic_modifier(System.IntPtr window, int modifier);
+		public static extern void gtk_window_set_mnemonic_modifier(System.IntPtr window, Gdk.ModifierType modifier);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_mnemonics_visible(System.IntPtr window, int setting);
 		[DllImport("libgtk-3.so.0")]
@@ -1689,7 +2719,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_opacity(System.IntPtr window, double opacity);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_set_position(System.IntPtr window, int position);
+		public static extern void gtk_window_set_position(System.IntPtr window, Gtk.WindowPosition position);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_resizable(System.IntPtr window, int resizable);
 		[DllImport("libgtk-3.so.0")]
@@ -1709,7 +2739,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_transient_for(System.IntPtr window, System.IntPtr parent);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_window_set_type_hint(System.IntPtr window, int hint);
+		public static extern void gtk_window_set_type_hint(System.IntPtr window, Gdk.WindowTypeHint hint);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_set_urgency_hint(System.IntPtr window, int setting);
 		[DllImport("libgtk-3.so.0")]
@@ -1723,9 +2753,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_window_unstick(System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_app_chooser_dialog_new(System.IntPtr parent, int flags, System.IntPtr file);
+		public static extern System.IntPtr gtk_app_chooser_dialog_new(System.IntPtr parent, Gtk.DialogFlags flags, System.IntPtr file);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_app_chooser_dialog_new_for_content_type(System.IntPtr parent, int flags, string content_type);
+		public static extern System.IntPtr gtk_app_chooser_dialog_new_for_content_type(System.IntPtr parent, Gtk.DialogFlags flags, string content_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_app_chooser_dialog_get_heading(System.IntPtr self);
 		[DllImport("libgtk-3.so.0")]
@@ -1733,9 +2763,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_app_chooser_dialog_set_heading(System.IntPtr self, string heading);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_orientable_get_orientation(System.IntPtr orientable);
+		public static extern Gtk.Orientation gtk_orientable_get_orientation(System.IntPtr orientable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_orientable_set_orientation(System.IntPtr orientable, int orientation);
+		public static extern void gtk_orientable_set_orientation(System.IntPtr orientable, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_app_chooser_widget_new(string content_type);
 		[DllImport("libgtk-3.so.0")]
@@ -1763,9 +2793,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_app_chooser_widget_set_show_recommended(System.IntPtr self, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_box_new(int orientation, int spacing);
+		public static extern System.IntPtr gtk_box_new(Gtk.Orientation orientation, int spacing);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_box_get_baseline_position(System.IntPtr box);
+		public static extern Gtk.BaselinePosition gtk_box_get_baseline_position(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_box_get_center_widget(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
@@ -1777,15 +2807,15 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_box_pack_start(System.IntPtr box, System.IntPtr child, int expand, int fill, uint padding);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_box_query_child_packing(System.IntPtr box, System.IntPtr child, System.IntPtr expand, System.IntPtr fill, System.IntPtr padding, System.IntPtr pack_type);
+		public static extern void gtk_box_query_child_packing(System.IntPtr box, System.IntPtr child, System.IntPtr expand, System.IntPtr fill, System.IntPtr padding, out Gtk.PackType pack_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_box_reorder_child(System.IntPtr box, System.IntPtr child, int position);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_box_set_baseline_position(System.IntPtr box, int position);
+		public static extern void gtk_box_set_baseline_position(System.IntPtr box, Gtk.BaselinePosition position);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_box_set_center_widget(System.IntPtr box, System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_box_set_child_packing(System.IntPtr box, System.IntPtr child, int expand, int fill, uint padding, int pack_type);
+		public static extern void gtk_box_set_child_packing(System.IntPtr box, System.IntPtr child, int expand, int fill, uint padding, Gtk.PackType pack_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_box_set_homogeneous(System.IntPtr box, int homogeneous);
 		[DllImport("libgtk-3.so.0")]
@@ -1827,9 +2857,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_menu_popup_at_pointer(System.IntPtr menu, System.IntPtr trigger_event);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_menu_popup_at_rect(System.IntPtr menu, System.IntPtr rect_window, System.IntPtr rect, int rect_anchor, int menu_anchor, System.IntPtr trigger_event);
+		public static extern void gtk_menu_popup_at_rect(System.IntPtr menu, System.IntPtr rect_window, System.IntPtr rect, Gdk.Gravity rect_anchor, Gdk.Gravity menu_anchor, System.IntPtr trigger_event);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_menu_popup_at_widget(System.IntPtr menu, System.IntPtr widget, int widget_anchor, int menu_anchor, System.IntPtr trigger_event);
+		public static extern void gtk_menu_popup_at_widget(System.IntPtr menu, System.IntPtr widget, Gdk.Gravity widget_anchor, Gdk.Gravity menu_anchor, System.IntPtr trigger_event);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_menu_popup_for_device(System.IntPtr menu, System.IntPtr device, System.IntPtr parent_menu_shell, System.IntPtr parent_menu_item, System.IntPtr func, System.IntPtr data, System.IntPtr destroy, uint button, uint activate_time);
 		[DllImport("libgtk-3.so.0")]
@@ -1853,7 +2883,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_menu_set_title(System.IntPtr menu, string title);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_application_new(string application_id, int flags);
+		public static extern System.IntPtr gtk_application_new(string application_id, Gio.ApplicationFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_application_add_accelerator(System.IntPtr application, string accelerator, string action_name, System.IntPtr parameter);
 		[DllImport("libgtk-3.so.0")]
@@ -1875,9 +2905,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_application_get_windows(System.IntPtr application);
 		[DllImport("libgtk-3.so.0")]
-		public static extern uint gtk_application_inhibit(System.IntPtr application, System.IntPtr window, int flags, string reason);
+		public static extern uint gtk_application_inhibit(System.IntPtr application, System.IntPtr window, Gtk.ApplicationInhibitFlags flags, string reason);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_application_is_inhibited(System.IntPtr application, int flags);
+		public static extern int gtk_application_is_inhibited(System.IntPtr application, Gtk.ApplicationInhibitFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_application_list_action_descriptions(System.IntPtr application);
 		[DllImport("libgtk-3.so.0")]
@@ -1907,9 +2937,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_application_window_set_show_menubar(System.IntPtr window, int show_menubar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_arrow_new(int arrow_type, int shadow_type);
+		public static extern System.IntPtr gtk_arrow_new(Gtk.ArrowType arrow_type, Gtk.ShadowType shadow_type);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_arrow_set(System.IntPtr arrow, int arrow_type, int shadow_type);
+		public static extern void gtk_arrow_set(System.IntPtr arrow, Gtk.ArrowType arrow_type, Gtk.ShadowType shadow_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_misc_get_alignment(System.IntPtr misc, System.IntPtr xalign, System.IntPtr yalign);
 		[DllImport("libgtk-3.so.0")]
@@ -1931,7 +2961,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_frame_get_label_widget(System.IntPtr frame);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_frame_get_shadow_type(System.IntPtr frame);
+		public static extern Gtk.ShadowType gtk_frame_get_shadow_type(System.IntPtr frame);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_frame_set_label(System.IntPtr frame, string label);
 		[DllImport("libgtk-3.so.0")]
@@ -1939,7 +2969,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_frame_set_label_widget(System.IntPtr frame, System.IntPtr label_widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_frame_set_shadow_type(System.IntPtr frame, int type);
+		public static extern void gtk_frame_set_shadow_type(System.IntPtr frame, Gtk.ShadowType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_assistant_new();
 		[DllImport("libgtk-3.so.0")]
@@ -1965,7 +2995,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_assistant_get_page_title(System.IntPtr assistant, System.IntPtr page);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_assistant_get_page_type(System.IntPtr assistant, System.IntPtr page);
+		public static extern Gtk.AssistantPageType gtk_assistant_get_page_type(System.IntPtr assistant, System.IntPtr page);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_assistant_insert_page(System.IntPtr assistant, System.IntPtr page, int position);
 		[DllImport("libgtk-3.so.0")]
@@ -1993,7 +3023,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_assistant_set_page_title(System.IntPtr assistant, System.IntPtr page, string title);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_assistant_set_page_type(System.IntPtr assistant, System.IntPtr page, int type);
+		public static extern void gtk_assistant_set_page_type(System.IntPtr assistant, System.IntPtr page, Gtk.AssistantPageType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_assistant_update_buttons_state(System.IntPtr assistant);
 		[DllImport("libgtk-3.so.0")]
@@ -2029,7 +3059,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_container_get_path_for_child(System.IntPtr container, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_container_get_resize_mode(System.IntPtr container);
+		public static extern Gtk.ResizeMode gtk_container_get_resize_mode(System.IntPtr container);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_container_propagate_draw(System.IntPtr container, System.IntPtr child, System.IntPtr cr);
 		[DllImport("libgtk-3.so.0")]
@@ -2049,7 +3079,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_container_set_reallocate_redraws(System.IntPtr container, int needs_redraws);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_container_set_resize_mode(System.IntPtr container, int resize_mode);
+		public static extern void gtk_container_set_resize_mode(System.IntPtr container, Gtk.ResizeMode resize_mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_container_unset_focus_chain(System.IntPtr container);
 		[DllImport("libgtk-3.so.0")]
@@ -2063,9 +3093,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_container_class_list_child_properties(System.IntPtr cclass, System.IntPtr n_properties);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_binding_set_activate(System.IntPtr binding_set, uint keyval, int modifiers, System.IntPtr @object);
+		public static extern int gtk_binding_set_activate(System.IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers, System.IntPtr @object);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_binding_set_add_path(System.IntPtr binding_set, int path_type, string path_pattern, int priority);
+		public static extern void gtk_binding_set_add_path(System.IntPtr binding_set, Gtk.PathType path_type, string path_pattern, Gtk.PathPriorityType priority);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_binding_set_by_class(System.IntPtr object_class);
 		[DllImport("libgtk-3.so.0")]
@@ -2073,13 +3103,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_binding_set_new(string set_name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_binding_entry_add_signal_from_string(System.IntPtr binding_set, string signal_desc);
+		public static extern GLib.TokenType gtk_binding_entry_add_signal_from_string(System.IntPtr binding_set, string signal_desc);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_binding_entry_add_signall(System.IntPtr binding_set, uint keyval, int modifiers, string signal_name, System.IntPtr binding_args);
+		public static extern void gtk_binding_entry_add_signall(System.IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers, string signal_name, System.IntPtr binding_args);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_binding_entry_remove(System.IntPtr binding_set, uint keyval, int modifiers);
+		public static extern void gtk_binding_entry_remove(System.IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_binding_entry_skip(System.IntPtr binding_set, uint keyval, int modifiers);
+		public static extern void gtk_binding_entry_skip(System.IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_renderer_cell_accessible_new(System.IntPtr renderer);
 		[DllImport("libgtk-3.so.0")]
@@ -2165,11 +3195,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_button_get_image(System.IntPtr button);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_button_get_image_position(System.IntPtr button);
+		public static extern Gtk.PositionType gtk_button_get_image_position(System.IntPtr button);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_button_get_label(System.IntPtr button);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_button_get_relief(System.IntPtr button);
+		public static extern Gtk.ReliefStyle gtk_button_get_relief(System.IntPtr button);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_button_get_use_stock(System.IntPtr button);
 		[DllImport("libgtk-3.so.0")]
@@ -2189,29 +3219,29 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_set_image(System.IntPtr button, System.IntPtr image);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_button_set_image_position(System.IntPtr button, int position);
+		public static extern void gtk_button_set_image_position(System.IntPtr button, Gtk.PositionType position);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_set_label(System.IntPtr button, string label);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_button_set_relief(System.IntPtr button, int relief);
+		public static extern void gtk_button_set_relief(System.IntPtr button, Gtk.ReliefStyle relief);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_set_use_stock(System.IntPtr button, int use_stock);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_set_use_underline(System.IntPtr button, int use_underline);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_button_box_new(int orientation);
+		public static extern System.IntPtr gtk_button_box_new(Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_button_box_get_child_non_homogeneous(System.IntPtr widget, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_button_box_get_child_secondary(System.IntPtr widget, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_button_box_get_layout(System.IntPtr widget);
+		public static extern Gtk.ButtonBoxStyle gtk_button_box_get_layout(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_box_set_child_non_homogeneous(System.IntPtr widget, System.IntPtr child, int non_homogeneous);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_button_box_set_child_secondary(System.IntPtr widget, System.IntPtr child, int is_secondary);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_button_box_set_layout(System.IntPtr widget, int layout_style);
+		public static extern void gtk_button_box_set_layout(System.IntPtr widget, Gtk.ButtonBoxStyle layout_style);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_calendar_new();
 		[DllImport("libgtk-3.so.0")]
@@ -2225,7 +3255,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_calendar_get_detail_width_chars(System.IntPtr calendar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_calendar_get_display_options(System.IntPtr calendar);
+		public static extern Gtk.CalendarDisplayOptions gtk_calendar_get_display_options(System.IntPtr calendar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_calendar_mark_day(System.IntPtr calendar, uint day);
 		[DllImport("libgtk-3.so.0")]
@@ -2239,7 +3269,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_calendar_set_detail_width_chars(System.IntPtr calendar, int chars);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_calendar_set_display_options(System.IntPtr calendar, int flags);
+		public static extern void gtk_calendar_set_display_options(System.IntPtr calendar, Gtk.CalendarDisplayOptions flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_calendar_unmark_day(System.IntPtr calendar, uint day);
 		[DllImport("libgtk-3.so.0")]
@@ -2257,7 +3287,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_class_list_style_properties(System.IntPtr klass, System.IntPtr n_properties);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_class_set_accessible_role(System.IntPtr widget_class, int role);
+		public static extern void gtk_widget_class_set_accessible_role(System.IntPtr widget_class, Atk.Role role);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_class_set_accessible_type(System.IntPtr widget_class, ulong type);
 		[DllImport("libgtk-3.so.0")]
@@ -2277,19 +3307,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_accessible_parent_get_cell_area(System.IntPtr parent, System.IntPtr cell, System.IntPtr cell_rect);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_cell_accessible_parent_get_cell_extents(System.IntPtr parent, System.IntPtr cell, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, int coord_type);
+		public static extern void gtk_cell_accessible_parent_get_cell_extents(System.IntPtr parent, System.IntPtr cell, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_accessible_parent_get_child_index(System.IntPtr parent, System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_accessible_parent_get_renderer_state(System.IntPtr parent, System.IntPtr cell);
+		public static extern Gtk.CellRendererState gtk_cell_accessible_parent_get_renderer_state(System.IntPtr parent, System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_accessible_parent_grab_focus(System.IntPtr parent, System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_accessible_parent_update_relationset(System.IntPtr parent, System.IntPtr cell, System.IntPtr relationset);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_renderer_activate(System.IntPtr cell, System.IntPtr @event, System.IntPtr widget, string path, System.IntPtr background_area, System.IntPtr cell_area, int flags);
+		public static extern int gtk_cell_renderer_activate(System.IntPtr cell, System.IntPtr @event, System.IntPtr widget, string path, System.IntPtr background_area, System.IntPtr cell_area, Gtk.CellRendererState flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_cell_renderer_get_aligned_area(System.IntPtr cell, System.IntPtr widget, int flags, System.IntPtr cell_area, System.IntPtr aligned_area);
+		public static extern void gtk_cell_renderer_get_aligned_area(System.IntPtr cell, System.IntPtr widget, Gtk.CellRendererState flags, System.IntPtr cell_area, System.IntPtr aligned_area);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_get_alignment(System.IntPtr cell, System.IntPtr xalign, System.IntPtr yalign);
 		[DllImport("libgtk-3.so.0")]
@@ -2307,19 +3337,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_get_preferred_width_for_height(System.IntPtr cell, System.IntPtr widget, int height, System.IntPtr minimum_width, System.IntPtr natural_width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_renderer_get_request_mode(System.IntPtr cell);
+		public static extern Gtk.SizeRequestMode gtk_cell_renderer_get_request_mode(System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_renderer_get_sensitive(System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_get_size(System.IntPtr cell, System.IntPtr widget, System.IntPtr cell_area, System.IntPtr x_offset, System.IntPtr y_offset, System.IntPtr width, System.IntPtr height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_renderer_get_state(System.IntPtr cell, System.IntPtr widget, int cell_state);
+		public static extern Gtk.StateFlags gtk_cell_renderer_get_state(System.IntPtr cell, System.IntPtr widget, Gtk.CellRendererState cell_state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_renderer_get_visible(System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_renderer_is_activatable(System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_cell_renderer_render(System.IntPtr cell, System.IntPtr cr, System.IntPtr widget, System.IntPtr background_area, System.IntPtr cell_area, int flags);
+		public static extern void gtk_cell_renderer_render(System.IntPtr cell, System.IntPtr cr, System.IntPtr widget, System.IntPtr background_area, System.IntPtr cell_area, Gtk.CellRendererState flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_set_alignment(System.IntPtr cell, float xalign, float yalign);
 		[DllImport("libgtk-3.so.0")]
@@ -2331,13 +3361,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_set_visible(System.IntPtr cell, int visible);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_cell_renderer_start_editing(System.IntPtr cell, System.IntPtr @event, System.IntPtr widget, string path, System.IntPtr background_area, System.IntPtr cell_area, int flags);
+		public static extern System.IntPtr gtk_cell_renderer_start_editing(System.IntPtr cell, System.IntPtr @event, System.IntPtr widget, string path, System.IntPtr background_area, System.IntPtr cell_area, Gtk.CellRendererState flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_renderer_stop_editing(System.IntPtr cell, int canceled);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_area_activate(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr cell_area, int flags, int edit_only);
+		public static extern int gtk_cell_area_activate(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr cell_area, Gtk.CellRendererState flags, int edit_only);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_area_activate_cell(System.IntPtr area, System.IntPtr widget, System.IntPtr renderer, System.IntPtr @event, System.IntPtr cell_area, int flags);
+		public static extern int gtk_cell_area_activate_cell(System.IntPtr area, System.IntPtr widget, System.IntPtr renderer, System.IntPtr @event, System.IntPtr cell_area, Gtk.CellRendererState flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_area_add(System.IntPtr area, System.IntPtr renderer);
 		[DllImport("libgtk-3.so.0")]
@@ -2359,9 +3389,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_cell_area_create_context(System.IntPtr area);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_area_event(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr @event, System.IntPtr cell_area, int flags);
+		public static extern int gtk_cell_area_event(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr @event, System.IntPtr cell_area, Gtk.CellRendererState flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_area_focus(System.IntPtr area, int direction);
+		public static extern int gtk_cell_area_focus(System.IntPtr area, Gtk.DirectionType direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_area_foreach(System.IntPtr area, System.IntPtr callback, System.IntPtr callback_data);
 		[DllImport("libgtk-3.so.0")]
@@ -2391,7 +3421,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_area_get_preferred_width_for_height(System.IntPtr area, System.IntPtr context, System.IntPtr widget, int height, System.IntPtr minimum_width, System.IntPtr natural_width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_cell_area_get_request_mode(System.IntPtr area);
+		public static extern Gtk.SizeRequestMode gtk_cell_area_get_request_mode(System.IntPtr area);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_cell_area_has_renderer(System.IntPtr area, System.IntPtr renderer);
 		[DllImport("libgtk-3.so.0")]
@@ -2405,9 +3435,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_area_remove_focus_sibling(System.IntPtr area, System.IntPtr renderer, System.IntPtr sibling);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_cell_area_render(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr cr, System.IntPtr background_area, System.IntPtr cell_area, int flags, int paint_focus);
+		public static extern void gtk_cell_area_render(System.IntPtr area, System.IntPtr context, System.IntPtr widget, System.IntPtr cr, System.IntPtr background_area, System.IntPtr cell_area, Gtk.CellRendererState flags, int paint_focus);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_cell_area_request_renderer(System.IntPtr area, System.IntPtr renderer, int orientation, System.IntPtr widget, int for_size, System.IntPtr minimum_size, System.IntPtr natural_size);
+		public static extern void gtk_cell_area_request_renderer(System.IntPtr area, System.IntPtr renderer, Gtk.Orientation orientation, System.IntPtr widget, int for_size, System.IntPtr minimum_size, System.IntPtr natural_size);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_cell_area_set_focus_cell(System.IntPtr area, System.IntPtr renderer);
 		[DllImport("libgtk-3.so.0")]
@@ -2439,7 +3469,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern ulong gtk_tree_model_get_column_type(System.IntPtr tree_model, int index_);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_model_get_flags(System.IntPtr tree_model);
+		public static extern Gtk.TreeModelFlags gtk_tree_model_get_flags(System.IntPtr tree_model);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_model_get_iter(System.IntPtr tree_model, System.IntPtr iter, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
@@ -2965,7 +3995,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_selection_data_targets_include_uri(System.IntPtr selection_data);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_color_chooser_add_palette(System.IntPtr chooser, int orientation, int colors_per_line, int n_colors, System.IntPtr colors);
+		public static extern void gtk_color_chooser_add_palette(System.IntPtr chooser, Gtk.Orientation orientation, int colors_per_line, int n_colors, System.IntPtr colors);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_color_chooser_get_rgba(System.IntPtr chooser, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
@@ -3093,7 +4123,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_path_iter_add_class(System.IntPtr path, int pos, string name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_path_iter_add_region(System.IntPtr path, int pos, string name, int flags);
+		public static extern void gtk_widget_path_iter_add_region(System.IntPtr path, int pos, string name, Gtk.RegionFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_path_iter_clear_classes(System.IntPtr path, int pos);
 		[DllImport("libgtk-3.so.0")]
@@ -3109,7 +4139,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_path_iter_get_siblings(System.IntPtr path, int pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_path_iter_get_state(System.IntPtr path, int pos);
+		public static extern Gtk.StateFlags gtk_widget_path_iter_get_state(System.IntPtr path, int pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_path_iter_has_class(System.IntPtr path, int pos, string name);
 		[DllImport("libgtk-3.so.0")]
@@ -3119,9 +4149,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_path_iter_has_qname(System.IntPtr path, int pos, uint qname);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_path_iter_has_qregion(System.IntPtr path, int pos, uint qname, System.IntPtr flags);
+		public static extern int gtk_widget_path_iter_has_qregion(System.IntPtr path, int pos, uint qname, out Gtk.RegionFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_widget_path_iter_has_region(System.IntPtr path, int pos, string name, System.IntPtr flags);
+		public static extern int gtk_widget_path_iter_has_region(System.IntPtr path, int pos, string name, out Gtk.RegionFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_widget_path_iter_list_classes(System.IntPtr path, int pos);
 		[DllImport("libgtk-3.so.0")]
@@ -3137,7 +4167,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_widget_path_iter_set_object_type(System.IntPtr path, int pos, ulong type);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_widget_path_iter_set_state(System.IntPtr path, int pos, int state);
+		public static extern void gtk_widget_path_iter_set_state(System.IntPtr path, int pos, Gtk.StateFlags state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_widget_path_length(System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
@@ -3161,7 +4191,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_provider_get_style(System.IntPtr provider, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_provider_get_style_property(System.IntPtr provider, System.IntPtr path, int state, System.IntPtr pspec, System.IntPtr value);
+		public static extern int gtk_style_provider_get_style_property(System.IntPtr provider, System.IntPtr path, Gtk.StateFlags state, System.IntPtr pspec, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_css_provider_new();
 		[DllImport("libgtk-3.so.0")]
@@ -3187,7 +4217,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_css_section_get_parent(System.IntPtr section);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_css_section_get_section_type(System.IntPtr section);
+		public static extern Gtk.CssSectionType gtk_css_section_get_section_type(System.IntPtr section);
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_css_section_get_start_line(System.IntPtr section);
 		[DllImport("libgtk-3.so.0")]
@@ -3269,33 +4299,33 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_entry_get_has_frame(System.IntPtr entry);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_entry_get_icon_activatable(System.IntPtr entry, int icon_pos);
+		public static extern int gtk_entry_get_icon_activatable(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_get_icon_area(System.IntPtr entry, int icon_pos, System.IntPtr icon_area);
+		public static extern void gtk_entry_get_icon_area(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, System.IntPtr icon_area);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_entry_get_icon_at_pos(System.IntPtr entry, int x, int y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_entry_get_icon_gicon(System.IntPtr entry, int icon_pos);
+		public static extern System.IntPtr gtk_entry_get_icon_gicon(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_entry_get_icon_name(System.IntPtr entry, int icon_pos);
+		public static extern string gtk_entry_get_icon_name(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_entry_get_icon_pixbuf(System.IntPtr entry, int icon_pos);
+		public static extern System.IntPtr gtk_entry_get_icon_pixbuf(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_entry_get_icon_sensitive(System.IntPtr entry, int icon_pos);
+		public static extern int gtk_entry_get_icon_sensitive(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_entry_get_icon_stock(System.IntPtr entry, int icon_pos);
+		public static extern string gtk_entry_get_icon_stock(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_entry_get_icon_storage_type(System.IntPtr entry, int icon_pos);
+		public static extern Gtk.ImageType gtk_entry_get_icon_storage_type(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_entry_get_icon_tooltip_markup(System.IntPtr entry, int icon_pos);
+		public static extern string gtk_entry_get_icon_tooltip_markup(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_entry_get_icon_tooltip_text(System.IntPtr entry, int icon_pos);
+		public static extern string gtk_entry_get_icon_tooltip_text(System.IntPtr entry, Gtk.EntryIconPosition icon_pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_entry_get_inner_border(System.IntPtr entry);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_entry_get_input_hints(System.IntPtr entry);
+		public static extern Gtk.InputHints gtk_entry_get_input_hints(System.IntPtr entry);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_entry_get_input_purpose(System.IntPtr entry);
+		public static extern Gtk.InputPurpose gtk_entry_get_input_purpose(System.IntPtr entry);
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_entry_get_invisible_char(System.IntPtr entry);
 		[DllImport("libgtk-3.so.0")]
@@ -3351,29 +4381,29 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_entry_set_has_frame(System.IntPtr entry, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_activatable(System.IntPtr entry, int icon_pos, int activatable);
+		public static extern void gtk_entry_set_icon_activatable(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, int activatable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_drag_source(System.IntPtr entry, int icon_pos, System.IntPtr target_list, int actions);
+		public static extern void gtk_entry_set_icon_drag_source(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, System.IntPtr target_list, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_from_gicon(System.IntPtr entry, int icon_pos, System.IntPtr icon);
+		public static extern void gtk_entry_set_icon_from_gicon(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, System.IntPtr icon);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_from_icon_name(System.IntPtr entry, int icon_pos, string icon_name);
+		public static extern void gtk_entry_set_icon_from_icon_name(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, string icon_name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_from_pixbuf(System.IntPtr entry, int icon_pos, System.IntPtr pixbuf);
+		public static extern void gtk_entry_set_icon_from_pixbuf(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, System.IntPtr pixbuf);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_from_stock(System.IntPtr entry, int icon_pos, string stock_id);
+		public static extern void gtk_entry_set_icon_from_stock(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, string stock_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_sensitive(System.IntPtr entry, int icon_pos, int sensitive);
+		public static extern void gtk_entry_set_icon_sensitive(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, int sensitive);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_tooltip_markup(System.IntPtr entry, int icon_pos, string tooltip);
+		public static extern void gtk_entry_set_icon_tooltip_markup(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, string tooltip);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_icon_tooltip_text(System.IntPtr entry, int icon_pos, string tooltip);
+		public static extern void gtk_entry_set_icon_tooltip_text(System.IntPtr entry, Gtk.EntryIconPosition icon_pos, string tooltip);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_entry_set_inner_border(System.IntPtr entry, System.IntPtr border);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_input_hints(System.IntPtr entry, int hints);
+		public static extern void gtk_entry_set_input_hints(System.IntPtr entry, Gtk.InputHints hints);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_entry_set_input_purpose(System.IntPtr entry, int purpose);
+		public static extern void gtk_entry_set_input_purpose(System.IntPtr entry, Gtk.InputPurpose purpose);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_entry_set_invisible_char(System.IntPtr entry, uint ch);
 		[DllImport("libgtk-3.so.0")]
@@ -3487,7 +4517,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_event_box_set_visible_window(System.IntPtr event_box, int visible_window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_event_controller_get_propagation_phase(System.IntPtr controller);
+		public static extern Gtk.PropagationPhase gtk_event_controller_get_propagation_phase(System.IntPtr controller);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_event_controller_get_widget(System.IntPtr controller);
 		[DllImport("libgtk-3.so.0")]
@@ -3495,7 +4525,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_event_controller_reset(System.IntPtr controller);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_event_controller_set_propagation_phase(System.IntPtr controller, int phase);
+		public static extern void gtk_event_controller_set_propagation_phase(System.IntPtr controller, Gtk.PropagationPhase phase);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_expander_new(string label);
 		[DllImport("libgtk-3.so.0")]
@@ -3541,7 +4571,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_file_chooser_add_shortcut_folder_uri(System.IntPtr chooser, string uri, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_file_chooser_get_action(System.IntPtr chooser);
+		public static extern Gtk.FileChooserAction gtk_file_chooser_get_action(System.IntPtr chooser);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_file_chooser_get_choice(System.IntPtr chooser, string id);
 		[DllImport("libgtk-3.so.0")]
@@ -3613,7 +4643,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_file_chooser_select_uri(System.IntPtr chooser, string uri);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_file_chooser_set_action(System.IntPtr chooser, int action);
+		public static extern void gtk_file_chooser_set_action(System.IntPtr chooser, Gtk.FileChooserAction action);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_file_chooser_set_choice(System.IntPtr chooser, string id, string option);
 		[DllImport("libgtk-3.so.0")]
@@ -3663,7 +4693,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_file_filter_new_from_gvariant(System.IntPtr variant);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_file_filter_add_custom(System.IntPtr filter, int needed, System.IntPtr func, System.IntPtr data, System.IntPtr notify);
+		public static extern void gtk_file_filter_add_custom(System.IntPtr filter, Gtk.FileFilterFlags needed, System.IntPtr func, System.IntPtr data, System.IntPtr notify);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_file_filter_add_mime_type(System.IntPtr filter, string mime_type);
 		[DllImport("libgtk-3.so.0")]
@@ -3675,13 +4705,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_file_filter_get_name(System.IntPtr filter);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_file_filter_get_needed(System.IntPtr filter);
+		public static extern Gtk.FileFilterFlags gtk_file_filter_get_needed(System.IntPtr filter);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_file_filter_set_name(System.IntPtr filter, string name);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_file_filter_to_gvariant(System.IntPtr filter);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_file_chooser_button_new(string title, int action);
+		public static extern System.IntPtr gtk_file_chooser_button_new(string title, Gtk.FileChooserAction action);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_file_chooser_button_new_with_dialog(System.IntPtr dialog);
 		[DllImport("libgtk-3.so.0")]
@@ -3699,7 +4729,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_file_chooser_error_quark();
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_file_chooser_native_new(string title, System.IntPtr parent, int action, string accept_label, string cancel_label);
+		public static extern System.IntPtr gtk_file_chooser_native_new(string title, System.IntPtr parent, Gtk.FileChooserAction action, string accept_label, string cancel_label);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_file_chooser_native_get_accept_label(System.IntPtr self);
 		[DllImport("libgtk-3.so.0")]
@@ -3731,7 +4761,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_native_dialog_show(System.IntPtr self);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_file_chooser_widget_new(int action);
+		public static extern System.IntPtr gtk_file_chooser_widget_new(Gtk.FileChooserAction action);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_fixed_new();
 		[DllImport("libgtk-3.so.0")]
@@ -3761,7 +4791,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_flow_box_get_selected_children(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_flow_box_get_selection_mode(System.IntPtr box);
+		public static extern Gtk.SelectionMode gtk_flow_box_get_selection_mode(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_flow_box_insert(System.IntPtr box, System.IntPtr widget, int position);
 		[DllImport("libgtk-3.so.0")]
@@ -3791,7 +4821,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_flow_box_set_row_spacing(System.IntPtr box, uint spacing);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_flow_box_set_selection_mode(System.IntPtr box, int mode);
+		public static extern void gtk_flow_box_set_selection_mode(System.IntPtr box, Gtk.SelectionMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_flow_box_set_sort_func(System.IntPtr box, System.IntPtr sort_func, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
@@ -3963,7 +4993,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_gesture_get_point(System.IntPtr gesture, System.IntPtr sequence, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_gesture_get_sequence_state(System.IntPtr gesture, System.IntPtr sequence);
+		public static extern Gtk.EventSequenceState gtk_gesture_get_sequence_state(System.IntPtr gesture, System.IntPtr sequence);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_gesture_get_sequences(System.IntPtr gesture);
 		[DllImport("libgtk-3.so.0")]
@@ -3979,9 +5009,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_gesture_is_recognized(System.IntPtr gesture);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_gesture_set_sequence_state(System.IntPtr gesture, System.IntPtr sequence, int state);
+		public static extern int gtk_gesture_set_sequence_state(System.IntPtr gesture, System.IntPtr sequence, Gtk.EventSequenceState state);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_gesture_set_state(System.IntPtr gesture, int state);
+		public static extern int gtk_gesture_set_state(System.IntPtr gesture, Gtk.EventSequenceState state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_gesture_set_window(System.IntPtr gesture, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -4017,11 +5047,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_gesture_multi_press_set_area(System.IntPtr gesture, System.IntPtr rect);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_gesture_pan_new(System.IntPtr widget, int orientation);
+		public static extern System.IntPtr gtk_gesture_pan_new(System.IntPtr widget, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_gesture_pan_get_orientation(System.IntPtr gesture);
+		public static extern Gtk.Orientation gtk_gesture_pan_get_orientation(System.IntPtr gesture);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_gesture_pan_set_orientation(System.IntPtr gesture, int orientation);
+		public static extern void gtk_gesture_pan_set_orientation(System.IntPtr gesture, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_gesture_rotate_new(System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -4079,7 +5109,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_properties_clear(System.IntPtr props);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_properties_get_property(System.IntPtr props, string property, int state, System.IntPtr value);
+		public static extern int gtk_style_properties_get_property(System.IntPtr props, string property, Gtk.StateFlags state, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_properties_lookup_color(System.IntPtr props, string name);
 		[DllImport("libgtk-3.so.0")]
@@ -4087,9 +5117,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_properties_merge(System.IntPtr props, System.IntPtr props_to_merge, int replace);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_properties_set_property(System.IntPtr props, string property, int state, System.IntPtr value);
+		public static extern void gtk_style_properties_set_property(System.IntPtr props, string property, Gtk.StateFlags state, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_properties_unset_property(System.IntPtr props, string property, int state);
+		public static extern void gtk_style_properties_unset_property(System.IntPtr props, string property, Gtk.StateFlags state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_new();
 		[DllImport("libgtk-3.so.0")]
@@ -4103,35 +5133,35 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_add_provider(System.IntPtr context, System.IntPtr provider, uint priority);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_add_region(System.IntPtr context, string region_name, int flags);
+		public static extern void gtk_style_context_add_region(System.IntPtr context, string region_name, Gtk.RegionFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_cancel_animations(System.IntPtr context, System.IntPtr region_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_background_color(System.IntPtr context, int state, System.IntPtr color);
+		public static extern void gtk_style_context_get_background_color(System.IntPtr context, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_border(System.IntPtr context, int state, System.IntPtr border);
+		public static extern void gtk_style_context_get_border(System.IntPtr context, Gtk.StateFlags state, System.IntPtr border);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_border_color(System.IntPtr context, int state, System.IntPtr color);
+		public static extern void gtk_style_context_get_border_color(System.IntPtr context, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_color(System.IntPtr context, int state, System.IntPtr color);
+		public static extern void gtk_style_context_get_color(System.IntPtr context, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_context_get_direction(System.IntPtr context);
+		public static extern Gtk.TextDirection gtk_style_context_get_direction(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_style_context_get_font(System.IntPtr context, int state);
+		public static extern System.IntPtr gtk_style_context_get_font(System.IntPtr context, Gtk.StateFlags state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_get_frame_clock(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_context_get_junction_sides(System.IntPtr context);
+		public static extern Gtk.JunctionSides gtk_style_context_get_junction_sides(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_margin(System.IntPtr context, int state, System.IntPtr margin);
+		public static extern void gtk_style_context_get_margin(System.IntPtr context, Gtk.StateFlags state, System.IntPtr margin);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_padding(System.IntPtr context, int state, System.IntPtr padding);
+		public static extern void gtk_style_context_get_padding(System.IntPtr context, Gtk.StateFlags state, System.IntPtr padding);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_get_parent(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_get_path(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_get_property(System.IntPtr context, string property, int state, System.IntPtr value);
+		public static extern void gtk_style_context_get_property(System.IntPtr context, string property, Gtk.StateFlags state, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_style_context_get_scale(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
@@ -4139,13 +5169,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_get_section(System.IntPtr context, string property);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_context_get_state(System.IntPtr context);
+		public static extern Gtk.StateFlags gtk_style_context_get_state(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_get_style_property(System.IntPtr context, string property_name, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_style_context_has_class(System.IntPtr context, string class_name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_context_has_region(System.IntPtr context, string region_name, System.IntPtr flags_return);
+		public static extern int gtk_style_context_has_region(System.IntPtr context, string region_name, out Gtk.RegionFlags flags_return);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_invalidate(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
@@ -4157,7 +5187,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_context_lookup_icon_set(System.IntPtr context, string stock_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_notify_state_change(System.IntPtr context, System.IntPtr window, System.IntPtr region_id, int state, int state_value);
+		public static extern void gtk_style_context_notify_state_change(System.IntPtr context, System.IntPtr window, System.IntPtr region_id, Gtk.StateType state, int state_value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_pop_animatable_region(System.IntPtr context);
 		[DllImport("libgtk-3.so.0")]
@@ -4177,11 +5207,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_set_background(System.IntPtr context, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_set_direction(System.IntPtr context, int direction);
+		public static extern void gtk_style_context_set_direction(System.IntPtr context, Gtk.TextDirection direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_set_frame_clock(System.IntPtr context, System.IntPtr frame_clock);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_set_junction_sides(System.IntPtr context, int sides);
+		public static extern void gtk_style_context_set_junction_sides(System.IntPtr context, Gtk.JunctionSides sides);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_set_parent(System.IntPtr context, System.IntPtr parent);
 		[DllImport("libgtk-3.so.0")]
@@ -4191,17 +5221,17 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_style_context_set_screen(System.IntPtr context, System.IntPtr screen);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_context_set_state(System.IntPtr context, int flags);
+		public static extern void gtk_style_context_set_state(System.IntPtr context, Gtk.StateFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_style_context_state_is_running(System.IntPtr context, int state, System.IntPtr progress);
+		public static extern int gtk_style_context_state_is_running(System.IntPtr context, Gtk.StateType state, System.IntPtr progress);
 		[DllImport("libgtk-3.so.0")]
-		public static extern string gtk_style_context_to_string(System.IntPtr context, int flags);
+		public static extern string gtk_style_context_to_string(System.IntPtr context, Gtk.StyleContextPrintFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_grid_new();
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_grid_attach(System.IntPtr grid, System.IntPtr child, int left, int top, int width, int height);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_grid_attach_next_to(System.IntPtr grid, System.IntPtr child, System.IntPtr sibling, int side, int width, int height);
+		public static extern void gtk_grid_attach_next_to(System.IntPtr grid, System.IntPtr child, System.IntPtr sibling, Gtk.PositionType side, int width, int height);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_grid_get_baseline_row(System.IntPtr grid);
 		[DllImport("libgtk-3.so.0")]
@@ -4211,7 +5241,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_grid_get_column_spacing(System.IntPtr grid);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_grid_get_row_baseline_position(System.IntPtr grid, int row);
+		public static extern Gtk.BaselinePosition gtk_grid_get_row_baseline_position(System.IntPtr grid, int row);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_grid_get_row_homogeneous(System.IntPtr grid);
 		[DllImport("libgtk-3.so.0")]
@@ -4219,7 +5249,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_grid_insert_column(System.IntPtr grid, int position);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_grid_insert_next_to(System.IntPtr grid, System.IntPtr sibling, int side);
+		public static extern void gtk_grid_insert_next_to(System.IntPtr grid, System.IntPtr sibling, Gtk.PositionType side);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_grid_insert_row(System.IntPtr grid, int position);
 		[DllImport("libgtk-3.so.0")]
@@ -4233,7 +5263,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_grid_set_column_spacing(System.IntPtr grid, uint spacing);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_grid_set_row_baseline_position(System.IntPtr grid, int row, int pos);
+		public static extern void gtk_grid_set_row_baseline_position(System.IntPtr grid, int row, Gtk.BaselinePosition pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_grid_set_row_homogeneous(System.IntPtr grid, int homogeneous);
 		[DllImport("libgtk-3.so.0")]
@@ -4243,7 +5273,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_hbutton_box_new();
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_paned_new(int orientation);
+		public static extern System.IntPtr gtk_paned_new(Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_paned_add1(System.IntPtr paned, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
@@ -4283,11 +5313,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_hsv_set_metrics(System.IntPtr hsv, int size, int ring_width);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_scale_new(int orientation, System.IntPtr adjustment);
+		public static extern System.IntPtr gtk_scale_new(Gtk.Orientation orientation, System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_scale_new_with_range(int orientation, double min, double max, double step);
+		public static extern System.IntPtr gtk_scale_new_with_range(Gtk.Orientation orientation, double min, double max, double step);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scale_add_mark(System.IntPtr scale, double value, int position, string markup);
+		public static extern void gtk_scale_add_mark(System.IntPtr scale, double value, Gtk.PositionType position, string markup);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scale_clear_marks(System.IntPtr scale);
 		[DllImport("libgtk-3.so.0")]
@@ -4301,7 +5331,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scale_get_layout_offsets(System.IntPtr scale, System.IntPtr x, System.IntPtr y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_scale_get_value_pos(System.IntPtr scale);
+		public static extern Gtk.PositionType gtk_scale_get_value_pos(System.IntPtr scale);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scale_set_digits(System.IntPtr scale, int digits);
 		[DllImport("libgtk-3.so.0")]
@@ -4309,17 +5339,17 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scale_set_has_origin(System.IntPtr scale, int has_origin);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scale_set_value_pos(System.IntPtr scale, int pos);
+		public static extern void gtk_scale_set_value_pos(System.IntPtr scale, Gtk.PositionType pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_hscale_new(System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_hscale_new_with_range(double min, double max, double step);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_scrollbar_new(int orientation, System.IntPtr adjustment);
+		public static extern System.IntPtr gtk_scrollbar_new(Gtk.Orientation orientation, System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_hscrollbar_new(System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_separator_new(int orientation);
+		public static extern System.IntPtr gtk_separator_new(Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_hseparator_new();
 		[DllImport("libgtk-3.so.0")]
@@ -4327,17 +5357,17 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_handle_box_get_child_detached(System.IntPtr handle_box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_handle_box_get_handle_position(System.IntPtr handle_box);
+		public static extern Gtk.PositionType gtk_handle_box_get_handle_position(System.IntPtr handle_box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_handle_box_get_shadow_type(System.IntPtr handle_box);
+		public static extern Gtk.ShadowType gtk_handle_box_get_shadow_type(System.IntPtr handle_box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_handle_box_get_snap_edge(System.IntPtr handle_box);
+		public static extern Gtk.PositionType gtk_handle_box_get_snap_edge(System.IntPtr handle_box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_handle_box_set_handle_position(System.IntPtr handle_box, int position);
+		public static extern void gtk_handle_box_set_handle_position(System.IntPtr handle_box, Gtk.PositionType position);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_handle_box_set_shadow_type(System.IntPtr handle_box, int type);
+		public static extern void gtk_handle_box_set_shadow_type(System.IntPtr handle_box, Gtk.ShadowType type);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_handle_box_set_snap_edge(System.IntPtr handle_box, int edge);
+		public static extern void gtk_handle_box_set_snap_edge(System.IntPtr handle_box, Gtk.PositionType edge);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_header_bar_new();
 		[DllImport("libgtk-3.so.0")]
@@ -4457,7 +5487,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_set_ref(System.IntPtr icon_set);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_set_render_icon(System.IntPtr icon_set, System.IntPtr style, int direction, int state, int size, System.IntPtr widget, string detail);
+		public static extern System.IntPtr gtk_icon_set_render_icon(System.IntPtr icon_set, System.IntPtr style, Gtk.TextDirection direction, Gtk.StateType state, int size, System.IntPtr widget, string detail);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_set_render_icon_pixbuf(System.IntPtr icon_set, System.IntPtr context, int size);
 		[DllImport("libgtk-3.so.0")]
@@ -4507,7 +5537,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_info_load_symbolic_for_context_finish(System.IntPtr icon_info, System.IntPtr res, System.IntPtr was_symbolic, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_info_load_symbolic_for_style(System.IntPtr icon_info, System.IntPtr style, int state, System.IntPtr was_symbolic, System.IntPtr error);
+		public static extern System.IntPtr gtk_icon_info_load_symbolic_for_style(System.IntPtr icon_info, System.IntPtr style, Gtk.StateType state, System.IntPtr was_symbolic, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_info_set_raw_coordinates(System.IntPtr icon_info, int raw_coordinates);
 		[DllImport("libgtk-3.so.0")]
@@ -4523,9 +5553,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_theme_append_search_path(System.IntPtr icon_theme, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_choose_icon(System.IntPtr icon_theme, System.IntPtr icon_names, int size, int flags);
+		public static extern System.IntPtr gtk_icon_theme_choose_icon(System.IntPtr icon_theme, System.IntPtr icon_names, int size, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_choose_icon_for_scale(System.IntPtr icon_theme, System.IntPtr icon_names, int size, int scale, int flags);
+		public static extern System.IntPtr gtk_icon_theme_choose_icon_for_scale(System.IntPtr icon_theme, System.IntPtr icon_names, int size, int scale, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_icon_theme_get_example_icon_name(System.IntPtr icon_theme);
 		[DllImport("libgtk-3.so.0")]
@@ -4539,19 +5569,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_theme_list_icons(System.IntPtr icon_theme, string context);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_load_icon(System.IntPtr icon_theme, string icon_name, int size, int flags, System.IntPtr error);
+		public static extern System.IntPtr gtk_icon_theme_load_icon(System.IntPtr icon_theme, string icon_name, int size, Gtk.IconLookupFlags flags, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_load_icon_for_scale(System.IntPtr icon_theme, string icon_name, int size, int scale, int flags, System.IntPtr error);
+		public static extern System.IntPtr gtk_icon_theme_load_icon_for_scale(System.IntPtr icon_theme, string icon_name, int size, int scale, Gtk.IconLookupFlags flags, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_load_surface(System.IntPtr icon_theme, string icon_name, int size, int scale, System.IntPtr for_window, int flags, System.IntPtr error);
+		public static extern System.IntPtr gtk_icon_theme_load_surface(System.IntPtr icon_theme, string icon_name, int size, int scale, System.IntPtr for_window, Gtk.IconLookupFlags flags, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_lookup_by_gicon(System.IntPtr icon_theme, System.IntPtr icon, int size, int flags);
+		public static extern System.IntPtr gtk_icon_theme_lookup_by_gicon(System.IntPtr icon_theme, System.IntPtr icon, int size, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_lookup_by_gicon_for_scale(System.IntPtr icon_theme, System.IntPtr icon, int size, int scale, int flags);
+		public static extern System.IntPtr gtk_icon_theme_lookup_by_gicon_for_scale(System.IntPtr icon_theme, System.IntPtr icon, int size, int scale, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_lookup_icon(System.IntPtr icon_theme, string icon_name, int size, int flags);
+		public static extern System.IntPtr gtk_icon_theme_lookup_icon(System.IntPtr icon_theme, string icon_name, int size, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_icon_theme_lookup_icon_for_scale(System.IntPtr icon_theme, string icon_name, int size, int scale, int flags);
+		public static extern System.IntPtr gtk_icon_theme_lookup_icon_for_scale(System.IntPtr icon_theme, string icon_name, int size, int scale, Gtk.IconLookupFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_theme_prepend_search_path(System.IntPtr icon_theme, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
@@ -4565,7 +5595,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_new();
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_apply_default_background(System.IntPtr style, System.IntPtr cr, System.IntPtr window, int state_type, int x, int y, int width, int height);
+		public static extern void gtk_style_apply_default_background(System.IntPtr style, System.IntPtr cr, System.IntPtr window, Gtk.StateType state_type, int x, int y, int width, int height);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_attach(System.IntPtr style, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
@@ -4581,9 +5611,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_style_lookup_icon_set(System.IntPtr style, string stock_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_style_render_icon(System.IntPtr style, System.IntPtr source, int direction, int state, int size, System.IntPtr widget, string detail);
+		public static extern System.IntPtr gtk_style_render_icon(System.IntPtr style, System.IntPtr source, Gtk.TextDirection direction, Gtk.StateType state, int size, System.IntPtr widget, string detail);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_style_set_background(System.IntPtr style, System.IntPtr window, int state_type);
+		public static extern void gtk_style_set_background(System.IntPtr style, System.IntPtr window, Gtk.StateType state_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_source_new();
 		[DllImport("libgtk-3.so.0")]
@@ -4591,7 +5621,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_source_free(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_icon_source_get_direction(System.IntPtr source);
+		public static extern Gtk.TextDirection gtk_icon_source_get_direction(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_source_get_direction_wildcarded(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
@@ -4605,11 +5635,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_source_get_size_wildcarded(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_icon_source_get_state(System.IntPtr source);
+		public static extern Gtk.StateType gtk_icon_source_get_state(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_source_get_state_wildcarded(System.IntPtr source);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_source_set_direction(System.IntPtr source, int direction);
+		public static extern void gtk_icon_source_set_direction(System.IntPtr source, Gtk.TextDirection direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_source_set_direction_wildcarded(System.IntPtr source, int setting);
 		[DllImport("libgtk-3.so.0")]
@@ -4623,7 +5653,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_source_set_size_wildcarded(System.IntPtr source, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_source_set_state(System.IntPtr source, int state);
+		public static extern void gtk_icon_source_set_state(System.IntPtr source, Gtk.StateType state);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_source_set_state_wildcarded(System.IntPtr source, int setting);
 		[DllImport("libgtk-3.so.0")]
@@ -4651,19 +5681,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_scrollable_get_hadjustment(System.IntPtr scrollable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_scrollable_get_hscroll_policy(System.IntPtr scrollable);
+		public static extern Gtk.ScrollablePolicy gtk_scrollable_get_hscroll_policy(System.IntPtr scrollable);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_scrollable_get_vadjustment(System.IntPtr scrollable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_scrollable_get_vscroll_policy(System.IntPtr scrollable);
+		public static extern Gtk.ScrollablePolicy gtk_scrollable_get_vscroll_policy(System.IntPtr scrollable);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrollable_set_hadjustment(System.IntPtr scrollable, System.IntPtr hadjustment);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrollable_set_hscroll_policy(System.IntPtr scrollable, int policy);
+		public static extern void gtk_scrollable_set_hscroll_policy(System.IntPtr scrollable, Gtk.ScrollablePolicy policy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrollable_set_vadjustment(System.IntPtr scrollable, System.IntPtr vadjustment);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrollable_set_vscroll_policy(System.IntPtr scrollable, int policy);
+		public static extern void gtk_scrollable_set_vscroll_policy(System.IntPtr scrollable, Gtk.ScrollablePolicy policy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_view_new();
 		[DllImport("libgtk-3.so.0")]
@@ -4675,9 +5705,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_view_create_drag_icon(System.IntPtr icon_view, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_enable_model_drag_dest(System.IntPtr icon_view, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_icon_view_enable_model_drag_dest(System.IntPtr icon_view, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_enable_model_drag_source(System.IntPtr icon_view, int start_button_mask, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_icon_view_enable_model_drag_source(System.IntPtr icon_view, Gdk.ModifierType start_button_mask, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_activate_on_single_click(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
@@ -4689,15 +5719,15 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_cursor(System.IntPtr icon_view, System.IntPtr path, System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_icon_view_get_dest_item_at_pos(System.IntPtr icon_view, int drag_x, int drag_y, System.IntPtr path, System.IntPtr pos);
+		public static extern int gtk_icon_view_get_dest_item_at_pos(System.IntPtr icon_view, int drag_x, int drag_y, System.IntPtr path, out Gtk.IconViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_get_drag_dest_item(System.IntPtr icon_view, System.IntPtr path, System.IntPtr pos);
+		public static extern void gtk_icon_view_get_drag_dest_item(System.IntPtr icon_view, System.IntPtr path, out Gtk.IconViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_item_at_pos(System.IntPtr icon_view, int x, int y, System.IntPtr path, System.IntPtr cell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_item_column(System.IntPtr icon_view, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_icon_view_get_item_orientation(System.IntPtr icon_view);
+		public static extern Gtk.Orientation gtk_icon_view_get_item_orientation(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_item_padding(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
@@ -4721,7 +5751,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_icon_view_get_selected_items(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_icon_view_get_selection_mode(System.IntPtr icon_view);
+		public static extern Gtk.SelectionMode gtk_icon_view_get_selection_mode(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_icon_view_get_spacing(System.IntPtr icon_view);
 		[DllImport("libgtk-3.so.0")]
@@ -4753,9 +5783,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_view_set_cursor(System.IntPtr icon_view, System.IntPtr path, System.IntPtr cell, int start_editing);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_set_drag_dest_item(System.IntPtr icon_view, System.IntPtr path, int pos);
+		public static extern void gtk_icon_view_set_drag_dest_item(System.IntPtr icon_view, System.IntPtr path, Gtk.IconViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_set_item_orientation(System.IntPtr icon_view, int orientation);
+		public static extern void gtk_icon_view_set_item_orientation(System.IntPtr icon_view, Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_view_set_item_padding(System.IntPtr icon_view, int item_padding);
 		[DllImport("libgtk-3.so.0")]
@@ -4773,7 +5803,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_view_set_row_spacing(System.IntPtr icon_view, int row_spacing);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_icon_view_set_selection_mode(System.IntPtr icon_view, int mode);
+		public static extern void gtk_icon_view_set_selection_mode(System.IntPtr icon_view, Gtk.SelectionMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_icon_view_set_spacing(System.IntPtr icon_view, int spacing);
 		[DllImport("libgtk-3.so.0")]
@@ -4847,7 +5877,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_image_get_stock(System.IntPtr image, string stock_id, System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_image_get_storage_type(System.IntPtr image);
+		public static extern Gtk.ImageType gtk_image_get_storage_type(System.IntPtr image);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_image_set_from_animation(System.IntPtr image, System.IntPtr animation);
 		[DllImport("libgtk-3.so.0")]
@@ -4901,7 +5931,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_info_bar_get_content_area(System.IntPtr info_bar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_info_bar_get_message_type(System.IntPtr info_bar);
+		public static extern Gtk.MessageType gtk_info_bar_get_message_type(System.IntPtr info_bar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_info_bar_get_show_close_button(System.IntPtr info_bar);
 		[DllImport("libgtk-3.so.0")]
@@ -4909,7 +5939,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_info_bar_set_default_response(System.IntPtr info_bar, int response_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_info_bar_set_message_type(System.IntPtr info_bar, int message_type);
+		public static extern void gtk_info_bar_set_message_type(System.IntPtr info_bar, Gtk.MessageType message_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_info_bar_set_response_sensitive(System.IntPtr info_bar, int response_id, int setting);
 		[DllImport("libgtk-3.so.0")]
@@ -4955,7 +5985,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_level_bar_get_min_value(System.IntPtr self);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_level_bar_get_mode(System.IntPtr self);
+		public static extern Gtk.LevelBarMode gtk_level_bar_get_mode(System.IntPtr self);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_level_bar_get_offset_value(System.IntPtr self, string name, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
@@ -4969,7 +5999,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_level_bar_set_min_value(System.IntPtr self, double value);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_level_bar_set_mode(System.IntPtr self, int mode);
+		public static extern void gtk_level_bar_set_mode(System.IntPtr self, Gtk.LevelBarMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_level_bar_set_value(System.IntPtr self, double value);
 		[DllImport("libgtk-3.so.0")]
@@ -5005,7 +6035,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_list_box_get_selected_rows(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_list_box_get_selection_mode(System.IntPtr box);
+		public static extern Gtk.SelectionMode gtk_list_box_get_selection_mode(System.IntPtr box);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_list_box_insert(System.IntPtr box, System.IntPtr child, int position);
 		[DllImport("libgtk-3.so.0")]
@@ -5033,7 +6063,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_list_box_set_placeholder(System.IntPtr box, System.IntPtr placeholder);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_list_box_set_selection_mode(System.IntPtr box, int mode);
+		public static extern void gtk_list_box_set_selection_mode(System.IntPtr box, Gtk.SelectionMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_list_box_set_sort_func(System.IntPtr box, System.IntPtr sort_func, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
@@ -5071,13 +6101,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_drag_source_row_draggable(System.IntPtr drag_source, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_sortable_get_sort_column_id(System.IntPtr sortable, System.IntPtr sort_column_id, System.IntPtr order);
+		public static extern int gtk_tree_sortable_get_sort_column_id(System.IntPtr sortable, System.IntPtr sort_column_id, out Gtk.SortType order);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_sortable_has_default_sort_func(System.IntPtr sortable);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_sortable_set_default_sort_func(System.IntPtr sortable, System.IntPtr sort_func, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_sortable_set_sort_column_id(System.IntPtr sortable, int sort_column_id, int order);
+		public static extern void gtk_tree_sortable_set_sort_column_id(System.IntPtr sortable, int sort_column_id, Gtk.SortType order);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_sortable_set_sort_func(System.IntPtr sortable, int sort_column_id, System.IntPtr sort_func, System.IntPtr user_data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
@@ -5127,19 +6157,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_menu_bar_new_from_model(System.IntPtr model);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_menu_bar_get_child_pack_direction(System.IntPtr menubar);
+		public static extern Gtk.PackDirection gtk_menu_bar_get_child_pack_direction(System.IntPtr menubar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_menu_bar_get_pack_direction(System.IntPtr menubar);
+		public static extern Gtk.PackDirection gtk_menu_bar_get_pack_direction(System.IntPtr menubar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_menu_bar_set_child_pack_direction(System.IntPtr menubar, int child_pack_dir);
+		public static extern void gtk_menu_bar_set_child_pack_direction(System.IntPtr menubar, Gtk.PackDirection child_pack_dir);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_menu_bar_set_pack_direction(System.IntPtr menubar, int pack_dir);
+		public static extern void gtk_menu_bar_set_pack_direction(System.IntPtr menubar, Gtk.PackDirection pack_dir);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_menu_button_new();
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_menu_button_get_align_widget(System.IntPtr menu_button);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_menu_button_get_direction(System.IntPtr menu_button);
+		public static extern Gtk.ArrowType gtk_menu_button_get_direction(System.IntPtr menu_button);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_menu_button_get_menu_model(System.IntPtr menu_button);
 		[DllImport("libgtk-3.so.0")]
@@ -5151,7 +6181,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_menu_button_set_align_widget(System.IntPtr menu_button, System.IntPtr align_widget);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_menu_button_set_direction(System.IntPtr menu_button, int direction);
+		public static extern void gtk_menu_button_set_direction(System.IntPtr menu_button, Gtk.ArrowType direction);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_menu_button_set_menu_model(System.IntPtr menu_button, System.IntPtr menu_model);
 		[DllImport("libgtk-3.so.0")]
@@ -5167,7 +6197,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_popover_bind_model(System.IntPtr popover, System.IntPtr model, string action_namespace);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_popover_get_constrain_to(System.IntPtr popover);
+		public static extern Gtk.PopoverConstraint gtk_popover_get_constrain_to(System.IntPtr popover);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_popover_get_default_widget(System.IntPtr popover);
 		[DllImport("libgtk-3.so.0")]
@@ -5175,7 +6205,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_popover_get_pointing_to(System.IntPtr popover, System.IntPtr rect);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_popover_get_position(System.IntPtr popover);
+		public static extern Gtk.PositionType gtk_popover_get_position(System.IntPtr popover);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_popover_get_relative_to(System.IntPtr popover);
 		[DllImport("libgtk-3.so.0")]
@@ -5185,7 +6215,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_popover_popup(System.IntPtr popover);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_popover_set_constrain_to(System.IntPtr popover, int constraint);
+		public static extern void gtk_popover_set_constrain_to(System.IntPtr popover, Gtk.PopoverConstraint constraint);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_popover_set_default_widget(System.IntPtr popover, System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
@@ -5193,7 +6223,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_popover_set_pointing_to(System.IntPtr popover, System.IntPtr rect);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_popover_set_position(System.IntPtr popover, int position);
+		public static extern void gtk_popover_set_position(System.IntPtr popover, Gtk.PositionType position);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_popover_set_relative_to(System.IntPtr popover, System.IntPtr relative_to);
 		[DllImport("libgtk-3.so.0")]
@@ -5201,7 +6231,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_item_new();
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_get_ellipsize_mode(System.IntPtr tool_item);
+		public static extern Pango.EllipsizeMode gtk_tool_item_get_ellipsize_mode(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_item_get_expand(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
@@ -5211,19 +6241,19 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_item_get_is_important(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_get_orientation(System.IntPtr tool_item);
+		public static extern Gtk.Orientation gtk_tool_item_get_orientation(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_item_get_proxy_menu_item(System.IntPtr tool_item, string menu_item_id);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_get_relief_style(System.IntPtr tool_item);
+		public static extern Gtk.ReliefStyle gtk_tool_item_get_relief_style(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
 		public static extern float gtk_tool_item_get_text_alignment(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_get_text_orientation(System.IntPtr tool_item);
+		public static extern Gtk.Orientation gtk_tool_item_get_text_orientation(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_item_get_text_size_group(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_get_toolbar_style(System.IntPtr tool_item);
+		public static extern Gtk.ToolbarStyle gtk_tool_item_get_toolbar_style(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_item_get_use_drag_window(System.IntPtr tool_item);
 		[DllImport("libgtk-3.so.0")]
@@ -5325,7 +6355,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_notebook_detach_tab(System.IntPtr notebook, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_notebook_get_action_widget(System.IntPtr notebook, int pack_type);
+		public static extern System.IntPtr gtk_notebook_get_action_widget(System.IntPtr notebook, Gtk.PackType pack_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_notebook_get_current_page(System.IntPtr notebook);
 		[DllImport("libgtk-3.so.0")]
@@ -5353,7 +6383,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_notebook_get_tab_label_text(System.IntPtr notebook, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_notebook_get_tab_pos(System.IntPtr notebook);
+		public static extern Gtk.PositionType gtk_notebook_get_tab_pos(System.IntPtr notebook);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_notebook_get_tab_reorderable(System.IntPtr notebook, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
@@ -5381,7 +6411,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_notebook_reorder_child(System.IntPtr notebook, System.IntPtr child, int position);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_notebook_set_action_widget(System.IntPtr notebook, System.IntPtr widget, int pack_type);
+		public static extern void gtk_notebook_set_action_widget(System.IntPtr notebook, System.IntPtr widget, Gtk.PackType pack_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_notebook_set_current_page(System.IntPtr notebook, int page_num);
 		[DllImport("libgtk-3.so.0")]
@@ -5403,7 +6433,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_notebook_set_tab_label_text(System.IntPtr notebook, System.IntPtr child, string tab_text);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_notebook_set_tab_pos(System.IntPtr notebook, int pos);
+		public static extern void gtk_notebook_set_tab_pos(System.IntPtr notebook, Gtk.PositionType pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_notebook_set_tab_reorderable(System.IntPtr notebook, System.IntPtr child, int reorderable);
 		[DllImport("libgtk-3.so.0")]
@@ -5453,7 +6483,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_pad_controller_new(System.IntPtr window, System.IntPtr group, System.IntPtr pad);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_pad_controller_set_action(System.IntPtr controller, int type, int index, int mode, string label, string action_name);
+		public static extern void gtk_pad_controller_set_action(System.IntPtr controller, Gtk.PadActionType type, int index, int mode, string label, string action_name);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_pad_controller_set_action_entries(System.IntPtr controller, System.IntPtr entries, int n_entries);
 		[DllImport("libgtk-3.so.0")]
@@ -5467,43 +6497,43 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_page_setup_copy(System.IntPtr other);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_bottom_margin(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_bottom_margin(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_left_margin(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_left_margin(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_page_setup_get_orientation(System.IntPtr setup);
+		public static extern Gtk.PageOrientation gtk_page_setup_get_orientation(System.IntPtr setup);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_page_height(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_page_height(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_page_width(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_page_width(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_paper_height(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_paper_height(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_page_setup_get_paper_size(System.IntPtr setup);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_paper_width(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_paper_width(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_right_margin(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_right_margin(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_page_setup_get_top_margin(System.IntPtr setup, int unit);
+		public static extern double gtk_page_setup_get_top_margin(System.IntPtr setup, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_page_setup_load_file(System.IntPtr setup, System.IntPtr file_name, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_page_setup_load_key_file(System.IntPtr setup, System.IntPtr key_file, string group_name, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_page_setup_set_bottom_margin(System.IntPtr setup, double margin, int unit);
+		public static extern void gtk_page_setup_set_bottom_margin(System.IntPtr setup, double margin, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_page_setup_set_left_margin(System.IntPtr setup, double margin, int unit);
+		public static extern void gtk_page_setup_set_left_margin(System.IntPtr setup, double margin, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_page_setup_set_orientation(System.IntPtr setup, int orientation);
+		public static extern void gtk_page_setup_set_orientation(System.IntPtr setup, Gtk.PageOrientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_page_setup_set_paper_size(System.IntPtr setup, System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_page_setup_set_paper_size_and_default_margins(System.IntPtr setup, System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_page_setup_set_right_margin(System.IntPtr setup, double margin, int unit);
+		public static extern void gtk_page_setup_set_right_margin(System.IntPtr setup, double margin, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_page_setup_set_top_margin(System.IntPtr setup, double margin, int unit);
+		public static extern void gtk_page_setup_set_top_margin(System.IntPtr setup, double margin, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_page_setup_to_file(System.IntPtr setup, System.IntPtr file_name, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
@@ -5513,7 +6543,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_paper_size_new(string name);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_paper_size_new_custom(string name, string display_name, double width, double height, int unit);
+		public static extern System.IntPtr gtk_paper_size_new_custom(string name, string display_name, double width, double height, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_paper_size_new_from_gvariant(System.IntPtr variant);
 		[DllImport("libgtk-3.so.0")]
@@ -5527,23 +6557,23 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_paper_size_free(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_default_bottom_margin(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_default_bottom_margin(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_default_left_margin(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_default_left_margin(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_default_right_margin(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_default_right_margin(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_default_top_margin(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_default_top_margin(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_paper_size_get_display_name(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_height(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_height(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_paper_size_get_name(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_paper_size_get_ppd_name(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_paper_size_get_width(System.IntPtr size, int unit);
+		public static extern double gtk_paper_size_get_width(System.IntPtr size, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_paper_size_is_custom(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
@@ -5551,7 +6581,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_paper_size_is_ipp(System.IntPtr size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_paper_size_set_size(System.IntPtr size, double width, double height, int unit);
+		public static extern void gtk_paper_size_set_size(System.IntPtr size, double width, double height, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_paper_size_to_gvariant(System.IntPtr paper_size);
 		[DllImport("libgtk-3.so.0")]
@@ -5571,7 +6601,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_places_sidebar_get_nth_bookmark(System.IntPtr sidebar, int n);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_places_sidebar_get_open_flags(System.IntPtr sidebar);
+		public static extern Gtk.PlacesOpenFlags gtk_places_sidebar_get_open_flags(System.IntPtr sidebar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_places_sidebar_get_show_connect_to_server(System.IntPtr sidebar);
 		[DllImport("libgtk-3.so.0")]
@@ -5597,7 +6627,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_places_sidebar_set_location(System.IntPtr sidebar, System.IntPtr location);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_places_sidebar_set_open_flags(System.IntPtr sidebar, int flags);
+		public static extern void gtk_places_sidebar_set_open_flags(System.IntPtr sidebar, Gtk.PlacesOpenFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_places_sidebar_set_show_connect_to_server(System.IntPtr sidebar, int show_connect_to_server);
 		[DllImport("libgtk-3.so.0")]
@@ -5635,15 +6665,15 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_scrolled_window_get_overlay_scrolling(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_scrolled_window_get_placement(System.IntPtr scrolled_window);
+		public static extern Gtk.CornerType gtk_scrolled_window_get_placement(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrolled_window_get_policy(System.IntPtr scrolled_window, System.IntPtr hscrollbar_policy, System.IntPtr vscrollbar_policy);
+		public static extern void gtk_scrolled_window_get_policy(System.IntPtr scrolled_window, out Gtk.PolicyType hscrollbar_policy, out Gtk.PolicyType vscrollbar_policy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_scrolled_window_get_propagate_natural_height(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_scrolled_window_get_propagate_natural_width(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_scrolled_window_get_shadow_type(System.IntPtr scrolled_window);
+		public static extern Gtk.ShadowType gtk_scrolled_window_get_shadow_type(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_scrolled_window_get_vadjustment(System.IntPtr scrolled_window);
 		[DllImport("libgtk-3.so.0")]
@@ -5665,15 +6695,15 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrolled_window_set_overlay_scrolling(System.IntPtr scrolled_window, int overlay_scrolling);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrolled_window_set_placement(System.IntPtr scrolled_window, int window_placement);
+		public static extern void gtk_scrolled_window_set_placement(System.IntPtr scrolled_window, Gtk.CornerType window_placement);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrolled_window_set_policy(System.IntPtr scrolled_window, int hscrollbar_policy, int vscrollbar_policy);
+		public static extern void gtk_scrolled_window_set_policy(System.IntPtr scrolled_window, Gtk.PolicyType hscrollbar_policy, Gtk.PolicyType vscrollbar_policy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrolled_window_set_propagate_natural_height(System.IntPtr scrolled_window, int propagate);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrolled_window_set_propagate_natural_width(System.IntPtr scrolled_window, int propagate);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_scrolled_window_set_shadow_type(System.IntPtr scrolled_window, int type);
+		public static extern void gtk_scrolled_window_set_shadow_type(System.IntPtr scrolled_window, Gtk.ShadowType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_scrolled_window_set_vadjustment(System.IntPtr scrolled_window, System.IntPtr vadjustment);
 		[DllImport("libgtk-3.so.0")]
@@ -5745,7 +6775,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_print_operation_get_print_settings(System.IntPtr op);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_operation_get_status(System.IntPtr op);
+		public static extern Gtk.PrintStatus gtk_print_operation_get_status(System.IntPtr op);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_print_operation_get_status_string(System.IntPtr op);
 		[DllImport("libgtk-3.so.0")]
@@ -5753,7 +6783,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_print_operation_is_finished(System.IntPtr op);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_operation_run(System.IntPtr op, int action, System.IntPtr parent, System.IntPtr error);
+		public static extern Gtk.PrintOperationResult gtk_print_operation_run(System.IntPtr op, Gtk.PrintOperationAction action, System.IntPtr parent, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_operation_set_allow_async(System.IntPtr op, int allow_async);
 		[DllImport("libgtk-3.so.0")]
@@ -5783,7 +6813,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_operation_set_track_print_status(System.IntPtr op, int track_status);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_operation_set_unit(System.IntPtr op, int unit);
+		public static extern void gtk_print_operation_set_unit(System.IntPtr op, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_operation_set_use_full_page(System.IntPtr op, int full_page);
 		[DllImport("libgtk-3.so.0")]
@@ -5813,7 +6843,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_print_settings_get_double_with_default(System.IntPtr settings, string key, double def);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_duplex(System.IntPtr settings);
+		public static extern Gtk.PrintDuplex gtk_print_settings_get_duplex(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_print_settings_get_finishings(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
@@ -5821,7 +6851,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_print_settings_get_int_with_default(System.IntPtr settings, string key, int def);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_print_settings_get_length(System.IntPtr settings, string key, int unit);
+		public static extern double gtk_print_settings_get_length(System.IntPtr settings, string key, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_print_settings_get_media_type(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
@@ -5829,29 +6859,29 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_print_settings_get_number_up(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_number_up_layout(System.IntPtr settings);
+		public static extern Gtk.NumberUpLayout gtk_print_settings_get_number_up_layout(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_orientation(System.IntPtr settings);
+		public static extern Gtk.PageOrientation gtk_print_settings_get_orientation(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_print_settings_get_output_bin(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_print_settings_get_page_ranges(System.IntPtr settings, System.IntPtr num_ranges);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_page_set(System.IntPtr settings);
+		public static extern Gtk.PageSet gtk_print_settings_get_page_set(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_print_settings_get_paper_height(System.IntPtr settings, int unit);
+		public static extern double gtk_print_settings_get_paper_height(System.IntPtr settings, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_print_settings_get_paper_size(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
-		public static extern double gtk_print_settings_get_paper_width(System.IntPtr settings, int unit);
+		public static extern double gtk_print_settings_get_paper_width(System.IntPtr settings, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_print_pages(System.IntPtr settings);
+		public static extern Gtk.PrintPages gtk_print_settings_get_print_pages(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_print_settings_get_printer(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_print_settings_get_printer_lpi(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_print_settings_get_quality(System.IntPtr settings);
+		public static extern Gtk.PrintQuality gtk_print_settings_get_quality(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_print_settings_get_resolution(System.IntPtr settings);
 		[DllImport("libgtk-3.so.0")]
@@ -5883,13 +6913,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_double(System.IntPtr settings, string key, double value);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_duplex(System.IntPtr settings, int duplex);
+		public static extern void gtk_print_settings_set_duplex(System.IntPtr settings, Gtk.PrintDuplex duplex);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_finishings(System.IntPtr settings, string finishings);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_int(System.IntPtr settings, string key, int value);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_length(System.IntPtr settings, string key, double value, int unit);
+		public static extern void gtk_print_settings_set_length(System.IntPtr settings, string key, double value, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_media_type(System.IntPtr settings, string media_type);
 		[DllImport("libgtk-3.so.0")]
@@ -5897,29 +6927,29 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_number_up(System.IntPtr settings, int number_up);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_number_up_layout(System.IntPtr settings, int number_up_layout);
+		public static extern void gtk_print_settings_set_number_up_layout(System.IntPtr settings, Gtk.NumberUpLayout number_up_layout);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_orientation(System.IntPtr settings, int orientation);
+		public static extern void gtk_print_settings_set_orientation(System.IntPtr settings, Gtk.PageOrientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_output_bin(System.IntPtr settings, string output_bin);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_page_ranges(System.IntPtr settings, System.IntPtr page_ranges, int num_ranges);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_page_set(System.IntPtr settings, int page_set);
+		public static extern void gtk_print_settings_set_page_set(System.IntPtr settings, Gtk.PageSet page_set);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_paper_height(System.IntPtr settings, double height, int unit);
+		public static extern void gtk_print_settings_set_paper_height(System.IntPtr settings, double height, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_paper_size(System.IntPtr settings, System.IntPtr paper_size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_paper_width(System.IntPtr settings, double width, int unit);
+		public static extern void gtk_print_settings_set_paper_width(System.IntPtr settings, double width, Gtk.Unit unit);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_print_pages(System.IntPtr settings, int pages);
+		public static extern void gtk_print_settings_set_print_pages(System.IntPtr settings, Gtk.PrintPages pages);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_printer(System.IntPtr settings, string printer);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_printer_lpi(System.IntPtr settings, double lpi);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_print_settings_set_quality(System.IntPtr settings, int quality);
+		public static extern void gtk_print_settings_set_quality(System.IntPtr settings, Gtk.PrintQuality quality);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_print_settings_set_resolution(System.IntPtr settings, int resolution);
 		[DllImport("libgtk-3.so.0")]
@@ -5941,7 +6971,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_progress_bar_new();
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_progress_bar_get_ellipsize(System.IntPtr pbar);
+		public static extern Pango.EllipsizeMode gtk_progress_bar_get_ellipsize(System.IntPtr pbar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_progress_bar_get_fraction(System.IntPtr pbar);
 		[DllImport("libgtk-3.so.0")]
@@ -5955,7 +6985,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_progress_bar_pulse(System.IntPtr pbar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_progress_bar_set_ellipsize(System.IntPtr pbar, int mode);
+		public static extern void gtk_progress_bar_set_ellipsize(System.IntPtr pbar, Pango.EllipsizeMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_progress_bar_set_fraction(System.IntPtr pbar, double fraction);
 		[DllImport("libgtk-3.so.0")]
@@ -6055,7 +7085,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_range_get_inverted(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_range_get_lower_stepper_sensitivity(System.IntPtr range);
+		public static extern Gtk.SensitivityType gtk_range_get_lower_stepper_sensitivity(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_range_get_min_slider_size(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
@@ -6071,7 +7101,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_range_get_slider_size_fixed(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_range_get_upper_stepper_sensitivity(System.IntPtr range);
+		public static extern Gtk.SensitivityType gtk_range_get_upper_stepper_sensitivity(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_range_get_value(System.IntPtr range);
 		[DllImport("libgtk-3.so.0")]
@@ -6085,7 +7115,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_range_set_inverted(System.IntPtr range, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_range_set_lower_stepper_sensitivity(System.IntPtr range, int sensitivity);
+		public static extern void gtk_range_set_lower_stepper_sensitivity(System.IntPtr range, Gtk.SensitivityType sensitivity);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_range_set_min_slider_size(System.IntPtr range, int min_size);
 		[DllImport("libgtk-3.so.0")]
@@ -6099,7 +7129,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_range_set_slider_size_fixed(System.IntPtr range, int size_fixed);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_range_set_upper_stepper_sensitivity(System.IntPtr range, int sensitivity);
+		public static extern void gtk_range_set_upper_stepper_sensitivity(System.IntPtr range, Gtk.SensitivityType sensitivity);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_range_set_value(System.IntPtr range, double value);
 		[DllImport("libgtk-3.so.0")]
@@ -6141,7 +7171,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_recent_chooser_get_show_tips(System.IntPtr chooser);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_recent_chooser_get_sort_type(System.IntPtr chooser);
+		public static extern Gtk.RecentSortType gtk_recent_chooser_get_sort_type(System.IntPtr chooser);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_recent_chooser_get_uris(System.IntPtr chooser, System.IntPtr length);
 		[DllImport("libgtk-3.so.0")]
@@ -6173,7 +7203,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_recent_chooser_set_sort_func(System.IntPtr chooser, System.IntPtr sort_func, System.IntPtr sort_data, System.IntPtr data_destroy);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_recent_chooser_set_sort_type(System.IntPtr chooser, int sort_type);
+		public static extern void gtk_recent_chooser_set_sort_type(System.IntPtr chooser, Gtk.RecentSortType sort_type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_recent_chooser_unselect_all(System.IntPtr chooser);
 		[DllImport("libgtk-3.so.0")]
@@ -6213,7 +7243,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_recent_filter_add_application(System.IntPtr filter, string application);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_recent_filter_add_custom(System.IntPtr filter, int needed, System.IntPtr func, System.IntPtr data, System.IntPtr data_destroy);
+		public static extern void gtk_recent_filter_add_custom(System.IntPtr filter, Gtk.RecentFilterFlags needed, System.IntPtr func, System.IntPtr data, System.IntPtr data_destroy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_recent_filter_add_group(System.IntPtr filter, string group);
 		[DllImport("libgtk-3.so.0")]
@@ -6227,7 +7257,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_recent_filter_get_name(System.IntPtr filter);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_recent_filter_get_needed(System.IntPtr filter);
+		public static extern Gtk.RecentFilterFlags gtk_recent_filter_get_needed(System.IntPtr filter);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_recent_filter_set_name(System.IntPtr filter, string name);
 		[DllImport("libgtk-3.so.0")]
@@ -6305,13 +7335,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_revealer_get_transition_duration(System.IntPtr revealer);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_revealer_get_transition_type(System.IntPtr revealer);
+		public static extern Gtk.RevealerTransitionType gtk_revealer_get_transition_type(System.IntPtr revealer);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_revealer_set_reveal_child(System.IntPtr revealer, int reveal_child);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_revealer_set_transition_duration(System.IntPtr revealer, uint duration);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_revealer_set_transition_type(System.IntPtr revealer, int transition);
+		public static extern void gtk_revealer_set_transition_type(System.IntPtr revealer, Gtk.RevealerTransitionType transition);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_scale_button_new(int size, double min, double max, double step, System.IntPtr icons);
 		[DllImport("libgtk-3.so.0")]
@@ -6367,13 +7397,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_shortcut_label_set_disabled_text(System.IntPtr self, string disabled_text);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_size_group_new(int mode);
+		public static extern System.IntPtr gtk_size_group_new(Gtk.SizeGroupMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_size_group_add_widget(System.IntPtr size_group, System.IntPtr widget);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_size_group_get_ignore_hidden(System.IntPtr size_group);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_size_group_get_mode(System.IntPtr size_group);
+		public static extern Gtk.SizeGroupMode gtk_size_group_get_mode(System.IntPtr size_group);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_size_group_get_widgets(System.IntPtr size_group);
 		[DllImport("libgtk-3.so.0")]
@@ -6381,7 +7411,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_size_group_set_ignore_hidden(System.IntPtr size_group, int ignore_hidden);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_size_group_set_mode(System.IntPtr size_group, int mode);
+		public static extern void gtk_size_group_set_mode(System.IntPtr size_group, Gtk.SizeGroupMode mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_socket_new();
 		[DllImport("libgtk-3.so.0")]
@@ -6409,7 +7439,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_spin_button_get_snap_to_ticks(System.IntPtr spin_button);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_spin_button_get_update_policy(System.IntPtr spin_button);
+		public static extern Gtk.SpinButtonUpdatePolicy gtk_spin_button_get_update_policy(System.IntPtr spin_button);
 		[DllImport("libgtk-3.so.0")]
 		public static extern double gtk_spin_button_get_value(System.IntPtr spin_button);
 		[DllImport("libgtk-3.so.0")]
@@ -6429,13 +7459,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_spin_button_set_snap_to_ticks(System.IntPtr spin_button, int snap_to_ticks);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_spin_button_set_update_policy(System.IntPtr spin_button, int policy);
+		public static extern void gtk_spin_button_set_update_policy(System.IntPtr spin_button, Gtk.SpinButtonUpdatePolicy policy);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_spin_button_set_value(System.IntPtr spin_button, double value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_spin_button_set_wrap(System.IntPtr spin_button, int wrap);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_spin_button_spin(System.IntPtr spin_button, int direction, double increment);
+		public static extern void gtk_spin_button_spin(System.IntPtr spin_button, Gtk.SpinType direction, double increment);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_spin_button_update(System.IntPtr spin_button);
 		[DllImport("libgtk-3.so.0")]
@@ -6463,7 +7493,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_stack_get_transition_running(System.IntPtr stack);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_stack_get_transition_type(System.IntPtr stack);
+		public static extern Gtk.StackTransitionType gtk_stack_get_transition_type(System.IntPtr stack);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_stack_get_vhomogeneous(System.IntPtr stack);
 		[DllImport("libgtk-3.so.0")]
@@ -6479,13 +7509,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_stack_set_transition_duration(System.IntPtr stack, uint duration);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_stack_set_transition_type(System.IntPtr stack, int transition);
+		public static extern void gtk_stack_set_transition_type(System.IntPtr stack, Gtk.StackTransitionType transition);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_stack_set_vhomogeneous(System.IntPtr stack, int vhomogeneous);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_stack_set_visible_child(System.IntPtr stack, System.IntPtr child);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_stack_set_visible_child_full(System.IntPtr stack, string name, int transition);
+		public static extern void gtk_stack_set_visible_child_full(System.IntPtr stack, string name, Gtk.StackTransitionType transition);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_stack_set_visible_child_name(System.IntPtr stack, string name);
 		[DllImport("libgtk-3.so.0")]
@@ -6515,7 +7545,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_status_icon_position_menu(System.IntPtr menu, System.IntPtr x, System.IntPtr y, System.IntPtr push_in, System.IntPtr user_data);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_status_icon_get_geometry(System.IntPtr status_icon, System.IntPtr screen, System.IntPtr area, System.IntPtr orientation);
+		public static extern int gtk_status_icon_get_geometry(System.IntPtr status_icon, System.IntPtr screen, System.IntPtr area, out Gtk.Orientation orientation);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_status_icon_get_gicon(System.IntPtr status_icon);
 		[DllImport("libgtk-3.so.0")]
@@ -6531,7 +7561,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_status_icon_get_stock(System.IntPtr status_icon);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_status_icon_get_storage_type(System.IntPtr status_icon);
+		public static extern Gtk.ImageType gtk_status_icon_get_storage_type(System.IntPtr status_icon);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_status_icon_get_title(System.IntPtr status_icon);
 		[DllImport("libgtk-3.so.0")]
@@ -6599,7 +7629,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_table_new(uint rows, uint columns, int homogeneous);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_table_attach(System.IntPtr table, System.IntPtr child, uint left_attach, uint right_attach, uint top_attach, uint bottom_attach, int xoptions, int yoptions, uint xpadding, uint ypadding);
+		public static extern void gtk_table_attach(System.IntPtr table, System.IntPtr child, uint left_attach, uint right_attach, uint top_attach, uint bottom_attach, Gtk.AttachOptions xoptions, Gtk.AttachOptions yoptions, uint xpadding, uint ypadding);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_table_attach_defaults(System.IntPtr table, System.IntPtr widget, uint left_attach, uint right_attach, uint top_attach, uint bottom_attach);
 		[DllImport("libgtk-3.so.0")]
@@ -6681,7 +7711,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_iter_backward_lines(System.IntPtr iter, int count);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_iter_backward_search(System.IntPtr iter, string str, int flags, System.IntPtr match_start, System.IntPtr match_end, System.IntPtr limit);
+		public static extern int gtk_text_iter_backward_search(System.IntPtr iter, string str, Gtk.TextSearchFlags flags, System.IntPtr match_start, System.IntPtr match_end, System.IntPtr limit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_iter_backward_sentence_start(System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
@@ -6739,7 +7769,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_iter_forward_lines(System.IntPtr iter, int count);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_iter_forward_search(System.IntPtr iter, string str, int flags, System.IntPtr match_start, System.IntPtr match_end, System.IntPtr limit);
+		public static extern int gtk_text_iter_forward_search(System.IntPtr iter, string str, Gtk.TextSearchFlags flags, System.IntPtr match_start, System.IntPtr match_end, System.IntPtr limit);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_iter_forward_sentence_end(System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
@@ -6871,13 +7901,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_add_child_at_anchor(System.IntPtr text_view, System.IntPtr child, System.IntPtr anchor);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_add_child_in_window(System.IntPtr text_view, System.IntPtr child, int which_window, int xpos, int ypos);
+		public static extern void gtk_text_view_add_child_in_window(System.IntPtr text_view, System.IntPtr child, Gtk.TextWindowType which_window, int xpos, int ypos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_backward_display_line(System.IntPtr text_view, System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_backward_display_line_start(System.IntPtr text_view, System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_buffer_to_window_coords(System.IntPtr text_view, int win, int buffer_x, int buffer_y, System.IntPtr window_x, System.IntPtr window_y);
+		public static extern void gtk_text_view_buffer_to_window_coords(System.IntPtr text_view, Gtk.TextWindowType win, int buffer_x, int buffer_y, System.IntPtr window_x, System.IntPtr window_y);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_forward_display_line(System.IntPtr text_view, System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
@@ -6885,7 +7915,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_get_accepts_tab(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_border_window_size(System.IntPtr text_view, int type);
+		public static extern int gtk_text_view_get_border_window_size(System.IntPtr text_view, Gtk.TextWindowType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_get_bottom_margin(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
@@ -6903,9 +7933,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_get_indent(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_input_hints(System.IntPtr text_view);
+		public static extern Gtk.InputHints gtk_text_view_get_input_hints(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_input_purpose(System.IntPtr text_view);
+		public static extern Gtk.InputPurpose gtk_text_view_get_input_purpose(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_get_iter_at_location(System.IntPtr text_view, System.IntPtr iter, int x, int y);
 		[DllImport("libgtk-3.so.0")]
@@ -6913,7 +7943,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_get_iter_location(System.IntPtr text_view, System.IntPtr iter, System.IntPtr location);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_justification(System.IntPtr text_view);
+		public static extern Gtk.Justification gtk_text_view_get_justification(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_get_left_margin(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
@@ -6941,11 +7971,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_get_visible_rect(System.IntPtr text_view, System.IntPtr visible_rect);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_text_view_get_window(System.IntPtr text_view, int win);
+		public static extern System.IntPtr gtk_text_view_get_window(System.IntPtr text_view, Gtk.TextWindowType win);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_window_type(System.IntPtr text_view, System.IntPtr window);
+		public static extern Gtk.TextWindowType gtk_text_view_get_window_type(System.IntPtr text_view, System.IntPtr window);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_text_view_get_wrap_mode(System.IntPtr text_view);
+		public static extern Gtk.WrapMode gtk_text_view_get_wrap_mode(System.IntPtr text_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_im_context_filter_keypress(System.IntPtr text_view, System.IntPtr @event);
 		[DllImport("libgtk-3.so.0")]
@@ -6969,7 +7999,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_set_accepts_tab(System.IntPtr text_view, int accepts_tab);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_set_border_window_size(System.IntPtr text_view, int type, int size);
+		public static extern void gtk_text_view_set_border_window_size(System.IntPtr text_view, Gtk.TextWindowType type, int size);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_set_bottom_margin(System.IntPtr text_view, int bottom_margin);
 		[DllImport("libgtk-3.so.0")]
@@ -6981,11 +8011,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_set_indent(System.IntPtr text_view, int indent);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_set_input_hints(System.IntPtr text_view, int hints);
+		public static extern void gtk_text_view_set_input_hints(System.IntPtr text_view, Gtk.InputHints hints);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_set_input_purpose(System.IntPtr text_view, int purpose);
+		public static extern void gtk_text_view_set_input_purpose(System.IntPtr text_view, Gtk.InputPurpose purpose);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_set_justification(System.IntPtr text_view, int justification);
+		public static extern void gtk_text_view_set_justification(System.IntPtr text_view, Gtk.Justification justification);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_set_left_margin(System.IntPtr text_view, int left_margin);
 		[DllImport("libgtk-3.so.0")]
@@ -7005,65 +8035,65 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_text_view_set_top_margin(System.IntPtr text_view, int top_margin);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_set_wrap_mode(System.IntPtr text_view, int wrap_mode);
+		public static extern void gtk_text_view_set_wrap_mode(System.IntPtr text_view, Gtk.WrapMode wrap_mode);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_text_view_starts_display_line(System.IntPtr text_view, System.IntPtr iter);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_text_view_window_to_buffer_coords(System.IntPtr text_view, int win, int window_x, int window_y, System.IntPtr buffer_x, System.IntPtr buffer_y);
+		public static extern void gtk_text_view_window_to_buffer_coords(System.IntPtr text_view, Gtk.TextWindowType win, int window_x, int window_y, System.IntPtr buffer_x, System.IntPtr buffer_y);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_theming_engine_load(string name);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_theming_engine_register_property(string name_space, System.IntPtr parse_func, System.IntPtr pspec);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_background_color(System.IntPtr engine, int state, System.IntPtr color);
+		public static extern void gtk_theming_engine_get_background_color(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_border(System.IntPtr engine, int state, System.IntPtr border);
+		public static extern void gtk_theming_engine_get_border(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr border);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_border_color(System.IntPtr engine, int state, System.IntPtr color);
+		public static extern void gtk_theming_engine_get_border_color(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_color(System.IntPtr engine, int state, System.IntPtr color);
+		public static extern void gtk_theming_engine_get_color(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_theming_engine_get_direction(System.IntPtr engine);
+		public static extern Gtk.TextDirection gtk_theming_engine_get_direction(System.IntPtr engine);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_theming_engine_get_font(System.IntPtr engine, int state);
+		public static extern System.IntPtr gtk_theming_engine_get_font(System.IntPtr engine, Gtk.StateFlags state);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_theming_engine_get_junction_sides(System.IntPtr engine);
+		public static extern Gtk.JunctionSides gtk_theming_engine_get_junction_sides(System.IntPtr engine);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_margin(System.IntPtr engine, int state, System.IntPtr margin);
+		public static extern void gtk_theming_engine_get_margin(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr margin);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_padding(System.IntPtr engine, int state, System.IntPtr padding);
+		public static extern void gtk_theming_engine_get_padding(System.IntPtr engine, Gtk.StateFlags state, System.IntPtr padding);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_theming_engine_get_path(System.IntPtr engine);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_theming_engine_get_property(System.IntPtr engine, string property, int state, System.IntPtr value);
+		public static extern void gtk_theming_engine_get_property(System.IntPtr engine, string property, Gtk.StateFlags state, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_theming_engine_get_screen(System.IntPtr engine);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_theming_engine_get_state(System.IntPtr engine);
+		public static extern Gtk.StateFlags gtk_theming_engine_get_state(System.IntPtr engine);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_theming_engine_get_style_property(System.IntPtr engine, string property_name, System.IntPtr value);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_theming_engine_has_class(System.IntPtr engine, string style_class);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_theming_engine_has_region(System.IntPtr engine, string style_region, System.IntPtr flags);
+		public static extern int gtk_theming_engine_has_region(System.IntPtr engine, string style_region, out Gtk.RegionFlags flags);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_theming_engine_lookup_color(System.IntPtr engine, string color_name, System.IntPtr color);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_theming_engine_state_is_running(System.IntPtr engine, int state, System.IntPtr progress);
+		public static extern int gtk_theming_engine_state_is_running(System.IntPtr engine, Gtk.StateType state, System.IntPtr progress);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_shell_get_ellipsize_mode(System.IntPtr shell);
+		public static extern Pango.EllipsizeMode gtk_tool_shell_get_ellipsize_mode(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_shell_get_icon_size(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_shell_get_orientation(System.IntPtr shell);
+		public static extern Gtk.Orientation gtk_tool_shell_get_orientation(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_shell_get_relief_style(System.IntPtr shell);
+		public static extern Gtk.ReliefStyle gtk_tool_shell_get_relief_style(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_shell_get_style(System.IntPtr shell);
+		public static extern Gtk.ToolbarStyle gtk_tool_shell_get_style(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern float gtk_tool_shell_get_text_alignment(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_shell_get_text_orientation(System.IntPtr shell);
+		public static extern Gtk.Orientation gtk_tool_shell_get_text_orientation(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_shell_get_text_size_group(System.IntPtr shell);
 		[DllImport("libgtk-3.so.0")]
@@ -7075,9 +8105,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_item_group_get_drop_item(System.IntPtr group, int x, int y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_group_get_ellipsize(System.IntPtr group);
+		public static extern Pango.EllipsizeMode gtk_tool_item_group_get_ellipsize(System.IntPtr group);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_item_group_get_header_relief(System.IntPtr group);
+		public static extern Gtk.ReliefStyle gtk_tool_item_group_get_header_relief(System.IntPtr group);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_item_group_get_item_position(System.IntPtr group, System.IntPtr item);
 		[DllImport("libgtk-3.so.0")]
@@ -7093,9 +8123,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tool_item_group_set_collapsed(System.IntPtr group, int collapsed);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tool_item_group_set_ellipsize(System.IntPtr group, int ellipsize);
+		public static extern void gtk_tool_item_group_set_ellipsize(System.IntPtr group, Pango.EllipsizeMode ellipsize);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tool_item_group_set_header_relief(System.IntPtr group, int style);
+		public static extern void gtk_tool_item_group_set_header_relief(System.IntPtr group, Gtk.ReliefStyle style);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tool_item_group_set_item_position(System.IntPtr group, System.IntPtr item, int position);
 		[DllImport("libgtk-3.so.0")]
@@ -7109,7 +8139,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_palette_get_drag_target_item();
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tool_palette_add_drag_dest(System.IntPtr palette, System.IntPtr widget, int flags, int targets, int actions);
+		public static extern void gtk_tool_palette_add_drag_dest(System.IntPtr palette, System.IntPtr widget, Gtk.DestDefaults flags, Gtk.ToolPaletteDragTargets targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_palette_get_drag_item(System.IntPtr palette, System.IntPtr selection);
 		[DllImport("libgtk-3.so.0")]
@@ -7127,11 +8157,11 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tool_palette_get_icon_size(System.IntPtr palette);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tool_palette_get_style(System.IntPtr palette);
+		public static extern Gtk.ToolbarStyle gtk_tool_palette_get_style(System.IntPtr palette);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tool_palette_get_vadjustment(System.IntPtr palette);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tool_palette_set_drag_source(System.IntPtr palette, int targets);
+		public static extern void gtk_tool_palette_set_drag_source(System.IntPtr palette, Gtk.ToolPaletteDragTargets targets);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tool_palette_set_exclusive(System.IntPtr palette, System.IntPtr group, int exclusive);
 		[DllImport("libgtk-3.so.0")]
@@ -7141,7 +8171,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tool_palette_set_icon_size(System.IntPtr palette, int icon_size);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tool_palette_set_style(System.IntPtr palette, int style);
+		public static extern void gtk_tool_palette_set_style(System.IntPtr palette, Gtk.ToolbarStyle style);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tool_palette_unset_icon_size(System.IntPtr palette);
 		[DllImport("libgtk-3.so.0")]
@@ -7151,7 +8181,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_toolbar_get_drop_index(System.IntPtr toolbar, int x, int y);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_toolbar_get_icon_size(System.IntPtr toolbar);
+		public static extern Gtk.IconSize gtk_toolbar_get_icon_size(System.IntPtr toolbar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_toolbar_get_item_index(System.IntPtr toolbar, System.IntPtr item);
 		[DllImport("libgtk-3.so.0")]
@@ -7159,21 +8189,21 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_toolbar_get_nth_item(System.IntPtr toolbar, int n);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_toolbar_get_relief_style(System.IntPtr toolbar);
+		public static extern Gtk.ReliefStyle gtk_toolbar_get_relief_style(System.IntPtr toolbar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_toolbar_get_show_arrow(System.IntPtr toolbar);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_toolbar_get_style(System.IntPtr toolbar);
+		public static extern Gtk.ToolbarStyle gtk_toolbar_get_style(System.IntPtr toolbar);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_toolbar_insert(System.IntPtr toolbar, System.IntPtr item, int pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_toolbar_set_drop_highlight_item(System.IntPtr toolbar, System.IntPtr tool_item, int index_);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_toolbar_set_icon_size(System.IntPtr toolbar, int icon_size);
+		public static extern void gtk_toolbar_set_icon_size(System.IntPtr toolbar, Gtk.IconSize icon_size);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_toolbar_set_show_arrow(System.IntPtr toolbar, int show_arrow);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_toolbar_set_style(System.IntPtr toolbar, int style);
+		public static extern void gtk_toolbar_set_style(System.IntPtr toolbar, Gtk.ToolbarStyle style);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_toolbar_unset_icon_size(System.IntPtr toolbar);
 		[DllImport("libgtk-3.so.0")]
@@ -7221,13 +8251,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_column_get_resizable(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_view_column_get_sizing(System.IntPtr tree_column);
+		public static extern Gtk.TreeViewColumnSizing gtk_tree_view_column_get_sizing(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_column_get_sort_column_id(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_column_get_sort_indicator(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_view_column_get_sort_order(System.IntPtr tree_column);
+		public static extern Gtk.SortType gtk_tree_view_column_get_sort_order(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_column_get_spacing(System.IntPtr tree_column);
 		[DllImport("libgtk-3.so.0")]
@@ -7267,13 +8297,13 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_column_set_resizable(System.IntPtr tree_column, int resizable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_column_set_sizing(System.IntPtr tree_column, int type);
+		public static extern void gtk_tree_view_column_set_sizing(System.IntPtr tree_column, Gtk.TreeViewColumnSizing type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_column_set_sort_column_id(System.IntPtr tree_column, int sort_column_id);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_column_set_sort_indicator(System.IntPtr tree_column, int setting);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_column_set_sort_order(System.IntPtr tree_column, int order);
+		public static extern void gtk_tree_view_column_set_sort_order(System.IntPtr tree_column, Gtk.SortType order);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_column_set_spacing(System.IntPtr tree_column, int spacing);
 		[DllImport("libgtk-3.so.0")]
@@ -7309,9 +8339,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tree_view_create_row_drag_icon(System.IntPtr tree_view, System.IntPtr path);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_enable_model_drag_dest(System.IntPtr tree_view, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_tree_view_enable_model_drag_dest(System.IntPtr tree_view, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_enable_model_drag_source(System.IntPtr tree_view, int start_button_mask, System.IntPtr targets, int n_targets, int actions);
+		public static extern void gtk_tree_view_enable_model_drag_source(System.IntPtr tree_view, Gdk.ModifierType start_button_mask, System.IntPtr targets, int n_targets, Gdk.DragAction actions);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_expand_all(System.IntPtr tree_view);
 		[DllImport("libgtk-3.so.0")]
@@ -7333,9 +8363,9 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_get_cursor(System.IntPtr tree_view, System.IntPtr path, System.IntPtr focus_column);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_view_get_dest_row_at_pos(System.IntPtr tree_view, int drag_x, int drag_y, System.IntPtr path, System.IntPtr pos);
+		public static extern int gtk_tree_view_get_dest_row_at_pos(System.IntPtr tree_view, int drag_x, int drag_y, System.IntPtr path, out Gtk.TreeViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_get_drag_dest_row(System.IntPtr tree_view, System.IntPtr path, System.IntPtr pos);
+		public static extern void gtk_tree_view_get_drag_dest_row(System.IntPtr tree_view, System.IntPtr path, out Gtk.TreeViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_get_enable_search(System.IntPtr tree_view);
 		[DllImport("libgtk-3.so.0")]
@@ -7345,7 +8375,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_view_get_fixed_height_mode(System.IntPtr tree_view);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_view_get_grid_lines(System.IntPtr tree_view);
+		public static extern Gtk.TreeViewGridLines gtk_tree_view_get_grid_lines(System.IntPtr tree_view);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tree_view_get_hadjustment(System.IntPtr tree_view);
 		[DllImport("libgtk-3.so.0")]
@@ -7427,7 +8457,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_set_destroy_count_func(System.IntPtr tree_view, System.IntPtr func, System.IntPtr data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_set_drag_dest_row(System.IntPtr tree_view, System.IntPtr path, int pos);
+		public static extern void gtk_tree_view_set_drag_dest_row(System.IntPtr tree_view, System.IntPtr path, Gtk.TreeViewDropPosition pos);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_set_enable_search(System.IntPtr tree_view, int enable_search);
 		[DllImport("libgtk-3.so.0")]
@@ -7437,7 +8467,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_set_fixed_height_mode(System.IntPtr tree_view, int enable);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_view_set_grid_lines(System.IntPtr tree_view, int grid_lines);
+		public static extern void gtk_tree_view_set_grid_lines(System.IntPtr tree_view, Gtk.TreeViewGridLines grid_lines);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_view_set_hadjustment(System.IntPtr tree_view, System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
@@ -7541,7 +8571,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_tree_selection_count_selected_rows(System.IntPtr selection);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_tree_selection_get_mode(System.IntPtr selection);
+		public static extern Gtk.SelectionMode gtk_tree_selection_get_mode(System.IntPtr selection);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_tree_selection_get_select_function(System.IntPtr selection);
 		[DllImport("libgtk-3.so.0")]
@@ -7567,7 +8597,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_selection_selected_foreach(System.IntPtr selection, System.IntPtr func, System.IntPtr data);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_tree_selection_set_mode(System.IntPtr selection, int type);
+		public static extern void gtk_tree_selection_set_mode(System.IntPtr selection, Gtk.SelectionMode type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_tree_selection_set_select_function(System.IntPtr selection, System.IntPtr func, System.IntPtr data, System.IntPtr destroy);
 		[DllImport("libgtk-3.so.0")]
@@ -7619,7 +8649,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_ui_manager_new();
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_ui_manager_add_ui(System.IntPtr manager, uint merge_id, string path, string name, string action, int type, int top);
+		public static extern void gtk_ui_manager_add_ui(System.IntPtr manager, uint merge_id, string path, string name, string action, Gtk.UIManagerItemType type, int top);
 		[DllImport("libgtk-3.so.0")]
 		public static extern uint gtk_ui_manager_add_ui_from_file(System.IntPtr manager, System.IntPtr filename, System.IntPtr error);
 		[DllImport("libgtk-3.so.0")]
@@ -7637,7 +8667,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern int gtk_ui_manager_get_add_tearoffs(System.IntPtr manager);
 		[DllImport("libgtk-3.so.0")]
-		public static extern System.IntPtr gtk_ui_manager_get_toplevels(System.IntPtr manager, int types);
+		public static extern System.IntPtr gtk_ui_manager_get_toplevels(System.IntPtr manager, Gtk.UIManagerItemType types);
 		[DllImport("libgtk-3.so.0")]
 		public static extern string gtk_ui_manager_get_ui(System.IntPtr manager);
 		[DllImport("libgtk-3.so.0")]
@@ -7673,7 +8703,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_viewport_get_hadjustment(System.IntPtr viewport);
 		[DllImport("libgtk-3.so.0")]
-		public static extern int gtk_viewport_get_shadow_type(System.IntPtr viewport);
+		public static extern Gtk.ShadowType gtk_viewport_get_shadow_type(System.IntPtr viewport);
 		[DllImport("libgtk-3.so.0")]
 		public static extern System.IntPtr gtk_viewport_get_vadjustment(System.IntPtr viewport);
 		[DllImport("libgtk-3.so.0")]
@@ -7681,7 +8711,7 @@ namespace Gtk {
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_viewport_set_hadjustment(System.IntPtr viewport, System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]
-		public static extern void gtk_viewport_set_shadow_type(System.IntPtr viewport, int type);
+		public static extern void gtk_viewport_set_shadow_type(System.IntPtr viewport, Gtk.ShadowType type);
 		[DllImport("libgtk-3.so.0")]
 		public static extern void gtk_viewport_set_vadjustment(System.IntPtr viewport, System.IntPtr adjustment);
 		[DllImport("libgtk-3.so.0")]

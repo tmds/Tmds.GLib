@@ -22,7 +22,7 @@ namespace GtkHelloWorld
 
         static void Main(string[] args)
         {
-            IntPtr app = gtk_application_new ("org.gtk.example", 0);
+            IntPtr app = gtk_application_new ("org.gtk.example", Gio.ApplicationFlags.flags_none);
             g_signal_connect_data (app, "activate", Marshal.GetFunctionPointerForDelegate(activateDelegate), IntPtr.Zero, IntPtr.Zero, 0);
             int status = g_application_run (app, 0, IntPtr.Zero);
             g_object_unref (app);

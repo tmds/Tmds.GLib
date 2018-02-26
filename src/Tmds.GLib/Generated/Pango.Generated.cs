@@ -1,6 +1,296 @@
 using System;
 using System.Runtime.InteropServices;
 namespace Pango {
+	public enum Alignment
+	{
+		left = 0,
+		center = 1,
+		right = 2,
+	}
+	public enum AttrType
+	{
+		invalid = 0,
+		language = 1,
+		family = 2,
+		style = 3,
+		weight = 4,
+		variant = 5,
+		stretch = 6,
+		size = 7,
+		font_desc = 8,
+		foreground = 9,
+		background = 10,
+		underline = 11,
+		strikethrough = 12,
+		rise = 13,
+		shape = 14,
+		scale = 15,
+		fallback = 16,
+		letter_spacing = 17,
+		underline_color = 18,
+		strikethrough_color = 19,
+		absolute_size = 20,
+		gravity = 21,
+		gravity_hint = 22,
+		font_features = 23,
+		foreground_alpha = 24,
+		background_alpha = 25,
+	}
+	public enum BidiType
+	{
+		l = 0,
+		lre = 1,
+		lro = 2,
+		r = 3,
+		al = 4,
+		rle = 5,
+		rlo = 6,
+		pdf = 7,
+		en = 8,
+		es = 9,
+		et = 10,
+		an = 11,
+		cs = 12,
+		nsm = 13,
+		bn = 14,
+		b = 15,
+		s = 16,
+		ws = 17,
+		on = 18,
+	}
+	public enum Direction
+	{
+		ltr = 0,
+		rtl = 1,
+		ttb_ltr = 2,
+		ttb_rtl = 3,
+		weak_ltr = 4,
+		weak_rtl = 5,
+		neutral = 6,
+	}
+	public enum Gravity
+	{
+		south = 0,
+		east = 1,
+		north = 2,
+		west = 3,
+		auto = 4,
+	}
+	public enum GravityHint
+	{
+		natural = 0,
+		strong = 1,
+		line = 2,
+	}
+	public enum CoverageLevel
+	{
+		none = 0,
+		fallback = 1,
+		approximate = 2,
+		exact = 3,
+	}
+	public enum EllipsizeMode
+	{
+		none = 0,
+		start = 1,
+		middle = 2,
+		end = 3,
+	}
+	public enum Script
+	{
+		invalid_code = -1,
+		common = 0,
+		inherited = 1,
+		arabic = 2,
+		armenian = 3,
+		bengali = 4,
+		bopomofo = 5,
+		cherokee = 6,
+		coptic = 7,
+		cyrillic = 8,
+		deseret = 9,
+		devanagari = 10,
+		ethiopic = 11,
+		georgian = 12,
+		gothic = 13,
+		greek = 14,
+		gujarati = 15,
+		gurmukhi = 16,
+		han = 17,
+		hangul = 18,
+		hebrew = 19,
+		hiragana = 20,
+		kannada = 21,
+		katakana = 22,
+		khmer = 23,
+		lao = 24,
+		latin = 25,
+		malayalam = 26,
+		mongolian = 27,
+		myanmar = 28,
+		ogham = 29,
+		old_italic = 30,
+		oriya = 31,
+		runic = 32,
+		sinhala = 33,
+		syriac = 34,
+		tamil = 35,
+		telugu = 36,
+		thaana = 37,
+		thai = 38,
+		tibetan = 39,
+		canadian_aboriginal = 40,
+		yi = 41,
+		tagalog = 42,
+		hanunoo = 43,
+		buhid = 44,
+		tagbanwa = 45,
+		braille = 46,
+		cypriot = 47,
+		limbu = 48,
+		osmanya = 49,
+		shavian = 50,
+		linear_b = 51,
+		tai_le = 52,
+		ugaritic = 53,
+		new_tai_lue = 54,
+		buginese = 55,
+		glagolitic = 56,
+		tifinagh = 57,
+		syloti_nagri = 58,
+		old_persian = 59,
+		kharoshthi = 60,
+		unknown = 61,
+		balinese = 62,
+		cuneiform = 63,
+		phoenician = 64,
+		phags_pa = 65,
+		nko = 66,
+		kayah_li = 67,
+		lepcha = 68,
+		rejang = 69,
+		sundanese = 70,
+		saurashtra = 71,
+		cham = 72,
+		ol_chiki = 73,
+		vai = 74,
+		carian = 75,
+		lycian = 76,
+		lydian = 77,
+		batak = 78,
+		brahmi = 79,
+		mandaic = 80,
+		chakma = 81,
+		meroitic_cursive = 82,
+		meroitic_hieroglyphs = 83,
+		miao = 84,
+		sharada = 85,
+		sora_sompeng = 86,
+		takri = 87,
+		bassa_vah = 88,
+		caucasian_albanian = 89,
+		duployan = 90,
+		elbasan = 91,
+		grantha = 92,
+		khojki = 93,
+		khudawadi = 94,
+		linear_a = 95,
+		mahajani = 96,
+		manichaean = 97,
+		mende_kikakui = 98,
+		modi = 99,
+		mro = 100,
+		nabataean = 101,
+		old_north_arabian = 102,
+		old_permic = 103,
+		pahawh_hmong = 104,
+		palmyrene = 105,
+		pau_cin_hau = 106,
+		psalter_pahlavi = 107,
+		siddham = 108,
+		tirhuta = 109,
+		warang_citi = 110,
+		ahom = 111,
+		anatolian_hieroglyphs = 112,
+		hatran = 113,
+		multani = 114,
+		old_hungarian = 115,
+		signwriting = 116,
+	}
+	[Flags]
+	public enum FontMask
+	{
+		family = 1,
+		style = 2,
+		variant = 4,
+		weight = 8,
+		stretch = 16,
+		size = 32,
+		gravity = 64,
+	}
+	public enum Stretch
+	{
+		ultra_condensed = 0,
+		extra_condensed = 1,
+		condensed = 2,
+		semi_condensed = 3,
+		normal = 4,
+		semi_expanded = 5,
+		expanded = 6,
+		extra_expanded = 7,
+		ultra_expanded = 8,
+	}
+	public enum Style
+	{
+		normal = 0,
+		oblique = 1,
+		italic = 2,
+	}
+	public enum Variant
+	{
+		normal = 0,
+		small_caps = 1,
+	}
+	public enum Weight
+	{
+		thin = 100,
+		ultralight = 200,
+		light = 300,
+		semilight = 350,
+		book = 380,
+		normal = 400,
+		medium = 500,
+		semibold = 600,
+		bold = 700,
+		ultrabold = 800,
+		heavy = 900,
+		ultraheavy = 1000,
+	}
+	public enum WrapMode
+	{
+		word = 0,
+		@char = 1,
+		word_char = 2,
+	}
+	public enum RenderPart
+	{
+		foreground = 0,
+		background = 1,
+		underline = 2,
+		strikethrough = 3,
+	}
+	public enum Underline
+	{
+		none = 0,
+		single = 1,
+		@double = 2,
+		low = 3,
+		error = 4,
+	}
+	public enum TabAlign
+	{
+		left = 0,
+	}
 	public static class PangoInterop {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_background_alpha_new(ushort alpha);
@@ -15,9 +305,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_foreground_new(ushort red, ushort green, ushort blue);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_gravity_hint_new(int hint);
+		public static extern System.IntPtr pango_attr_gravity_hint_new(Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_gravity_new(int gravity);
+		public static extern System.IntPtr pango_attr_gravity_new(Pango.Gravity gravity);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_letter_spacing_new(int letter_spacing);
 		[DllImport("libpango-1.0.so.0")]
@@ -25,21 +315,21 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_scale_new(double scale_factor);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_stretch_new(int stretch);
+		public static extern System.IntPtr pango_attr_stretch_new(Pango.Stretch stretch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_strikethrough_color_new(ushort red, ushort green, ushort blue);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_strikethrough_new(int strikethrough);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_style_new(int style);
+		public static extern System.IntPtr pango_attr_style_new(Pango.Style style);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_underline_color_new(ushort red, ushort green, ushort blue);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_underline_new(int underline);
+		public static extern System.IntPtr pango_attr_underline_new(Pango.Underline underline);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_variant_new(int variant);
+		public static extern System.IntPtr pango_attr_variant_new(Pango.Variant variant);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_weight_new(int weight);
+		public static extern System.IntPtr pango_attr_weight_new(Pango.Weight weight);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_break(string text, int length, System.IntPtr analysis, System.IntPtr attrs, int attrs_len);
 		[DllImport("libpango-1.0.so.0")]
@@ -51,7 +341,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_extents_to_pixels(System.IntPtr inclusive, System.IntPtr nearest);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_find_base_dir(string text, int length);
+		public static extern Pango.Direction pango_find_base_dir(string text, int length);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_find_map(System.IntPtr language, uint engine_type_id, uint render_type_id);
 		[DllImport("libpango-1.0.so.0")]
@@ -69,9 +359,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_itemize(System.IntPtr context, string text, int start_index, int length, System.IntPtr attrs, System.IntPtr cached_iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_itemize_with_base_dir(System.IntPtr context, int base_dir, string text, int start_index, int length, System.IntPtr attrs, System.IntPtr cached_iter);
-		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_log2vis_get_embedding_levels(string text, int length, System.IntPtr pbase_dir);
+		public static extern System.IntPtr pango_itemize_with_base_dir(System.IntPtr context, Pango.Direction base_dir, string text, int start_index, int length, System.IntPtr attrs, System.IntPtr cached_iter);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_lookup_aliases(string fontname, System.IntPtr families, System.IntPtr n_families);
 		[DllImport("libpango-1.0.so.0")]
@@ -85,13 +373,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_parse_markup(string markup_text, int length, uint accel_marker, System.IntPtr attr_list, string text, System.IntPtr accel_char, System.IntPtr error);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_stretch(string str, System.IntPtr stretch, int warn);
+		public static extern int pango_parse_stretch(string str, out Pango.Stretch stretch, int warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_style(string str, System.IntPtr style, int warn);
+		public static extern int pango_parse_style(string str, out Pango.Style style, int warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_variant(string str, System.IntPtr variant, int warn);
+		public static extern int pango_parse_variant(string str, out Pango.Variant variant, int warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_weight(string str, System.IntPtr weight, int warn);
+		public static extern int pango_parse_weight(string str, out Pango.Weight weight, int warn);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_quantize_line_geometry(System.IntPtr thickness, System.IntPtr position);
 		[DllImport("libpango-1.0.so.0")]
@@ -115,7 +403,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_trim_string(string str);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_unichar_direction(uint ch);
+		public static extern Pango.Direction pango_unichar_direction(uint ch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_units_from_double(double d);
 		[DllImport("libpango-1.0.so.0")]
@@ -159,7 +447,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_language_get_scripts(System.IntPtr language, System.IntPtr num_scripts);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_language_includes_script(System.IntPtr language, int script);
+		public static extern int pango_language_includes_script(System.IntPtr language, Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_language_matches(System.IntPtr language, string range_list);
 		[DllImport("libpango-1.0.so.0")]
@@ -169,9 +457,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_language_get_default();
 		[DllImport("libpango-1.0.so.0")]
-		public static extern string pango_attr_type_get_name(int type);
+		public static extern string pango_attr_type_get_name(Pango.AttrType type);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_attr_type_register(string name);
+		public static extern Pango.AttrType pango_attr_type_register(string name);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attribute_copy(System.IntPtr attr);
 		[DllImport("libpango-1.0.so.0")]
@@ -203,21 +491,21 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_description_get_family(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_gravity(System.IntPtr desc);
+		public static extern Pango.Gravity pango_font_description_get_gravity(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_set_fields(System.IntPtr desc);
+		public static extern Pango.FontMask pango_font_description_get_set_fields(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_font_description_get_size(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_font_description_get_size_is_absolute(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_stretch(System.IntPtr desc);
+		public static extern Pango.Stretch pango_font_description_get_stretch(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_style(System.IntPtr desc);
+		public static extern Pango.Style pango_font_description_get_style(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_variant(System.IntPtr desc);
+		public static extern Pango.Variant pango_font_description_get_variant(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_weight(System.IntPtr desc);
+		public static extern Pango.Weight pango_font_description_get_weight(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern uint pango_font_description_hash(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -231,23 +519,23 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_description_set_family_static(System.IntPtr desc, string family);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_set_gravity(System.IntPtr desc, int gravity);
+		public static extern void pango_font_description_set_gravity(System.IntPtr desc, Pango.Gravity gravity);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_description_set_size(System.IntPtr desc, int size);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_set_stretch(System.IntPtr desc, int stretch);
+		public static extern void pango_font_description_set_stretch(System.IntPtr desc, Pango.Stretch stretch);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_set_style(System.IntPtr desc, int style);
+		public static extern void pango_font_description_set_style(System.IntPtr desc, Pango.Style style);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_set_variant(System.IntPtr desc, int variant);
+		public static extern void pango_font_description_set_variant(System.IntPtr desc, Pango.Variant variant);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_set_weight(System.IntPtr desc, int weight);
+		public static extern void pango_font_description_set_weight(System.IntPtr desc, Pango.Weight weight);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_description_to_filename(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_description_to_string(System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_unset_fields(System.IntPtr desc, int to_unset);
+		public static extern void pango_font_description_unset_fields(System.IntPtr desc, Pango.FontMask to_unset);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_font_description_from_string(string str);
 		[DllImport("libpango-1.0.so.0")]
@@ -259,7 +547,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_attr_iterator_destroy(System.IntPtr iterator);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_attr_iterator_get(System.IntPtr iterator, int type);
+		public static extern System.IntPtr pango_attr_iterator_get(System.IntPtr iterator, Pango.AttrType type);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_iterator_get_attrs(System.IntPtr iterator);
 		[DllImport("libpango-1.0.so.0")]
@@ -299,23 +587,23 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_size_new_absolute(int size);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_bidi_type_for_unichar(uint ch);
+		public static extern Pango.BidiType pango_bidi_type_for_unichar(uint ch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_context_new();
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_context_changed(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_context_get_base_dir(System.IntPtr context);
+		public static extern Pango.Direction pango_context_get_base_dir(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_context_get_base_gravity(System.IntPtr context);
+		public static extern Pango.Gravity pango_context_get_base_gravity(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_context_get_font_description(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_context_get_font_map(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_context_get_gravity(System.IntPtr context);
+		public static extern Pango.Gravity pango_context_get_gravity(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_context_get_gravity_hint(System.IntPtr context);
+		public static extern Pango.GravityHint pango_context_get_gravity_hint(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_context_get_language(System.IntPtr context);
 		[DllImport("libpango-1.0.so.0")]
@@ -331,27 +619,27 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_context_load_fontset(System.IntPtr context, System.IntPtr desc, System.IntPtr language);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_context_set_base_dir(System.IntPtr context, int direction);
+		public static extern void pango_context_set_base_dir(System.IntPtr context, Pango.Direction direction);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_context_set_base_gravity(System.IntPtr context, int gravity);
+		public static extern void pango_context_set_base_gravity(System.IntPtr context, Pango.Gravity gravity);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_context_set_font_description(System.IntPtr context, System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_context_set_font_map(System.IntPtr context, System.IntPtr font_map);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_context_set_gravity_hint(System.IntPtr context, int hint);
+		public static extern void pango_context_set_gravity_hint(System.IntPtr context, Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_context_set_language(System.IntPtr context, System.IntPtr language);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_context_set_matrix(System.IntPtr context, System.IntPtr matrix);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_gravity_get_for_matrix(System.IntPtr matrix);
+		public static extern Pango.Gravity pango_gravity_get_for_matrix(System.IntPtr matrix);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_gravity_get_for_script(int script, int base_gravity, int hint);
+		public static extern Pango.Gravity pango_gravity_get_for_script(Pango.Script script, Pango.Gravity base_gravity, Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_gravity_get_for_script_and_width(int script, int wide, int base_gravity, int hint);
+		public static extern Pango.Gravity pango_gravity_get_for_script_and_width(Pango.Script script, int wide, Pango.Gravity base_gravity, Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern double pango_gravity_to_rotation(int gravity);
+		public static extern double pango_gravity_to_rotation(Pango.Gravity gravity);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_map_changed(System.IntPtr fontmap);
 		[DllImport("libpango-1.0.so.0")]
@@ -427,13 +715,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_coverage_copy(System.IntPtr coverage);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_coverage_get(System.IntPtr coverage, int index_);
+		public static extern Pango.CoverageLevel pango_coverage_get(System.IntPtr coverage, int index_);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_coverage_max(System.IntPtr coverage, System.IntPtr other);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_coverage_ref(System.IntPtr coverage);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_coverage_set(System.IntPtr coverage, int index_, int level);
+		public static extern void pango_coverage_set(System.IntPtr coverage, int index_, Pango.CoverageLevel level);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_coverage_to_bytes(System.IntPtr coverage, System.IntPtr bytes, System.IntPtr n_bytes);
 		[DllImport("libpango-1.0.so.0")]
@@ -443,9 +731,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_coverage_new();
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_script_for_unichar(uint ch);
+		public static extern Pango.Script pango_script_for_unichar(uint ch);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_script_get_sample_language(int script);
+		public static extern System.IntPtr pango_script_get_sample_language(Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_glyph_string_new();
 		[DllImport("libpango-1.0.so.0")]
@@ -507,7 +795,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_layout_copy(System.IntPtr src);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_alignment(System.IntPtr layout);
+		public static extern Pango.Alignment pango_layout_get_alignment(System.IntPtr layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_layout_get_attributes(System.IntPtr layout);
 		[DllImport("libpango-1.0.so.0")]
@@ -521,7 +809,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_get_cursor_pos(System.IntPtr layout, int index_, System.IntPtr strong_pos, System.IntPtr weak_pos);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_ellipsize(System.IntPtr layout);
+		public static extern Pango.EllipsizeMode pango_layout_get_ellipsize(System.IntPtr layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_get_extents(System.IntPtr layout, System.IntPtr ink_rect, System.IntPtr logical_rect);
 		[DllImport("libpango-1.0.so.0")]
@@ -569,7 +857,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_layout_get_width(System.IntPtr layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_wrap(System.IntPtr layout);
+		public static extern Pango.WrapMode pango_layout_get_wrap(System.IntPtr layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_index_to_line_x(System.IntPtr layout, int index_, int trailing, System.IntPtr line, System.IntPtr x_pos);
 		[DllImport("libpango-1.0.so.0")]
@@ -581,13 +869,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_move_cursor_visually(System.IntPtr layout, int strong, int old_index, int old_trailing, int direction, System.IntPtr new_index, System.IntPtr new_trailing);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_alignment(System.IntPtr layout, int alignment);
+		public static extern void pango_layout_set_alignment(System.IntPtr layout, Pango.Alignment alignment);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_attributes(System.IntPtr layout, System.IntPtr attrs);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_auto_dir(System.IntPtr layout, int auto_dir);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_ellipsize(System.IntPtr layout, int ellipsize);
+		public static extern void pango_layout_set_ellipsize(System.IntPtr layout, Pango.EllipsizeMode ellipsize);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_font_description(System.IntPtr layout, System.IntPtr desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -611,7 +899,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_width(System.IntPtr layout, int width);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_wrap(System.IntPtr layout, int wrap);
+		public static extern void pango_layout_set_wrap(System.IntPtr layout, Pango.WrapMode wrap);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_layout_xy_to_index(System.IntPtr layout, int x, int y, System.IntPtr index_, System.IntPtr trailing);
 		[DllImport("libpango-1.0.so.0")]
@@ -679,17 +967,15 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_tab_array_get_size(System.IntPtr tab_array);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_tab_array_get_tab(System.IntPtr tab_array, int tab_index, System.IntPtr alignment, System.IntPtr location);
-		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_tab_array_get_tabs(System.IntPtr tab_array, System.IntPtr alignments, System.IntPtr locations);
+		public static extern void pango_tab_array_get_tab(System.IntPtr tab_array, int tab_index, out Pango.TabAlign alignment, System.IntPtr location);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_tab_array_resize(System.IntPtr tab_array, int new_size);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_tab_array_set_tab(System.IntPtr tab_array, int tab_index, int alignment, int location);
+		public static extern void pango_tab_array_set_tab(System.IntPtr tab_array, int tab_index, Pango.TabAlign alignment, int location);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_map_get_engine(System.IntPtr map, int script);
+		public static extern System.IntPtr pango_map_get_engine(System.IntPtr map, Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_map_get_engines(System.IntPtr map, int script, System.IntPtr exact_engines, System.IntPtr fallback_engines);
+		public static extern void pango_map_get_engines(System.IntPtr map, Pango.Script script, System.IntPtr exact_engines, System.IntPtr fallback_engines);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_renderer_activate(System.IntPtr renderer);
 		[DllImport("libpango-1.0.so.0")]
@@ -707,13 +993,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_renderer_draw_layout_line(System.IntPtr renderer, System.IntPtr line, int x, int y);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_renderer_draw_rectangle(System.IntPtr renderer, int part, int x, int y, int width, int height);
+		public static extern void pango_renderer_draw_rectangle(System.IntPtr renderer, Pango.RenderPart part, int x, int y, int width, int height);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_renderer_draw_trapezoid(System.IntPtr renderer, int part, double y1_, double x11, double x21, double y2, double x12, double x22);
+		public static extern void pango_renderer_draw_trapezoid(System.IntPtr renderer, Pango.RenderPart part, double y1_, double x11, double x21, double y2, double x12, double x22);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern ushort pango_renderer_get_alpha(System.IntPtr renderer, int part);
+		public static extern ushort pango_renderer_get_alpha(System.IntPtr renderer, Pango.RenderPart part);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_renderer_get_color(System.IntPtr renderer, int part);
+		public static extern System.IntPtr pango_renderer_get_color(System.IntPtr renderer, Pango.RenderPart part);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_renderer_get_layout(System.IntPtr renderer);
 		[DllImport("libpango-1.0.so.0")]
@@ -721,17 +1007,17 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_renderer_get_matrix(System.IntPtr renderer);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_renderer_part_changed(System.IntPtr renderer, int part);
+		public static extern void pango_renderer_part_changed(System.IntPtr renderer, Pango.RenderPart part);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_renderer_set_alpha(System.IntPtr renderer, int part, ushort alpha);
+		public static extern void pango_renderer_set_alpha(System.IntPtr renderer, Pango.RenderPart part, ushort alpha);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_renderer_set_color(System.IntPtr renderer, int part, System.IntPtr color);
+		public static extern void pango_renderer_set_color(System.IntPtr renderer, Pango.RenderPart part, System.IntPtr color);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_renderer_set_matrix(System.IntPtr renderer, System.IntPtr matrix);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_script_iter_free(System.IntPtr iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_script_iter_get_range(System.IntPtr iter, string start, string end, System.IntPtr script);
+		public static extern void pango_script_iter_get_range(System.IntPtr iter, string start, string end, out Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_script_iter_next(System.IntPtr iter);
 		[DllImport("libpango-1.0.so.0")]
