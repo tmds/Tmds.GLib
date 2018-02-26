@@ -4,9 +4,15 @@ namespace Pango {
 	public ref struct GlyphItem
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphItem(IntPtr pointer) => new GlyphItem { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphItem value) => value._pointer
-;	}
+		public GlyphItem(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphItem(IntPtr pointer) => new GlyphItem(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphItem value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_glyph_item_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum Alignment
 	{
 		left = 0,
@@ -16,43 +22,83 @@ namespace Pango {
 	public ref struct EngineShape
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineShape(IntPtr pointer) => new EngineShape { _pointer = pointer };
-		public static explicit operator IntPtr(EngineShape value) => value._pointer
-;		public static implicit operator Pango.Engine(EngineShape value) => (Pango.Engine)value._pointer
-;		public static explicit operator EngineShape(Pango.Engine value) => (EngineShape)(IntPtr)value
-;		public static implicit operator GObject.Object(EngineShape value) => (GObject.Object)value._pointer
-;		public static explicit operator EngineShape(GObject.Object value) => (EngineShape)(IntPtr)value
-;	}
+		public EngineShape(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator EngineShape(IntPtr pointer) => new EngineShape(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineShape value) => value._pointer;
+		public static implicit operator Pango.Engine(EngineShape value) => new Pango.Engine((IntPtr)value, checkType: false);
+		public static explicit operator EngineShape(Pango.Engine value) => new EngineShape((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(EngineShape value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator EngineShape(GObject.Object value) => new EngineShape((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_engine_shape_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct EngineLang
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineLang(IntPtr pointer) => new EngineLang { _pointer = pointer };
-		public static explicit operator IntPtr(EngineLang value) => value._pointer
-;		public static implicit operator Pango.Engine(EngineLang value) => (Pango.Engine)value._pointer
-;		public static explicit operator EngineLang(Pango.Engine value) => (EngineLang)(IntPtr)value
-;		public static implicit operator GObject.Object(EngineLang value) => (GObject.Object)value._pointer
-;		public static explicit operator EngineLang(GObject.Object value) => (EngineLang)(IntPtr)value
-;	}
+		public EngineLang(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator EngineLang(IntPtr pointer) => new EngineLang(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineLang value) => value._pointer;
+		public static implicit operator Pango.Engine(EngineLang value) => new Pango.Engine((IntPtr)value, checkType: false);
+		public static explicit operator EngineLang(Pango.Engine value) => new EngineLang((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(EngineLang value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator EngineLang(GObject.Object value) => new EngineLang((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_engine_lang_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Font
 	{
 		private IntPtr _pointer;
-		public static explicit operator Font(IntPtr pointer) => new Font { _pointer = pointer };
-		public static explicit operator IntPtr(Font value) => value._pointer
-;		public static implicit operator GObject.Object(Font value) => (GObject.Object)value._pointer
-;		public static explicit operator Font(GObject.Object value) => (Font)(IntPtr)value
-;	}
+		public Font(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Font(IntPtr pointer) => new Font(pointer, checkType: true);
+		public static explicit operator IntPtr(Font value) => value._pointer;
+		public static implicit operator GObject.Object(Font value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Font(GObject.Object value) => new Font((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Language
 	{
 		private IntPtr _pointer;
-		public static explicit operator Language(IntPtr pointer) => new Language { _pointer = pointer };
-		public static explicit operator IntPtr(Language value) => value._pointer
-;	}
+		public Language(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Language(IntPtr pointer) => new Language(pointer, checkType: true);
+		public static explicit operator IntPtr(Language value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_language_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Analysis
 	{
 		private IntPtr _pointer;
-		public static explicit operator Analysis(IntPtr pointer) => new Analysis { _pointer = pointer };
-		public static explicit operator IntPtr(Analysis value) => value._pointer
-;	}
+		public Analysis(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Analysis(IntPtr pointer) => new Analysis(pointer, checkType: true);
+		public static explicit operator IntPtr(Analysis value) => value._pointer;
+	}
 	public enum AttrType
 	{
 		invalid = 0,
@@ -85,99 +131,169 @@ namespace Pango {
 	public ref struct Attribute
 	{
 		private IntPtr _pointer;
-		public static explicit operator Attribute(IntPtr pointer) => new Attribute { _pointer = pointer };
-		public static explicit operator IntPtr(Attribute value) => value._pointer
-;	}
+		public Attribute(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Attribute(IntPtr pointer) => new Attribute(pointer, checkType: true);
+		public static explicit operator IntPtr(Attribute value) => value._pointer;
+	}
 	public ref struct AttrClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrClass(IntPtr pointer) => new AttrClass { _pointer = pointer };
-		public static explicit operator IntPtr(AttrClass value) => value._pointer
-;	}
+		public AttrClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrClass(IntPtr pointer) => new AttrClass(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrClass value) => value._pointer;
+	}
 	public ref struct Color
 	{
 		private IntPtr _pointer;
-		public static explicit operator Color(IntPtr pointer) => new Color { _pointer = pointer };
-		public static explicit operator IntPtr(Color value) => value._pointer
-;	}
+		public Color(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Color(IntPtr pointer) => new Color(pointer, checkType: true);
+		public static explicit operator IntPtr(Color value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_color_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct AttrColor
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrColor(IntPtr pointer) => new AttrColor { _pointer = pointer };
-		public static explicit operator IntPtr(AttrColor value) => value._pointer
-;	}
+		public AttrColor(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrColor(IntPtr pointer) => new AttrColor(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrColor value) => value._pointer;
+	}
 	public ref struct AttrFloat
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrFloat(IntPtr pointer) => new AttrFloat { _pointer = pointer };
-		public static explicit operator IntPtr(AttrFloat value) => value._pointer
-;	}
+		public AttrFloat(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrFloat(IntPtr pointer) => new AttrFloat(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrFloat value) => value._pointer;
+	}
 	public ref struct FontDescription
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontDescription(IntPtr pointer) => new FontDescription { _pointer = pointer };
-		public static explicit operator IntPtr(FontDescription value) => value._pointer
-;	}
+		public FontDescription(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontDescription(IntPtr pointer) => new FontDescription(pointer, checkType: true);
+		public static explicit operator IntPtr(FontDescription value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_description_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct AttrFontDesc
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrFontDesc(IntPtr pointer) => new AttrFontDesc { _pointer = pointer };
-		public static explicit operator IntPtr(AttrFontDesc value) => value._pointer
-;	}
+		public AttrFontDesc(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrFontDesc(IntPtr pointer) => new AttrFontDesc(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrFontDesc value) => value._pointer;
+	}
 	public ref struct AttrFontFeatures
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrFontFeatures(IntPtr pointer) => new AttrFontFeatures { _pointer = pointer };
-		public static explicit operator IntPtr(AttrFontFeatures value) => value._pointer
-;	}
+		public AttrFontFeatures(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrFontFeatures(IntPtr pointer) => new AttrFontFeatures(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrFontFeatures value) => value._pointer;
+	}
 	public ref struct AttrInt
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrInt(IntPtr pointer) => new AttrInt { _pointer = pointer };
-		public static explicit operator IntPtr(AttrInt value) => value._pointer
-;	}
+		public AttrInt(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrInt(IntPtr pointer) => new AttrInt(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrInt value) => value._pointer;
+	}
 	public ref struct AttrIterator
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrIterator(IntPtr pointer) => new AttrIterator { _pointer = pointer };
-		public static explicit operator IntPtr(AttrIterator value) => value._pointer
-;	}
+		public AttrIterator(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrIterator(IntPtr pointer) => new AttrIterator(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrIterator value) => value._pointer;
+	}
 	public ref struct AttrLanguage
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrLanguage(IntPtr pointer) => new AttrLanguage { _pointer = pointer };
-		public static explicit operator IntPtr(AttrLanguage value) => value._pointer
-;	}
+		public AttrLanguage(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrLanguage(IntPtr pointer) => new AttrLanguage(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrLanguage value) => value._pointer;
+	}
 	public ref struct AttrList
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrList(IntPtr pointer) => new AttrList { _pointer = pointer };
-		public static explicit operator IntPtr(AttrList value) => value._pointer
-;	}
+		public AttrList(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrList(IntPtr pointer) => new AttrList(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrList value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_attr_list_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Rectangle
 	{
 		private IntPtr _pointer;
-		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle { _pointer = pointer };
-		public static explicit operator IntPtr(Rectangle value) => value._pointer
-;	}
+		public Rectangle(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle(pointer, checkType: true);
+		public static explicit operator IntPtr(Rectangle value) => value._pointer;
+	}
 	public ref struct AttrShape
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrShape(IntPtr pointer) => new AttrShape { _pointer = pointer };
-		public static explicit operator IntPtr(AttrShape value) => value._pointer
-;	}
+		public AttrShape(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrShape(IntPtr pointer) => new AttrShape(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrShape value) => value._pointer;
+	}
 	public ref struct AttrSize
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrSize(IntPtr pointer) => new AttrSize { _pointer = pointer };
-		public static explicit operator IntPtr(AttrSize value) => value._pointer
-;	}
+		public AttrSize(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrSize(IntPtr pointer) => new AttrSize(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrSize value) => value._pointer;
+	}
 	public ref struct AttrString
 	{
 		private IntPtr _pointer;
-		public static explicit operator AttrString(IntPtr pointer) => new AttrString { _pointer = pointer };
-		public static explicit operator IntPtr(AttrString value) => value._pointer
-;	}
+		public AttrString(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator AttrString(IntPtr pointer) => new AttrString(pointer, checkType: true);
+		public static explicit operator IntPtr(AttrString value) => value._pointer;
+	}
 	public enum BidiType
 	{
 		l = 0,
@@ -203,11 +319,21 @@ namespace Pango {
 	public ref struct Context
 	{
 		private IntPtr _pointer;
-		public static explicit operator Context(IntPtr pointer) => new Context { _pointer = pointer };
-		public static explicit operator IntPtr(Context value) => value._pointer
-;		public static implicit operator GObject.Object(Context value) => (GObject.Object)value._pointer
-;		public static explicit operator Context(GObject.Object value) => (Context)(IntPtr)value
-;	}
+		public Context(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Context(IntPtr pointer) => new Context(pointer, checkType: true);
+		public static explicit operator IntPtr(Context value) => value._pointer;
+		public static implicit operator GObject.Object(Context value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Context(GObject.Object value) => new Context((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_context_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum Direction
 	{
 		ltr = 0,
@@ -229,11 +355,21 @@ namespace Pango {
 	public ref struct FontMap
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontMap(IntPtr pointer) => new FontMap { _pointer = pointer };
-		public static explicit operator IntPtr(FontMap value) => value._pointer
-;		public static implicit operator GObject.Object(FontMap value) => (GObject.Object)value._pointer
-;		public static explicit operator FontMap(GObject.Object value) => (FontMap)(IntPtr)value
-;	}
+		public FontMap(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator FontMap(IntPtr pointer) => new FontMap(pointer, checkType: true);
+		public static explicit operator IntPtr(FontMap value) => value._pointer;
+		public static implicit operator GObject.Object(FontMap value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator FontMap(GObject.Object value) => new FontMap((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_map_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum GravityHint
 	{
 		natural = 0,
@@ -243,43 +379,83 @@ namespace Pango {
 	public ref struct Matrix
 	{
 		private IntPtr _pointer;
-		public static explicit operator Matrix(IntPtr pointer) => new Matrix { _pointer = pointer };
-		public static explicit operator IntPtr(Matrix value) => value._pointer
-;	}
+		public Matrix(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Matrix(IntPtr pointer) => new Matrix(pointer, checkType: true);
+		public static explicit operator IntPtr(Matrix value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_matrix_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct FontMetrics
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontMetrics(IntPtr pointer) => new FontMetrics { _pointer = pointer };
-		public static explicit operator IntPtr(FontMetrics value) => value._pointer
-;	}
+		public FontMetrics(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontMetrics(IntPtr pointer) => new FontMetrics(pointer, checkType: true);
+		public static explicit operator IntPtr(FontMetrics value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_metrics_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct FontFamily
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontFamily(IntPtr pointer) => new FontFamily { _pointer = pointer };
-		public static explicit operator IntPtr(FontFamily value) => value._pointer
-;		public static implicit operator GObject.Object(FontFamily value) => (GObject.Object)value._pointer
-;		public static explicit operator FontFamily(GObject.Object value) => (FontFamily)(IntPtr)value
-;	}
+		public FontFamily(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator FontFamily(IntPtr pointer) => new FontFamily(pointer, checkType: true);
+		public static explicit operator IntPtr(FontFamily value) => value._pointer;
+		public static implicit operator GObject.Object(FontFamily value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator FontFamily(GObject.Object value) => new FontFamily((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_family_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Fontset
 	{
 		private IntPtr _pointer;
-		public static explicit operator Fontset(IntPtr pointer) => new Fontset { _pointer = pointer };
-		public static explicit operator IntPtr(Fontset value) => value._pointer
-;		public static implicit operator GObject.Object(Fontset value) => (GObject.Object)value._pointer
-;		public static explicit operator Fontset(GObject.Object value) => (Fontset)(IntPtr)value
-;	}
+		public Fontset(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Fontset(IntPtr pointer) => new Fontset(pointer, checkType: true);
+		public static explicit operator IntPtr(Fontset value) => value._pointer;
+		public static implicit operator GObject.Object(Fontset value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Fontset(GObject.Object value) => new Fontset((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_fontset_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ContextClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator ContextClass(IntPtr pointer) => new ContextClass { _pointer = pointer };
-		public static explicit operator IntPtr(ContextClass value) => value._pointer
-;	}
+		public ContextClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ContextClass(IntPtr pointer) => new ContextClass(pointer, checkType: true);
+		public static explicit operator IntPtr(ContextClass value) => value._pointer;
+	}
 	public ref struct Coverage
 	{
 		private IntPtr _pointer;
-		public static explicit operator Coverage(IntPtr pointer) => new Coverage { _pointer = pointer };
-		public static explicit operator IntPtr(Coverage value) => value._pointer
-;	}
+		public Coverage(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Coverage(IntPtr pointer) => new Coverage(pointer, checkType: true);
+		public static explicit operator IntPtr(Coverage value) => value._pointer;
+	}
 	public enum CoverageLevel
 	{
 		none = 0,
@@ -297,41 +473,71 @@ namespace Pango {
 	public ref struct Engine
 	{
 		private IntPtr _pointer;
-		public static explicit operator Engine(IntPtr pointer) => new Engine { _pointer = pointer };
-		public static explicit operator IntPtr(Engine value) => value._pointer
-;		public static implicit operator GObject.Object(Engine value) => (GObject.Object)value._pointer
-;		public static explicit operator Engine(GObject.Object value) => (Engine)(IntPtr)value
-;	}
+		public Engine(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Engine(IntPtr pointer) => new Engine(pointer, checkType: true);
+		public static explicit operator IntPtr(Engine value) => value._pointer;
+		public static implicit operator GObject.Object(Engine value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Engine(GObject.Object value) => new Engine((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_engine_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct EngineClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineClass(IntPtr pointer) => new EngineClass { _pointer = pointer };
-		public static explicit operator IntPtr(EngineClass value) => value._pointer
-;	}
+		public EngineClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EngineClass(IntPtr pointer) => new EngineClass(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineClass value) => value._pointer;
+	}
 	public ref struct EngineScriptInfo
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineScriptInfo(IntPtr pointer) => new EngineScriptInfo { _pointer = pointer };
-		public static explicit operator IntPtr(EngineScriptInfo value) => value._pointer
-;	}
+		public EngineScriptInfo(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EngineScriptInfo(IntPtr pointer) => new EngineScriptInfo(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineScriptInfo value) => value._pointer;
+	}
 	public ref struct EngineInfo
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineInfo(IntPtr pointer) => new EngineInfo { _pointer = pointer };
-		public static explicit operator IntPtr(EngineInfo value) => value._pointer
-;	}
+		public EngineInfo(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EngineInfo(IntPtr pointer) => new EngineInfo(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineInfo value) => value._pointer;
+	}
 	public ref struct LogAttr
 	{
 		private IntPtr _pointer;
-		public static explicit operator LogAttr(IntPtr pointer) => new LogAttr { _pointer = pointer };
-		public static explicit operator IntPtr(LogAttr value) => value._pointer
-;	}
+		public LogAttr(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator LogAttr(IntPtr pointer) => new LogAttr(pointer, checkType: true);
+		public static explicit operator IntPtr(LogAttr value) => value._pointer;
+	}
 	public ref struct EngineLangClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineLangClass(IntPtr pointer) => new EngineLangClass { _pointer = pointer };
-		public static explicit operator IntPtr(EngineLangClass value) => value._pointer
-;	}
+		public EngineLangClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EngineLangClass(IntPtr pointer) => new EngineLangClass(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineLangClass value) => value._pointer;
+	}
 	public enum Script
 	{
 		invalid_code = -1,
@@ -456,21 +662,35 @@ namespace Pango {
 	public ref struct GlyphString
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphString(IntPtr pointer) => new GlyphString { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphString value) => value._pointer
-;	}
+		public GlyphString(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphString(IntPtr pointer) => new GlyphString(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphString value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_glyph_string_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct EngineShapeClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator EngineShapeClass(IntPtr pointer) => new EngineShapeClass { _pointer = pointer };
-		public static explicit operator IntPtr(EngineShapeClass value) => value._pointer
-;	}
+		public EngineShapeClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EngineShapeClass(IntPtr pointer) => new EngineShapeClass(pointer, checkType: true);
+		public static explicit operator IntPtr(EngineShapeClass value) => value._pointer;
+	}
 	public ref struct FontClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontClass(IntPtr pointer) => new FontClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontClass value) => value._pointer
-;	}
+		public FontClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontClass(IntPtr pointer) => new FontClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontClass value) => value._pointer;
+	}
 	[Flags]
 	public enum FontMask
 	{
@@ -523,113 +743,209 @@ namespace Pango {
 	public ref struct FontFace
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontFace(IntPtr pointer) => new FontFace { _pointer = pointer };
-		public static explicit operator IntPtr(FontFace value) => value._pointer
-;		public static implicit operator GObject.Object(FontFace value) => (GObject.Object)value._pointer
-;		public static explicit operator FontFace(GObject.Object value) => (FontFace)(IntPtr)value
-;	}
+		public FontFace(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator FontFace(IntPtr pointer) => new FontFace(pointer, checkType: true);
+		public static explicit operator IntPtr(FontFace value) => value._pointer;
+		public static implicit operator GObject.Object(FontFace value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator FontFace(GObject.Object value) => new FontFace((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_font_face_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct FontFaceClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontFaceClass(IntPtr pointer) => new FontFaceClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontFaceClass value) => value._pointer
-;	}
+		public FontFaceClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontFaceClass(IntPtr pointer) => new FontFaceClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontFaceClass value) => value._pointer;
+	}
 	public ref struct FontFamilyClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontFamilyClass(IntPtr pointer) => new FontFamilyClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontFamilyClass value) => value._pointer
-;	}
+		public FontFamilyClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontFamilyClass(IntPtr pointer) => new FontFamilyClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontFamilyClass value) => value._pointer;
+	}
 	public ref struct FontMapClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontMapClass(IntPtr pointer) => new FontMapClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontMapClass value) => value._pointer
-;	}
+		public FontMapClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontMapClass(IntPtr pointer) => new FontMapClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontMapClass value) => value._pointer;
+	}
 	public ref struct FontsetClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontsetClass(IntPtr pointer) => new FontsetClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontsetClass value) => value._pointer
-;	}
+		public FontsetClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontsetClass(IntPtr pointer) => new FontsetClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontsetClass value) => value._pointer;
+	}
 	public ref struct FontsetSimple
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontsetSimple(IntPtr pointer) => new FontsetSimple { _pointer = pointer };
-		public static explicit operator IntPtr(FontsetSimple value) => value._pointer
-;		public static implicit operator Pango.Fontset(FontsetSimple value) => (Pango.Fontset)value._pointer
-;		public static explicit operator FontsetSimple(Pango.Fontset value) => (FontsetSimple)(IntPtr)value
-;		public static implicit operator GObject.Object(FontsetSimple value) => (GObject.Object)value._pointer
-;		public static explicit operator FontsetSimple(GObject.Object value) => (FontsetSimple)(IntPtr)value
-;	}
+		public FontsetSimple(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator FontsetSimple(IntPtr pointer) => new FontsetSimple(pointer, checkType: true);
+		public static explicit operator IntPtr(FontsetSimple value) => value._pointer;
+		public static implicit operator Pango.Fontset(FontsetSimple value) => new Pango.Fontset((IntPtr)value, checkType: false);
+		public static explicit operator FontsetSimple(Pango.Fontset value) => new FontsetSimple((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(FontsetSimple value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator FontsetSimple(GObject.Object value) => new FontsetSimple((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_fontset_simple_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct FontsetSimpleClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontsetSimpleClass(IntPtr pointer) => new FontsetSimpleClass { _pointer = pointer };
-		public static explicit operator IntPtr(FontsetSimpleClass value) => value._pointer
-;	}
+		public FontsetSimpleClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontsetSimpleClass(IntPtr pointer) => new FontsetSimpleClass(pointer, checkType: true);
+		public static explicit operator IntPtr(FontsetSimpleClass value) => value._pointer;
+	}
 	public ref struct GlyphGeometry
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphGeometry(IntPtr pointer) => new GlyphGeometry { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphGeometry value) => value._pointer
-;	}
+		public GlyphGeometry(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphGeometry(IntPtr pointer) => new GlyphGeometry(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphGeometry value) => value._pointer;
+	}
 	public ref struct GlyphVisAttr
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphVisAttr(IntPtr pointer) => new GlyphVisAttr { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphVisAttr value) => value._pointer
-;	}
+		public GlyphVisAttr(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphVisAttr(IntPtr pointer) => new GlyphVisAttr(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphVisAttr value) => value._pointer;
+	}
 	public ref struct GlyphInfo
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphInfo(IntPtr pointer) => new GlyphInfo { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphInfo value) => value._pointer
-;	}
+		public GlyphInfo(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphInfo(IntPtr pointer) => new GlyphInfo(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphInfo value) => value._pointer;
+	}
 	public ref struct Item
 	{
 		private IntPtr _pointer;
-		public static explicit operator Item(IntPtr pointer) => new Item { _pointer = pointer };
-		public static explicit operator IntPtr(Item value) => value._pointer
-;	}
+		public Item(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Item(IntPtr pointer) => new Item(pointer, checkType: true);
+		public static explicit operator IntPtr(Item value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_item_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct GlyphItemIter
 	{
 		private IntPtr _pointer;
-		public static explicit operator GlyphItemIter(IntPtr pointer) => new GlyphItemIter { _pointer = pointer };
-		public static explicit operator IntPtr(GlyphItemIter value) => value._pointer
-;	}
+		public GlyphItemIter(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GlyphItemIter(IntPtr pointer) => new GlyphItemIter(pointer, checkType: true);
+		public static explicit operator IntPtr(GlyphItemIter value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_glyph_item_iter_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct IncludedModule
 	{
 		private IntPtr _pointer;
-		public static explicit operator IncludedModule(IntPtr pointer) => new IncludedModule { _pointer = pointer };
-		public static explicit operator IntPtr(IncludedModule value) => value._pointer
-;	}
+		public IncludedModule(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator IncludedModule(IntPtr pointer) => new IncludedModule(pointer, checkType: true);
+		public static explicit operator IntPtr(IncludedModule value) => value._pointer;
+	}
 	public ref struct Layout
 	{
 		private IntPtr _pointer;
-		public static explicit operator Layout(IntPtr pointer) => new Layout { _pointer = pointer };
-		public static explicit operator IntPtr(Layout value) => value._pointer
-;		public static implicit operator GObject.Object(Layout value) => (GObject.Object)value._pointer
-;		public static explicit operator Layout(GObject.Object value) => (Layout)(IntPtr)value
-;	}
+		public Layout(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Layout(IntPtr pointer) => new Layout(pointer, checkType: true);
+		public static explicit operator IntPtr(Layout value) => value._pointer;
+		public static implicit operator GObject.Object(Layout value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Layout(GObject.Object value) => new Layout((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_layout_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct LayoutIter
 	{
 		private IntPtr _pointer;
-		public static explicit operator LayoutIter(IntPtr pointer) => new LayoutIter { _pointer = pointer };
-		public static explicit operator IntPtr(LayoutIter value) => value._pointer
-;	}
+		public LayoutIter(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator LayoutIter(IntPtr pointer) => new LayoutIter(pointer, checkType: true);
+		public static explicit operator IntPtr(LayoutIter value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_layout_iter_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct LayoutLine
 	{
 		private IntPtr _pointer;
-		public static explicit operator LayoutLine(IntPtr pointer) => new LayoutLine { _pointer = pointer };
-		public static explicit operator IntPtr(LayoutLine value) => value._pointer
-;	}
+		public LayoutLine(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator LayoutLine(IntPtr pointer) => new LayoutLine(pointer, checkType: true);
+		public static explicit operator IntPtr(LayoutLine value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_layout_line_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct TabArray
 	{
 		private IntPtr _pointer;
-		public static explicit operator TabArray(IntPtr pointer) => new TabArray { _pointer = pointer };
-		public static explicit operator IntPtr(TabArray value) => value._pointer
-;	}
+		public TabArray(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TabArray(IntPtr pointer) => new TabArray(pointer, checkType: true);
+		public static explicit operator IntPtr(TabArray value) => value._pointer;
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_tab_array_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum WrapMode
 	{
 		word = 0,
@@ -639,21 +955,33 @@ namespace Pango {
 	public ref struct LayoutClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator LayoutClass(IntPtr pointer) => new LayoutClass { _pointer = pointer };
-		public static explicit operator IntPtr(LayoutClass value) => value._pointer
-;	}
+		public LayoutClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator LayoutClass(IntPtr pointer) => new LayoutClass(pointer, checkType: true);
+		public static explicit operator IntPtr(LayoutClass value) => value._pointer;
+	}
 	public ref struct Map
 	{
 		private IntPtr _pointer;
-		public static explicit operator Map(IntPtr pointer) => new Map { _pointer = pointer };
-		public static explicit operator IntPtr(Map value) => value._pointer
-;	}
+		public Map(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Map(IntPtr pointer) => new Map(pointer, checkType: true);
+		public static explicit operator IntPtr(Map value) => value._pointer;
+	}
 	public ref struct MapEntry
 	{
 		private IntPtr _pointer;
-		public static explicit operator MapEntry(IntPtr pointer) => new MapEntry { _pointer = pointer };
-		public static explicit operator IntPtr(MapEntry value) => value._pointer
-;	}
+		public MapEntry(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator MapEntry(IntPtr pointer) => new MapEntry(pointer, checkType: true);
+		public static explicit operator IntPtr(MapEntry value) => value._pointer;
+	}
 	public enum RenderPart
 	{
 		foreground = 0,
@@ -664,11 +992,21 @@ namespace Pango {
 	public ref struct Renderer
 	{
 		private IntPtr _pointer;
-		public static explicit operator Renderer(IntPtr pointer) => new Renderer { _pointer = pointer };
-		public static explicit operator IntPtr(Renderer value) => value._pointer
-;		public static implicit operator GObject.Object(Renderer value) => (GObject.Object)value._pointer
-;		public static explicit operator Renderer(GObject.Object value) => (Renderer)(IntPtr)value
-;	}
+		public Renderer(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Renderer(IntPtr pointer) => new Renderer(pointer, checkType: true);
+		public static explicit operator IntPtr(Renderer value) => value._pointer;
+		public static implicit operator GObject.Object(Renderer value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Renderer(GObject.Object value) => new Renderer((IntPtr)value, checkType: true);
+		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_renderer_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum Underline
 	{
 		none = 0,
@@ -680,27 +1018,43 @@ namespace Pango {
 	public ref struct RendererPrivate
 	{
 		private IntPtr _pointer;
-		public static explicit operator RendererPrivate(IntPtr pointer) => new RendererPrivate { _pointer = pointer };
-		public static explicit operator IntPtr(RendererPrivate value) => value._pointer
-;	}
+		public RendererPrivate(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RendererPrivate(IntPtr pointer) => new RendererPrivate(pointer, checkType: true);
+		public static explicit operator IntPtr(RendererPrivate value) => value._pointer;
+	}
 	public ref struct RendererClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator RendererClass(IntPtr pointer) => new RendererClass { _pointer = pointer };
-		public static explicit operator IntPtr(RendererClass value) => value._pointer
-;	}
+		public RendererClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RendererClass(IntPtr pointer) => new RendererClass(pointer, checkType: true);
+		public static explicit operator IntPtr(RendererClass value) => value._pointer;
+	}
 	public ref struct ScriptForLang
 	{
 		private IntPtr _pointer;
-		public static explicit operator ScriptForLang(IntPtr pointer) => new ScriptForLang { _pointer = pointer };
-		public static explicit operator IntPtr(ScriptForLang value) => value._pointer
-;	}
+		public ScriptForLang(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ScriptForLang(IntPtr pointer) => new ScriptForLang(pointer, checkType: true);
+		public static explicit operator IntPtr(ScriptForLang value) => value._pointer;
+	}
 	public ref struct ScriptIter
 	{
 		private IntPtr _pointer;
-		public static explicit operator ScriptIter(IntPtr pointer) => new ScriptIter { _pointer = pointer };
-		public static explicit operator IntPtr(ScriptIter value) => value._pointer
-;	}
+		public ScriptIter(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ScriptIter(IntPtr pointer) => new ScriptIter(pointer, checkType: true);
+		public static explicit operator IntPtr(ScriptIter value) => value._pointer;
+	}
 	public enum TabAlign
 	{
 		left = 0,
@@ -711,7 +1065,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_background_new(ushort red, ushort green, ushort blue);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.Attribute pango_attr_fallback_new(int enable_fallback);
+		public static extern Pango.Attribute pango_attr_fallback_new(bool enable_fallback);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_family_new(string family);
 		[DllImport("libpango-1.0.so.0")]
@@ -733,7 +1087,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_strikethrough_color_new(ushort red, ushort green, ushort blue);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.Attribute pango_attr_strikethrough_new(int strikethrough);
+		public static extern Pango.Attribute pango_attr_strikethrough_new(bool strikethrough);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_style_new(Pango.Style style);
 		[DllImport("libpango-1.0.so.0")]
@@ -765,11 +1119,11 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_get_log_attrs(string text, int length, int level, Pango.Language language, System.IntPtr log_attrs, int attrs_len);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_get_mirror_char(uint ch, System.IntPtr mirrored_ch);
+		public static extern bool pango_get_mirror_char(uint ch, System.IntPtr mirrored_ch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_get_sysconf_subdirectory();
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_is_zero_width(uint ch);
+		public static extern bool pango_is_zero_width(uint ch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_itemize(Pango.Context context, string text, int start_index, int length, Pango.AttrList attrs, Pango.AttrIterator cached_iter);
 		[DllImport("libpango-1.0.so.0")]
@@ -777,35 +1131,35 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_lookup_aliases(string fontname, System.IntPtr families, System.IntPtr n_families);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_markup_parser_finish(GLib.MarkupParseContext context, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
+		public static extern bool pango_markup_parser_finish(GLib.MarkupParseContext context, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern GLib.MarkupParseContext pango_markup_parser_new(uint accel_marker);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_module_register(Pango.IncludedModule module);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_enum(ulong type, string str, System.IntPtr value, int warn, string possible_values);
+		public static extern bool pango_parse_enum(GLib.GType type, string str, System.IntPtr value, bool warn, string possible_values);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_markup(string markup_text, int length, uint accel_marker, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
+		public static extern bool pango_parse_markup(string markup_text, int length, uint accel_marker, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_stretch(string str, out Pango.Stretch stretch, int warn);
+		public static extern bool pango_parse_stretch(string str, out Pango.Stretch stretch, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_style(string str, out Pango.Style style, int warn);
+		public static extern bool pango_parse_style(string str, out Pango.Style style, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_variant(string str, out Pango.Variant variant, int warn);
+		public static extern bool pango_parse_variant(string str, out Pango.Variant variant, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_parse_weight(string str, out Pango.Weight weight, int warn);
+		public static extern bool pango_parse_weight(string str, out Pango.Weight weight, bool warn);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_quantize_line_geometry(System.IntPtr thickness, System.IntPtr position);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_reorder_items(System.IntPtr logical_items);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_scan_int(string pos, System.IntPtr @out);
+		public static extern bool pango_scan_int(string pos, System.IntPtr @out);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_shape(string text, int length, Pango.Analysis analysis, Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_shape_full(string item_text, int item_length, string paragraph_text, int paragraph_length, Pango.Analysis analysis, Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_skip_space(string pos);
+		public static extern bool pango_skip_space(string pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_split_file_list(string str);
 		[DllImport("libpango-1.0.so.0")]
@@ -853,9 +1207,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_language_get_scripts(Pango.Language language, System.IntPtr num_scripts);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_language_includes_script(Pango.Language language, Pango.Script script);
+		public static extern bool pango_language_includes_script(Pango.Language language, Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_language_matches(Pango.Language language, string range_list);
+		public static extern bool pango_language_matches(Pango.Language language, string range_list);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_language_to_string(Pango.Language language);
 		[DllImport("libpango-1.0.so.0")]
@@ -871,7 +1225,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_attribute_destroy(Pango.Attribute attr);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_attribute_equal(Pango.Attribute attr1, Pango.Attribute attr2);
+		public static extern bool pango_attribute_equal(Pango.Attribute attr1, Pango.Attribute attr2);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_attribute_init(Pango.Attribute attr, Pango.AttrClass klass);
 		[DllImport("libpango-1.0.so.0")]
@@ -879,19 +1233,19 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_color_free(Pango.Color color);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_color_parse(Pango.Color color, string spec);
+		public static extern bool pango_color_parse(Pango.Color color, string spec);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_color_to_string(Pango.Color color);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.FontDescription pango_font_description_new();
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_better_match(Pango.FontDescription desc, Pango.FontDescription old_match, Pango.FontDescription new_match);
+		public static extern bool pango_font_description_better_match(Pango.FontDescription desc, Pango.FontDescription old_match, Pango.FontDescription new_match);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.FontDescription pango_font_description_copy(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.FontDescription pango_font_description_copy_static(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_equal(Pango.FontDescription desc1, Pango.FontDescription desc2);
+		public static extern bool pango_font_description_equal(Pango.FontDescription desc1, Pango.FontDescription desc2);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_description_free(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -903,7 +1257,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_font_description_get_size(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_description_get_size_is_absolute(Pango.FontDescription desc);
+		public static extern bool pango_font_description_get_size_is_absolute(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Stretch pango_font_description_get_stretch(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -915,9 +1269,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern uint pango_font_description_hash(Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_merge(Pango.FontDescription desc, Pango.FontDescription desc_to_merge, int replace_existing);
+		public static extern void pango_font_description_merge(Pango.FontDescription desc, Pango.FontDescription desc_to_merge, bool replace_existing);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_description_merge_static(Pango.FontDescription desc, Pango.FontDescription desc_to_merge, int replace_existing);
+		public static extern void pango_font_description_merge_static(Pango.FontDescription desc, Pango.FontDescription desc_to_merge, bool replace_existing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_description_set_absolute_size(Pango.FontDescription desc, double size);
 		[DllImport("libpango-1.0.so.0")]
@@ -957,7 +1311,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_iterator_get_attrs(Pango.AttrIterator iterator);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_attr_iterator_next(Pango.AttrIterator iterator);
+		public static extern bool pango_attr_iterator_next(Pango.AttrIterator iterator);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_attr_iterator_range(Pango.AttrIterator iterator, System.IntPtr start, System.IntPtr end);
 		[DllImport("libpango-1.0.so.0")]
@@ -1041,7 +1395,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Gravity pango_gravity_get_for_script(Pango.Script script, Pango.Gravity base_gravity, Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.Gravity pango_gravity_get_for_script_and_width(Pango.Script script, int wide, Pango.Gravity base_gravity, Pango.GravityHint hint);
+		public static extern Pango.Gravity pango_gravity_get_for_script_and_width(Pango.Script script, bool wide, Pango.Gravity base_gravity, Pango.GravityHint hint);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern double pango_gravity_to_rotation(Pango.Gravity gravity);
 		[DllImport("libpango-1.0.so.0")]
@@ -1103,7 +1457,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_family_get_name(Pango.FontFamily family);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_family_is_monospace(Pango.FontFamily family);
+		public static extern bool pango_font_family_is_monospace(Pango.FontFamily family);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_family_list_faces(Pango.FontFamily family, System.IntPtr faces, System.IntPtr n_faces);
 		[DllImport("libpango-1.0.so.0")]
@@ -1145,7 +1499,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_glyph_string_get_width(Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_glyph_string_index_to_x(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int index_, int trailing, System.IntPtr x_pos);
+		public static extern void pango_glyph_string_index_to_x(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int index_, bool trailing, System.IntPtr x_pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_glyph_string_set_size(Pango.GlyphString @string, int new_len);
 		[DllImport("libpango-1.0.so.0")]
@@ -1155,7 +1509,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_face_get_face_name(Pango.FontFace face);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_font_face_is_synthesized(Pango.FontFace face);
+		public static extern bool pango_font_face_is_synthesized(Pango.FontFace face);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_font_face_list_sizes(Pango.FontFace face, System.IntPtr sizes, System.IntPtr n_sizes);
 		[DllImport("libpango-1.0.so.0")]
@@ -1177,13 +1531,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_glyph_item_iter_free(Pango.GlyphItemIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_glyph_item_iter_init_end(Pango.GlyphItemIter iter, Pango.GlyphItem glyph_item, string text);
+		public static extern bool pango_glyph_item_iter_init_end(Pango.GlyphItemIter iter, Pango.GlyphItem glyph_item, string text);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_glyph_item_iter_init_start(Pango.GlyphItemIter iter, Pango.GlyphItem glyph_item, string text);
+		public static extern bool pango_glyph_item_iter_init_start(Pango.GlyphItemIter iter, Pango.GlyphItem glyph_item, string text);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_glyph_item_iter_next_cluster(Pango.GlyphItemIter iter);
+		public static extern bool pango_glyph_item_iter_next_cluster(Pango.GlyphItemIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_glyph_item_iter_prev_cluster(Pango.GlyphItemIter iter);
+		public static extern bool pango_glyph_item_iter_prev_cluster(Pango.GlyphItemIter iter);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Layout pango_layout_new(Pango.Context context);
 		[DllImport("libpango-1.0.so.0")]
@@ -1195,7 +1549,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.AttrList pango_layout_get_attributes(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_auto_dir(Pango.Layout layout);
+		public static extern bool pango_layout_get_auto_dir(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_layout_get_baseline(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
@@ -1213,7 +1567,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutIter pango_layout_get_iter(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_justify(Pango.Layout layout);
+		public static extern bool pango_layout_get_justify(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutLine pango_layout_get_line(Pango.Layout layout, int line);
 		[DllImport("libpango-1.0.so.0")]
@@ -1233,7 +1587,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern uint pango_layout_get_serial(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_get_single_paragraph_mode(Pango.Layout layout);
+		public static extern bool pango_layout_get_single_paragraph_mode(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_get_size(Pango.Layout layout, System.IntPtr width, System.IntPtr height);
 		[DllImport("libpango-1.0.so.0")]
@@ -1249,19 +1603,19 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.WrapMode pango_layout_get_wrap(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_index_to_line_x(Pango.Layout layout, int index_, int trailing, System.IntPtr line, System.IntPtr x_pos);
+		public static extern void pango_layout_index_to_line_x(Pango.Layout layout, int index_, bool trailing, System.IntPtr line, System.IntPtr x_pos);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_is_ellipsized(Pango.Layout layout);
+		public static extern bool pango_layout_is_ellipsized(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_is_wrapped(Pango.Layout layout);
+		public static extern bool pango_layout_is_wrapped(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_move_cursor_visually(Pango.Layout layout, int strong, int old_index, int old_trailing, int direction, System.IntPtr new_index, System.IntPtr new_trailing);
+		public static extern void pango_layout_move_cursor_visually(Pango.Layout layout, bool strong, int old_index, int old_trailing, int direction, System.IntPtr new_index, System.IntPtr new_trailing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_alignment(Pango.Layout layout, Pango.Alignment alignment);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_attributes(Pango.Layout layout, Pango.AttrList attrs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_auto_dir(Pango.Layout layout, int auto_dir);
+		public static extern void pango_layout_set_auto_dir(Pango.Layout layout, bool auto_dir);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_ellipsize(Pango.Layout layout, Pango.EllipsizeMode ellipsize);
 		[DllImport("libpango-1.0.so.0")]
@@ -1271,13 +1625,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_indent(Pango.Layout layout, int indent);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_justify(Pango.Layout layout, int justify);
+		public static extern void pango_layout_set_justify(Pango.Layout layout, bool justify);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_markup(Pango.Layout layout, string markup, int length);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_markup_with_accel(Pango.Layout layout, string markup, int length, uint accel_marker, System.IntPtr accel_char);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_single_paragraph_mode(Pango.Layout layout, int setting);
+		public static extern void pango_layout_set_single_paragraph_mode(Pango.Layout layout, bool setting);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_spacing(Pango.Layout layout, int spacing);
 		[DllImport("libpango-1.0.so.0")]
@@ -1289,9 +1643,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_wrap(Pango.Layout layout, Pango.WrapMode wrap);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_xy_to_index(Pango.Layout layout, int x, int y, System.IntPtr index_, System.IntPtr trailing);
+		public static extern bool pango_layout_xy_to_index(Pango.Layout layout, int x, int y, System.IntPtr index_, System.IntPtr trailing);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_iter_at_last_line(Pango.LayoutIter iter);
+		public static extern bool pango_layout_iter_at_last_line(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutIter pango_layout_iter_copy(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
@@ -1313,31 +1667,31 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.GlyphItem pango_layout_iter_get_run_readonly(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_iter_next_char(Pango.LayoutIter iter);
+		public static extern bool pango_layout_iter_next_char(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_iter_next_cluster(Pango.LayoutIter iter);
+		public static extern bool pango_layout_iter_next_cluster(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_iter_next_line(Pango.LayoutIter iter);
+		public static extern bool pango_layout_iter_next_line(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_iter_next_run(Pango.LayoutIter iter);
+		public static extern bool pango_layout_iter_next_run(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_line_get_x_ranges(Pango.LayoutLine line, int start_index, int end_index, System.IntPtr ranges, System.IntPtr n_ranges);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_line_index_to_x(Pango.LayoutLine line, int index_, int trailing, System.IntPtr x_pos);
+		public static extern void pango_layout_line_index_to_x(Pango.LayoutLine line, int index_, bool trailing, System.IntPtr x_pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutLine pango_layout_line_ref(Pango.LayoutLine line);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_line_unref(Pango.LayoutLine line);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_layout_line_x_to_index(Pango.LayoutLine line, int x_pos, System.IntPtr index_, System.IntPtr trailing);
+		public static extern bool pango_layout_line_x_to_index(Pango.LayoutLine line, int x_pos, System.IntPtr index_, System.IntPtr trailing);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.TabArray pango_tab_array_new(int initial_size, int positions_in_pixels);
+		public static extern Pango.TabArray pango_tab_array_new(int initial_size, bool positions_in_pixels);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.TabArray pango_tab_array_copy(Pango.TabArray src);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_tab_array_free(Pango.TabArray tab_array);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_tab_array_get_positions_in_pixels(Pango.TabArray tab_array);
+		public static extern bool pango_tab_array_get_positions_in_pixels(Pango.TabArray tab_array);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_tab_array_get_size(Pango.TabArray tab_array);
 		[DllImport("libpango-1.0.so.0")]
@@ -1393,7 +1747,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_script_iter_get_range(Pango.ScriptIter iter, string start, string end, out Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern int pango_script_iter_next(Pango.ScriptIter iter);
+		public static extern bool pango_script_iter_next(Pango.ScriptIter iter);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.ScriptIter pango_script_iter_new(string text, int length);
 	}

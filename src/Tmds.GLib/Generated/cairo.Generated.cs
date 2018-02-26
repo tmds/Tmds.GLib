@@ -4,39 +4,73 @@ namespace cairo {
 	public ref struct Context
 	{
 		private IntPtr _pointer;
-		public static explicit operator Context(IntPtr pointer) => new Context { _pointer = pointer };
-		public static explicit operator IntPtr(Context value) => value._pointer
-;	}
+		public Context(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Context(IntPtr pointer) => new Context(pointer, checkType: true);
+		public static explicit operator IntPtr(Context value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_context_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Device
 	{
 		private IntPtr _pointer;
-		public static explicit operator Device(IntPtr pointer) => new Device { _pointer = pointer };
-		public static explicit operator IntPtr(Device value) => value._pointer
-;	}
+		public Device(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Device(IntPtr pointer) => new Device(pointer, checkType: true);
+		public static explicit operator IntPtr(Device value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_device_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Surface
 	{
 		private IntPtr _pointer;
-		public static explicit operator Surface(IntPtr pointer) => new Surface { _pointer = pointer };
-		public static explicit operator IntPtr(Surface value) => value._pointer
-;	}
+		public Surface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Surface(IntPtr pointer) => new Surface(pointer, checkType: true);
+		public static explicit operator IntPtr(Surface value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_surface_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Matrix
 	{
 		private IntPtr _pointer;
-		public static explicit operator Matrix(IntPtr pointer) => new Matrix { _pointer = pointer };
-		public static explicit operator IntPtr(Matrix value) => value._pointer
-;	}
+		public Matrix(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Matrix(IntPtr pointer) => new Matrix(pointer, checkType: true);
+		public static explicit operator IntPtr(Matrix value) => value._pointer;
+	}
 	public ref struct Pattern
 	{
 		private IntPtr _pointer;
-		public static explicit operator Pattern(IntPtr pointer) => new Pattern { _pointer = pointer };
-		public static explicit operator IntPtr(Pattern value) => value._pointer
-;	}
+		public Pattern(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Pattern(IntPtr pointer) => new Pattern(pointer, checkType: true);
+		public static explicit operator IntPtr(Pattern value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_pattern_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Region
 	{
 		private IntPtr _pointer;
-		public static explicit operator Region(IntPtr pointer) => new Region { _pointer = pointer };
-		public static explicit operator IntPtr(Region value) => value._pointer
-;	}
+		public Region(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Region(IntPtr pointer) => new Region(pointer, checkType: true);
+		public static explicit operator IntPtr(Region value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_region_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum Status
 	{
 		success = 0,
@@ -184,9 +218,15 @@ namespace cairo {
 	public ref struct FontOptions
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontOptions(IntPtr pointer) => new FontOptions { _pointer = pointer };
-		public static explicit operator IntPtr(FontOptions value) => value._pointer
-;	}
+		public FontOptions(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontOptions(IntPtr pointer) => new FontOptions(pointer, checkType: true);
+		public static explicit operator IntPtr(FontOptions value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_font_options_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum FontType
 	{
 		toy = 0,
@@ -286,27 +326,49 @@ namespace cairo {
 	public ref struct FontFace
 	{
 		private IntPtr _pointer;
-		public static explicit operator FontFace(IntPtr pointer) => new FontFace { _pointer = pointer };
-		public static explicit operator IntPtr(FontFace value) => value._pointer
-;	}
+		public FontFace(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator FontFace(IntPtr pointer) => new FontFace(pointer, checkType: true);
+		public static explicit operator IntPtr(FontFace value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_font_face_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ScaledFont
 	{
 		private IntPtr _pointer;
-		public static explicit operator ScaledFont(IntPtr pointer) => new ScaledFont { _pointer = pointer };
-		public static explicit operator IntPtr(ScaledFont value) => value._pointer
-;	}
+		public ScaledFont(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ScaledFont(IntPtr pointer) => new ScaledFont(pointer, checkType: true);
+		public static explicit operator IntPtr(ScaledFont value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_scaled_font_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Path
 	{
 		private IntPtr _pointer;
-		public static explicit operator Path(IntPtr pointer) => new Path { _pointer = pointer };
-		public static explicit operator IntPtr(Path value) => value._pointer
-;	}
+		public Path(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Path(IntPtr pointer) => new Path(pointer, checkType: true);
+		public static explicit operator IntPtr(Path value) => value._pointer;
+	}
 	public ref struct RectangleInt
 	{
 		private IntPtr _pointer;
-		public static explicit operator RectangleInt(IntPtr pointer) => new RectangleInt { _pointer = pointer };
-		public static explicit operator IntPtr(RectangleInt value) => value._pointer
-;	}
+		public RectangleInt(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RectangleInt(IntPtr pointer) => new RectangleInt(pointer, checkType: true);
+		public static explicit operator IntPtr(RectangleInt value) => value._pointer;
+		[DllImport("libcairo-gobject.so.2", EntryPoint = "cairo_gobject_rectangle_int_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public static class cairoInterop {
 		[DllImport("libcairo-gobject.so.2")]
 		public static extern void cairo_image_surface_create();

@@ -4,27 +4,47 @@ namespace Atk {
 	public ref struct Action
 	{
 		private IntPtr _pointer;
-		public static explicit operator Action(IntPtr pointer) => new Action { _pointer = pointer };
-		public static explicit operator IntPtr(Action value) => value._pointer
-;	}
+		public Action(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Action(IntPtr pointer) => new Action(pointer, checkType: true);
+		public static explicit operator IntPtr(Action value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_action_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ActionIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator ActionIface(IntPtr pointer) => new ActionIface { _pointer = pointer };
-		public static explicit operator IntPtr(ActionIface value) => value._pointer
-;	}
+		public ActionIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ActionIface(IntPtr pointer) => new ActionIface(pointer, checkType: true);
+		public static explicit operator IntPtr(ActionIface value) => value._pointer;
+	}
 	public ref struct Attribute
 	{
 		private IntPtr _pointer;
-		public static explicit operator Attribute(IntPtr pointer) => new Attribute { _pointer = pointer };
-		public static explicit operator IntPtr(Attribute value) => value._pointer
-;	}
+		public Attribute(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Attribute(IntPtr pointer) => new Attribute(pointer, checkType: true);
+		public static explicit operator IntPtr(Attribute value) => value._pointer;
+	}
 	public ref struct Component
 	{
 		private IntPtr _pointer;
-		public static explicit operator Component(IntPtr pointer) => new Component { _pointer = pointer };
-		public static explicit operator IntPtr(Component value) => value._pointer
-;	}
+		public Component(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Component(IntPtr pointer) => new Component(pointer, checkType: true);
+		public static explicit operator IntPtr(Component value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_component_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public enum CoordType
 	{
 		screen = 0,
@@ -44,95 +64,177 @@ namespace Atk {
 	public ref struct Object
 	{
 		private IntPtr _pointer;
-		public static explicit operator Object(IntPtr pointer) => new Object { _pointer = pointer };
-		public static explicit operator IntPtr(Object value) => value._pointer
-;		public static implicit operator GObject.Object(Object value) => (GObject.Object)value._pointer
-;		public static explicit operator Object(GObject.Object value) => (Object)(IntPtr)value
-;	}
+		public Object(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Object(IntPtr pointer) => new Object(pointer, checkType: true);
+		public static explicit operator IntPtr(Object value) => value._pointer;
+		public static implicit operator GObject.Object(Object value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Object(GObject.Object value) => new Object((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_object_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Rectangle
 	{
 		private IntPtr _pointer;
-		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle { _pointer = pointer };
-		public static explicit operator IntPtr(Rectangle value) => value._pointer
-;	}
+		public Rectangle(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle(pointer, checkType: true);
+		public static explicit operator IntPtr(Rectangle value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_rectangle_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ComponentIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator ComponentIface(IntPtr pointer) => new ComponentIface { _pointer = pointer };
-		public static explicit operator IntPtr(ComponentIface value) => value._pointer
-;	}
+		public ComponentIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ComponentIface(IntPtr pointer) => new ComponentIface(pointer, checkType: true);
+		public static explicit operator IntPtr(ComponentIface value) => value._pointer;
+	}
 	public ref struct Document
 	{
 		private IntPtr _pointer;
-		public static explicit operator Document(IntPtr pointer) => new Document { _pointer = pointer };
-		public static explicit operator IntPtr(Document value) => value._pointer
-;	}
+		public Document(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Document(IntPtr pointer) => new Document(pointer, checkType: true);
+		public static explicit operator IntPtr(Document value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_document_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct DocumentIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator DocumentIface(IntPtr pointer) => new DocumentIface { _pointer = pointer };
-		public static explicit operator IntPtr(DocumentIface value) => value._pointer
-;	}
+		public DocumentIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator DocumentIface(IntPtr pointer) => new DocumentIface(pointer, checkType: true);
+		public static explicit operator IntPtr(DocumentIface value) => value._pointer;
+	}
 	public ref struct EditableText
 	{
 		private IntPtr _pointer;
-		public static explicit operator EditableText(IntPtr pointer) => new EditableText { _pointer = pointer };
-		public static explicit operator IntPtr(EditableText value) => value._pointer
-;	}
+		public EditableText(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EditableText(IntPtr pointer) => new EditableText(pointer, checkType: true);
+		public static explicit operator IntPtr(EditableText value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_editable_text_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct EditableTextIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator EditableTextIface(IntPtr pointer) => new EditableTextIface { _pointer = pointer };
-		public static explicit operator IntPtr(EditableTextIface value) => value._pointer
-;	}
+		public EditableTextIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator EditableTextIface(IntPtr pointer) => new EditableTextIface(pointer, checkType: true);
+		public static explicit operator IntPtr(EditableTextIface value) => value._pointer;
+	}
 	public ref struct GObjectAccessible
 	{
 		private IntPtr _pointer;
-		public static explicit operator GObjectAccessible(IntPtr pointer) => new GObjectAccessible { _pointer = pointer };
-		public static explicit operator IntPtr(GObjectAccessible value) => value._pointer
-;		public static implicit operator Atk.Object(GObjectAccessible value) => (Atk.Object)value._pointer
-;		public static explicit operator GObjectAccessible(Atk.Object value) => (GObjectAccessible)(IntPtr)value
-;		public static implicit operator GObject.Object(GObjectAccessible value) => (GObject.Object)value._pointer
-;		public static explicit operator GObjectAccessible(GObject.Object value) => (GObjectAccessible)(IntPtr)value
-;	}
+		public GObjectAccessible(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator GObjectAccessible(IntPtr pointer) => new GObjectAccessible(pointer, checkType: true);
+		public static explicit operator IntPtr(GObjectAccessible value) => value._pointer;
+		public static implicit operator Atk.Object(GObjectAccessible value) => new Atk.Object((IntPtr)value, checkType: false);
+		public static explicit operator GObjectAccessible(Atk.Object value) => new GObjectAccessible((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(GObjectAccessible value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator GObjectAccessible(GObject.Object value) => new GObjectAccessible((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_gobject_accessible_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ObjectClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator ObjectClass(IntPtr pointer) => new ObjectClass { _pointer = pointer };
-		public static explicit operator IntPtr(ObjectClass value) => value._pointer
-;	}
+		public ObjectClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ObjectClass(IntPtr pointer) => new ObjectClass(pointer, checkType: true);
+		public static explicit operator IntPtr(ObjectClass value) => value._pointer;
+	}
 	public ref struct GObjectAccessibleClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator GObjectAccessibleClass(IntPtr pointer) => new GObjectAccessibleClass { _pointer = pointer };
-		public static explicit operator IntPtr(GObjectAccessibleClass value) => value._pointer
-;	}
+		public GObjectAccessibleClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator GObjectAccessibleClass(IntPtr pointer) => new GObjectAccessibleClass(pointer, checkType: true);
+		public static explicit operator IntPtr(GObjectAccessibleClass value) => value._pointer;
+	}
 	public ref struct Hyperlink
 	{
 		private IntPtr _pointer;
-		public static explicit operator Hyperlink(IntPtr pointer) => new Hyperlink { _pointer = pointer };
-		public static explicit operator IntPtr(Hyperlink value) => value._pointer
-;		public static implicit operator GObject.Object(Hyperlink value) => (GObject.Object)value._pointer
-;		public static explicit operator Hyperlink(GObject.Object value) => (Hyperlink)(IntPtr)value
-;	}
+		public Hyperlink(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Hyperlink(IntPtr pointer) => new Hyperlink(pointer, checkType: true);
+		public static explicit operator IntPtr(Hyperlink value) => value._pointer;
+		public static implicit operator GObject.Object(Hyperlink value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Hyperlink(GObject.Object value) => new Hyperlink((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hyperlink_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct HyperlinkClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator HyperlinkClass(IntPtr pointer) => new HyperlinkClass { _pointer = pointer };
-		public static explicit operator IntPtr(HyperlinkClass value) => value._pointer
-;	}
+		public HyperlinkClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator HyperlinkClass(IntPtr pointer) => new HyperlinkClass(pointer, checkType: true);
+		public static explicit operator IntPtr(HyperlinkClass value) => value._pointer;
+	}
 	public ref struct HyperlinkImpl
 	{
 		private IntPtr _pointer;
-		public static explicit operator HyperlinkImpl(IntPtr pointer) => new HyperlinkImpl { _pointer = pointer };
-		public static explicit operator IntPtr(HyperlinkImpl value) => value._pointer
-;	}
+		public HyperlinkImpl(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator HyperlinkImpl(IntPtr pointer) => new HyperlinkImpl(pointer, checkType: true);
+		public static explicit operator IntPtr(HyperlinkImpl value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hyperlink_impl_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct HyperlinkImplIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator HyperlinkImplIface(IntPtr pointer) => new HyperlinkImplIface { _pointer = pointer };
-		public static explicit operator IntPtr(HyperlinkImplIface value) => value._pointer
-;	}
+		public HyperlinkImplIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator HyperlinkImplIface(IntPtr pointer) => new HyperlinkImplIface(pointer, checkType: true);
+		public static explicit operator IntPtr(HyperlinkImplIface value) => value._pointer;
+	}
 	[Flags]
 	public enum HyperlinkStateFlags
 	{
@@ -141,45 +243,79 @@ namespace Atk {
 	public ref struct Hypertext
 	{
 		private IntPtr _pointer;
-		public static explicit operator Hypertext(IntPtr pointer) => new Hypertext { _pointer = pointer };
-		public static explicit operator IntPtr(Hypertext value) => value._pointer
-;	}
+		public Hypertext(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Hypertext(IntPtr pointer) => new Hypertext(pointer, checkType: true);
+		public static explicit operator IntPtr(Hypertext value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hypertext_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct HypertextIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator HypertextIface(IntPtr pointer) => new HypertextIface { _pointer = pointer };
-		public static explicit operator IntPtr(HypertextIface value) => value._pointer
-;	}
+		public HypertextIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator HypertextIface(IntPtr pointer) => new HypertextIface(pointer, checkType: true);
+		public static explicit operator IntPtr(HypertextIface value) => value._pointer;
+	}
 	public ref struct Image
 	{
 		private IntPtr _pointer;
-		public static explicit operator Image(IntPtr pointer) => new Image { _pointer = pointer };
-		public static explicit operator IntPtr(Image value) => value._pointer
-;	}
+		public Image(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Image(IntPtr pointer) => new Image(pointer, checkType: true);
+		public static explicit operator IntPtr(Image value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_image_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ImageIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator ImageIface(IntPtr pointer) => new ImageIface { _pointer = pointer };
-		public static explicit operator IntPtr(ImageIface value) => value._pointer
-;	}
+		public ImageIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ImageIface(IntPtr pointer) => new ImageIface(pointer, checkType: true);
+		public static explicit operator IntPtr(ImageIface value) => value._pointer;
+	}
 	public ref struct Implementor
 	{
 		private IntPtr _pointer;
-		public static explicit operator Implementor(IntPtr pointer) => new Implementor { _pointer = pointer };
-		public static explicit operator IntPtr(Implementor value) => value._pointer
-;	}
+		public Implementor(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Implementor(IntPtr pointer) => new Implementor(pointer, checkType: true);
+		public static explicit operator IntPtr(Implementor value) => value._pointer;
+	}
 	public ref struct ImplementorIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator ImplementorIface(IntPtr pointer) => new ImplementorIface { _pointer = pointer };
-		public static explicit operator IntPtr(ImplementorIface value) => value._pointer
-;	}
+		public ImplementorIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ImplementorIface(IntPtr pointer) => new ImplementorIface(pointer, checkType: true);
+		public static explicit operator IntPtr(ImplementorIface value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_implementor_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct KeyEventStruct
 	{
 		private IntPtr _pointer;
-		public static explicit operator KeyEventStruct(IntPtr pointer) => new KeyEventStruct { _pointer = pointer };
-		public static explicit operator IntPtr(KeyEventStruct value) => value._pointer
-;	}
+		public KeyEventStruct(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator KeyEventStruct(IntPtr pointer) => new KeyEventStruct(pointer, checkType: true);
+		public static explicit operator IntPtr(KeyEventStruct value) => value._pointer;
+	}
 	public enum KeyEventType
 	{
 		press = 0,
@@ -189,99 +325,191 @@ namespace Atk {
 	public ref struct Misc
 	{
 		private IntPtr _pointer;
-		public static explicit operator Misc(IntPtr pointer) => new Misc { _pointer = pointer };
-		public static explicit operator IntPtr(Misc value) => value._pointer
-;		public static implicit operator GObject.Object(Misc value) => (GObject.Object)value._pointer
-;		public static explicit operator Misc(GObject.Object value) => (Misc)(IntPtr)value
-;	}
+		public Misc(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Misc(IntPtr pointer) => new Misc(pointer, checkType: true);
+		public static explicit operator IntPtr(Misc value) => value._pointer;
+		public static implicit operator GObject.Object(Misc value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Misc(GObject.Object value) => new Misc((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_misc_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct MiscClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator MiscClass(IntPtr pointer) => new MiscClass { _pointer = pointer };
-		public static explicit operator IntPtr(MiscClass value) => value._pointer
-;	}
+		public MiscClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator MiscClass(IntPtr pointer) => new MiscClass(pointer, checkType: true);
+		public static explicit operator IntPtr(MiscClass value) => value._pointer;
+	}
 	public ref struct Selection
 	{
 		private IntPtr _pointer;
-		public static explicit operator Selection(IntPtr pointer) => new Selection { _pointer = pointer };
-		public static explicit operator IntPtr(Selection value) => value._pointer
-;	}
+		public Selection(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Selection(IntPtr pointer) => new Selection(pointer, checkType: true);
+		public static explicit operator IntPtr(Selection value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_selection_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Table
 	{
 		private IntPtr _pointer;
-		public static explicit operator Table(IntPtr pointer) => new Table { _pointer = pointer };
-		public static explicit operator IntPtr(Table value) => value._pointer
-;	}
+		public Table(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Table(IntPtr pointer) => new Table(pointer, checkType: true);
+		public static explicit operator IntPtr(Table value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_table_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct TableCell
 	{
 		private IntPtr _pointer;
-		public static explicit operator TableCell(IntPtr pointer) => new TableCell { _pointer = pointer };
-		public static explicit operator IntPtr(TableCell value) => value._pointer
-;	}
+		public TableCell(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TableCell(IntPtr pointer) => new TableCell(pointer, checkType: true);
+		public static explicit operator IntPtr(TableCell value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_table_cell_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Text
 	{
 		private IntPtr _pointer;
-		public static explicit operator Text(IntPtr pointer) => new Text { _pointer = pointer };
-		public static explicit operator IntPtr(Text value) => value._pointer
-;	}
+		public Text(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Text(IntPtr pointer) => new Text(pointer, checkType: true);
+		public static explicit operator IntPtr(Text value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_text_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Value
 	{
 		private IntPtr _pointer;
-		public static explicit operator Value(IntPtr pointer) => new Value { _pointer = pointer };
-		public static explicit operator IntPtr(Value value) => value._pointer
-;	}
+		public Value(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Value(IntPtr pointer) => new Value(pointer, checkType: true);
+		public static explicit operator IntPtr(Value value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_value_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Window
 	{
 		private IntPtr _pointer;
-		public static explicit operator Window(IntPtr pointer) => new Window { _pointer = pointer };
-		public static explicit operator IntPtr(Window value) => value._pointer
-;	}
+		public Window(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Window(IntPtr pointer) => new Window(pointer, checkType: true);
+		public static explicit operator IntPtr(Window value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_window_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct NoOpObject
 	{
 		private IntPtr _pointer;
-		public static explicit operator NoOpObject(IntPtr pointer) => new NoOpObject { _pointer = pointer };
-		public static explicit operator IntPtr(NoOpObject value) => value._pointer
-;		public static implicit operator Atk.Object(NoOpObject value) => (Atk.Object)value._pointer
-;		public static explicit operator NoOpObject(Atk.Object value) => (NoOpObject)(IntPtr)value
-;		public static implicit operator GObject.Object(NoOpObject value) => (GObject.Object)value._pointer
-;		public static explicit operator NoOpObject(GObject.Object value) => (NoOpObject)(IntPtr)value
-;	}
+		public NoOpObject(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator NoOpObject(IntPtr pointer) => new NoOpObject(pointer, checkType: true);
+		public static explicit operator IntPtr(NoOpObject value) => value._pointer;
+		public static implicit operator Atk.Object(NoOpObject value) => new Atk.Object((IntPtr)value, checkType: false);
+		public static explicit operator NoOpObject(Atk.Object value) => new NoOpObject((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(NoOpObject value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator NoOpObject(GObject.Object value) => new NoOpObject((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_no_op_object_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct NoOpObjectClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator NoOpObjectClass(IntPtr pointer) => new NoOpObjectClass { _pointer = pointer };
-		public static explicit operator IntPtr(NoOpObjectClass value) => value._pointer
-;	}
+		public NoOpObjectClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator NoOpObjectClass(IntPtr pointer) => new NoOpObjectClass(pointer, checkType: true);
+		public static explicit operator IntPtr(NoOpObjectClass value) => value._pointer;
+	}
 	public ref struct ObjectFactory
 	{
 		private IntPtr _pointer;
-		public static explicit operator ObjectFactory(IntPtr pointer) => new ObjectFactory { _pointer = pointer };
-		public static explicit operator IntPtr(ObjectFactory value) => value._pointer
-;		public static implicit operator GObject.Object(ObjectFactory value) => (GObject.Object)value._pointer
-;		public static explicit operator ObjectFactory(GObject.Object value) => (ObjectFactory)(IntPtr)value
-;	}
+		public ObjectFactory(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator ObjectFactory(IntPtr pointer) => new ObjectFactory(pointer, checkType: true);
+		public static explicit operator IntPtr(ObjectFactory value) => value._pointer;
+		public static implicit operator GObject.Object(ObjectFactory value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator ObjectFactory(GObject.Object value) => new ObjectFactory((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_object_factory_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct NoOpObjectFactory
 	{
 		private IntPtr _pointer;
-		public static explicit operator NoOpObjectFactory(IntPtr pointer) => new NoOpObjectFactory { _pointer = pointer };
-		public static explicit operator IntPtr(NoOpObjectFactory value) => value._pointer
-;		public static implicit operator Atk.ObjectFactory(NoOpObjectFactory value) => (Atk.ObjectFactory)value._pointer
-;		public static explicit operator NoOpObjectFactory(Atk.ObjectFactory value) => (NoOpObjectFactory)(IntPtr)value
-;		public static implicit operator GObject.Object(NoOpObjectFactory value) => (GObject.Object)value._pointer
-;		public static explicit operator NoOpObjectFactory(GObject.Object value) => (NoOpObjectFactory)(IntPtr)value
-;	}
+		public NoOpObjectFactory(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator NoOpObjectFactory(IntPtr pointer) => new NoOpObjectFactory(pointer, checkType: true);
+		public static explicit operator IntPtr(NoOpObjectFactory value) => value._pointer;
+		public static implicit operator Atk.ObjectFactory(NoOpObjectFactory value) => new Atk.ObjectFactory((IntPtr)value, checkType: false);
+		public static explicit operator NoOpObjectFactory(Atk.ObjectFactory value) => new NoOpObjectFactory((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(NoOpObjectFactory value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator NoOpObjectFactory(GObject.Object value) => new NoOpObjectFactory((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_no_op_object_factory_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct ObjectFactoryClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator ObjectFactoryClass(IntPtr pointer) => new ObjectFactoryClass { _pointer = pointer };
-		public static explicit operator IntPtr(ObjectFactoryClass value) => value._pointer
-;	}
+		public ObjectFactoryClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ObjectFactoryClass(IntPtr pointer) => new ObjectFactoryClass(pointer, checkType: true);
+		public static explicit operator IntPtr(ObjectFactoryClass value) => value._pointer;
+	}
 	public ref struct NoOpObjectFactoryClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator NoOpObjectFactoryClass(IntPtr pointer) => new NoOpObjectFactoryClass { _pointer = pointer };
-		public static explicit operator IntPtr(NoOpObjectFactoryClass value) => value._pointer
-;	}
+		public NoOpObjectFactoryClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator NoOpObjectFactoryClass(IntPtr pointer) => new NoOpObjectFactoryClass(pointer, checkType: true);
+		public static explicit operator IntPtr(NoOpObjectFactoryClass value) => value._pointer;
+	}
 	public enum RelationType
 	{
 		@null = 0,
@@ -437,103 +665,197 @@ namespace Atk {
 	public ref struct RelationSet
 	{
 		private IntPtr _pointer;
-		public static explicit operator RelationSet(IntPtr pointer) => new RelationSet { _pointer = pointer };
-		public static explicit operator IntPtr(RelationSet value) => value._pointer
-;		public static implicit operator GObject.Object(RelationSet value) => (GObject.Object)value._pointer
-;		public static explicit operator RelationSet(GObject.Object value) => (RelationSet)(IntPtr)value
-;	}
+		public RelationSet(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator RelationSet(IntPtr pointer) => new RelationSet(pointer, checkType: true);
+		public static explicit operator IntPtr(RelationSet value) => value._pointer;
+		public static implicit operator GObject.Object(RelationSet value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator RelationSet(GObject.Object value) => new RelationSet((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_relation_set_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct StateSet
 	{
 		private IntPtr _pointer;
-		public static explicit operator StateSet(IntPtr pointer) => new StateSet { _pointer = pointer };
-		public static explicit operator IntPtr(StateSet value) => value._pointer
-;		public static implicit operator GObject.Object(StateSet value) => (GObject.Object)value._pointer
-;		public static explicit operator StateSet(GObject.Object value) => (StateSet)(IntPtr)value
-;	}
+		public StateSet(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator StateSet(IntPtr pointer) => new StateSet(pointer, checkType: true);
+		public static explicit operator IntPtr(StateSet value) => value._pointer;
+		public static implicit operator GObject.Object(StateSet value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator StateSet(GObject.Object value) => new StateSet((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_state_set_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct PropertyValues
 	{
 		private IntPtr _pointer;
-		public static explicit operator PropertyValues(IntPtr pointer) => new PropertyValues { _pointer = pointer };
-		public static explicit operator IntPtr(PropertyValues value) => value._pointer
-;	}
+		public PropertyValues(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator PropertyValues(IntPtr pointer) => new PropertyValues(pointer, checkType: true);
+		public static explicit operator IntPtr(PropertyValues value) => value._pointer;
+	}
 	public ref struct Plug
 	{
 		private IntPtr _pointer;
-		public static explicit operator Plug(IntPtr pointer) => new Plug { _pointer = pointer };
-		public static explicit operator IntPtr(Plug value) => value._pointer
-;		public static implicit operator Atk.Object(Plug value) => (Atk.Object)value._pointer
-;		public static explicit operator Plug(Atk.Object value) => (Plug)(IntPtr)value
-;		public static implicit operator GObject.Object(Plug value) => (GObject.Object)value._pointer
-;		public static explicit operator Plug(GObject.Object value) => (Plug)(IntPtr)value
-;	}
+		public Plug(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Plug(IntPtr pointer) => new Plug(pointer, checkType: true);
+		public static explicit operator IntPtr(Plug value) => value._pointer;
+		public static implicit operator Atk.Object(Plug value) => new Atk.Object((IntPtr)value, checkType: false);
+		public static explicit operator Plug(Atk.Object value) => new Plug((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(Plug value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Plug(GObject.Object value) => new Plug((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_plug_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct PlugClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator PlugClass(IntPtr pointer) => new PlugClass { _pointer = pointer };
-		public static explicit operator IntPtr(PlugClass value) => value._pointer
-;	}
+		public PlugClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator PlugClass(IntPtr pointer) => new PlugClass(pointer, checkType: true);
+		public static explicit operator IntPtr(PlugClass value) => value._pointer;
+	}
 	public ref struct Range
 	{
 		private IntPtr _pointer;
-		public static explicit operator Range(IntPtr pointer) => new Range { _pointer = pointer };
-		public static explicit operator IntPtr(Range value) => value._pointer
-;	}
+		public Range(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator Range(IntPtr pointer) => new Range(pointer, checkType: true);
+		public static explicit operator IntPtr(Range value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_range_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct Registry
 	{
 		private IntPtr _pointer;
-		public static explicit operator Registry(IntPtr pointer) => new Registry { _pointer = pointer };
-		public static explicit operator IntPtr(Registry value) => value._pointer
-;		public static implicit operator GObject.Object(Registry value) => (GObject.Object)value._pointer
-;		public static explicit operator Registry(GObject.Object value) => (Registry)(IntPtr)value
-;	}
+		public Registry(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Registry(IntPtr pointer) => new Registry(pointer, checkType: true);
+		public static explicit operator IntPtr(Registry value) => value._pointer;
+		public static implicit operator GObject.Object(Registry value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Registry(GObject.Object value) => new Registry((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_registry_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct RegistryClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator RegistryClass(IntPtr pointer) => new RegistryClass { _pointer = pointer };
-		public static explicit operator IntPtr(RegistryClass value) => value._pointer
-;	}
+		public RegistryClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RegistryClass(IntPtr pointer) => new RegistryClass(pointer, checkType: true);
+		public static explicit operator IntPtr(RegistryClass value) => value._pointer;
+	}
 	public ref struct Relation
 	{
 		private IntPtr _pointer;
-		public static explicit operator Relation(IntPtr pointer) => new Relation { _pointer = pointer };
-		public static explicit operator IntPtr(Relation value) => value._pointer
-;		public static implicit operator GObject.Object(Relation value) => (GObject.Object)value._pointer
-;		public static explicit operator Relation(GObject.Object value) => (Relation)(IntPtr)value
-;	}
+		public Relation(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Relation(IntPtr pointer) => new Relation(pointer, checkType: true);
+		public static explicit operator IntPtr(Relation value) => value._pointer;
+		public static implicit operator GObject.Object(Relation value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Relation(GObject.Object value) => new Relation((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_relation_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct RelationClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator RelationClass(IntPtr pointer) => new RelationClass { _pointer = pointer };
-		public static explicit operator IntPtr(RelationClass value) => value._pointer
-;	}
+		public RelationClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RelationClass(IntPtr pointer) => new RelationClass(pointer, checkType: true);
+		public static explicit operator IntPtr(RelationClass value) => value._pointer;
+	}
 	public ref struct RelationSetClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator RelationSetClass(IntPtr pointer) => new RelationSetClass { _pointer = pointer };
-		public static explicit operator IntPtr(RelationSetClass value) => value._pointer
-;	}
+		public RelationSetClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator RelationSetClass(IntPtr pointer) => new RelationSetClass(pointer, checkType: true);
+		public static explicit operator IntPtr(RelationSetClass value) => value._pointer;
+	}
 	public ref struct SelectionIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator SelectionIface(IntPtr pointer) => new SelectionIface { _pointer = pointer };
-		public static explicit operator IntPtr(SelectionIface value) => value._pointer
-;	}
+		public SelectionIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator SelectionIface(IntPtr pointer) => new SelectionIface(pointer, checkType: true);
+		public static explicit operator IntPtr(SelectionIface value) => value._pointer;
+	}
 	public ref struct Socket
 	{
 		private IntPtr _pointer;
-		public static explicit operator Socket(IntPtr pointer) => new Socket { _pointer = pointer };
-		public static explicit operator IntPtr(Socket value) => value._pointer
-;		public static implicit operator Atk.Object(Socket value) => (Atk.Object)value._pointer
-;		public static explicit operator Socket(Atk.Object value) => (Socket)(IntPtr)value
-;		public static implicit operator GObject.Object(Socket value) => (GObject.Object)value._pointer
-;		public static explicit operator Socket(GObject.Object value) => (Socket)(IntPtr)value
-;	}
+		public Socket(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Socket(IntPtr pointer) => new Socket(pointer, checkType: true);
+		public static explicit operator IntPtr(Socket value) => value._pointer;
+		public static implicit operator Atk.Object(Socket value) => new Atk.Object((IntPtr)value, checkType: false);
+		public static explicit operator Socket(Atk.Object value) => new Socket((IntPtr)value, checkType: true);
+		public static implicit operator GObject.Object(Socket value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Socket(GObject.Object value) => new Socket((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_socket_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct SocketClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator SocketClass(IntPtr pointer) => new SocketClass { _pointer = pointer };
-		public static explicit operator IntPtr(SocketClass value) => value._pointer
-;	}
+		public SocketClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator SocketClass(IntPtr pointer) => new SocketClass(pointer, checkType: true);
+		public static explicit operator IntPtr(SocketClass value) => value._pointer;
+	}
 	public enum StateType
 	{
 		invalid = 0,
@@ -584,45 +906,77 @@ namespace Atk {
 	public ref struct StateSetClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator StateSetClass(IntPtr pointer) => new StateSetClass { _pointer = pointer };
-		public static explicit operator IntPtr(StateSetClass value) => value._pointer
-;	}
+		public StateSetClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator StateSetClass(IntPtr pointer) => new StateSetClass(pointer, checkType: true);
+		public static explicit operator IntPtr(StateSetClass value) => value._pointer;
+	}
 	public ref struct StreamableContent
 	{
 		private IntPtr _pointer;
-		public static explicit operator StreamableContent(IntPtr pointer) => new StreamableContent { _pointer = pointer };
-		public static explicit operator IntPtr(StreamableContent value) => value._pointer
-;	}
+		public StreamableContent(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator StreamableContent(IntPtr pointer) => new StreamableContent(pointer, checkType: true);
+		public static explicit operator IntPtr(StreamableContent value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_streamable_content_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct StreamableContentIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator StreamableContentIface(IntPtr pointer) => new StreamableContentIface { _pointer = pointer };
-		public static explicit operator IntPtr(StreamableContentIface value) => value._pointer
-;	}
+		public StreamableContentIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator StreamableContentIface(IntPtr pointer) => new StreamableContentIface(pointer, checkType: true);
+		public static explicit operator IntPtr(StreamableContentIface value) => value._pointer;
+	}
 	public ref struct TableCellIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator TableCellIface(IntPtr pointer) => new TableCellIface { _pointer = pointer };
-		public static explicit operator IntPtr(TableCellIface value) => value._pointer
-;	}
+		public TableCellIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TableCellIface(IntPtr pointer) => new TableCellIface(pointer, checkType: true);
+		public static explicit operator IntPtr(TableCellIface value) => value._pointer;
+	}
 	public ref struct TableIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator TableIface(IntPtr pointer) => new TableIface { _pointer = pointer };
-		public static explicit operator IntPtr(TableIface value) => value._pointer
-;	}
+		public TableIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TableIface(IntPtr pointer) => new TableIface(pointer, checkType: true);
+		public static explicit operator IntPtr(TableIface value) => value._pointer;
+	}
 	public ref struct TextRange
 	{
 		private IntPtr _pointer;
-		public static explicit operator TextRange(IntPtr pointer) => new TextRange { _pointer = pointer };
-		public static explicit operator IntPtr(TextRange value) => value._pointer
-;	}
+		public TextRange(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TextRange(IntPtr pointer) => new TextRange(pointer, checkType: true);
+		public static explicit operator IntPtr(TextRange value) => value._pointer;
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_text_range_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct TextRectangle
 	{
 		private IntPtr _pointer;
-		public static explicit operator TextRectangle(IntPtr pointer) => new TextRectangle { _pointer = pointer };
-		public static explicit operator IntPtr(TextRectangle value) => value._pointer
-;	}
+		public TextRectangle(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TextRectangle(IntPtr pointer) => new TextRectangle(pointer, checkType: true);
+		public static explicit operator IntPtr(TextRectangle value) => value._pointer;
+	}
 	public enum TextClipType
 	{
 		none = 0,
@@ -683,29 +1037,51 @@ namespace Atk {
 	public ref struct TextIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator TextIface(IntPtr pointer) => new TextIface { _pointer = pointer };
-		public static explicit operator IntPtr(TextIface value) => value._pointer
-;	}
+		public TextIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator TextIface(IntPtr pointer) => new TextIface(pointer, checkType: true);
+		public static explicit operator IntPtr(TextIface value) => value._pointer;
+	}
 	public ref struct Util
 	{
 		private IntPtr _pointer;
-		public static explicit operator Util(IntPtr pointer) => new Util { _pointer = pointer };
-		public static explicit operator IntPtr(Util value) => value._pointer
-;		public static implicit operator GObject.Object(Util value) => (GObject.Object)value._pointer
-;		public static explicit operator Util(GObject.Object value) => (Util)(IntPtr)value
-;	}
+		public Util(IntPtr pointer, bool checkType = false)
+		{
+			if (checkType)
+			{
+				GObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());
+			}
+			_pointer = pointer;
+		}
+		public static explicit operator Util(IntPtr pointer) => new Util(pointer, checkType: true);
+		public static explicit operator IntPtr(Util value) => value._pointer;
+		public static implicit operator GObject.Object(Util value) => new GObject.Object((IntPtr)value, checkType: false);
+		public static explicit operator Util(GObject.Object value) => new Util((IntPtr)value, checkType: true);
+		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_util_get_type")]
+		public static extern GLib.GType TypeOf();
+	}
 	public ref struct UtilClass
 	{
 		private IntPtr _pointer;
-		public static explicit operator UtilClass(IntPtr pointer) => new UtilClass { _pointer = pointer };
-		public static explicit operator IntPtr(UtilClass value) => value._pointer
-;	}
+		public UtilClass(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator UtilClass(IntPtr pointer) => new UtilClass(pointer, checkType: true);
+		public static explicit operator IntPtr(UtilClass value) => value._pointer;
+	}
 	public ref struct ValueIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator ValueIface(IntPtr pointer) => new ValueIface { _pointer = pointer };
-		public static explicit operator IntPtr(ValueIface value) => value._pointer
-;	}
+		public ValueIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator ValueIface(IntPtr pointer) => new ValueIface(pointer, checkType: true);
+		public static explicit operator IntPtr(ValueIface value) => value._pointer;
+	}
 	public enum ValueType
 	{
 		very_weak = 0,
@@ -728,9 +1104,13 @@ namespace Atk {
 	public ref struct WindowIface
 	{
 		private IntPtr _pointer;
-		public static explicit operator WindowIface(IntPtr pointer) => new WindowIface { _pointer = pointer };
-		public static explicit operator IntPtr(WindowIface value) => value._pointer
-;	}
+		public WindowIface(IntPtr pointer, bool checkType = false)
+		{
+			_pointer = pointer;
+		}
+		public static explicit operator WindowIface(IntPtr pointer) => new WindowIface(pointer, checkType: true);
+		public static explicit operator IntPtr(WindowIface value) => value._pointer;
+	}
 	public static class AtkInterop {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_add_focus_tracker(System.IntPtr focus_tracker);
@@ -771,7 +1151,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_remove_key_event_listener(uint listener_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_action_do_action(Atk.Action action, int i);
+		public static extern bool atk_action_do_action(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_action_get_description(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
@@ -783,13 +1163,13 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_action_get_name(Atk.Action action, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_action_set_description(Atk.Action action, int i, string desc);
+		public static extern bool atk_action_set_description(Atk.Action action, int i, string desc);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_attribute_set_free(GLib.SList attrib_set);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_component_add_focus_handler(Atk.Component component, System.IntPtr handler);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_contains(Atk.Component component, int x, int y, Atk.CoordType coord_type);
+		public static extern bool atk_component_contains(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern double atk_component_get_alpha(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
@@ -803,19 +1183,19 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_component_get_size(Atk.Component component, System.IntPtr width, System.IntPtr height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_grab_focus(Atk.Component component);
+		public static extern bool atk_component_grab_focus(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_component_ref_accessible_at_point(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_component_remove_focus_handler(Atk.Component component, uint handler_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_extents(Atk.Component component, int x, int y, int width, int height, Atk.CoordType coord_type);
+		public static extern bool atk_component_set_extents(Atk.Component component, int x, int y, int width, int height, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_position(Atk.Component component, int x, int y, Atk.CoordType coord_type);
+		public static extern bool atk_component_set_position(Atk.Component component, int x, int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_component_set_size(Atk.Component component, int width, int height);
+		public static extern bool atk_component_set_size(Atk.Component component, int width, int height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_add_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
+		public static extern bool atk_object_add_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_object_connect_property_change_handler(Atk.Object accessible, System.IntPtr handler);
 		[DllImport("libatk-1.0.so.0")]
@@ -841,7 +1221,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_object_initialize(Atk.Object accessible, System.IntPtr data);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_object_notify_state_change(Atk.Object accessible, ulong state, int value);
+		public static extern void atk_object_notify_state_change(Atk.Object accessible, ulong state, bool value);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_object_peek_parent(Atk.Object accessible);
 		[DllImport("libatk-1.0.so.0")]
@@ -853,7 +1233,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_object_remove_property_change_handler(Atk.Object accessible, uint handler_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_object_remove_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
+		public static extern bool atk_object_remove_relationship(Atk.Object @object, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_object_set_description(Atk.Object accessible, string description);
 		[DllImport("libatk-1.0.so.0")]
@@ -877,7 +1257,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_document_get_page_count(Atk.Document document);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_document_set_attribute_value(Atk.Document document, string attribute_name, string attribute_value);
+		public static extern bool atk_document_set_attribute_value(Atk.Document document, string attribute_name, string attribute_value);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_editable_text_copy_text(Atk.EditableText text, int start_pos, int end_pos);
 		[DllImport("libatk-1.0.so.0")]
@@ -889,7 +1269,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_editable_text_paste_text(Atk.EditableText text, int position);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_editable_text_set_run_attributes(Atk.EditableText text, GLib.SList attrib_set, int start_offset, int end_offset);
+		public static extern bool atk_editable_text_set_run_attributes(Atk.EditableText text, GLib.SList attrib_set, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_editable_text_set_text_contents(Atk.EditableText text, string @string);
 		[DllImport("libatk-1.0.so.0")]
@@ -907,11 +1287,11 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_hyperlink_get_uri(Atk.Hyperlink link_, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_inline(Atk.Hyperlink link_);
+		public static extern bool atk_hyperlink_is_inline(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_selected_link(Atk.Hyperlink link_);
+		public static extern bool atk_hyperlink_is_selected_link(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_hyperlink_is_valid(Atk.Hyperlink link_);
+		public static extern bool atk_hyperlink_is_valid(Atk.Hyperlink link_);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Hyperlink atk_hyperlink_impl_get_hyperlink(Atk.HyperlinkImpl impl);
 		[DllImport("libatk-1.0.so.0")]
@@ -929,7 +1309,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_image_get_image_size(Atk.Image image, System.IntPtr width, System.IntPtr height);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_image_set_image_description(Atk.Image image, string description);
+		public static extern bool atk_image_set_image_description(Atk.Image image, string description);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_implementor_ref_accessible(Atk.Implementor implementor);
 		[DllImport("libatk-1.0.so.0")]
@@ -939,23 +1319,23 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_misc_threads_leave(Atk.Misc misc);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_add_selection(Atk.Selection selection, int i);
+		public static extern bool atk_selection_add_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_clear_selection(Atk.Selection selection);
+		public static extern bool atk_selection_clear_selection(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_selection_get_selection_count(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_is_child_selected(Atk.Selection selection, int i);
+		public static extern bool atk_selection_is_child_selected(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_selection_ref_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_remove_selection(Atk.Selection selection, int i);
+		public static extern bool atk_selection_remove_selection(Atk.Selection selection, int i);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_selection_select_all_selection(Atk.Selection selection);
+		public static extern bool atk_selection_select_all_selection(Atk.Selection selection);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_add_column_selection(Atk.Table table, int column);
+		public static extern bool atk_table_add_column_selection(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_add_row_selection(Atk.Table table, int row);
+		public static extern bool atk_table_add_row_selection(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_table_get_caption(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
@@ -987,17 +1367,17 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_table_get_summary(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_column_selected(Atk.Table table, int column);
+		public static extern bool atk_table_is_column_selected(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_row_selected(Atk.Table table, int row);
+		public static extern bool atk_table_is_row_selected(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_is_selected(Atk.Table table, int row, int column);
+		public static extern bool atk_table_is_selected(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_table_ref_at(Atk.Table table, int row, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_remove_column_selection(Atk.Table table, int column);
+		public static extern bool atk_table_remove_column_selection(Atk.Table table, int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_remove_row_selection(Atk.Table table, int row);
+		public static extern bool atk_table_remove_row_selection(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_table_set_caption(Atk.Table table, Atk.Object caption);
 		[DllImport("libatk-1.0.so.0")]
@@ -1015,9 +1395,9 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_table_cell_get_column_span(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_position(Atk.TableCell cell, System.IntPtr row, System.IntPtr column);
+		public static extern bool atk_table_cell_get_position(Atk.TableCell cell, System.IntPtr row, System.IntPtr column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_cell_get_row_column_span(Atk.TableCell cell, System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span);
+		public static extern bool atk_table_cell_get_row_column_span(Atk.TableCell cell, System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern System.IntPtr atk_table_cell_get_row_header_cells(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
@@ -1027,7 +1407,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_text_free_ranges(System.IntPtr ranges);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_add_selection(Atk.Text text, int start_offset, int end_offset);
+		public static extern bool atk_text_add_selection(Atk.Text text, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern System.IntPtr atk_text_get_bounded_ranges(Atk.Text text, Atk.TextRectangle rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type);
 		[DllImport("libatk-1.0.so.0")]
@@ -1059,11 +1439,11 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_text_get_text_before_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_remove_selection(Atk.Text text, int selection_num);
+		public static extern bool atk_text_remove_selection(Atk.Text text, int selection_num);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_set_caret_offset(Atk.Text text, int offset);
+		public static extern bool atk_text_set_caret_offset(Atk.Text text, int offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_text_set_selection(Atk.Text text, int selection_num, int start_offset, int end_offset);
+		public static extern bool atk_text_set_selection(Atk.Text text, int selection_num, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern double atk_value_get_increment(Atk.Value obj);
 		[DllImport("libatk-1.0.so.0")]
@@ -1073,7 +1453,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_value_get_value_and_text(Atk.Value obj, System.IntPtr value, string text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_value_set_current_value(Atk.Value obj, GObject.Value value);
+		public static extern bool atk_value_set_current_value(Atk.Value obj, GObject.Value value);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_value_set_value(Atk.Value obj, double new_value);
 		[DllImport("libatk-1.0.so.0")]
@@ -1081,7 +1461,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_object_factory_create_accessible(Atk.ObjectFactory factory, GObject.Object obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern ulong atk_object_factory_get_accessible_type(Atk.ObjectFactory factory);
+		public static extern GLib.GType atk_object_factory_get_accessible_type(Atk.ObjectFactory factory);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_object_factory_invalidate(Atk.ObjectFactory factory);
 		[DllImport("libatk-1.0.so.0")]
@@ -1107,9 +1487,9 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_relation_set_add_relation_by_type(Atk.RelationSet set, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_set_contains(Atk.RelationSet set, Atk.RelationType relationship);
+		public static extern bool atk_relation_set_contains(Atk.RelationSet set, Atk.RelationType relationship);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_set_contains_target(Atk.RelationSet set, Atk.RelationType relationship, Atk.Object target);
+		public static extern bool atk_relation_set_contains_target(Atk.RelationSet set, Atk.RelationType relationship, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_relation_set_get_n_relations(Atk.RelationSet set);
 		[DllImport("libatk-1.0.so.0")]
@@ -1121,7 +1501,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateSet atk_state_set_new();
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_add_state(Atk.StateSet set, Atk.StateType type);
+		public static extern bool atk_state_set_add_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_state_set_add_states(Atk.StateSet set, System.IntPtr types, int n_types);
 		[DllImport("libatk-1.0.so.0")]
@@ -1129,15 +1509,15 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_state_set_clear_states(Atk.StateSet set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_contains_state(Atk.StateSet set, Atk.StateType type);
+		public static extern bool atk_state_set_contains_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_contains_states(Atk.StateSet set, System.IntPtr types, int n_types);
+		public static extern bool atk_state_set_contains_states(Atk.StateSet set, System.IntPtr types, int n_types);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_is_empty(Atk.StateSet set);
+		public static extern bool atk_state_set_is_empty(Atk.StateSet set);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateSet atk_state_set_or_sets(Atk.StateSet set, Atk.StateSet compare_set);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_state_set_remove_state(Atk.StateSet set, Atk.StateType type);
+		public static extern bool atk_state_set_remove_state(Atk.StateSet set, Atk.StateType type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateSet atk_state_set_xor_sets(Atk.StateSet set, Atk.StateSet compare_set);
 		[DllImport("libatk-1.0.so.0")]
@@ -1157,11 +1537,11 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern double atk_range_get_upper_limit(Atk.Range range);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern Atk.ObjectFactory atk_registry_get_factory(Atk.Registry registry, ulong type);
+		public static extern Atk.ObjectFactory atk_registry_get_factory(Atk.Registry registry, GLib.GType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern ulong atk_registry_get_factory_type(Atk.Registry registry, ulong type);
+		public static extern GLib.GType atk_registry_get_factory_type(Atk.Registry registry, GLib.GType type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_registry_set_factory_type(Atk.Registry registry, ulong type, ulong factory_type);
+		public static extern void atk_registry_set_factory_type(Atk.Registry registry, GLib.GType type, GLib.GType factory_type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Relation atk_relation_new(System.IntPtr targets, int n_targets, Atk.RelationType relationship);
 		[DllImport("libatk-1.0.so.0")]
@@ -1171,13 +1551,13 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern System.IntPtr atk_relation_get_target(Atk.Relation relation);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_relation_remove_target(Atk.Relation relation, Atk.Object target);
+		public static extern bool atk_relation_remove_target(Atk.Relation relation, Atk.Object target);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_socket_new();
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_socket_embed(Atk.Socket obj, string plug_id);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_socket_is_occupied(Atk.Socket obj);
+		public static extern bool atk_socket_is_occupied(Atk.Socket obj);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.StateType atk_state_type_for_name(string name);
 		[DllImport("libatk-1.0.so.0")]

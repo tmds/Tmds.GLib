@@ -79,23 +79,74 @@ namespace Tmds.Gir
             _sb.Append("\t}\n");
         }
 
+        private bool InheritsGObject(GLibType type)
+        {
+            if (type == null)
+            {
+                return false;
+            }
+            if (type.FullName == "GObject.Object")
+            {
+                return true;
+            }
+            else if (type is ClassType cls)
+            {
+                return InheritsGObject(cls.Parent);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void AddRefStruct(GLibType type)
         {
+            string getGLibType = null;
+            switch(type)
+            {
+                case ClassType cls:
+                    getGLibType = cls.GLibGetType;
+                    break;
+                case RecordType rec:
+                    getGLibType = rec.GLibGetType;
+                    break;
+                case InterfaceType interf:
+                    getGLibType = interf.GLibGetType;
+                    break;
+            }
             _sb.AppendFormat("\tpublic ref struct {0}\n", type.Name);
             _sb.Append("\t{\n");
             _sb.Append("\t\tprivate IntPtr _pointer;\n");
-            _sb.AppendFormat("\t\tpublic static explicit operator {0}(IntPtr pointer) => new {0} {{ _pointer = pointer }};\n", type.Name);
-            _sb.AppendFormat("\t\tpublic static explicit operator IntPtr({0} value) => value._pointer\n;", type.Name);
-            if (type is ClassType cls)
+            _sb.AppendFormat("\t\tpublic {0}(IntPtr pointer, bool checkType = false)\n", type.Name);
+            _sb.Append("\t\t{\n");
+            if (getGLibType != null && InheritsGObject(type))
             {
-                ClassType parent = cls.Parent as ClassType;
+                // g_type_check_instance_is_a
+                _sb.Append("\t\t\tif (checkType)\n");
+                _sb.Append("\t\t\t{\n");
+                _sb.Append("\t\t\t\tGObject.ObjectType.CheckInstanceIsA(pointer, TypeOf());\n");
+                _sb.Append("\t\t\t}\n");
+            }
+            _sb.Append("\t\t\t_pointer = pointer;\n");
+            _sb.Append("\t\t}\n");
+            _sb.AppendFormat("\t\tpublic static explicit operator {0}(IntPtr pointer) => new {0}(pointer, checkType: true);\n", type.Name);
+            _sb.AppendFormat("\t\tpublic static explicit operator IntPtr({0} value) => value._pointer;\n", type.Name);
+            if (type is ClassType clsType)
+            {
+                ClassType parent = clsType.Parent as ClassType;
                 while (parent != null)
                 {
-                    _sb.AppendFormat("\t\tpublic static implicit operator {0}({1} value) => ({0})value._pointer\n;", parent.FullName, type.Name);
+                    _sb.AppendFormat("\t\tpublic static implicit operator {0}({1} value) => new {0}((IntPtr)value, checkType: false);\n", parent.FullName, type.Name);
                     // TODO: add type check
-                    _sb.AppendFormat("\t\tpublic static explicit operator {0}({1} value) => ({0})(IntPtr)value\n;", type.Name, parent.FullName);
+                    _sb.AppendFormat("\t\tpublic static explicit operator {0}({1} value) => new {0}((IntPtr)value, checkType: true);\n", type.Name, parent.FullName);
                     parent = parent.Parent as ClassType;
                 }
+            }
+            if (getGLibType != null)
+            {
+                string libraryName = type.Namespace.SharedLibraries[0];
+                _sb.AppendFormat("\t\t[DllImport(\"{0}\", EntryPoint = \"{1}\")]\n", libraryName, getGLibType);
+                _sb.AppendFormat("\t\tpublic static extern GLib.GType TypeOf();\n");
             }
             _sb.Append("\t}\n");
         }
@@ -262,7 +313,7 @@ namespace Tmds.Gir
                 switch (f.Fundamental)
                 {
                     case Fundamental.None: return "void";
-                    case Fundamental.Boolean: return "int";
+                    case Fundamental.Boolean: return "bool";
                     case Fundamental.Int8: return "sbyte";
                     case Fundamental.UInt8: return "byte";
                     case Fundamental.Int16: return "short";
@@ -291,7 +342,7 @@ namespace Tmds.Gir
                     case Fundamental.ULong: return "ulong";
 
                     // Note: this is 32-bit on a 32-bit system
-                    case Fundamental.Type:
+                    case Fundamental.Type: return "GLib.GType"; // manually defined
                     case Fundamental.Size: return "ulong";
                     case Fundamental.SSize: return "long";
 
