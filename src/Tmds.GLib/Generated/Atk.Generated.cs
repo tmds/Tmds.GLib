@@ -10,6 +10,13 @@ namespace Atk {
 		}
 		public static explicit operator Action(IntPtr pointer) => new Action(pointer, checkType: true);
 		public static explicit operator IntPtr(Action value) => value._pointer;
+		public bool do_action(int i) => Atk.AtkInterop.atk_action_do_action(this, i);
+		public string get_description(int i) => Atk.AtkInterop.atk_action_get_description(this, i);
+		public string get_keybinding(int i) => Atk.AtkInterop.atk_action_get_keybinding(this, i);
+		public string get_localized_name(int i) => Atk.AtkInterop.atk_action_get_localized_name(this, i);
+		public int get_n_actions() => Atk.AtkInterop.atk_action_get_n_actions(this);
+		public string get_name(int i) => Atk.AtkInterop.atk_action_get_name(this, i);
+		public bool set_description(int i, string desc) => Atk.AtkInterop.atk_action_set_description(this, i, desc);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_action_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -32,6 +39,7 @@ namespace Atk {
 		}
 		public static explicit operator Attribute(IntPtr pointer) => new Attribute(pointer, checkType: true);
 		public static explicit operator IntPtr(Attribute value) => value._pointer;
+		public static void set_free(GLib.SList attrib_set) => AtkInterop.atk_attribute_set_free(attrib_set);
 	}
 	public ref struct Component
 	{
@@ -42,6 +50,20 @@ namespace Atk {
 		}
 		public static explicit operator Component(IntPtr pointer) => new Component(pointer, checkType: true);
 		public static explicit operator IntPtr(Component value) => value._pointer;
+		public uint add_focus_handler(System.IntPtr handler) => Atk.AtkInterop.atk_component_add_focus_handler(this, handler);
+		public bool contains(int x, int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_contains(this, x, y, coord_type);
+		public double get_alpha() => Atk.AtkInterop.atk_component_get_alpha(this);
+		public void get_extents(System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_extents(this, x, y, width, height, coord_type);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_component_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_component_get_mdi_zorder(this);
+		public void get_position(System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_position(this, x, y, coord_type);
+		public void get_size(System.IntPtr width, System.IntPtr height) => Atk.AtkInterop.atk_component_get_size(this, width, height);
+		public bool grab_focus() => Atk.AtkInterop.atk_component_grab_focus(this);
+		public Atk.Object ref_accessible_at_point(int x, int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_ref_accessible_at_point(this, x, y, coord_type);
+		public void remove_focus_handler(uint handler_id) => Atk.AtkInterop.atk_component_remove_focus_handler(this, handler_id);
+		public bool set_extents(int x, int y, int width, int height, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_set_extents(this, x, y, width, height, coord_type);
+		public bool set_position(int x, int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_set_position(this, x, y, coord_type);
+		public bool set_size(int width, int height) => Atk.AtkInterop.atk_component_set_size(this, width, height);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_component_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -76,6 +98,66 @@ namespace Atk {
 		public static explicit operator IntPtr(Object value) => value._pointer;
 		public static implicit operator GObject.Object(Object value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Object(GObject.Object value) => new Object((IntPtr)value, checkType: true);
+		public bool add_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_add_relationship(this, relationship, target);
+		public uint connect_property_change_handler(System.IntPtr handler) => Atk.AtkInterop.atk_object_connect_property_change_handler(this, handler);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_object_get_attributes(this);
+		public string get_description() => Atk.AtkInterop.atk_object_get_description(this);
+		public int get_index_in_parent() => Atk.AtkInterop.atk_object_get_index_in_parent(this);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_object_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_object_get_mdi_zorder(this);
+		public int get_n_accessible_children() => Atk.AtkInterop.atk_object_get_n_accessible_children(this);
+		public string get_name() => Atk.AtkInterop.atk_object_get_name(this);
+		public string get_object_locale() => Atk.AtkInterop.atk_object_get_object_locale(this);
+		public Atk.Object get_parent() => Atk.AtkInterop.atk_object_get_parent(this);
+		public Atk.Role get_role() => Atk.AtkInterop.atk_object_get_role(this);
+		public void initialize(System.IntPtr data) => Atk.AtkInterop.atk_object_initialize(this, data);
+		public void notify_state_change(ulong state, bool value) => Atk.AtkInterop.atk_object_notify_state_change(this, state, value);
+		public Atk.Object peek_parent() => Atk.AtkInterop.atk_object_peek_parent(this);
+		public Atk.Object ref_accessible_child(int i) => Atk.AtkInterop.atk_object_ref_accessible_child(this, i);
+		public Atk.RelationSet ref_relation_set() => Atk.AtkInterop.atk_object_ref_relation_set(this);
+		public Atk.StateSet ref_state_set() => Atk.AtkInterop.atk_object_ref_state_set(this);
+		public void remove_property_change_handler(uint handler_id) => Atk.AtkInterop.atk_object_remove_property_change_handler(this, handler_id);
+		public bool remove_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_remove_relationship(this, relationship, target);
+		public void set_description(string description) => Atk.AtkInterop.atk_object_set_description(this, description);
+		public void set_name(string name) => Atk.AtkInterop.atk_object_set_name(this, name);
+		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
+		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_object_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -110,6 +192,14 @@ namespace Atk {
 		}
 		public static explicit operator Document(IntPtr pointer) => new Document(pointer, checkType: true);
 		public static explicit operator IntPtr(Document value) => value._pointer;
+		public string get_attribute_value(string attribute_name) => Atk.AtkInterop.atk_document_get_attribute_value(this, attribute_name);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_document_get_attributes(this);
+		public int get_current_page_number() => Atk.AtkInterop.atk_document_get_current_page_number(this);
+		public System.IntPtr get_document() => Atk.AtkInterop.atk_document_get_document(this);
+		public string get_document_type() => Atk.AtkInterop.atk_document_get_document_type(this);
+		public string get_locale() => Atk.AtkInterop.atk_document_get_locale(this);
+		public int get_page_count() => Atk.AtkInterop.atk_document_get_page_count(this);
+		public bool set_attribute_value(string attribute_name, string attribute_value) => Atk.AtkInterop.atk_document_set_attribute_value(this, attribute_name, attribute_value);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_document_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -132,6 +222,13 @@ namespace Atk {
 		}
 		public static explicit operator EditableText(IntPtr pointer) => new EditableText(pointer, checkType: true);
 		public static explicit operator IntPtr(EditableText value) => value._pointer;
+		public void copy_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_copy_text(this, start_pos, end_pos);
+		public void cut_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_cut_text(this, start_pos, end_pos);
+		public void delete_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_delete_text(this, start_pos, end_pos);
+		public void insert_text(string @string, int length, System.IntPtr position) => Atk.AtkInterop.atk_editable_text_insert_text(this, @string, length, position);
+		public void paste_text(int position) => Atk.AtkInterop.atk_editable_text_paste_text(this, position);
+		public bool set_run_attributes(GLib.SList attrib_set, int start_offset, int end_offset) => Atk.AtkInterop.atk_editable_text_set_run_attributes(this, attrib_set, start_offset, end_offset);
+		public void set_text_contents(string @string) => Atk.AtkInterop.atk_editable_text_set_text_contents(this, @string);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_editable_text_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -162,6 +259,68 @@ namespace Atk {
 		public static explicit operator GObjectAccessible(Atk.Object value) => new GObjectAccessible((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(GObjectAccessible value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator GObjectAccessible(GObject.Object value) => new GObjectAccessible((IntPtr)value, checkType: true);
+		public static Atk.Object for_object(GObject.Object obj) => AtkInterop.atk_gobject_accessible_for_object(obj);
+		public GObject.Object get_object() => Atk.AtkInterop.atk_gobject_accessible_get_object(this);
+		public bool add_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_add_relationship(this, relationship, target);
+		public uint connect_property_change_handler(System.IntPtr handler) => Atk.AtkInterop.atk_object_connect_property_change_handler(this, handler);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_object_get_attributes(this);
+		public string get_description() => Atk.AtkInterop.atk_object_get_description(this);
+		public int get_index_in_parent() => Atk.AtkInterop.atk_object_get_index_in_parent(this);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_object_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_object_get_mdi_zorder(this);
+		public int get_n_accessible_children() => Atk.AtkInterop.atk_object_get_n_accessible_children(this);
+		public string get_name() => Atk.AtkInterop.atk_object_get_name(this);
+		public string get_object_locale() => Atk.AtkInterop.atk_object_get_object_locale(this);
+		public Atk.Object get_parent() => Atk.AtkInterop.atk_object_get_parent(this);
+		public Atk.Role get_role() => Atk.AtkInterop.atk_object_get_role(this);
+		public void initialize(System.IntPtr data) => Atk.AtkInterop.atk_object_initialize(this, data);
+		public void notify_state_change(ulong state, bool value) => Atk.AtkInterop.atk_object_notify_state_change(this, state, value);
+		public Atk.Object peek_parent() => Atk.AtkInterop.atk_object_peek_parent(this);
+		public Atk.Object ref_accessible_child(int i) => Atk.AtkInterop.atk_object_ref_accessible_child(this, i);
+		public Atk.RelationSet ref_relation_set() => Atk.AtkInterop.atk_object_ref_relation_set(this);
+		public Atk.StateSet ref_state_set() => Atk.AtkInterop.atk_object_ref_state_set(this);
+		public void remove_property_change_handler(uint handler_id) => Atk.AtkInterop.atk_object_remove_property_change_handler(this, handler_id);
+		public bool remove_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_remove_relationship(this, relationship, target);
+		public void set_description(string description) => Atk.AtkInterop.atk_object_set_description(this, description);
+		public void set_name(string name) => Atk.AtkInterop.atk_object_set_name(this, name);
+		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
+		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_gobject_accessible_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -200,6 +359,50 @@ namespace Atk {
 		public static explicit operator IntPtr(Hyperlink value) => value._pointer;
 		public static implicit operator GObject.Object(Hyperlink value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Hyperlink(GObject.Object value) => new Hyperlink((IntPtr)value, checkType: true);
+		public int get_end_index() => Atk.AtkInterop.atk_hyperlink_get_end_index(this);
+		public int get_n_anchors() => Atk.AtkInterop.atk_hyperlink_get_n_anchors(this);
+		public Atk.Object get_object(int i) => Atk.AtkInterop.atk_hyperlink_get_object(this, i);
+		public int get_start_index() => Atk.AtkInterop.atk_hyperlink_get_start_index(this);
+		public string get_uri(int i) => Atk.AtkInterop.atk_hyperlink_get_uri(this, i);
+		public bool is_inline() => Atk.AtkInterop.atk_hyperlink_is_inline(this);
+		public bool is_selected_link() => Atk.AtkInterop.atk_hyperlink_is_selected_link(this);
+		public bool is_valid() => Atk.AtkInterop.atk_hyperlink_is_valid(this);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hyperlink_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -222,6 +425,7 @@ namespace Atk {
 		}
 		public static explicit operator HyperlinkImpl(IntPtr pointer) => new HyperlinkImpl(pointer, checkType: true);
 		public static explicit operator IntPtr(HyperlinkImpl value) => value._pointer;
+		public Atk.Hyperlink get_hyperlink() => Atk.AtkInterop.atk_hyperlink_impl_get_hyperlink(this);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hyperlink_impl_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -249,6 +453,9 @@ namespace Atk {
 		}
 		public static explicit operator Hypertext(IntPtr pointer) => new Hypertext(pointer, checkType: true);
 		public static explicit operator IntPtr(Hypertext value) => value._pointer;
+		public Atk.Hyperlink get_link(int link_index) => Atk.AtkInterop.atk_hypertext_get_link(this, link_index);
+		public int get_link_index(int char_index) => Atk.AtkInterop.atk_hypertext_get_link_index(this, char_index);
+		public int get_n_links() => Atk.AtkInterop.atk_hypertext_get_n_links(this);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_hypertext_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -271,6 +478,11 @@ namespace Atk {
 		}
 		public static explicit operator Image(IntPtr pointer) => new Image(pointer, checkType: true);
 		public static explicit operator IntPtr(Image value) => value._pointer;
+		public string get_image_description() => Atk.AtkInterop.atk_image_get_image_description(this);
+		public string get_image_locale() => Atk.AtkInterop.atk_image_get_image_locale(this);
+		public void get_image_position(System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_image_get_image_position(this, x, y, coord_type);
+		public void get_image_size(System.IntPtr width, System.IntPtr height) => Atk.AtkInterop.atk_image_get_image_size(this, width, height);
+		public bool set_image_description(string description) => Atk.AtkInterop.atk_image_set_image_description(this, description);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_image_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -293,6 +505,7 @@ namespace Atk {
 		}
 		public static explicit operator Implementor(IntPtr pointer) => new Implementor(pointer, checkType: true);
 		public static explicit operator IntPtr(Implementor value) => value._pointer;
+		public Atk.Object ref_accessible() => Atk.AtkInterop.atk_implementor_ref_accessible(this);
 	}
 	public ref struct ImplementorIface
 	{
@@ -337,6 +550,45 @@ namespace Atk {
 		public static explicit operator IntPtr(Misc value) => value._pointer;
 		public static implicit operator GObject.Object(Misc value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Misc(GObject.Object value) => new Misc((IntPtr)value, checkType: true);
+		public static Atk.Misc get_instance() => AtkInterop.atk_misc_get_instance();
+		public void threads_enter() => Atk.AtkInterop.atk_misc_threads_enter(this);
+		public void threads_leave() => Atk.AtkInterop.atk_misc_threads_leave(this);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_misc_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -359,6 +611,13 @@ namespace Atk {
 		}
 		public static explicit operator Selection(IntPtr pointer) => new Selection(pointer, checkType: true);
 		public static explicit operator IntPtr(Selection value) => value._pointer;
+		public bool add_selection(int i) => Atk.AtkInterop.atk_selection_add_selection(this, i);
+		public bool clear_selection() => Atk.AtkInterop.atk_selection_clear_selection(this);
+		public int get_selection_count() => Atk.AtkInterop.atk_selection_get_selection_count(this);
+		public bool is_child_selected(int i) => Atk.AtkInterop.atk_selection_is_child_selected(this, i);
+		public Atk.Object ref_selection(int i) => Atk.AtkInterop.atk_selection_ref_selection(this, i);
+		public bool remove_selection(int i) => Atk.AtkInterop.atk_selection_remove_selection(this, i);
+		public bool select_all_selection() => Atk.AtkInterop.atk_selection_select_all_selection(this);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_selection_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -371,6 +630,35 @@ namespace Atk {
 		}
 		public static explicit operator Table(IntPtr pointer) => new Table(pointer, checkType: true);
 		public static explicit operator IntPtr(Table value) => value._pointer;
+		public bool add_column_selection(int column) => Atk.AtkInterop.atk_table_add_column_selection(this, column);
+		public bool add_row_selection(int row) => Atk.AtkInterop.atk_table_add_row_selection(this, row);
+		public Atk.Object get_caption() => Atk.AtkInterop.atk_table_get_caption(this);
+		public int get_column_at_index(int index_) => Atk.AtkInterop.atk_table_get_column_at_index(this, index_);
+		public string get_column_description(int column) => Atk.AtkInterop.atk_table_get_column_description(this, column);
+		public int get_column_extent_at(int row, int column) => Atk.AtkInterop.atk_table_get_column_extent_at(this, row, column);
+		public Atk.Object get_column_header(int column) => Atk.AtkInterop.atk_table_get_column_header(this, column);
+		public int get_index_at(int row, int column) => Atk.AtkInterop.atk_table_get_index_at(this, row, column);
+		public int get_n_columns() => Atk.AtkInterop.atk_table_get_n_columns(this);
+		public int get_n_rows() => Atk.AtkInterop.atk_table_get_n_rows(this);
+		public int get_row_at_index(int index_) => Atk.AtkInterop.atk_table_get_row_at_index(this, index_);
+		public string get_row_description(int row) => Atk.AtkInterop.atk_table_get_row_description(this, row);
+		public int get_row_extent_at(int row, int column) => Atk.AtkInterop.atk_table_get_row_extent_at(this, row, column);
+		public Atk.Object get_row_header(int row) => Atk.AtkInterop.atk_table_get_row_header(this, row);
+		public int get_selected_columns(System.IntPtr selected) => Atk.AtkInterop.atk_table_get_selected_columns(this, selected);
+		public int get_selected_rows(System.IntPtr selected) => Atk.AtkInterop.atk_table_get_selected_rows(this, selected);
+		public Atk.Object get_summary() => Atk.AtkInterop.atk_table_get_summary(this);
+		public bool is_column_selected(int column) => Atk.AtkInterop.atk_table_is_column_selected(this, column);
+		public bool is_row_selected(int row) => Atk.AtkInterop.atk_table_is_row_selected(this, row);
+		public bool is_selected(int row, int column) => Atk.AtkInterop.atk_table_is_selected(this, row, column);
+		public Atk.Object ref_at(int row, int column) => Atk.AtkInterop.atk_table_ref_at(this, row, column);
+		public bool remove_column_selection(int column) => Atk.AtkInterop.atk_table_remove_column_selection(this, column);
+		public bool remove_row_selection(int row) => Atk.AtkInterop.atk_table_remove_row_selection(this, row);
+		public void set_caption(Atk.Object caption) => Atk.AtkInterop.atk_table_set_caption(this, caption);
+		public void set_column_description(int column, string description) => Atk.AtkInterop.atk_table_set_column_description(this, column, description);
+		public void set_column_header(int column, Atk.Object header) => Atk.AtkInterop.atk_table_set_column_header(this, column, header);
+		public void set_row_description(int row, string description) => Atk.AtkInterop.atk_table_set_row_description(this, row, description);
+		public void set_row_header(int row, Atk.Object header) => Atk.AtkInterop.atk_table_set_row_header(this, row, header);
+		public void set_summary(Atk.Object accessible) => Atk.AtkInterop.atk_table_set_summary(this, accessible);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_table_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -383,6 +671,13 @@ namespace Atk {
 		}
 		public static explicit operator TableCell(IntPtr pointer) => new TableCell(pointer, checkType: true);
 		public static explicit operator IntPtr(TableCell value) => value._pointer;
+		public System.IntPtr get_column_header_cells() => Atk.AtkInterop.atk_table_cell_get_column_header_cells(this);
+		public int get_column_span() => Atk.AtkInterop.atk_table_cell_get_column_span(this);
+		public bool get_position(System.IntPtr row, System.IntPtr column) => Atk.AtkInterop.atk_table_cell_get_position(this, row, column);
+		public bool get_row_column_span(System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span) => Atk.AtkInterop.atk_table_cell_get_row_column_span(this, row, column, row_span, column_span);
+		public System.IntPtr get_row_header_cells() => Atk.AtkInterop.atk_table_cell_get_row_header_cells(this);
+		public int get_row_span() => Atk.AtkInterop.atk_table_cell_get_row_span(this);
+		public Atk.Object get_table() => Atk.AtkInterop.atk_table_cell_get_table(this);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_table_cell_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -395,6 +690,26 @@ namespace Atk {
 		}
 		public static explicit operator Text(IntPtr pointer) => new Text(pointer, checkType: true);
 		public static explicit operator IntPtr(Text value) => value._pointer;
+		public static void free_ranges(System.IntPtr ranges) => AtkInterop.atk_text_free_ranges(ranges);
+		public bool add_selection(int start_offset, int end_offset) => Atk.AtkInterop.atk_text_add_selection(this, start_offset, end_offset);
+		public System.IntPtr get_bounded_ranges(Atk.TextRectangle rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type) => Atk.AtkInterop.atk_text_get_bounded_ranges(this, rect, coord_type, x_clip_type, y_clip_type);
+		public int get_caret_offset() => Atk.AtkInterop.atk_text_get_caret_offset(this);
+		public uint get_character_at_offset(int offset) => Atk.AtkInterop.atk_text_get_character_at_offset(this, offset);
+		public int get_character_count() => Atk.AtkInterop.atk_text_get_character_count(this);
+		public void get_character_extents(int offset, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coords) => Atk.AtkInterop.atk_text_get_character_extents(this, offset, x, y, width, height, coords);
+		public GLib.SList get_default_attributes() => Atk.AtkInterop.atk_text_get_default_attributes(this);
+		public int get_n_selections() => Atk.AtkInterop.atk_text_get_n_selections(this);
+		public int get_offset_at_point(int x, int y, Atk.CoordType coords) => Atk.AtkInterop.atk_text_get_offset_at_point(this, x, y, coords);
+		public GLib.SList get_run_attributes(int offset, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_run_attributes(this, offset, start_offset, end_offset);
+		public string get_selection(int selection_num, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_selection(this, selection_num, start_offset, end_offset);
+		public string get_string_at_offset(int offset, Atk.TextGranularity granularity, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_string_at_offset(this, offset, granularity, start_offset, end_offset);
+		public string get_text(int start_offset, int end_offset) => Atk.AtkInterop.atk_text_get_text(this, start_offset, end_offset);
+		public string get_text_after_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_after_offset(this, offset, boundary_type, start_offset, end_offset);
+		public string get_text_at_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_at_offset(this, offset, boundary_type, start_offset, end_offset);
+		public string get_text_before_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_before_offset(this, offset, boundary_type, start_offset, end_offset);
+		public bool remove_selection(int selection_num) => Atk.AtkInterop.atk_text_remove_selection(this, selection_num);
+		public bool set_caret_offset(int offset) => Atk.AtkInterop.atk_text_set_caret_offset(this, offset);
+		public bool set_selection(int selection_num, int start_offset, int end_offset) => Atk.AtkInterop.atk_text_set_selection(this, selection_num, start_offset, end_offset);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_text_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -407,6 +722,12 @@ namespace Atk {
 		}
 		public static explicit operator Value(IntPtr pointer) => new Value(pointer, checkType: true);
 		public static explicit operator IntPtr(Value value) => value._pointer;
+		public double get_increment() => Atk.AtkInterop.atk_value_get_increment(this);
+		public Atk.Range get_range() => Atk.AtkInterop.atk_value_get_range(this);
+		public System.IntPtr get_sub_ranges() => Atk.AtkInterop.atk_value_get_sub_ranges(this);
+		public void get_value_and_text(System.IntPtr value, string text) => Atk.AtkInterop.atk_value_get_value_and_text(this, value, text);
+		public bool set_current_value(GObject.Value value) => Atk.AtkInterop.atk_value_set_current_value(this, value);
+		public void set_value(double new_value) => Atk.AtkInterop.atk_value_set_value(this, new_value);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_value_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -439,6 +760,67 @@ namespace Atk {
 		public static explicit operator NoOpObject(Atk.Object value) => new NoOpObject((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(NoOpObject value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator NoOpObject(GObject.Object value) => new NoOpObject((IntPtr)value, checkType: true);
+		public static Atk.Object @new(GObject.Object obj) => AtkInterop.atk_no_op_object_new(obj);
+		public bool add_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_add_relationship(this, relationship, target);
+		public uint connect_property_change_handler(System.IntPtr handler) => Atk.AtkInterop.atk_object_connect_property_change_handler(this, handler);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_object_get_attributes(this);
+		public string get_description() => Atk.AtkInterop.atk_object_get_description(this);
+		public int get_index_in_parent() => Atk.AtkInterop.atk_object_get_index_in_parent(this);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_object_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_object_get_mdi_zorder(this);
+		public int get_n_accessible_children() => Atk.AtkInterop.atk_object_get_n_accessible_children(this);
+		public string get_name() => Atk.AtkInterop.atk_object_get_name(this);
+		public string get_object_locale() => Atk.AtkInterop.atk_object_get_object_locale(this);
+		public Atk.Object get_parent() => Atk.AtkInterop.atk_object_get_parent(this);
+		public Atk.Role get_role() => Atk.AtkInterop.atk_object_get_role(this);
+		public void initialize(System.IntPtr data) => Atk.AtkInterop.atk_object_initialize(this, data);
+		public void notify_state_change(ulong state, bool value) => Atk.AtkInterop.atk_object_notify_state_change(this, state, value);
+		public Atk.Object peek_parent() => Atk.AtkInterop.atk_object_peek_parent(this);
+		public Atk.Object ref_accessible_child(int i) => Atk.AtkInterop.atk_object_ref_accessible_child(this, i);
+		public Atk.RelationSet ref_relation_set() => Atk.AtkInterop.atk_object_ref_relation_set(this);
+		public Atk.StateSet ref_state_set() => Atk.AtkInterop.atk_object_ref_state_set(this);
+		public void remove_property_change_handler(uint handler_id) => Atk.AtkInterop.atk_object_remove_property_change_handler(this, handler_id);
+		public bool remove_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_remove_relationship(this, relationship, target);
+		public void set_description(string description) => Atk.AtkInterop.atk_object_set_description(this, description);
+		public void set_name(string name) => Atk.AtkInterop.atk_object_set_name(this, name);
+		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
+		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_no_op_object_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -467,6 +849,45 @@ namespace Atk {
 		public static explicit operator IntPtr(ObjectFactory value) => value._pointer;
 		public static implicit operator GObject.Object(ObjectFactory value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator ObjectFactory(GObject.Object value) => new ObjectFactory((IntPtr)value, checkType: true);
+		public Atk.Object create_accessible(GObject.Object obj) => Atk.AtkInterop.atk_object_factory_create_accessible(this, obj);
+		public GLib.GType get_accessible_type() => Atk.AtkInterop.atk_object_factory_get_accessible_type(this);
+		public void invalidate() => Atk.AtkInterop.atk_object_factory_invalidate(this);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_object_factory_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -487,6 +908,46 @@ namespace Atk {
 		public static explicit operator NoOpObjectFactory(Atk.ObjectFactory value) => new NoOpObjectFactory((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(NoOpObjectFactory value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator NoOpObjectFactory(GObject.Object value) => new NoOpObjectFactory((IntPtr)value, checkType: true);
+		public static Atk.ObjectFactory @new() => AtkInterop.atk_no_op_object_factory_new();
+		public Atk.Object create_accessible(GObject.Object obj) => Atk.AtkInterop.atk_object_factory_create_accessible(this, obj);
+		public GLib.GType get_accessible_type() => Atk.AtkInterop.atk_object_factory_get_accessible_type(this);
+		public void invalidate() => Atk.AtkInterop.atk_object_factory_invalidate(this);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_no_op_object_factory_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -677,6 +1138,51 @@ namespace Atk {
 		public static explicit operator IntPtr(RelationSet value) => value._pointer;
 		public static implicit operator GObject.Object(RelationSet value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator RelationSet(GObject.Object value) => new RelationSet((IntPtr)value, checkType: true);
+		public static Atk.RelationSet @new() => AtkInterop.atk_relation_set_new();
+		public void add(Atk.Relation relation) => Atk.AtkInterop.atk_relation_set_add(this, relation);
+		public void add_relation_by_type(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_relation_set_add_relation_by_type(this, relationship, target);
+		public bool contains(Atk.RelationType relationship) => Atk.AtkInterop.atk_relation_set_contains(this, relationship);
+		public bool contains_target(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_relation_set_contains_target(this, relationship, target);
+		public int get_n_relations() => Atk.AtkInterop.atk_relation_set_get_n_relations(this);
+		public Atk.Relation get_relation(int i) => Atk.AtkInterop.atk_relation_set_get_relation(this, i);
+		public Atk.Relation get_relation_by_type(Atk.RelationType relationship) => Atk.AtkInterop.atk_relation_set_get_relation_by_type(this, relationship);
+		public void remove(Atk.Relation relation) => Atk.AtkInterop.atk_relation_set_remove(this, relation);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_relation_set_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -695,6 +1201,53 @@ namespace Atk {
 		public static explicit operator IntPtr(StateSet value) => value._pointer;
 		public static implicit operator GObject.Object(StateSet value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator StateSet(GObject.Object value) => new StateSet((IntPtr)value, checkType: true);
+		public static Atk.StateSet @new() => AtkInterop.atk_state_set_new();
+		public bool add_state(Atk.StateType type) => Atk.AtkInterop.atk_state_set_add_state(this, type);
+		public void add_states(System.IntPtr types, int n_types) => Atk.AtkInterop.atk_state_set_add_states(this, types, n_types);
+		public Atk.StateSet and_sets(Atk.StateSet compare_set) => Atk.AtkInterop.atk_state_set_and_sets(this, compare_set);
+		public void clear_states() => Atk.AtkInterop.atk_state_set_clear_states(this);
+		public bool contains_state(Atk.StateType type) => Atk.AtkInterop.atk_state_set_contains_state(this, type);
+		public bool contains_states(System.IntPtr types, int n_types) => Atk.AtkInterop.atk_state_set_contains_states(this, types, n_types);
+		public bool is_empty() => Atk.AtkInterop.atk_state_set_is_empty(this);
+		public Atk.StateSet or_sets(Atk.StateSet compare_set) => Atk.AtkInterop.atk_state_set_or_sets(this, compare_set);
+		public bool remove_state(Atk.StateType type) => Atk.AtkInterop.atk_state_set_remove_state(this, type);
+		public Atk.StateSet xor_sets(Atk.StateSet compare_set) => Atk.AtkInterop.atk_state_set_xor_sets(this, compare_set);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_state_set_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -725,6 +1278,68 @@ namespace Atk {
 		public static explicit operator Plug(Atk.Object value) => new Plug((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(Plug value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Plug(GObject.Object value) => new Plug((IntPtr)value, checkType: true);
+		public static Atk.Object @new() => AtkInterop.atk_plug_new();
+		public string get_id() => Atk.AtkInterop.atk_plug_get_id(this);
+		public bool add_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_add_relationship(this, relationship, target);
+		public uint connect_property_change_handler(System.IntPtr handler) => Atk.AtkInterop.atk_object_connect_property_change_handler(this, handler);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_object_get_attributes(this);
+		public string get_description() => Atk.AtkInterop.atk_object_get_description(this);
+		public int get_index_in_parent() => Atk.AtkInterop.atk_object_get_index_in_parent(this);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_object_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_object_get_mdi_zorder(this);
+		public int get_n_accessible_children() => Atk.AtkInterop.atk_object_get_n_accessible_children(this);
+		public string get_name() => Atk.AtkInterop.atk_object_get_name(this);
+		public string get_object_locale() => Atk.AtkInterop.atk_object_get_object_locale(this);
+		public Atk.Object get_parent() => Atk.AtkInterop.atk_object_get_parent(this);
+		public Atk.Role get_role() => Atk.AtkInterop.atk_object_get_role(this);
+		public void initialize(System.IntPtr data) => Atk.AtkInterop.atk_object_initialize(this, data);
+		public void notify_state_change(ulong state, bool value) => Atk.AtkInterop.atk_object_notify_state_change(this, state, value);
+		public Atk.Object peek_parent() => Atk.AtkInterop.atk_object_peek_parent(this);
+		public Atk.Object ref_accessible_child(int i) => Atk.AtkInterop.atk_object_ref_accessible_child(this, i);
+		public Atk.RelationSet ref_relation_set() => Atk.AtkInterop.atk_object_ref_relation_set(this);
+		public Atk.StateSet ref_state_set() => Atk.AtkInterop.atk_object_ref_state_set(this);
+		public void remove_property_change_handler(uint handler_id) => Atk.AtkInterop.atk_object_remove_property_change_handler(this, handler_id);
+		public bool remove_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_remove_relationship(this, relationship, target);
+		public void set_description(string description) => Atk.AtkInterop.atk_object_set_description(this, description);
+		public void set_name(string name) => Atk.AtkInterop.atk_object_set_name(this, name);
+		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
+		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_plug_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -747,6 +1362,12 @@ namespace Atk {
 		}
 		public static explicit operator Range(IntPtr pointer) => new Range(pointer, checkType: true);
 		public static explicit operator IntPtr(Range value) => value._pointer;
+		public static Atk.Range @new(double lower_limit, double upper_limit, string description) => AtkInterop.atk_range_new(lower_limit, upper_limit, description);
+		public Atk.Range copy() => Atk.AtkInterop.atk_range_copy(this);
+		public void free() => Atk.AtkInterop.atk_range_free(this);
+		public string get_description() => Atk.AtkInterop.atk_range_get_description(this);
+		public double get_lower_limit() => Atk.AtkInterop.atk_range_get_lower_limit(this);
+		public double get_upper_limit() => Atk.AtkInterop.atk_range_get_upper_limit(this);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_range_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -765,6 +1386,45 @@ namespace Atk {
 		public static explicit operator IntPtr(Registry value) => value._pointer;
 		public static implicit operator GObject.Object(Registry value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Registry(GObject.Object value) => new Registry((IntPtr)value, checkType: true);
+		public Atk.ObjectFactory get_factory(GLib.GType type) => Atk.AtkInterop.atk_registry_get_factory(this, type);
+		public GLib.GType get_factory_type(GLib.GType type) => Atk.AtkInterop.atk_registry_get_factory_type(this, type);
+		public void set_factory_type(GLib.GType type, GLib.GType factory_type) => Atk.AtkInterop.atk_registry_set_factory_type(this, type, factory_type);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_registry_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -793,6 +1453,47 @@ namespace Atk {
 		public static explicit operator IntPtr(Relation value) => value._pointer;
 		public static implicit operator GObject.Object(Relation value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Relation(GObject.Object value) => new Relation((IntPtr)value, checkType: true);
+		public static Atk.Relation @new(System.IntPtr targets, int n_targets, Atk.RelationType relationship) => AtkInterop.atk_relation_new(targets, n_targets, relationship);
+		public void add_target(Atk.Object target) => Atk.AtkInterop.atk_relation_add_target(this, target);
+		public Atk.RelationType get_relation_type() => Atk.AtkInterop.atk_relation_get_relation_type(this);
+		public System.IntPtr get_target() => Atk.AtkInterop.atk_relation_get_target(this);
+		public bool remove_target(Atk.Object target) => Atk.AtkInterop.atk_relation_remove_target(this, target);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_relation_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -843,6 +1544,69 @@ namespace Atk {
 		public static explicit operator Socket(Atk.Object value) => new Socket((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(Socket value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Socket(GObject.Object value) => new Socket((IntPtr)value, checkType: true);
+		public static Atk.Object @new() => AtkInterop.atk_socket_new();
+		public void embed(string plug_id) => Atk.AtkInterop.atk_socket_embed(this, plug_id);
+		public bool is_occupied() => Atk.AtkInterop.atk_socket_is_occupied(this);
+		public bool add_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_add_relationship(this, relationship, target);
+		public uint connect_property_change_handler(System.IntPtr handler) => Atk.AtkInterop.atk_object_connect_property_change_handler(this, handler);
+		public GLib.SList get_attributes() => Atk.AtkInterop.atk_object_get_attributes(this);
+		public string get_description() => Atk.AtkInterop.atk_object_get_description(this);
+		public int get_index_in_parent() => Atk.AtkInterop.atk_object_get_index_in_parent(this);
+		public Atk.Layer get_layer() => Atk.AtkInterop.atk_object_get_layer(this);
+		public int get_mdi_zorder() => Atk.AtkInterop.atk_object_get_mdi_zorder(this);
+		public int get_n_accessible_children() => Atk.AtkInterop.atk_object_get_n_accessible_children(this);
+		public string get_name() => Atk.AtkInterop.atk_object_get_name(this);
+		public string get_object_locale() => Atk.AtkInterop.atk_object_get_object_locale(this);
+		public Atk.Object get_parent() => Atk.AtkInterop.atk_object_get_parent(this);
+		public Atk.Role get_role() => Atk.AtkInterop.atk_object_get_role(this);
+		public void initialize(System.IntPtr data) => Atk.AtkInterop.atk_object_initialize(this, data);
+		public void notify_state_change(ulong state, bool value) => Atk.AtkInterop.atk_object_notify_state_change(this, state, value);
+		public Atk.Object peek_parent() => Atk.AtkInterop.atk_object_peek_parent(this);
+		public Atk.Object ref_accessible_child(int i) => Atk.AtkInterop.atk_object_ref_accessible_child(this, i);
+		public Atk.RelationSet ref_relation_set() => Atk.AtkInterop.atk_object_ref_relation_set(this);
+		public Atk.StateSet ref_state_set() => Atk.AtkInterop.atk_object_ref_state_set(this);
+		public void remove_property_change_handler(uint handler_id) => Atk.AtkInterop.atk_object_remove_property_change_handler(this, handler_id);
+		public bool remove_relationship(Atk.RelationType relationship, Atk.Object target) => Atk.AtkInterop.atk_object_remove_relationship(this, relationship, target);
+		public void set_description(string description) => Atk.AtkInterop.atk_object_set_description(this, description);
+		public void set_name(string name) => Atk.AtkInterop.atk_object_set_name(this, name);
+		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
+		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_socket_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -922,6 +1686,10 @@ namespace Atk {
 		}
 		public static explicit operator StreamableContent(IntPtr pointer) => new StreamableContent(pointer, checkType: true);
 		public static explicit operator IntPtr(StreamableContent value) => value._pointer;
+		public string get_mime_type(int i) => Atk.AtkInterop.atk_streamable_content_get_mime_type(this, i);
+		public int get_n_mime_types() => Atk.AtkInterop.atk_streamable_content_get_n_mime_types(this);
+		public GLib.IOChannel get_stream(string mime_type) => Atk.AtkInterop.atk_streamable_content_get_stream(this, mime_type);
+		public string get_uri(string mime_type) => Atk.AtkInterop.atk_streamable_content_get_uri(this, mime_type);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_streamable_content_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1059,6 +1827,42 @@ namespace Atk {
 		public static explicit operator IntPtr(Util value) => value._pointer;
 		public static implicit operator GObject.Object(Util value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Util(GObject.Object value) => new Util((IntPtr)value, checkType: true);
+		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
+		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
+		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
+		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
+		public System.IntPtr dup_data(string key, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_data(this, key, dup_func, user_data);
+		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
+		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
+		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
+		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
+		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
+		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
+		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
+		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
+		public void notify(string property_name) => GObject.GObjectInterop.g_object_notify(this, property_name);
+		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
+		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
+		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
+		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
+		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
+		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
+		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
+		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
+		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
+		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
+		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
+		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
+		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
+		public System.IntPtr steal_data(string key) => GObject.GObjectInterop.g_object_steal_data(this, key);
+		public System.IntPtr steal_qdata(uint quark) => GObject.GObjectInterop.g_object_steal_qdata(this, quark);
+		public void thaw_notify() => GObject.GObjectInterop.g_object_thaw_notify(this);
+		public void unref() => GObject.GObjectInterop.g_object_unref(this);
+		public void watch_closure(GObject.Closure closure) => GObject.GObjectInterop.g_object_watch_closure(this, closure);
+		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
+		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_util_get_type")]
 		public static extern GLib.GType TypeOf();
 	}

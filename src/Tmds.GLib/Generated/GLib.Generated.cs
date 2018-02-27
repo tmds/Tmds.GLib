@@ -10,6 +10,22 @@ namespace GLib {
 		}
 		public static explicit operator Array(IntPtr pointer) => new Array(pointer, checkType: true);
 		public static explicit operator IntPtr(Array value) => value._pointer;
+		public static System.IntPtr append_vals(System.IntPtr array, System.IntPtr data, uint len) => GLibInterop.g_array_append_vals(array, data, len);
+		public static string free(System.IntPtr array, bool free_segment) => GLibInterop.g_array_free(array, free_segment);
+		public static uint get_element_size(System.IntPtr array) => GLibInterop.g_array_get_element_size(array);
+		public static System.IntPtr insert_vals(System.IntPtr array, uint index_, System.IntPtr data, uint len) => GLibInterop.g_array_insert_vals(array, index_, data, len);
+		public static System.IntPtr @new(bool zero_terminated, bool clear_, uint element_size) => GLibInterop.g_array_new(zero_terminated, clear_, element_size);
+		public static System.IntPtr prepend_vals(System.IntPtr array, System.IntPtr data, uint len) => GLibInterop.g_array_prepend_vals(array, data, len);
+		public static System.IntPtr @ref(System.IntPtr array) => GLibInterop.g_array_ref(array);
+		public static System.IntPtr remove_index(System.IntPtr array, uint index_) => GLibInterop.g_array_remove_index(array, index_);
+		public static System.IntPtr remove_index_fast(System.IntPtr array, uint index_) => GLibInterop.g_array_remove_index_fast(array, index_);
+		public static System.IntPtr remove_range(System.IntPtr array, uint index_, uint length) => GLibInterop.g_array_remove_range(array, index_, length);
+		public static void set_clear_func(System.IntPtr array, System.IntPtr clear_func) => GLibInterop.g_array_set_clear_func(array, clear_func);
+		public static System.IntPtr set_size(System.IntPtr array, uint length) => GLibInterop.g_array_set_size(array, length);
+		public static System.IntPtr sized_new(bool zero_terminated, bool clear_, uint element_size, uint reserved_size) => GLibInterop.g_array_sized_new(zero_terminated, clear_, element_size, reserved_size);
+		public static void sort(System.IntPtr array, System.IntPtr compare_func) => GLibInterop.g_array_sort(array, compare_func);
+		public static void sort_with_data(System.IntPtr array, System.IntPtr compare_func, System.IntPtr user_data) => GLibInterop.g_array_sort_with_data(array, compare_func, user_data);
+		public static void unref(System.IntPtr array) => GLibInterop.g_array_unref(array);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_array_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -37,6 +53,34 @@ namespace GLib {
 		}
 		public static explicit operator AsyncQueue(IntPtr pointer) => new AsyncQueue(pointer, checkType: true);
 		public static explicit operator IntPtr(AsyncQueue value) => value._pointer;
+		public int length() => GLib.GLibInterop.g_async_queue_length(this);
+		public int length_unlocked() => GLib.GLibInterop.g_async_queue_length_unlocked(this);
+		public void @lock() => GLib.GLibInterop.g_async_queue_lock(this);
+		public System.IntPtr pop() => GLib.GLibInterop.g_async_queue_pop(this);
+		public System.IntPtr pop_unlocked() => GLib.GLibInterop.g_async_queue_pop_unlocked(this);
+		public void push(System.IntPtr data) => GLib.GLibInterop.g_async_queue_push(this, data);
+		public void push_front(System.IntPtr item) => GLib.GLibInterop.g_async_queue_push_front(this, item);
+		public void push_front_unlocked(System.IntPtr item) => GLib.GLibInterop.g_async_queue_push_front_unlocked(this, item);
+		public void push_sorted(System.IntPtr data, System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_push_sorted(this, data, func, user_data);
+		public void push_sorted_unlocked(System.IntPtr data, System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_push_sorted_unlocked(this, data, func, user_data);
+		public void push_unlocked(System.IntPtr data) => GLib.GLibInterop.g_async_queue_push_unlocked(this, data);
+		public GLib.AsyncQueue @ref() => GLib.GLibInterop.g_async_queue_ref(this);
+		public void ref_unlocked() => GLib.GLibInterop.g_async_queue_ref_unlocked(this);
+		public bool remove(System.IntPtr item) => GLib.GLibInterop.g_async_queue_remove(this, item);
+		public bool remove_unlocked(System.IntPtr item) => GLib.GLibInterop.g_async_queue_remove_unlocked(this, item);
+		public void sort(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_sort(this, func, user_data);
+		public void sort_unlocked(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_sort_unlocked(this, func, user_data);
+		public System.IntPtr timed_pop(GLib.TimeVal end_time) => GLib.GLibInterop.g_async_queue_timed_pop(this, end_time);
+		public System.IntPtr timed_pop_unlocked(GLib.TimeVal end_time) => GLib.GLibInterop.g_async_queue_timed_pop_unlocked(this, end_time);
+		public System.IntPtr timeout_pop(ulong timeout) => GLib.GLibInterop.g_async_queue_timeout_pop(this, timeout);
+		public System.IntPtr timeout_pop_unlocked(ulong timeout) => GLib.GLibInterop.g_async_queue_timeout_pop_unlocked(this, timeout);
+		public System.IntPtr try_pop() => GLib.GLibInterop.g_async_queue_try_pop(this);
+		public System.IntPtr try_pop_unlocked() => GLib.GLibInterop.g_async_queue_try_pop_unlocked(this);
+		public void unlock() => GLib.GLibInterop.g_async_queue_unlock(this);
+		public void unref() => GLib.GLibInterop.g_async_queue_unref(this);
+		public void unref_and_unlock() => GLib.GLibInterop.g_async_queue_unref_and_unlock(this);
+		public static GLib.AsyncQueue @new() => GLibInterop.g_async_queue_new();
+		public static GLib.AsyncQueue new_full(System.IntPtr item_free_func) => GLibInterop.g_async_queue_new_full(item_free_func);
 	}
 	public ref struct TimeVal
 	{
@@ -47,6 +91,8 @@ namespace GLib {
 		}
 		public static explicit operator TimeVal(IntPtr pointer) => new TimeVal(pointer, checkType: true);
 		public static explicit operator IntPtr(TimeVal value) => value._pointer;
+		public void add(long microseconds) => GLib.GLibInterop.g_time_val_add(this, microseconds);
+		public string to_iso8601() => GLib.GLibInterop.g_time_val_to_iso8601(this);
 	}
 	public ref struct BookmarkFile
 	{
@@ -57,6 +103,46 @@ namespace GLib {
 		}
 		public static explicit operator BookmarkFile(IntPtr pointer) => new BookmarkFile(pointer, checkType: true);
 		public static explicit operator IntPtr(BookmarkFile value) => value._pointer;
+		public void add_application(string uri, string name, string exec) => GLib.GLibInterop.g_bookmark_file_add_application(this, uri, name, exec);
+		public void add_group(string uri, string group) => GLib.GLibInterop.g_bookmark_file_add_group(this, uri, group);
+		public void free() => GLib.GLibInterop.g_bookmark_file_free(this);
+		public long get_added(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_added(this, uri, out error);
+		public bool get_app_info(string uri, string name, string exec, System.IntPtr count, System.IntPtr stamp, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_app_info(this, uri, name, exec, count, stamp, out error);
+		public System.IntPtr get_applications(string uri, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_applications(this, uri, length, out error);
+		public string get_description(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_description(this, uri, out error);
+		public System.IntPtr get_groups(string uri, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_groups(this, uri, length, out error);
+		public bool get_icon(string uri, string href, string mime_type, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_icon(this, uri, href, mime_type, out error);
+		public bool get_is_private(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_is_private(this, uri, out error);
+		public string get_mime_type(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_mime_type(this, uri, out error);
+		public long get_modified(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_modified(this, uri, out error);
+		public int get_size() => GLib.GLibInterop.g_bookmark_file_get_size(this);
+		public string get_title(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_title(this, uri, out error);
+		public System.IntPtr get_uris(System.IntPtr length) => GLib.GLibInterop.g_bookmark_file_get_uris(this, length);
+		public long get_visited(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_visited(this, uri, out error);
+		public bool has_application(string uri, string name, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_has_application(this, uri, name, out error);
+		public bool has_group(string uri, string group, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_has_group(this, uri, group, out error);
+		public bool has_item(string uri) => GLib.GLibInterop.g_bookmark_file_has_item(this, uri);
+		public bool load_from_data(string data, ulong length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_load_from_data(this, data, length, out error);
+		public bool load_from_data_dirs(System.IntPtr file, System.IntPtr full_path, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_load_from_data_dirs(this, file, full_path, out error);
+		public bool load_from_file(System.IntPtr filename, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_load_from_file(this, filename, out error);
+		public bool move_item(string old_uri, string new_uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_move_item(this, old_uri, new_uri, out error);
+		public bool remove_application(string uri, string name, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_remove_application(this, uri, name, out error);
+		public bool remove_group(string uri, string group, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_remove_group(this, uri, group, out error);
+		public bool remove_item(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_remove_item(this, uri, out error);
+		public void set_added(string uri, long added) => GLib.GLibInterop.g_bookmark_file_set_added(this, uri, added);
+		public bool set_app_info(string uri, string name, string exec, int count, long stamp, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_set_app_info(this, uri, name, exec, count, stamp, out error);
+		public void set_description(string uri, string description) => GLib.GLibInterop.g_bookmark_file_set_description(this, uri, description);
+		public void set_groups(string uri, string groups, ulong length) => GLib.GLibInterop.g_bookmark_file_set_groups(this, uri, groups, length);
+		public void set_icon(string uri, string href, string mime_type) => GLib.GLibInterop.g_bookmark_file_set_icon(this, uri, href, mime_type);
+		public void set_is_private(string uri, bool is_private) => GLib.GLibInterop.g_bookmark_file_set_is_private(this, uri, is_private);
+		public void set_mime_type(string uri, string mime_type) => GLib.GLibInterop.g_bookmark_file_set_mime_type(this, uri, mime_type);
+		public void set_modified(string uri, long modified) => GLib.GLibInterop.g_bookmark_file_set_modified(this, uri, modified);
+		public void set_title(string uri, string title) => GLib.GLibInterop.g_bookmark_file_set_title(this, uri, title);
+		public void set_visited(string uri, long visited) => GLib.GLibInterop.g_bookmark_file_set_visited(this, uri, visited);
+		public string to_data(System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_to_data(this, length, out error);
+		public bool to_file(System.IntPtr filename, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_to_file(this, filename, out error);
+		public static uint error_quark() => GLibInterop.g_bookmark_file_error_quark();
+		public static GLib.BookmarkFile @new() => GLibInterop.g_bookmark_file_new();
 	}
 	public ref struct Error
 	{
@@ -67,6 +153,10 @@ namespace GLib {
 		}
 		public static explicit operator Error(IntPtr pointer) => new Error(pointer, checkType: true);
 		public static explicit operator IntPtr(Error value) => value._pointer;
+		public static GLib.Error new_literal(uint domain, int code, string message) => GLibInterop.g_error_new_literal(domain, code, message);
+		public GLib.Error copy() => GLib.GLibInterop.g_error_copy(this);
+		public void free() => GLib.GLibInterop.g_error_free(this);
+		public bool matches(uint domain, int code) => GLib.GLibInterop.g_error_matches(this, domain, code);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_error_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -90,6 +180,21 @@ namespace GLib {
 		}
 		public static explicit operator ByteArray(IntPtr pointer) => new ByteArray(pointer, checkType: true);
 		public static explicit operator IntPtr(ByteArray value) => value._pointer;
+		public static GLib.ByteArray append(GLib.ByteArray array, System.IntPtr data, uint len) => GLibInterop.g_byte_array_append(array, data, len);
+		public static System.IntPtr free(GLib.ByteArray array, bool free_segment) => GLibInterop.g_byte_array_free(array, free_segment);
+		public static GLib.Bytes free_to_bytes(GLib.ByteArray array) => GLibInterop.g_byte_array_free_to_bytes(array);
+		public static GLib.ByteArray @new() => GLibInterop.g_byte_array_new();
+		public static GLib.ByteArray new_take(System.IntPtr data, ulong len) => GLibInterop.g_byte_array_new_take(data, len);
+		public static GLib.ByteArray prepend(GLib.ByteArray array, System.IntPtr data, uint len) => GLibInterop.g_byte_array_prepend(array, data, len);
+		public static GLib.ByteArray @ref(GLib.ByteArray array) => GLibInterop.g_byte_array_ref(array);
+		public static GLib.ByteArray remove_index(GLib.ByteArray array, uint index_) => GLibInterop.g_byte_array_remove_index(array, index_);
+		public static GLib.ByteArray remove_index_fast(GLib.ByteArray array, uint index_) => GLibInterop.g_byte_array_remove_index_fast(array, index_);
+		public static GLib.ByteArray remove_range(GLib.ByteArray array, uint index_, uint length) => GLibInterop.g_byte_array_remove_range(array, index_, length);
+		public static GLib.ByteArray set_size(GLib.ByteArray array, uint length) => GLibInterop.g_byte_array_set_size(array, length);
+		public static GLib.ByteArray sized_new(uint reserved_size) => GLibInterop.g_byte_array_sized_new(reserved_size);
+		public static void sort(GLib.ByteArray array, System.IntPtr compare_func) => GLibInterop.g_byte_array_sort(array, compare_func);
+		public static void sort_with_data(GLib.ByteArray array, System.IntPtr compare_func, System.IntPtr user_data) => GLibInterop.g_byte_array_sort_with_data(array, compare_func, user_data);
+		public static void unref(GLib.ByteArray array) => GLibInterop.g_byte_array_unref(array);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_byte_array_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -102,6 +207,20 @@ namespace GLib {
 		}
 		public static explicit operator Bytes(IntPtr pointer) => new Bytes(pointer, checkType: true);
 		public static explicit operator IntPtr(Bytes value) => value._pointer;
+		public static GLib.Bytes @new(System.IntPtr data, ulong size) => GLibInterop.g_bytes_new(data, size);
+		public static GLib.Bytes new_static(System.IntPtr data, ulong size) => GLibInterop.g_bytes_new_static(data, size);
+		public static GLib.Bytes new_take(System.IntPtr data, ulong size) => GLibInterop.g_bytes_new_take(data, size);
+		public static GLib.Bytes new_with_free_func(System.IntPtr data, ulong size, System.IntPtr free_func, System.IntPtr user_data) => GLibInterop.g_bytes_new_with_free_func(data, size, free_func, user_data);
+		public int compare(GLib.Bytes bytes2) => GLib.GLibInterop.g_bytes_compare(this, bytes2);
+		public bool equal(GLib.Bytes bytes2) => GLib.GLibInterop.g_bytes_equal(this, bytes2);
+		public System.IntPtr get_data(System.IntPtr size) => GLib.GLibInterop.g_bytes_get_data(this, size);
+		public ulong get_size() => GLib.GLibInterop.g_bytes_get_size(this);
+		public uint hash() => GLib.GLibInterop.g_bytes_hash(this);
+		public GLib.Bytes new_from_bytes(ulong offset, ulong length) => GLib.GLibInterop.g_bytes_new_from_bytes(this, offset, length);
+		public GLib.Bytes @ref() => GLib.GLibInterop.g_bytes_ref(this);
+		public void unref() => GLib.GLibInterop.g_bytes_unref(this);
+		public GLib.ByteArray unref_to_array() => GLib.GLibInterop.g_bytes_unref_to_array(this);
+		public System.IntPtr unref_to_data(System.IntPtr size) => GLib.GLibInterop.g_bytes_unref_to_data(this, size);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_bytes_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -114,6 +233,14 @@ namespace GLib {
 		}
 		public static explicit operator Checksum(IntPtr pointer) => new Checksum(pointer, checkType: true);
 		public static explicit operator IntPtr(Checksum value) => value._pointer;
+		public static GLib.Checksum @new(GLib.ChecksumType checksum_type) => GLibInterop.g_checksum_new(checksum_type);
+		public GLib.Checksum copy() => GLib.GLibInterop.g_checksum_copy(this);
+		public void free() => GLib.GLibInterop.g_checksum_free(this);
+		public void get_digest(System.IntPtr buffer, System.IntPtr digest_len) => GLib.GLibInterop.g_checksum_get_digest(this, buffer, digest_len);
+		public string get_string() => GLib.GLibInterop.g_checksum_get_string(this);
+		public void reset() => GLib.GLibInterop.g_checksum_reset(this);
+		public void update(System.IntPtr data, long length) => GLib.GLibInterop.g_checksum_update(this, data, length);
+		public static long type_get_length(GLib.ChecksumType checksum_type) => GLibInterop.g_checksum_type_get_length(checksum_type);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_checksum_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -134,6 +261,12 @@ namespace GLib {
 		}
 		public static explicit operator Cond(IntPtr pointer) => new Cond(pointer, checkType: true);
 		public static explicit operator IntPtr(Cond value) => value._pointer;
+		public void broadcast() => GLib.GLibInterop.g_cond_broadcast(this);
+		public void clear() => GLib.GLibInterop.g_cond_clear(this);
+		public void init() => GLib.GLibInterop.g_cond_init(this);
+		public void signal() => GLib.GLibInterop.g_cond_signal(this);
+		public void wait(System.IntPtr mutex) => GLib.GLibInterop.g_cond_wait(this, mutex);
+		public bool wait_until(System.IntPtr mutex, long end_time) => GLib.GLibInterop.g_cond_wait_until(this, mutex, end_time);
 	}
 	public enum ConvertError
 	{
@@ -164,6 +297,54 @@ namespace GLib {
 		}
 		public static explicit operator Date(IntPtr pointer) => new Date(pointer, checkType: true);
 		public static explicit operator IntPtr(Date value) => value._pointer;
+		public static GLib.Date @new() => GLibInterop.g_date_new();
+		public static GLib.Date new_dmy(byte day, GLib.DateMonth month, ushort year) => GLibInterop.g_date_new_dmy(day, month, year);
+		public static GLib.Date new_julian(uint julian_day) => GLibInterop.g_date_new_julian(julian_day);
+		public void add_days(uint n_days) => GLib.GLibInterop.g_date_add_days(this, n_days);
+		public void add_months(uint n_months) => GLib.GLibInterop.g_date_add_months(this, n_months);
+		public void add_years(uint n_years) => GLib.GLibInterop.g_date_add_years(this, n_years);
+		public void clamp(GLib.Date min_date, GLib.Date max_date) => GLib.GLibInterop.g_date_clamp(this, min_date, max_date);
+		public void clear(uint n_dates) => GLib.GLibInterop.g_date_clear(this, n_dates);
+		public int compare(GLib.Date rhs) => GLib.GLibInterop.g_date_compare(this, rhs);
+		public int days_between(GLib.Date date2) => GLib.GLibInterop.g_date_days_between(this, date2);
+		public void free() => GLib.GLibInterop.g_date_free(this);
+		public byte get_day() => GLib.GLibInterop.g_date_get_day(this);
+		public uint get_day_of_year() => GLib.GLibInterop.g_date_get_day_of_year(this);
+		public uint get_iso8601_week_of_year() => GLib.GLibInterop.g_date_get_iso8601_week_of_year(this);
+		public uint get_julian() => GLib.GLibInterop.g_date_get_julian(this);
+		public uint get_monday_week_of_year() => GLib.GLibInterop.g_date_get_monday_week_of_year(this);
+		public GLib.DateMonth get_month() => GLib.GLibInterop.g_date_get_month(this);
+		public uint get_sunday_week_of_year() => GLib.GLibInterop.g_date_get_sunday_week_of_year(this);
+		public GLib.DateWeekday get_weekday() => GLib.GLibInterop.g_date_get_weekday(this);
+		public ushort get_year() => GLib.GLibInterop.g_date_get_year(this);
+		public bool is_first_of_month() => GLib.GLibInterop.g_date_is_first_of_month(this);
+		public bool is_last_of_month() => GLib.GLibInterop.g_date_is_last_of_month(this);
+		public void order(GLib.Date date2) => GLib.GLibInterop.g_date_order(this, date2);
+		public void set_day(byte day) => GLib.GLibInterop.g_date_set_day(this, day);
+		public void set_dmy(byte day, GLib.DateMonth month, ushort y) => GLib.GLibInterop.g_date_set_dmy(this, day, month, y);
+		public void set_julian(uint julian_date) => GLib.GLibInterop.g_date_set_julian(this, julian_date);
+		public void set_month(GLib.DateMonth month) => GLib.GLibInterop.g_date_set_month(this, month);
+		public void set_parse(string str) => GLib.GLibInterop.g_date_set_parse(this, str);
+		public void set_time(int time_) => GLib.GLibInterop.g_date_set_time(this, time_);
+		public void set_time_t(long timet) => GLib.GLibInterop.g_date_set_time_t(this, timet);
+		public void set_time_val(GLib.TimeVal timeval) => GLib.GLibInterop.g_date_set_time_val(this, timeval);
+		public void set_year(ushort year) => GLib.GLibInterop.g_date_set_year(this, year);
+		public void subtract_days(uint n_days) => GLib.GLibInterop.g_date_subtract_days(this, n_days);
+		public void subtract_months(uint n_months) => GLib.GLibInterop.g_date_subtract_months(this, n_months);
+		public void subtract_years(uint n_years) => GLib.GLibInterop.g_date_subtract_years(this, n_years);
+		public void to_struct_tm(System.IntPtr tm) => GLib.GLibInterop.g_date_to_struct_tm(this, tm);
+		public bool valid() => GLib.GLibInterop.g_date_valid(this);
+		public static byte get_days_in_month(GLib.DateMonth month, ushort year) => GLibInterop.g_date_get_days_in_month(month, year);
+		public static byte get_monday_weeks_in_year(ushort year) => GLibInterop.g_date_get_monday_weeks_in_year(year);
+		public static byte get_sunday_weeks_in_year(ushort year) => GLibInterop.g_date_get_sunday_weeks_in_year(year);
+		public static bool is_leap_year(ushort year) => GLibInterop.g_date_is_leap_year(year);
+		public static ulong strftime(string s, ulong slen, string format, GLib.Date date) => GLibInterop.g_date_strftime(s, slen, format, date);
+		public static bool valid_day(byte day) => GLibInterop.g_date_valid_day(day);
+		public static bool valid_dmy(byte day, GLib.DateMonth month, ushort year) => GLibInterop.g_date_valid_dmy(day, month, year);
+		public static bool valid_julian(uint julian_date) => GLibInterop.g_date_valid_julian(julian_date);
+		public static bool valid_month(GLib.DateMonth month) => GLibInterop.g_date_valid_month(month);
+		public static bool valid_weekday(GLib.DateWeekday weekday) => GLibInterop.g_date_valid_weekday(weekday);
+		public static bool valid_year(ushort year) => GLibInterop.g_date_valid_year(year);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_date_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -209,6 +390,53 @@ namespace GLib {
 		}
 		public static explicit operator DateTime(IntPtr pointer) => new DateTime(pointer, checkType: true);
 		public static explicit operator IntPtr(DateTime value) => value._pointer;
+		public static GLib.DateTime @new(GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds) => GLibInterop.g_date_time_new(tz, year, month, day, hour, minute, seconds);
+		public static GLib.DateTime new_from_timeval_local(GLib.TimeVal tv) => GLibInterop.g_date_time_new_from_timeval_local(tv);
+		public static GLib.DateTime new_from_timeval_utc(GLib.TimeVal tv) => GLibInterop.g_date_time_new_from_timeval_utc(tv);
+		public static GLib.DateTime new_from_unix_local(long t) => GLibInterop.g_date_time_new_from_unix_local(t);
+		public static GLib.DateTime new_from_unix_utc(long t) => GLibInterop.g_date_time_new_from_unix_utc(t);
+		public static GLib.DateTime new_local(int year, int month, int day, int hour, int minute, double seconds) => GLibInterop.g_date_time_new_local(year, month, day, hour, minute, seconds);
+		public static GLib.DateTime new_now(GLib.TimeZone tz) => GLibInterop.g_date_time_new_now(tz);
+		public static GLib.DateTime new_now_local() => GLibInterop.g_date_time_new_now_local();
+		public static GLib.DateTime new_now_utc() => GLibInterop.g_date_time_new_now_utc();
+		public static GLib.DateTime new_utc(int year, int month, int day, int hour, int minute, double seconds) => GLibInterop.g_date_time_new_utc(year, month, day, hour, minute, seconds);
+		public GLib.DateTime add(long timespan) => GLib.GLibInterop.g_date_time_add(this, timespan);
+		public GLib.DateTime add_days(int days) => GLib.GLibInterop.g_date_time_add_days(this, days);
+		public GLib.DateTime add_full(int years, int months, int days, int hours, int minutes, double seconds) => GLib.GLibInterop.g_date_time_add_full(this, years, months, days, hours, minutes, seconds);
+		public GLib.DateTime add_hours(int hours) => GLib.GLibInterop.g_date_time_add_hours(this, hours);
+		public GLib.DateTime add_minutes(int minutes) => GLib.GLibInterop.g_date_time_add_minutes(this, minutes);
+		public GLib.DateTime add_months(int months) => GLib.GLibInterop.g_date_time_add_months(this, months);
+		public GLib.DateTime add_seconds(double seconds) => GLib.GLibInterop.g_date_time_add_seconds(this, seconds);
+		public GLib.DateTime add_weeks(int weeks) => GLib.GLibInterop.g_date_time_add_weeks(this, weeks);
+		public GLib.DateTime add_years(int years) => GLib.GLibInterop.g_date_time_add_years(this, years);
+		public long difference(GLib.DateTime begin) => GLib.GLibInterop.g_date_time_difference(this, begin);
+		public string format(string format) => GLib.GLibInterop.g_date_time_format(this, format);
+		public int get_day_of_month() => GLib.GLibInterop.g_date_time_get_day_of_month(this);
+		public int get_day_of_week() => GLib.GLibInterop.g_date_time_get_day_of_week(this);
+		public int get_day_of_year() => GLib.GLibInterop.g_date_time_get_day_of_year(this);
+		public int get_hour() => GLib.GLibInterop.g_date_time_get_hour(this);
+		public int get_microsecond() => GLib.GLibInterop.g_date_time_get_microsecond(this);
+		public int get_minute() => GLib.GLibInterop.g_date_time_get_minute(this);
+		public int get_month() => GLib.GLibInterop.g_date_time_get_month(this);
+		public int get_second() => GLib.GLibInterop.g_date_time_get_second(this);
+		public double get_seconds() => GLib.GLibInterop.g_date_time_get_seconds(this);
+		public string get_timezone_abbreviation() => GLib.GLibInterop.g_date_time_get_timezone_abbreviation(this);
+		public long get_utc_offset() => GLib.GLibInterop.g_date_time_get_utc_offset(this);
+		public int get_week_numbering_year() => GLib.GLibInterop.g_date_time_get_week_numbering_year(this);
+		public int get_week_of_year() => GLib.GLibInterop.g_date_time_get_week_of_year(this);
+		public int get_year() => GLib.GLibInterop.g_date_time_get_year(this);
+		public void get_ymd(System.IntPtr year, System.IntPtr month, System.IntPtr day) => GLib.GLibInterop.g_date_time_get_ymd(this, year, month, day);
+		public bool is_daylight_savings() => GLib.GLibInterop.g_date_time_is_daylight_savings(this);
+		public GLib.DateTime @ref() => GLib.GLibInterop.g_date_time_ref(this);
+		public GLib.DateTime to_local() => GLib.GLibInterop.g_date_time_to_local(this);
+		public bool to_timeval(GLib.TimeVal tv) => GLib.GLibInterop.g_date_time_to_timeval(this, tv);
+		public GLib.DateTime to_timezone(GLib.TimeZone tz) => GLib.GLibInterop.g_date_time_to_timezone(this, tz);
+		public long to_unix() => GLib.GLibInterop.g_date_time_to_unix(this);
+		public GLib.DateTime to_utc() => GLib.GLibInterop.g_date_time_to_utc(this);
+		public void unref() => GLib.GLibInterop.g_date_time_unref(this);
+		public static int compare(System.IntPtr dt1, System.IntPtr dt2) => GLibInterop.g_date_time_compare(dt1, dt2);
+		public static bool equal(System.IntPtr dt1, System.IntPtr dt2) => GLibInterop.g_date_time_equal(dt1, dt2);
+		public static uint hash(System.IntPtr datetime) => GLibInterop.g_date_time_hash(datetime);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_date_time_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -221,6 +449,16 @@ namespace GLib {
 		}
 		public static explicit operator TimeZone(IntPtr pointer) => new TimeZone(pointer, checkType: true);
 		public static explicit operator IntPtr(TimeZone value) => value._pointer;
+		public static GLib.TimeZone @new(string identifier) => GLibInterop.g_time_zone_new(identifier);
+		public static GLib.TimeZone new_local() => GLibInterop.g_time_zone_new_local();
+		public static GLib.TimeZone new_utc() => GLibInterop.g_time_zone_new_utc();
+		public int adjust_time(GLib.TimeType type, System.IntPtr time_) => GLib.GLibInterop.g_time_zone_adjust_time(this, type, time_);
+		public int find_interval(GLib.TimeType type, long time_) => GLib.GLibInterop.g_time_zone_find_interval(this, type, time_);
+		public string get_abbreviation(int interval) => GLib.GLibInterop.g_time_zone_get_abbreviation(this, interval);
+		public int get_offset(int interval) => GLib.GLibInterop.g_time_zone_get_offset(this, interval);
+		public bool is_dst(int interval) => GLib.GLibInterop.g_time_zone_is_dst(this, interval);
+		public GLib.TimeZone @ref() => GLib.GLibInterop.g_time_zone_ref(this);
+		public void unref() => GLib.GLibInterop.g_time_zone_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_time_zone_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -243,6 +481,11 @@ namespace GLib {
 		}
 		public static explicit operator Dir(IntPtr pointer) => new Dir(pointer, checkType: true);
 		public static explicit operator IntPtr(Dir value) => value._pointer;
+		public void close() => GLib.GLibInterop.g_dir_close(this);
+		public System.IntPtr read_name() => GLib.GLibInterop.g_dir_read_name(this);
+		public void rewind() => GLib.GLibInterop.g_dir_rewind(this);
+		public static System.IntPtr make_tmp(System.IntPtr tmpl, out GLib.Error error) => GLibInterop.g_dir_make_tmp(tmpl, out error);
+		public static GLib.Dir open(string path, uint flags, out GLib.Error error) => GLibInterop.g_dir_open(path, flags, out error);
 	}
 	public enum ErrorType
 	{
@@ -308,6 +551,29 @@ namespace GLib {
 		}
 		public static explicit operator HashTable(IntPtr pointer) => new HashTable(pointer, checkType: true);
 		public static explicit operator IntPtr(HashTable value) => value._pointer;
+		public static bool add(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_add(hash_table, key);
+		public static bool contains(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_contains(hash_table, key);
+		public static void destroy(System.IntPtr hash_table) => GLibInterop.g_hash_table_destroy(hash_table);
+		public static System.IntPtr find(System.IntPtr hash_table, System.IntPtr predicate, System.IntPtr user_data) => GLibInterop.g_hash_table_find(hash_table, predicate, user_data);
+		public static void @foreach(System.IntPtr hash_table, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_hash_table_foreach(hash_table, func, user_data);
+		public static uint foreach_remove(System.IntPtr hash_table, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_hash_table_foreach_remove(hash_table, func, user_data);
+		public static uint foreach_steal(System.IntPtr hash_table, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_hash_table_foreach_steal(hash_table, func, user_data);
+		public static System.IntPtr get_keys(System.IntPtr hash_table) => GLibInterop.g_hash_table_get_keys(hash_table);
+		public static System.IntPtr get_keys_as_array(System.IntPtr hash_table, System.IntPtr length) => GLibInterop.g_hash_table_get_keys_as_array(hash_table, length);
+		public static System.IntPtr get_values(System.IntPtr hash_table) => GLibInterop.g_hash_table_get_values(hash_table);
+		public static bool insert(System.IntPtr hash_table, System.IntPtr key, System.IntPtr value) => GLibInterop.g_hash_table_insert(hash_table, key, value);
+		public static System.IntPtr lookup(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_lookup(hash_table, key);
+		public static bool lookup_extended(System.IntPtr hash_table, System.IntPtr lookup_key, System.IntPtr orig_key, System.IntPtr value) => GLibInterop.g_hash_table_lookup_extended(hash_table, lookup_key, orig_key, value);
+		public static System.IntPtr @new(System.IntPtr hash_func, System.IntPtr key_equal_func) => GLibInterop.g_hash_table_new(hash_func, key_equal_func);
+		public static System.IntPtr new_full(System.IntPtr hash_func, System.IntPtr key_equal_func, System.IntPtr key_destroy_func, System.IntPtr value_destroy_func) => GLibInterop.g_hash_table_new_full(hash_func, key_equal_func, key_destroy_func, value_destroy_func);
+		public static System.IntPtr @ref(System.IntPtr hash_table) => GLibInterop.g_hash_table_ref(hash_table);
+		public static bool remove(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_remove(hash_table, key);
+		public static void remove_all(System.IntPtr hash_table) => GLibInterop.g_hash_table_remove_all(hash_table);
+		public static bool replace(System.IntPtr hash_table, System.IntPtr key, System.IntPtr value) => GLibInterop.g_hash_table_replace(hash_table, key, value);
+		public static uint size(System.IntPtr hash_table) => GLibInterop.g_hash_table_size(hash_table);
+		public static bool steal(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_steal(hash_table, key);
+		public static void steal_all(System.IntPtr hash_table) => GLibInterop.g_hash_table_steal_all(hash_table);
+		public static void unref(System.IntPtr hash_table) => GLibInterop.g_hash_table_unref(hash_table);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_hash_table_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -320,6 +586,12 @@ namespace GLib {
 		}
 		public static explicit operator HashTableIter(IntPtr pointer) => new HashTableIter(pointer, checkType: true);
 		public static explicit operator IntPtr(HashTableIter value) => value._pointer;
+		public System.IntPtr get_hash_table() => GLib.GLibInterop.g_hash_table_iter_get_hash_table(this);
+		public void init(System.IntPtr hash_table) => GLib.GLibInterop.g_hash_table_iter_init(this, hash_table);
+		public bool next(System.IntPtr key, System.IntPtr value) => GLib.GLibInterop.g_hash_table_iter_next(this, key, value);
+		public void remove() => GLib.GLibInterop.g_hash_table_iter_remove(this);
+		public void replace(System.IntPtr value) => GLib.GLibInterop.g_hash_table_iter_replace(this, value);
+		public void steal() => GLib.GLibInterop.g_hash_table_iter_steal(this);
 	}
 	public ref struct Hmac
 	{
@@ -330,6 +602,13 @@ namespace GLib {
 		}
 		public static explicit operator Hmac(IntPtr pointer) => new Hmac(pointer, checkType: true);
 		public static explicit operator IntPtr(Hmac value) => value._pointer;
+		public GLib.Hmac copy() => GLib.GLibInterop.g_hmac_copy(this);
+		public void get_digest(System.IntPtr buffer, System.IntPtr digest_len) => GLib.GLibInterop.g_hmac_get_digest(this, buffer, digest_len);
+		public string get_string() => GLib.GLibInterop.g_hmac_get_string(this);
+		public GLib.Hmac @ref() => GLib.GLibInterop.g_hmac_ref(this);
+		public void unref() => GLib.GLibInterop.g_hmac_unref(this);
+		public void update(System.IntPtr data, long length) => GLib.GLibInterop.g_hmac_update(this, data, length);
+		public static GLib.Hmac @new(GLib.ChecksumType digest_type, System.IntPtr key, ulong key_len) => GLibInterop.g_hmac_new(digest_type, key, key_len);
 	}
 	public ref struct Hook
 	{
@@ -340,6 +619,23 @@ namespace GLib {
 		}
 		public static explicit operator Hook(IntPtr pointer) => new Hook(pointer, checkType: true);
 		public static explicit operator IntPtr(Hook value) => value._pointer;
+		public int compare_ids(GLib.Hook sibling) => GLib.GLibInterop.g_hook_compare_ids(this, sibling);
+		public static GLib.Hook alloc(GLib.HookList hook_list) => GLibInterop.g_hook_alloc(hook_list);
+		public static bool destroy(GLib.HookList hook_list, ulong hook_id) => GLibInterop.g_hook_destroy(hook_list, hook_id);
+		public static void destroy_link(GLib.HookList hook_list, GLib.Hook hook) => GLibInterop.g_hook_destroy_link(hook_list, hook);
+		public static GLib.Hook find(GLib.HookList hook_list, bool need_valids, System.IntPtr func, System.IntPtr data) => GLibInterop.g_hook_find(hook_list, need_valids, func, data);
+		public static GLib.Hook find_data(GLib.HookList hook_list, bool need_valids, System.IntPtr data) => GLibInterop.g_hook_find_data(hook_list, need_valids, data);
+		public static GLib.Hook find_func(GLib.HookList hook_list, bool need_valids, System.IntPtr func) => GLibInterop.g_hook_find_func(hook_list, need_valids, func);
+		public static GLib.Hook find_func_data(GLib.HookList hook_list, bool need_valids, System.IntPtr func, System.IntPtr data) => GLibInterop.g_hook_find_func_data(hook_list, need_valids, func, data);
+		public static GLib.Hook first_valid(GLib.HookList hook_list, bool may_be_in_call) => GLibInterop.g_hook_first_valid(hook_list, may_be_in_call);
+		public static void free(GLib.HookList hook_list, GLib.Hook hook) => GLibInterop.g_hook_free(hook_list, hook);
+		public static GLib.Hook get(GLib.HookList hook_list, ulong hook_id) => GLibInterop.g_hook_get(hook_list, hook_id);
+		public static void insert_before(GLib.HookList hook_list, GLib.Hook sibling, GLib.Hook hook) => GLibInterop.g_hook_insert_before(hook_list, sibling, hook);
+		public static void insert_sorted(GLib.HookList hook_list, GLib.Hook hook, System.IntPtr func) => GLibInterop.g_hook_insert_sorted(hook_list, hook, func);
+		public static GLib.Hook next_valid(GLib.HookList hook_list, GLib.Hook hook, bool may_be_in_call) => GLibInterop.g_hook_next_valid(hook_list, hook, may_be_in_call);
+		public static void prepend(GLib.HookList hook_list, GLib.Hook hook) => GLibInterop.g_hook_prepend(hook_list, hook);
+		public static GLib.Hook @ref(GLib.HookList hook_list, GLib.Hook hook) => GLibInterop.g_hook_ref(hook_list, hook);
+		public static void unref(GLib.HookList hook_list, GLib.Hook hook) => GLibInterop.g_hook_unref(hook_list, hook);
 	}
 	public ref struct HookList
 	{
@@ -350,6 +646,12 @@ namespace GLib {
 		}
 		public static explicit operator HookList(IntPtr pointer) => new HookList(pointer, checkType: true);
 		public static explicit operator IntPtr(HookList value) => value._pointer;
+		public void clear() => GLib.GLibInterop.g_hook_list_clear(this);
+		public void init(uint hook_size) => GLib.GLibInterop.g_hook_list_init(this, hook_size);
+		public void invoke(bool may_recurse) => GLib.GLibInterop.g_hook_list_invoke(this, may_recurse);
+		public void invoke_check(bool may_recurse) => GLib.GLibInterop.g_hook_list_invoke_check(this, may_recurse);
+		public void marshal(bool may_recurse, System.IntPtr marshaller, System.IntPtr marshal_data) => GLib.GLibInterop.g_hook_list_marshal(this, may_recurse, marshaller, marshal_data);
+		public void marshal_check(bool may_recurse, System.IntPtr marshaller, System.IntPtr marshal_data) => GLib.GLibInterop.g_hook_list_marshal_check(this, may_recurse, marshaller, marshal_data);
 	}
 	[Flags]
 	public enum HookFlagMask
@@ -387,6 +689,33 @@ namespace GLib {
 		}
 		public static explicit operator String(IntPtr pointer) => new String(pointer, checkType: true);
 		public static explicit operator IntPtr(String value) => value._pointer;
+		public GLib.String append(string val) => GLib.GLibInterop.g_string_append(this, val);
+		public GLib.String append_c(sbyte c) => GLib.GLibInterop.g_string_append_c(this, c);
+		public GLib.String append_len(string val, long len) => GLib.GLibInterop.g_string_append_len(this, val, len);
+		public GLib.String append_unichar(uint wc) => GLib.GLibInterop.g_string_append_unichar(this, wc);
+		public GLib.String append_uri_escaped(string unescaped, string reserved_chars_allowed, bool allow_utf8) => GLib.GLibInterop.g_string_append_uri_escaped(this, unescaped, reserved_chars_allowed, allow_utf8);
+		public GLib.String ascii_down() => GLib.GLibInterop.g_string_ascii_down(this);
+		public GLib.String ascii_up() => GLib.GLibInterop.g_string_ascii_up(this);
+		public GLib.String assign(string rval) => GLib.GLibInterop.g_string_assign(this, rval);
+		public GLib.String down() => GLib.GLibInterop.g_string_down(this);
+		public bool equal(GLib.String v2) => GLib.GLibInterop.g_string_equal(this, v2);
+		public GLib.String erase(long pos, long len) => GLib.GLibInterop.g_string_erase(this, pos, len);
+		public string free(bool free_segment) => GLib.GLibInterop.g_string_free(this, free_segment);
+		public GLib.Bytes free_to_bytes() => GLib.GLibInterop.g_string_free_to_bytes(this);
+		public uint hash() => GLib.GLibInterop.g_string_hash(this);
+		public GLib.String insert(long pos, string val) => GLib.GLibInterop.g_string_insert(this, pos, val);
+		public GLib.String insert_c(long pos, sbyte c) => GLib.GLibInterop.g_string_insert_c(this, pos, c);
+		public GLib.String insert_len(long pos, string val, long len) => GLib.GLibInterop.g_string_insert_len(this, pos, val, len);
+		public GLib.String insert_unichar(long pos, uint wc) => GLib.GLibInterop.g_string_insert_unichar(this, pos, wc);
+		public GLib.String overwrite(ulong pos, string val) => GLib.GLibInterop.g_string_overwrite(this, pos, val);
+		public GLib.String overwrite_len(ulong pos, string val, long len) => GLib.GLibInterop.g_string_overwrite_len(this, pos, val, len);
+		public GLib.String prepend(string val) => GLib.GLibInterop.g_string_prepend(this, val);
+		public GLib.String prepend_c(sbyte c) => GLib.GLibInterop.g_string_prepend_c(this, c);
+		public GLib.String prepend_len(string val, long len) => GLib.GLibInterop.g_string_prepend_len(this, val, len);
+		public GLib.String prepend_unichar(uint wc) => GLib.GLibInterop.g_string_prepend_unichar(this, wc);
+		public GLib.String set_size(ulong len) => GLib.GLibInterop.g_string_set_size(this, len);
+		public GLib.String truncate(ulong len) => GLib.GLibInterop.g_string_truncate(this, len);
+		public GLib.String up() => GLib.GLibInterop.g_string_up(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_gstring_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -399,6 +728,41 @@ namespace GLib {
 		}
 		public static explicit operator IOChannel(IntPtr pointer) => new IOChannel(pointer, checkType: true);
 		public static explicit operator IntPtr(IOChannel value) => value._pointer;
+		public static GLib.IOChannel new_file(System.IntPtr filename, string mode, out GLib.Error error) => GLibInterop.g_io_channel_new_file(filename, mode, out error);
+		public static GLib.IOChannel unix_new(int fd) => GLibInterop.g_io_channel_unix_new(fd);
+		public void close() => GLib.GLibInterop.g_io_channel_close(this);
+		public GLib.IOStatus flush(out GLib.Error error) => GLib.GLibInterop.g_io_channel_flush(this, out error);
+		public GLib.IOCondition get_buffer_condition() => GLib.GLibInterop.g_io_channel_get_buffer_condition(this);
+		public ulong get_buffer_size() => GLib.GLibInterop.g_io_channel_get_buffer_size(this);
+		public bool get_buffered() => GLib.GLibInterop.g_io_channel_get_buffered(this);
+		public bool get_close_on_unref() => GLib.GLibInterop.g_io_channel_get_close_on_unref(this);
+		public string get_encoding() => GLib.GLibInterop.g_io_channel_get_encoding(this);
+		public GLib.IOFlags get_flags() => GLib.GLibInterop.g_io_channel_get_flags(this);
+		public string get_line_term(System.IntPtr length) => GLib.GLibInterop.g_io_channel_get_line_term(this, length);
+		public void init() => GLib.GLibInterop.g_io_channel_init(this);
+		public GLib.IOError read(string buf, ulong count, System.IntPtr bytes_read) => GLib.GLibInterop.g_io_channel_read(this, buf, count, bytes_read);
+		public GLib.IOStatus read_chars(System.IntPtr buf, ulong count, System.IntPtr bytes_read, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_chars(this, buf, count, bytes_read, out error);
+		public GLib.IOStatus read_line(string str_return, System.IntPtr length, System.IntPtr terminator_pos, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_line(this, str_return, length, terminator_pos, out error);
+		public GLib.IOStatus read_line_string(GLib.String buffer, System.IntPtr terminator_pos, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_line_string(this, buffer, terminator_pos, out error);
+		public GLib.IOStatus read_to_end(System.IntPtr str_return, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_to_end(this, str_return, length, out error);
+		public GLib.IOStatus read_unichar(System.IntPtr thechar, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_unichar(this, thechar, out error);
+		public GLib.IOChannel @ref() => GLib.GLibInterop.g_io_channel_ref(this);
+		public GLib.IOError seek(long offset, GLib.SeekType type) => GLib.GLibInterop.g_io_channel_seek(this, offset, type);
+		public GLib.IOStatus seek_position(long offset, GLib.SeekType type, out GLib.Error error) => GLib.GLibInterop.g_io_channel_seek_position(this, offset, type, out error);
+		public void set_buffer_size(ulong size) => GLib.GLibInterop.g_io_channel_set_buffer_size(this, size);
+		public void set_buffered(bool buffered) => GLib.GLibInterop.g_io_channel_set_buffered(this, buffered);
+		public void set_close_on_unref(bool do_close) => GLib.GLibInterop.g_io_channel_set_close_on_unref(this, do_close);
+		public GLib.IOStatus set_encoding(string encoding, out GLib.Error error) => GLib.GLibInterop.g_io_channel_set_encoding(this, encoding, out error);
+		public GLib.IOStatus set_flags(GLib.IOFlags flags, out GLib.Error error) => GLib.GLibInterop.g_io_channel_set_flags(this, flags, out error);
+		public void set_line_term(string line_term, int length) => GLib.GLibInterop.g_io_channel_set_line_term(this, line_term, length);
+		public GLib.IOStatus shutdown(bool flush, out GLib.Error error) => GLib.GLibInterop.g_io_channel_shutdown(this, flush, out error);
+		public int unix_get_fd() => GLib.GLibInterop.g_io_channel_unix_get_fd(this);
+		public void unref() => GLib.GLibInterop.g_io_channel_unref(this);
+		public GLib.IOError write(string buf, ulong count, System.IntPtr bytes_written) => GLib.GLibInterop.g_io_channel_write(this, buf, count, bytes_written);
+		public GLib.IOStatus write_chars(System.IntPtr buf, long count, System.IntPtr bytes_written, out GLib.Error error) => GLib.GLibInterop.g_io_channel_write_chars(this, buf, count, bytes_written, out error);
+		public GLib.IOStatus write_unichar(uint thechar, out GLib.Error error) => GLib.GLibInterop.g_io_channel_write_unichar(this, thechar, out error);
+		public static GLib.IOChannelError error_from_errno(int en) => GLibInterop.g_io_channel_error_from_errno(en);
+		public static uint error_quark() => GLibInterop.g_io_channel_error_quark();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_io_channel_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -466,6 +830,39 @@ namespace GLib {
 		}
 		public static explicit operator Source(IntPtr pointer) => new Source(pointer, checkType: true);
 		public static explicit operator IntPtr(Source value) => value._pointer;
+		public static GLib.Source @new(GLib.SourceFuncs source_funcs, uint struct_size) => GLibInterop.g_source_new(source_funcs, struct_size);
+		public void add_child_source(GLib.Source child_source) => GLib.GLibInterop.g_source_add_child_source(this, child_source);
+		public void add_poll(GLib.PollFD fd) => GLib.GLibInterop.g_source_add_poll(this, fd);
+		public System.IntPtr add_unix_fd(int fd, GLib.IOCondition events) => GLib.GLibInterop.g_source_add_unix_fd(this, fd, events);
+		public uint attach(GLib.MainContext context) => GLib.GLibInterop.g_source_attach(this, context);
+		public void destroy() => GLib.GLibInterop.g_source_destroy(this);
+		public bool get_can_recurse() => GLib.GLibInterop.g_source_get_can_recurse(this);
+		public GLib.MainContext get_context() => GLib.GLibInterop.g_source_get_context(this);
+		public void get_current_time(GLib.TimeVal timeval) => GLib.GLibInterop.g_source_get_current_time(this, timeval);
+		public uint get_id() => GLib.GLibInterop.g_source_get_id(this);
+		public string get_name() => GLib.GLibInterop.g_source_get_name(this);
+		public int get_priority() => GLib.GLibInterop.g_source_get_priority(this);
+		public long get_ready_time() => GLib.GLibInterop.g_source_get_ready_time(this);
+		public long get_time() => GLib.GLibInterop.g_source_get_time(this);
+		public bool is_destroyed() => GLib.GLibInterop.g_source_is_destroyed(this);
+		public void modify_unix_fd(System.IntPtr tag, GLib.IOCondition new_events) => GLib.GLibInterop.g_source_modify_unix_fd(this, tag, new_events);
+		public GLib.IOCondition query_unix_fd(System.IntPtr tag) => GLib.GLibInterop.g_source_query_unix_fd(this, tag);
+		public GLib.Source @ref() => GLib.GLibInterop.g_source_ref(this);
+		public void remove_child_source(GLib.Source child_source) => GLib.GLibInterop.g_source_remove_child_source(this, child_source);
+		public void remove_poll(GLib.PollFD fd) => GLib.GLibInterop.g_source_remove_poll(this, fd);
+		public void remove_unix_fd(System.IntPtr tag) => GLib.GLibInterop.g_source_remove_unix_fd(this, tag);
+		public void set_callback(System.IntPtr func, System.IntPtr data, System.IntPtr notify) => GLib.GLibInterop.g_source_set_callback(this, func, data, notify);
+		public void set_callback_indirect(System.IntPtr callback_data, GLib.SourceCallbackFuncs callback_funcs) => GLib.GLibInterop.g_source_set_callback_indirect(this, callback_data, callback_funcs);
+		public void set_can_recurse(bool can_recurse) => GLib.GLibInterop.g_source_set_can_recurse(this, can_recurse);
+		public void set_funcs(GLib.SourceFuncs funcs) => GLib.GLibInterop.g_source_set_funcs(this, funcs);
+		public void set_name(string name) => GLib.GLibInterop.g_source_set_name(this, name);
+		public void set_priority(int priority) => GLib.GLibInterop.g_source_set_priority(this, priority);
+		public void set_ready_time(long ready_time) => GLib.GLibInterop.g_source_set_ready_time(this, ready_time);
+		public void unref() => GLib.GLibInterop.g_source_unref(this);
+		public static bool remove(uint tag) => GLibInterop.g_source_remove(tag);
+		public static bool remove_by_funcs_user_data(GLib.SourceFuncs funcs, System.IntPtr user_data) => GLibInterop.g_source_remove_by_funcs_user_data(funcs, user_data);
+		public static bool remove_by_user_data(System.IntPtr user_data) => GLibInterop.g_source_remove_by_user_data(user_data);
+		public static void set_name_by_id(uint tag, string name) => GLibInterop.g_source_set_name_by_id(tag, name);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_source_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -478,6 +875,55 @@ namespace GLib {
 		}
 		public static explicit operator KeyFile(IntPtr pointer) => new KeyFile(pointer, checkType: true);
 		public static explicit operator IntPtr(KeyFile value) => value._pointer;
+		public static GLib.KeyFile @new() => GLibInterop.g_key_file_new();
+		public void free() => GLib.GLibInterop.g_key_file_free(this);
+		public bool get_boolean(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_boolean(this, group_name, key, out error);
+		public System.IntPtr get_boolean_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_boolean_list(this, group_name, key, length, out error);
+		public string get_comment(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_comment(this, group_name, key, out error);
+		public double get_double(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_double(this, group_name, key, out error);
+		public System.IntPtr get_double_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_double_list(this, group_name, key, length, out error);
+		public System.IntPtr get_groups(System.IntPtr length) => GLib.GLibInterop.g_key_file_get_groups(this, length);
+		public long get_int64(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_int64(this, group_name, key, out error);
+		public int get_integer(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_integer(this, group_name, key, out error);
+		public System.IntPtr get_integer_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_integer_list(this, group_name, key, length, out error);
+		public System.IntPtr get_keys(string group_name, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_keys(this, group_name, length, out error);
+		public string get_locale_string(string group_name, string key, string locale, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_locale_string(this, group_name, key, locale, out error);
+		public System.IntPtr get_locale_string_list(string group_name, string key, string locale, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_locale_string_list(this, group_name, key, locale, length, out error);
+		public string get_start_group() => GLib.GLibInterop.g_key_file_get_start_group(this);
+		public string get_string(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_string(this, group_name, key, out error);
+		public System.IntPtr get_string_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_string_list(this, group_name, key, length, out error);
+		public ulong get_uint64(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_uint64(this, group_name, key, out error);
+		public string get_value(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_value(this, group_name, key, out error);
+		public bool has_group(string group_name) => GLib.GLibInterop.g_key_file_has_group(this, group_name);
+		public bool has_key(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_has_key(this, group_name, key, out error);
+		public bool load_from_bytes(GLib.Bytes bytes, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_bytes(this, bytes, flags, out error);
+		public bool load_from_data(string data, ulong length, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_data(this, data, length, flags, out error);
+		public bool load_from_data_dirs(System.IntPtr file, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_data_dirs(this, file, full_path, flags, out error);
+		public bool load_from_dirs(System.IntPtr file, System.IntPtr search_dirs, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_dirs(this, file, search_dirs, full_path, flags, out error);
+		public bool load_from_file(System.IntPtr file, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_file(this, file, flags, out error);
+		public GLib.KeyFile @ref() => GLib.GLibInterop.g_key_file_ref(this);
+		public bool remove_comment(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_remove_comment(this, group_name, key, out error);
+		public bool remove_group(string group_name, out GLib.Error error) => GLib.GLibInterop.g_key_file_remove_group(this, group_name, out error);
+		public bool remove_key(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_remove_key(this, group_name, key, out error);
+		public bool save_to_file(string filename, out GLib.Error error) => GLib.GLibInterop.g_key_file_save_to_file(this, filename, out error);
+		public void set_boolean(string group_name, string key, bool value) => GLib.GLibInterop.g_key_file_set_boolean(this, group_name, key, value);
+		public void set_boolean_list(string group_name, string key, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_boolean_list(this, group_name, key, list, length);
+		public bool set_comment(string group_name, string key, string comment, out GLib.Error error) => GLib.GLibInterop.g_key_file_set_comment(this, group_name, key, comment, out error);
+		public void set_double(string group_name, string key, double value) => GLib.GLibInterop.g_key_file_set_double(this, group_name, key, value);
+		public void set_double_list(string group_name, string key, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_double_list(this, group_name, key, list, length);
+		public void set_int64(string group_name, string key, long value) => GLib.GLibInterop.g_key_file_set_int64(this, group_name, key, value);
+		public void set_integer(string group_name, string key, int value) => GLib.GLibInterop.g_key_file_set_integer(this, group_name, key, value);
+		public void set_integer_list(string group_name, string key, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_integer_list(this, group_name, key, list, length);
+		public void set_list_separator(sbyte separator) => GLib.GLibInterop.g_key_file_set_list_separator(this, separator);
+		public void set_locale_string(string group_name, string key, string locale, string @string) => GLib.GLibInterop.g_key_file_set_locale_string(this, group_name, key, locale, @string);
+		public void set_locale_string_list(string group_name, string key, string locale, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_locale_string_list(this, group_name, key, locale, list, length);
+		public void set_string(string group_name, string key, string @string) => GLib.GLibInterop.g_key_file_set_string(this, group_name, key, @string);
+		public void set_string_list(string group_name, string key, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_string_list(this, group_name, key, list, length);
+		public void set_uint64(string group_name, string key, ulong value) => GLib.GLibInterop.g_key_file_set_uint64(this, group_name, key, value);
+		public void set_value(string group_name, string key, string value) => GLib.GLibInterop.g_key_file_set_value(this, group_name, key, value);
+		public string to_data(System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_to_data(this, length, out error);
+		public void unref() => GLib.GLibInterop.g_key_file_unref(this);
+		public static uint error_quark() => GLibInterop.g_key_file_error_quark();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_key_file_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -506,6 +952,37 @@ namespace GLib {
 		}
 		public static explicit operator List(IntPtr pointer) => new List(pointer, checkType: true);
 		public static explicit operator IntPtr(List value) => value._pointer;
+		public static System.IntPtr alloc() => GLibInterop.g_list_alloc();
+		public static System.IntPtr append(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_append(list, data);
+		public static System.IntPtr concat(System.IntPtr list1, System.IntPtr list2) => GLibInterop.g_list_concat(list1, list2);
+		public static System.IntPtr copy(System.IntPtr list) => GLibInterop.g_list_copy(list);
+		public static System.IntPtr copy_deep(System.IntPtr list, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_list_copy_deep(list, func, user_data);
+		public static System.IntPtr delete_link(System.IntPtr list, System.IntPtr link_) => GLibInterop.g_list_delete_link(list, link_);
+		public static System.IntPtr find(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_find(list, data);
+		public static System.IntPtr find_custom(System.IntPtr list, System.IntPtr data, System.IntPtr func) => GLibInterop.g_list_find_custom(list, data, func);
+		public static System.IntPtr first(System.IntPtr list) => GLibInterop.g_list_first(list);
+		public static void @foreach(System.IntPtr list, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_list_foreach(list, func, user_data);
+		public static void free(System.IntPtr list) => GLibInterop.g_list_free(list);
+		public static void free_1(System.IntPtr list) => GLibInterop.g_list_free_1(list);
+		public static void free_full(System.IntPtr list, System.IntPtr free_func) => GLibInterop.g_list_free_full(list, free_func);
+		public static int index(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_index(list, data);
+		public static System.IntPtr insert(System.IntPtr list, System.IntPtr data, int position) => GLibInterop.g_list_insert(list, data, position);
+		public static System.IntPtr insert_before(System.IntPtr list, System.IntPtr sibling, System.IntPtr data) => GLibInterop.g_list_insert_before(list, sibling, data);
+		public static System.IntPtr insert_sorted(System.IntPtr list, System.IntPtr data, System.IntPtr func) => GLibInterop.g_list_insert_sorted(list, data, func);
+		public static System.IntPtr insert_sorted_with_data(System.IntPtr list, System.IntPtr data, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_list_insert_sorted_with_data(list, data, func, user_data);
+		public static System.IntPtr last(System.IntPtr list) => GLibInterop.g_list_last(list);
+		public static uint length(System.IntPtr list) => GLibInterop.g_list_length(list);
+		public static System.IntPtr nth(System.IntPtr list, uint n) => GLibInterop.g_list_nth(list, n);
+		public static System.IntPtr nth_data(System.IntPtr list, uint n) => GLibInterop.g_list_nth_data(list, n);
+		public static System.IntPtr nth_prev(System.IntPtr list, uint n) => GLibInterop.g_list_nth_prev(list, n);
+		public static int position(System.IntPtr list, System.IntPtr llink) => GLibInterop.g_list_position(list, llink);
+		public static System.IntPtr prepend(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_prepend(list, data);
+		public static System.IntPtr remove(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_remove(list, data);
+		public static System.IntPtr remove_all(System.IntPtr list, System.IntPtr data) => GLibInterop.g_list_remove_all(list, data);
+		public static System.IntPtr remove_link(System.IntPtr list, System.IntPtr llink) => GLibInterop.g_list_remove_link(list, llink);
+		public static System.IntPtr reverse(System.IntPtr list) => GLibInterop.g_list_reverse(list);
+		public static System.IntPtr sort(System.IntPtr list, System.IntPtr compare_func) => GLibInterop.g_list_sort(list, compare_func);
+		public static System.IntPtr sort_with_data(System.IntPtr list, System.IntPtr compare_func, System.IntPtr user_data) => GLibInterop.g_list_sort_with_data(list, compare_func, user_data);
 	}
 	public ref struct LogField
 	{
@@ -544,6 +1021,34 @@ namespace GLib {
 		}
 		public static explicit operator MainContext(IntPtr pointer) => new MainContext(pointer, checkType: true);
 		public static explicit operator IntPtr(MainContext value) => value._pointer;
+		public static GLib.MainContext @new() => GLibInterop.g_main_context_new();
+		public bool acquire() => GLib.GLibInterop.g_main_context_acquire(this);
+		public void add_poll(GLib.PollFD fd, int priority) => GLib.GLibInterop.g_main_context_add_poll(this, fd, priority);
+		public bool check(int max_priority, System.IntPtr fds, int n_fds) => GLib.GLibInterop.g_main_context_check(this, max_priority, fds, n_fds);
+		public void dispatch() => GLib.GLibInterop.g_main_context_dispatch(this);
+		public GLib.Source find_source_by_funcs_user_data(GLib.SourceFuncs funcs, System.IntPtr user_data) => GLib.GLibInterop.g_main_context_find_source_by_funcs_user_data(this, funcs, user_data);
+		public GLib.Source find_source_by_id(uint source_id) => GLib.GLibInterop.g_main_context_find_source_by_id(this, source_id);
+		public GLib.Source find_source_by_user_data(System.IntPtr user_data) => GLib.GLibInterop.g_main_context_find_source_by_user_data(this, user_data);
+		public System.IntPtr get_poll_func() => GLib.GLibInterop.g_main_context_get_poll_func(this);
+		public void invoke(System.IntPtr function, System.IntPtr data) => GLib.GLibInterop.g_main_context_invoke(this, function, data);
+		public void invoke_full(int priority, System.IntPtr function, System.IntPtr data, System.IntPtr notify) => GLib.GLibInterop.g_main_context_invoke_full(this, priority, function, data, notify);
+		public bool is_owner() => GLib.GLibInterop.g_main_context_is_owner(this);
+		public bool iteration(bool may_block) => GLib.GLibInterop.g_main_context_iteration(this, may_block);
+		public bool pending() => GLib.GLibInterop.g_main_context_pending(this);
+		public void pop_thread_default() => GLib.GLibInterop.g_main_context_pop_thread_default(this);
+		public bool prepare(System.IntPtr priority) => GLib.GLibInterop.g_main_context_prepare(this, priority);
+		public void push_thread_default() => GLib.GLibInterop.g_main_context_push_thread_default(this);
+		public int query(int max_priority, System.IntPtr timeout_, System.IntPtr fds, int n_fds) => GLib.GLibInterop.g_main_context_query(this, max_priority, timeout_, fds, n_fds);
+		public GLib.MainContext @ref() => GLib.GLibInterop.g_main_context_ref(this);
+		public void release() => GLib.GLibInterop.g_main_context_release(this);
+		public void remove_poll(GLib.PollFD fd) => GLib.GLibInterop.g_main_context_remove_poll(this, fd);
+		public void set_poll_func(System.IntPtr func) => GLib.GLibInterop.g_main_context_set_poll_func(this, func);
+		public void unref() => GLib.GLibInterop.g_main_context_unref(this);
+		public bool wait(GLib.Cond cond, System.IntPtr mutex) => GLib.GLibInterop.g_main_context_wait(this, cond, mutex);
+		public void wakeup() => GLib.GLibInterop.g_main_context_wakeup(this);
+		public static GLib.MainContext @default() => GLibInterop.g_main_context_default();
+		public static GLib.MainContext get_thread_default() => GLibInterop.g_main_context_get_thread_default();
+		public static GLib.MainContext ref_thread_default() => GLibInterop.g_main_context_ref_thread_default();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_main_context_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -578,6 +1083,13 @@ namespace GLib {
 		}
 		public static explicit operator MainLoop(IntPtr pointer) => new MainLoop(pointer, checkType: true);
 		public static explicit operator IntPtr(MainLoop value) => value._pointer;
+		public static GLib.MainLoop @new(GLib.MainContext context, bool is_running) => GLibInterop.g_main_loop_new(context, is_running);
+		public GLib.MainContext get_context() => GLib.GLibInterop.g_main_loop_get_context(this);
+		public bool is_running() => GLib.GLibInterop.g_main_loop_is_running(this);
+		public void quit() => GLib.GLibInterop.g_main_loop_quit(this);
+		public GLib.MainLoop @ref() => GLib.GLibInterop.g_main_loop_ref(this);
+		public void run() => GLib.GLibInterop.g_main_loop_run(this);
+		public void unref() => GLib.GLibInterop.g_main_loop_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_main_loop_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -590,6 +1102,14 @@ namespace GLib {
 		}
 		public static explicit operator MappedFile(IntPtr pointer) => new MappedFile(pointer, checkType: true);
 		public static explicit operator IntPtr(MappedFile value) => value._pointer;
+		public static GLib.MappedFile @new(System.IntPtr filename, bool writable, out GLib.Error error) => GLibInterop.g_mapped_file_new(filename, writable, out error);
+		public static GLib.MappedFile new_from_fd(int fd, bool writable, out GLib.Error error) => GLibInterop.g_mapped_file_new_from_fd(fd, writable, out error);
+		public void free() => GLib.GLibInterop.g_mapped_file_free(this);
+		public GLib.Bytes get_bytes() => GLib.GLibInterop.g_mapped_file_get_bytes(this);
+		public string get_contents() => GLib.GLibInterop.g_mapped_file_get_contents(this);
+		public ulong get_length() => GLib.GLibInterop.g_mapped_file_get_length(this);
+		public GLib.MappedFile @ref() => GLib.GLibInterop.g_mapped_file_ref(this);
+		public void unref() => GLib.GLibInterop.g_mapped_file_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_mapped_file_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -622,6 +1142,18 @@ namespace GLib {
 		}
 		public static explicit operator MarkupParseContext(IntPtr pointer) => new MarkupParseContext(pointer, checkType: true);
 		public static explicit operator IntPtr(MarkupParseContext value) => value._pointer;
+		public static GLib.MarkupParseContext @new(GLib.MarkupParser parser, GLib.MarkupParseFlags flags, System.IntPtr user_data, System.IntPtr user_data_dnotify) => GLibInterop.g_markup_parse_context_new(parser, flags, user_data, user_data_dnotify);
+		public bool end_parse(out GLib.Error error) => GLib.GLibInterop.g_markup_parse_context_end_parse(this, out error);
+		public void free() => GLib.GLibInterop.g_markup_parse_context_free(this);
+		public string get_element() => GLib.GLibInterop.g_markup_parse_context_get_element(this);
+		public System.IntPtr get_element_stack() => GLib.GLibInterop.g_markup_parse_context_get_element_stack(this);
+		public void get_position(System.IntPtr line_number, System.IntPtr char_number) => GLib.GLibInterop.g_markup_parse_context_get_position(this, line_number, char_number);
+		public System.IntPtr get_user_data() => GLib.GLibInterop.g_markup_parse_context_get_user_data(this);
+		public bool parse(string text, long text_len, out GLib.Error error) => GLib.GLibInterop.g_markup_parse_context_parse(this, text, text_len, out error);
+		public System.IntPtr pop() => GLib.GLibInterop.g_markup_parse_context_pop(this);
+		public void push(GLib.MarkupParser parser, System.IntPtr user_data) => GLib.GLibInterop.g_markup_parse_context_push(this, parser, user_data);
+		public GLib.MarkupParseContext @ref() => GLib.GLibInterop.g_markup_parse_context_ref(this);
+		public void unref() => GLib.GLibInterop.g_markup_parse_context_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_markup_parse_context_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -652,6 +1184,21 @@ namespace GLib {
 		}
 		public static explicit operator MatchInfo(IntPtr pointer) => new MatchInfo(pointer, checkType: true);
 		public static explicit operator IntPtr(MatchInfo value) => value._pointer;
+		public string expand_references(string string_to_expand, out GLib.Error error) => GLib.GLibInterop.g_match_info_expand_references(this, string_to_expand, out error);
+		public string fetch(int match_num) => GLib.GLibInterop.g_match_info_fetch(this, match_num);
+		public System.IntPtr fetch_all() => GLib.GLibInterop.g_match_info_fetch_all(this);
+		public string fetch_named(string name) => GLib.GLibInterop.g_match_info_fetch_named(this, name);
+		public bool fetch_named_pos(string name, System.IntPtr start_pos, System.IntPtr end_pos) => GLib.GLibInterop.g_match_info_fetch_named_pos(this, name, start_pos, end_pos);
+		public bool fetch_pos(int match_num, System.IntPtr start_pos, System.IntPtr end_pos) => GLib.GLibInterop.g_match_info_fetch_pos(this, match_num, start_pos, end_pos);
+		public void free() => GLib.GLibInterop.g_match_info_free(this);
+		public int get_match_count() => GLib.GLibInterop.g_match_info_get_match_count(this);
+		public GLib.Regex get_regex() => GLib.GLibInterop.g_match_info_get_regex(this);
+		public string get_string() => GLib.GLibInterop.g_match_info_get_string(this);
+		public bool is_partial_match() => GLib.GLibInterop.g_match_info_is_partial_match(this);
+		public bool matches() => GLib.GLibInterop.g_match_info_matches(this);
+		public bool next(out GLib.Error error) => GLib.GLibInterop.g_match_info_next(this, out error);
+		public GLib.MatchInfo @ref() => GLib.GLibInterop.g_match_info_ref(this);
+		public void unref() => GLib.GLibInterop.g_match_info_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_match_info_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -664,6 +1211,32 @@ namespace GLib {
 		}
 		public static explicit operator Regex(IntPtr pointer) => new Regex(pointer, checkType: true);
 		public static explicit operator IntPtr(Regex value) => value._pointer;
+		public static GLib.Regex @new(string pattern, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options, out GLib.Error error) => GLibInterop.g_regex_new(pattern, compile_options, match_options, out error);
+		public int get_capture_count() => GLib.GLibInterop.g_regex_get_capture_count(this);
+		public GLib.RegexCompileFlags get_compile_flags() => GLib.GLibInterop.g_regex_get_compile_flags(this);
+		public bool get_has_cr_or_lf() => GLib.GLibInterop.g_regex_get_has_cr_or_lf(this);
+		public GLib.RegexMatchFlags get_match_flags() => GLib.GLibInterop.g_regex_get_match_flags(this);
+		public int get_max_backref() => GLib.GLibInterop.g_regex_get_max_backref(this);
+		public int get_max_lookbehind() => GLib.GLibInterop.g_regex_get_max_lookbehind(this);
+		public string get_pattern() => GLib.GLibInterop.g_regex_get_pattern(this);
+		public int get_string_number(string name) => GLib.GLibInterop.g_regex_get_string_number(this, name);
+		public bool match(string @string, GLib.RegexMatchFlags match_options, out GLib.MatchInfo match_info) => GLib.GLibInterop.g_regex_match(this, @string, match_options, out match_info);
+		public bool match_all(string @string, GLib.RegexMatchFlags match_options, out GLib.MatchInfo match_info) => GLib.GLibInterop.g_regex_match_all(this, @string, match_options, out match_info);
+		public bool match_all_full(System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, out GLib.MatchInfo match_info, out GLib.Error error) => GLib.GLibInterop.g_regex_match_all_full(this, @string, string_len, start_position, match_options, out match_info, out error);
+		public bool match_full(System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, out GLib.MatchInfo match_info, out GLib.Error error) => GLib.GLibInterop.g_regex_match_full(this, @string, string_len, start_position, match_options, out match_info, out error);
+		public GLib.Regex @ref() => GLib.GLibInterop.g_regex_ref(this);
+		public string replace(System.IntPtr @string, long string_len, int start_position, string replacement, GLib.RegexMatchFlags match_options, out GLib.Error error) => GLib.GLibInterop.g_regex_replace(this, @string, string_len, start_position, replacement, match_options, out error);
+		public string replace_eval(System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, System.IntPtr eval, System.IntPtr user_data, out GLib.Error error) => GLib.GLibInterop.g_regex_replace_eval(this, @string, string_len, start_position, match_options, eval, user_data, out error);
+		public string replace_literal(System.IntPtr @string, long string_len, int start_position, string replacement, GLib.RegexMatchFlags match_options, out GLib.Error error) => GLib.GLibInterop.g_regex_replace_literal(this, @string, string_len, start_position, replacement, match_options, out error);
+		public System.IntPtr split(string @string, GLib.RegexMatchFlags match_options) => GLib.GLibInterop.g_regex_split(this, @string, match_options);
+		public System.IntPtr split_full(System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, int max_tokens, out GLib.Error error) => GLib.GLibInterop.g_regex_split_full(this, @string, string_len, start_position, match_options, max_tokens, out error);
+		public void unref() => GLib.GLibInterop.g_regex_unref(this);
+		public static bool check_replacement(string replacement, System.IntPtr has_references, out GLib.Error error) => GLibInterop.g_regex_check_replacement(replacement, has_references, out error);
+		public static uint error_quark() => GLibInterop.g_regex_error_quark();
+		public static string escape_nul(string @string, int length) => GLibInterop.g_regex_escape_nul(@string, length);
+		public static string escape_string(System.IntPtr @string, int length) => GLibInterop.g_regex_escape_string(@string, length);
+		public static bool match_simple(string pattern, string @string, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options) => GLibInterop.g_regex_match_simple(pattern, @string, compile_options, match_options);
+		public static System.IntPtr split_simple(string pattern, string @string, GLib.RegexCompileFlags compile_options, GLib.RegexMatchFlags match_options) => GLibInterop.g_regex_split_simple(pattern, @string, compile_options, match_options);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_regex_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -686,6 +1259,32 @@ namespace GLib {
 		}
 		public static explicit operator Node(IntPtr pointer) => new Node(pointer, checkType: true);
 		public static explicit operator IntPtr(Node value) => value._pointer;
+		public int child_index(System.IntPtr data) => GLib.GLibInterop.g_node_child_index(this, data);
+		public int child_position(GLib.Node child) => GLib.GLibInterop.g_node_child_position(this, child);
+		public void children_foreach(GLib.TraverseFlags flags, System.IntPtr func, System.IntPtr data) => GLib.GLibInterop.g_node_children_foreach(this, flags, func, data);
+		public GLib.Node copy() => GLib.GLibInterop.g_node_copy(this);
+		public GLib.Node copy_deep(System.IntPtr copy_func, System.IntPtr data) => GLib.GLibInterop.g_node_copy_deep(this, copy_func, data);
+		public uint depth() => GLib.GLibInterop.g_node_depth(this);
+		public void destroy() => GLib.GLibInterop.g_node_destroy(this);
+		public GLib.Node find(GLib.TraverseType order, GLib.TraverseFlags flags, System.IntPtr data) => GLib.GLibInterop.g_node_find(this, order, flags, data);
+		public GLib.Node find_child(GLib.TraverseFlags flags, System.IntPtr data) => GLib.GLibInterop.g_node_find_child(this, flags, data);
+		public GLib.Node first_sibling() => GLib.GLibInterop.g_node_first_sibling(this);
+		public GLib.Node get_root() => GLib.GLibInterop.g_node_get_root(this);
+		public GLib.Node insert(int position, GLib.Node node) => GLib.GLibInterop.g_node_insert(this, position, node);
+		public GLib.Node insert_after(GLib.Node sibling, GLib.Node node) => GLib.GLibInterop.g_node_insert_after(this, sibling, node);
+		public GLib.Node insert_before(GLib.Node sibling, GLib.Node node) => GLib.GLibInterop.g_node_insert_before(this, sibling, node);
+		public bool is_ancestor(GLib.Node descendant) => GLib.GLibInterop.g_node_is_ancestor(this, descendant);
+		public GLib.Node last_child() => GLib.GLibInterop.g_node_last_child(this);
+		public GLib.Node last_sibling() => GLib.GLibInterop.g_node_last_sibling(this);
+		public uint max_height() => GLib.GLibInterop.g_node_max_height(this);
+		public uint n_children() => GLib.GLibInterop.g_node_n_children(this);
+		public uint n_nodes(GLib.TraverseFlags flags) => GLib.GLibInterop.g_node_n_nodes(this, flags);
+		public GLib.Node nth_child(uint n) => GLib.GLibInterop.g_node_nth_child(this, n);
+		public GLib.Node prepend(GLib.Node node) => GLib.GLibInterop.g_node_prepend(this, node);
+		public void reverse_children() => GLib.GLibInterop.g_node_reverse_children(this);
+		public void traverse(GLib.TraverseType order, GLib.TraverseFlags flags, int max_depth, System.IntPtr func, System.IntPtr data) => GLib.GLibInterop.g_node_traverse(this, order, flags, max_depth, func, data);
+		public void unlink() => GLib.GLibInterop.g_node_unlink(this);
+		public static GLib.Node @new(System.IntPtr data) => GLibInterop.g_node_new(data);
 	}
 	[Flags]
 	public enum TraverseFlags
@@ -735,6 +1334,9 @@ namespace GLib {
 		}
 		public static explicit operator Once(IntPtr pointer) => new Once(pointer, checkType: true);
 		public static explicit operator IntPtr(Once value) => value._pointer;
+		public System.IntPtr impl(System.IntPtr func, System.IntPtr arg) => GLib.GLibInterop.g_once_impl(this, func, arg);
+		public static bool init_enter(System.IntPtr location) => GLibInterop.g_once_init_enter(location);
+		public static void init_leave(System.IntPtr location, ulong result) => GLibInterop.g_once_init_leave(location, result);
 	}
 	public enum OptionArg
 	{
@@ -757,6 +1359,27 @@ namespace GLib {
 		}
 		public static explicit operator OptionContext(IntPtr pointer) => new OptionContext(pointer, checkType: true);
 		public static explicit operator IntPtr(OptionContext value) => value._pointer;
+		public void add_group(GLib.OptionGroup group) => GLib.GLibInterop.g_option_context_add_group(this, group);
+		public void add_main_entries(GLib.OptionEntry entries, string translation_domain) => GLib.GLibInterop.g_option_context_add_main_entries(this, entries, translation_domain);
+		public void free() => GLib.GLibInterop.g_option_context_free(this);
+		public string get_description() => GLib.GLibInterop.g_option_context_get_description(this);
+		public string get_help(bool main_help, GLib.OptionGroup group) => GLib.GLibInterop.g_option_context_get_help(this, main_help, group);
+		public bool get_help_enabled() => GLib.GLibInterop.g_option_context_get_help_enabled(this);
+		public bool get_ignore_unknown_options() => GLib.GLibInterop.g_option_context_get_ignore_unknown_options(this);
+		public GLib.OptionGroup get_main_group() => GLib.GLibInterop.g_option_context_get_main_group(this);
+		public bool get_strict_posix() => GLib.GLibInterop.g_option_context_get_strict_posix(this);
+		public string get_summary() => GLib.GLibInterop.g_option_context_get_summary(this);
+		public bool parse(System.IntPtr argc, System.IntPtr argv, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse(this, argc, argv, out error);
+		public bool parse_strv(System.IntPtr arguments, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse_strv(this, arguments, out error);
+		public void set_description(string description) => GLib.GLibInterop.g_option_context_set_description(this, description);
+		public void set_help_enabled(bool help_enabled) => GLib.GLibInterop.g_option_context_set_help_enabled(this, help_enabled);
+		public void set_ignore_unknown_options(bool ignore_unknown) => GLib.GLibInterop.g_option_context_set_ignore_unknown_options(this, ignore_unknown);
+		public void set_main_group(GLib.OptionGroup group) => GLib.GLibInterop.g_option_context_set_main_group(this, group);
+		public void set_strict_posix(bool strict_posix) => GLib.GLibInterop.g_option_context_set_strict_posix(this, strict_posix);
+		public void set_summary(string summary) => GLib.GLibInterop.g_option_context_set_summary(this, summary);
+		public void set_translate_func(System.IntPtr func, System.IntPtr data, System.IntPtr destroy_notify) => GLib.GLibInterop.g_option_context_set_translate_func(this, func, data, destroy_notify);
+		public void set_translation_domain(string domain) => GLib.GLibInterop.g_option_context_set_translation_domain(this, domain);
+		public static GLib.OptionContext @new(string parameter_string) => GLibInterop.g_option_context_new(parameter_string);
 	}
 	public ref struct OptionGroup
 	{
@@ -767,6 +1390,15 @@ namespace GLib {
 		}
 		public static explicit operator OptionGroup(IntPtr pointer) => new OptionGroup(pointer, checkType: true);
 		public static explicit operator IntPtr(OptionGroup value) => value._pointer;
+		public static GLib.OptionGroup @new(string name, string description, string help_description, System.IntPtr user_data, System.IntPtr destroy) => GLibInterop.g_option_group_new(name, description, help_description, user_data, destroy);
+		public void add_entries(GLib.OptionEntry entries) => GLib.GLibInterop.g_option_group_add_entries(this, entries);
+		public void free() => GLib.GLibInterop.g_option_group_free(this);
+		public GLib.OptionGroup @ref() => GLib.GLibInterop.g_option_group_ref(this);
+		public void set_error_hook(System.IntPtr error_func) => GLib.GLibInterop.g_option_group_set_error_hook(this, error_func);
+		public void set_parse_hooks(System.IntPtr pre_parse_func, System.IntPtr post_parse_func) => GLib.GLibInterop.g_option_group_set_parse_hooks(this, pre_parse_func, post_parse_func);
+		public void set_translate_func(System.IntPtr func, System.IntPtr data, System.IntPtr destroy_notify) => GLib.GLibInterop.g_option_group_set_translate_func(this, func, data, destroy_notify);
+		public void set_translation_domain(string domain) => GLib.GLibInterop.g_option_group_set_translation_domain(this, domain);
+		public void unref() => GLib.GLibInterop.g_option_group_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_option_group_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -807,6 +1439,9 @@ namespace GLib {
 		}
 		public static explicit operator PatternSpec(IntPtr pointer) => new PatternSpec(pointer, checkType: true);
 		public static explicit operator IntPtr(PatternSpec value) => value._pointer;
+		public bool equal(GLib.PatternSpec pspec2) => GLib.GLibInterop.g_pattern_spec_equal(this, pspec2);
+		public void free() => GLib.GLibInterop.g_pattern_spec_free(this);
+		public static GLib.PatternSpec @new(string pattern) => GLibInterop.g_pattern_spec_new(pattern);
 	}
 	public ref struct Private
 	{
@@ -817,6 +1452,9 @@ namespace GLib {
 		}
 		public static explicit operator Private(IntPtr pointer) => new Private(pointer, checkType: true);
 		public static explicit operator IntPtr(Private value) => value._pointer;
+		public System.IntPtr get() => GLib.GLibInterop.g_private_get(this);
+		public void replace(System.IntPtr value) => GLib.GLibInterop.g_private_replace(this, value);
+		public void set(System.IntPtr value) => GLib.GLibInterop.g_private_set(this, value);
 	}
 	public ref struct PtrArray
 	{
@@ -827,6 +1465,27 @@ namespace GLib {
 		}
 		public static explicit operator PtrArray(IntPtr pointer) => new PtrArray(pointer, checkType: true);
 		public static explicit operator IntPtr(PtrArray value) => value._pointer;
+		public static void add(System.IntPtr array, System.IntPtr data) => GLibInterop.g_ptr_array_add(array, data);
+		public static bool find(System.IntPtr haystack, System.IntPtr needle, System.IntPtr index_) => GLibInterop.g_ptr_array_find(haystack, needle, index_);
+		public static bool find_with_equal_func(System.IntPtr haystack, System.IntPtr needle, System.IntPtr equal_func, System.IntPtr index_) => GLibInterop.g_ptr_array_find_with_equal_func(haystack, needle, equal_func, index_);
+		public static void @foreach(System.IntPtr array, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_ptr_array_foreach(array, func, user_data);
+		public static System.IntPtr free(System.IntPtr array, bool free_seg) => GLibInterop.g_ptr_array_free(array, free_seg);
+		public static void insert(System.IntPtr array, int index_, System.IntPtr data) => GLibInterop.g_ptr_array_insert(array, index_, data);
+		public static System.IntPtr @new() => GLibInterop.g_ptr_array_new();
+		public static System.IntPtr new_full(uint reserved_size, System.IntPtr element_free_func) => GLibInterop.g_ptr_array_new_full(reserved_size, element_free_func);
+		public static System.IntPtr new_with_free_func(System.IntPtr element_free_func) => GLibInterop.g_ptr_array_new_with_free_func(element_free_func);
+		public static System.IntPtr @ref(System.IntPtr array) => GLibInterop.g_ptr_array_ref(array);
+		public static bool remove(System.IntPtr array, System.IntPtr data) => GLibInterop.g_ptr_array_remove(array, data);
+		public static bool remove_fast(System.IntPtr array, System.IntPtr data) => GLibInterop.g_ptr_array_remove_fast(array, data);
+		public static System.IntPtr remove_index(System.IntPtr array, uint index_) => GLibInterop.g_ptr_array_remove_index(array, index_);
+		public static System.IntPtr remove_index_fast(System.IntPtr array, uint index_) => GLibInterop.g_ptr_array_remove_index_fast(array, index_);
+		public static System.IntPtr remove_range(System.IntPtr array, uint index_, uint length) => GLibInterop.g_ptr_array_remove_range(array, index_, length);
+		public static void set_free_func(System.IntPtr array, System.IntPtr element_free_func) => GLibInterop.g_ptr_array_set_free_func(array, element_free_func);
+		public static void set_size(System.IntPtr array, int length) => GLibInterop.g_ptr_array_set_size(array, length);
+		public static System.IntPtr sized_new(uint reserved_size) => GLibInterop.g_ptr_array_sized_new(reserved_size);
+		public static void sort(System.IntPtr array, System.IntPtr compare_func) => GLibInterop.g_ptr_array_sort(array, compare_func);
+		public static void sort_with_data(System.IntPtr array, System.IntPtr compare_func, System.IntPtr user_data) => GLibInterop.g_ptr_array_sort_with_data(array, compare_func, user_data);
+		public static void unref(System.IntPtr array) => GLibInterop.g_ptr_array_unref(array);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_ptr_array_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -839,6 +1498,46 @@ namespace GLib {
 		}
 		public static explicit operator Queue(IntPtr pointer) => new Queue(pointer, checkType: true);
 		public static explicit operator IntPtr(Queue value) => value._pointer;
+		public void clear() => GLib.GLibInterop.g_queue_clear(this);
+		public GLib.Queue copy() => GLib.GLibInterop.g_queue_copy(this);
+		public void delete_link(System.IntPtr link_) => GLib.GLibInterop.g_queue_delete_link(this, link_);
+		public System.IntPtr find(System.IntPtr data) => GLib.GLibInterop.g_queue_find(this, data);
+		public System.IntPtr find_custom(System.IntPtr data, System.IntPtr func) => GLib.GLibInterop.g_queue_find_custom(this, data, func);
+		public void @foreach(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_queue_foreach(this, func, user_data);
+		public void free() => GLib.GLibInterop.g_queue_free(this);
+		public void free_full(System.IntPtr free_func) => GLib.GLibInterop.g_queue_free_full(this, free_func);
+		public uint get_length() => GLib.GLibInterop.g_queue_get_length(this);
+		public int index(System.IntPtr data) => GLib.GLibInterop.g_queue_index(this, data);
+		public void init() => GLib.GLibInterop.g_queue_init(this);
+		public void insert_after(System.IntPtr sibling, System.IntPtr data) => GLib.GLibInterop.g_queue_insert_after(this, sibling, data);
+		public void insert_before(System.IntPtr sibling, System.IntPtr data) => GLib.GLibInterop.g_queue_insert_before(this, sibling, data);
+		public void insert_sorted(System.IntPtr data, System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_queue_insert_sorted(this, data, func, user_data);
+		public bool is_empty() => GLib.GLibInterop.g_queue_is_empty(this);
+		public int link_index(System.IntPtr link_) => GLib.GLibInterop.g_queue_link_index(this, link_);
+		public System.IntPtr peek_head() => GLib.GLibInterop.g_queue_peek_head(this);
+		public System.IntPtr peek_head_link() => GLib.GLibInterop.g_queue_peek_head_link(this);
+		public System.IntPtr peek_nth(uint n) => GLib.GLibInterop.g_queue_peek_nth(this, n);
+		public System.IntPtr peek_nth_link(uint n) => GLib.GLibInterop.g_queue_peek_nth_link(this, n);
+		public System.IntPtr peek_tail() => GLib.GLibInterop.g_queue_peek_tail(this);
+		public System.IntPtr peek_tail_link() => GLib.GLibInterop.g_queue_peek_tail_link(this);
+		public System.IntPtr pop_head() => GLib.GLibInterop.g_queue_pop_head(this);
+		public System.IntPtr pop_head_link() => GLib.GLibInterop.g_queue_pop_head_link(this);
+		public System.IntPtr pop_nth(uint n) => GLib.GLibInterop.g_queue_pop_nth(this, n);
+		public System.IntPtr pop_nth_link(uint n) => GLib.GLibInterop.g_queue_pop_nth_link(this, n);
+		public System.IntPtr pop_tail() => GLib.GLibInterop.g_queue_pop_tail(this);
+		public System.IntPtr pop_tail_link() => GLib.GLibInterop.g_queue_pop_tail_link(this);
+		public void push_head(System.IntPtr data) => GLib.GLibInterop.g_queue_push_head(this, data);
+		public void push_head_link(System.IntPtr link_) => GLib.GLibInterop.g_queue_push_head_link(this, link_);
+		public void push_nth(System.IntPtr data, int n) => GLib.GLibInterop.g_queue_push_nth(this, data, n);
+		public void push_nth_link(int n, System.IntPtr link_) => GLib.GLibInterop.g_queue_push_nth_link(this, n, link_);
+		public void push_tail(System.IntPtr data) => GLib.GLibInterop.g_queue_push_tail(this, data);
+		public void push_tail_link(System.IntPtr link_) => GLib.GLibInterop.g_queue_push_tail_link(this, link_);
+		public bool remove(System.IntPtr data) => GLib.GLibInterop.g_queue_remove(this, data);
+		public uint remove_all(System.IntPtr data) => GLib.GLibInterop.g_queue_remove_all(this, data);
+		public void reverse() => GLib.GLibInterop.g_queue_reverse(this);
+		public void sort(System.IntPtr compare_func, System.IntPtr user_data) => GLib.GLibInterop.g_queue_sort(this, compare_func, user_data);
+		public void unlink(System.IntPtr link_) => GLib.GLibInterop.g_queue_unlink(this, link_);
+		public static GLib.Queue @new() => GLibInterop.g_queue_new();
 	}
 	public ref struct RWLock
 	{
@@ -849,6 +1548,14 @@ namespace GLib {
 		}
 		public static explicit operator RWLock(IntPtr pointer) => new RWLock(pointer, checkType: true);
 		public static explicit operator IntPtr(RWLock value) => value._pointer;
+		public void clear() => GLib.GLibInterop.g_rw_lock_clear(this);
+		public void init() => GLib.GLibInterop.g_rw_lock_init(this);
+		public void reader_lock() => GLib.GLibInterop.g_rw_lock_reader_lock(this);
+		public bool reader_trylock() => GLib.GLibInterop.g_rw_lock_reader_trylock(this);
+		public void reader_unlock() => GLib.GLibInterop.g_rw_lock_reader_unlock(this);
+		public void writer_lock() => GLib.GLibInterop.g_rw_lock_writer_lock(this);
+		public bool writer_trylock() => GLib.GLibInterop.g_rw_lock_writer_trylock(this);
+		public void writer_unlock() => GLib.GLibInterop.g_rw_lock_writer_unlock(this);
 	}
 	public ref struct Rand
 	{
@@ -859,6 +1566,17 @@ namespace GLib {
 		}
 		public static explicit operator Rand(IntPtr pointer) => new Rand(pointer, checkType: true);
 		public static explicit operator IntPtr(Rand value) => value._pointer;
+		public GLib.Rand copy() => GLib.GLibInterop.g_rand_copy(this);
+		public double @double() => GLib.GLibInterop.g_rand_double(this);
+		public double double_range(double begin, double end) => GLib.GLibInterop.g_rand_double_range(this, begin, end);
+		public void free() => GLib.GLibInterop.g_rand_free(this);
+		public uint @int() => GLib.GLibInterop.g_rand_int(this);
+		public int int_range(int begin, int end) => GLib.GLibInterop.g_rand_int_range(this, begin, end);
+		public void set_seed(uint seed) => GLib.GLibInterop.g_rand_set_seed(this, seed);
+		public void set_seed_array(System.IntPtr seed, uint seed_length) => GLib.GLibInterop.g_rand_set_seed_array(this, seed, seed_length);
+		public static GLib.Rand @new() => GLibInterop.g_rand_new();
+		public static GLib.Rand new_with_seed(uint seed) => GLibInterop.g_rand_new_with_seed(seed);
+		public static GLib.Rand new_with_seed_array(System.IntPtr seed, uint seed_length) => GLibInterop.g_rand_new_with_seed_array(seed, seed_length);
 	}
 	public ref struct RecMutex
 	{
@@ -869,6 +1587,11 @@ namespace GLib {
 		}
 		public static explicit operator RecMutex(IntPtr pointer) => new RecMutex(pointer, checkType: true);
 		public static explicit operator IntPtr(RecMutex value) => value._pointer;
+		public void clear() => GLib.GLibInterop.g_rec_mutex_clear(this);
+		public void init() => GLib.GLibInterop.g_rec_mutex_init(this);
+		public void @lock() => GLib.GLibInterop.g_rec_mutex_lock(this);
+		public bool trylock() => GLib.GLibInterop.g_rec_mutex_trylock(this);
+		public void unlock() => GLib.GLibInterop.g_rec_mutex_unlock(this);
 	}
 	[Flags]
 	public enum RegexCompileFlags
@@ -980,6 +1703,35 @@ namespace GLib {
 		}
 		public static explicit operator SList(IntPtr pointer) => new SList(pointer, checkType: true);
 		public static explicit operator IntPtr(SList value) => value._pointer;
+		public static System.IntPtr alloc() => GLibInterop.g_slist_alloc();
+		public static System.IntPtr append(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_append(list, data);
+		public static System.IntPtr concat(System.IntPtr list1, System.IntPtr list2) => GLibInterop.g_slist_concat(list1, list2);
+		public static System.IntPtr copy(System.IntPtr list) => GLibInterop.g_slist_copy(list);
+		public static System.IntPtr copy_deep(System.IntPtr list, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_slist_copy_deep(list, func, user_data);
+		public static System.IntPtr delete_link(System.IntPtr list, System.IntPtr link_) => GLibInterop.g_slist_delete_link(list, link_);
+		public static System.IntPtr find(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_find(list, data);
+		public static System.IntPtr find_custom(System.IntPtr list, System.IntPtr data, System.IntPtr func) => GLibInterop.g_slist_find_custom(list, data, func);
+		public static void @foreach(System.IntPtr list, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_slist_foreach(list, func, user_data);
+		public static void free(System.IntPtr list) => GLibInterop.g_slist_free(list);
+		public static void free_1(System.IntPtr list) => GLibInterop.g_slist_free_1(list);
+		public static void free_full(System.IntPtr list, System.IntPtr free_func) => GLibInterop.g_slist_free_full(list, free_func);
+		public static int index(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_index(list, data);
+		public static System.IntPtr insert(System.IntPtr list, System.IntPtr data, int position) => GLibInterop.g_slist_insert(list, data, position);
+		public static System.IntPtr insert_before(System.IntPtr slist, System.IntPtr sibling, System.IntPtr data) => GLibInterop.g_slist_insert_before(slist, sibling, data);
+		public static System.IntPtr insert_sorted(System.IntPtr list, System.IntPtr data, System.IntPtr func) => GLibInterop.g_slist_insert_sorted(list, data, func);
+		public static System.IntPtr insert_sorted_with_data(System.IntPtr list, System.IntPtr data, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_slist_insert_sorted_with_data(list, data, func, user_data);
+		public static System.IntPtr last(System.IntPtr list) => GLibInterop.g_slist_last(list);
+		public static uint length(System.IntPtr list) => GLibInterop.g_slist_length(list);
+		public static System.IntPtr nth(System.IntPtr list, uint n) => GLibInterop.g_slist_nth(list, n);
+		public static System.IntPtr nth_data(System.IntPtr list, uint n) => GLibInterop.g_slist_nth_data(list, n);
+		public static int position(System.IntPtr list, System.IntPtr llink) => GLibInterop.g_slist_position(list, llink);
+		public static System.IntPtr prepend(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_prepend(list, data);
+		public static System.IntPtr remove(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_remove(list, data);
+		public static System.IntPtr remove_all(System.IntPtr list, System.IntPtr data) => GLibInterop.g_slist_remove_all(list, data);
+		public static System.IntPtr remove_link(System.IntPtr list, System.IntPtr link_) => GLibInterop.g_slist_remove_link(list, link_);
+		public static System.IntPtr reverse(System.IntPtr list) => GLibInterop.g_slist_reverse(list);
+		public static System.IntPtr sort(System.IntPtr list, System.IntPtr compare_func) => GLibInterop.g_slist_sort(list, compare_func);
+		public static System.IntPtr sort_with_data(System.IntPtr list, System.IntPtr compare_func, System.IntPtr user_data) => GLibInterop.g_slist_sort_with_data(list, compare_func, user_data);
 	}
 	public ref struct ScannerConfig
 	{
@@ -1026,6 +1778,24 @@ namespace GLib {
 		}
 		public static explicit operator Scanner(IntPtr pointer) => new Scanner(pointer, checkType: true);
 		public static explicit operator IntPtr(Scanner value) => value._pointer;
+		public uint cur_line() => GLib.GLibInterop.g_scanner_cur_line(this);
+		public uint cur_position() => GLib.GLibInterop.g_scanner_cur_position(this);
+		public GLib.TokenType cur_token() => GLib.GLibInterop.g_scanner_cur_token(this);
+		public void destroy() => GLib.GLibInterop.g_scanner_destroy(this);
+		public bool eof() => GLib.GLibInterop.g_scanner_eof(this);
+		public GLib.TokenType get_next_token() => GLib.GLibInterop.g_scanner_get_next_token(this);
+		public void input_file(int input_fd) => GLib.GLibInterop.g_scanner_input_file(this, input_fd);
+		public void input_text(string text, uint text_len) => GLib.GLibInterop.g_scanner_input_text(this, text, text_len);
+		public System.IntPtr lookup_symbol(string symbol) => GLib.GLibInterop.g_scanner_lookup_symbol(this, symbol);
+		public GLib.TokenType peek_next_token() => GLib.GLibInterop.g_scanner_peek_next_token(this);
+		public void scope_add_symbol(uint scope_id, string symbol, System.IntPtr value) => GLib.GLibInterop.g_scanner_scope_add_symbol(this, scope_id, symbol, value);
+		public void scope_foreach_symbol(uint scope_id, System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_scanner_scope_foreach_symbol(this, scope_id, func, user_data);
+		public System.IntPtr scope_lookup_symbol(uint scope_id, string symbol) => GLib.GLibInterop.g_scanner_scope_lookup_symbol(this, scope_id, symbol);
+		public void scope_remove_symbol(uint scope_id, string symbol) => GLib.GLibInterop.g_scanner_scope_remove_symbol(this, scope_id, symbol);
+		public uint set_scope(uint scope_id) => GLib.GLibInterop.g_scanner_set_scope(this, scope_id);
+		public void sync_file_offset() => GLib.GLibInterop.g_scanner_sync_file_offset(this);
+		public void unexp_token(GLib.TokenType expected_token, string identifier_spec, string symbol_spec, string symbol_name, string message, int is_error) => GLib.GLibInterop.g_scanner_unexp_token(this, expected_token, identifier_spec, symbol_spec, symbol_name, message, is_error);
+		public static GLib.Scanner @new(GLib.ScannerConfig config_templ) => GLibInterop.g_scanner_new(config_templ);
 	}
 	public ref struct SequenceIter
 	{
@@ -1036,6 +1806,14 @@ namespace GLib {
 		}
 		public static explicit operator SequenceIter(IntPtr pointer) => new SequenceIter(pointer, checkType: true);
 		public static explicit operator IntPtr(SequenceIter value) => value._pointer;
+		public int compare(GLib.SequenceIter b) => GLib.GLibInterop.g_sequence_iter_compare(this, b);
+		public int get_position() => GLib.GLibInterop.g_sequence_iter_get_position(this);
+		public GLib.Sequence get_sequence() => GLib.GLibInterop.g_sequence_iter_get_sequence(this);
+		public bool is_begin() => GLib.GLibInterop.g_sequence_iter_is_begin(this);
+		public bool is_end() => GLib.GLibInterop.g_sequence_iter_is_end(this);
+		public GLib.SequenceIter move(int delta) => GLib.GLibInterop.g_sequence_iter_move(this, delta);
+		public GLib.SequenceIter next() => GLib.GLibInterop.g_sequence_iter_next(this);
+		public GLib.SequenceIter prev() => GLib.GLibInterop.g_sequence_iter_prev(this);
 	}
 	public ref struct Sequence
 	{
@@ -1046,6 +1824,36 @@ namespace GLib {
 		}
 		public static explicit operator Sequence(IntPtr pointer) => new Sequence(pointer, checkType: true);
 		public static explicit operator IntPtr(Sequence value) => value._pointer;
+		public GLib.SequenceIter append(System.IntPtr data) => GLib.GLibInterop.g_sequence_append(this, data);
+		public void @foreach(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_sequence_foreach(this, func, user_data);
+		public void free() => GLib.GLibInterop.g_sequence_free(this);
+		public GLib.SequenceIter get_begin_iter() => GLib.GLibInterop.g_sequence_get_begin_iter(this);
+		public GLib.SequenceIter get_end_iter() => GLib.GLibInterop.g_sequence_get_end_iter(this);
+		public GLib.SequenceIter get_iter_at_pos(int pos) => GLib.GLibInterop.g_sequence_get_iter_at_pos(this, pos);
+		public int get_length() => GLib.GLibInterop.g_sequence_get_length(this);
+		public GLib.SequenceIter insert_sorted(System.IntPtr data, System.IntPtr cmp_func, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_insert_sorted(this, data, cmp_func, cmp_data);
+		public GLib.SequenceIter insert_sorted_iter(System.IntPtr data, System.IntPtr iter_cmp, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_insert_sorted_iter(this, data, iter_cmp, cmp_data);
+		public bool is_empty() => GLib.GLibInterop.g_sequence_is_empty(this);
+		public GLib.SequenceIter lookup(System.IntPtr data, System.IntPtr cmp_func, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_lookup(this, data, cmp_func, cmp_data);
+		public GLib.SequenceIter lookup_iter(System.IntPtr data, System.IntPtr iter_cmp, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_lookup_iter(this, data, iter_cmp, cmp_data);
+		public GLib.SequenceIter prepend(System.IntPtr data) => GLib.GLibInterop.g_sequence_prepend(this, data);
+		public GLib.SequenceIter search(System.IntPtr data, System.IntPtr cmp_func, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_search(this, data, cmp_func, cmp_data);
+		public GLib.SequenceIter search_iter(System.IntPtr data, System.IntPtr iter_cmp, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_search_iter(this, data, iter_cmp, cmp_data);
+		public void sort(System.IntPtr cmp_func, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_sort(this, cmp_func, cmp_data);
+		public void sort_iter(System.IntPtr cmp_func, System.IntPtr cmp_data) => GLib.GLibInterop.g_sequence_sort_iter(this, cmp_func, cmp_data);
+		public static void foreach_range(GLib.SequenceIter begin, GLib.SequenceIter end, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_sequence_foreach_range(begin, end, func, user_data);
+		public static System.IntPtr get(GLib.SequenceIter iter) => GLibInterop.g_sequence_get(iter);
+		public static GLib.SequenceIter insert_before(GLib.SequenceIter iter, System.IntPtr data) => GLibInterop.g_sequence_insert_before(iter, data);
+		public static void move(GLib.SequenceIter src, GLib.SequenceIter dest) => GLibInterop.g_sequence_move(src, dest);
+		public static void move_range(GLib.SequenceIter dest, GLib.SequenceIter begin, GLib.SequenceIter end) => GLibInterop.g_sequence_move_range(dest, begin, end);
+		public static GLib.Sequence @new(System.IntPtr data_destroy) => GLibInterop.g_sequence_new(data_destroy);
+		public static GLib.SequenceIter range_get_midpoint(GLib.SequenceIter begin, GLib.SequenceIter end) => GLibInterop.g_sequence_range_get_midpoint(begin, end);
+		public static void remove(GLib.SequenceIter iter) => GLibInterop.g_sequence_remove(iter);
+		public static void remove_range(GLib.SequenceIter begin, GLib.SequenceIter end) => GLibInterop.g_sequence_remove_range(begin, end);
+		public static void set(GLib.SequenceIter iter, System.IntPtr data) => GLibInterop.g_sequence_set(iter, data);
+		public static void sort_changed(GLib.SequenceIter iter, System.IntPtr cmp_func, System.IntPtr cmp_data) => GLibInterop.g_sequence_sort_changed(iter, cmp_func, cmp_data);
+		public static void sort_changed_iter(GLib.SequenceIter iter, System.IntPtr iter_cmp, System.IntPtr cmp_data) => GLibInterop.g_sequence_sort_changed_iter(iter, iter_cmp, cmp_data);
+		public static void swap(GLib.SequenceIter a, GLib.SequenceIter b) => GLibInterop.g_sequence_swap(a, b);
 	}
 	public enum ShellError
 	{
@@ -1139,6 +1947,12 @@ namespace GLib {
 		}
 		public static explicit operator StringChunk(IntPtr pointer) => new StringChunk(pointer, checkType: true);
 		public static explicit operator IntPtr(StringChunk value) => value._pointer;
+		public void clear() => GLib.GLibInterop.g_string_chunk_clear(this);
+		public void free() => GLib.GLibInterop.g_string_chunk_free(this);
+		public string insert(string @string) => GLib.GLibInterop.g_string_chunk_insert(this, @string);
+		public string insert_const(string @string) => GLib.GLibInterop.g_string_chunk_insert_const(this, @string);
+		public string insert_len(string @string, long len) => GLib.GLibInterop.g_string_chunk_insert_len(this, @string, len);
+		public static GLib.StringChunk @new(ulong size) => GLibInterop.g_string_chunk_new(size);
 	}
 	public ref struct TestCase
 	{
@@ -1174,6 +1988,10 @@ namespace GLib {
 		}
 		public static explicit operator TestLogBuffer(IntPtr pointer) => new TestLogBuffer(pointer, checkType: true);
 		public static explicit operator IntPtr(TestLogBuffer value) => value._pointer;
+		public void free() => GLib.GLibInterop.g_test_log_buffer_free(this);
+		public GLib.TestLogMsg pop() => GLib.GLibInterop.g_test_log_buffer_pop(this);
+		public void push(uint n_bytes, System.IntPtr bytes) => GLib.GLibInterop.g_test_log_buffer_push(this, n_bytes, bytes);
+		public static GLib.TestLogBuffer @new() => GLibInterop.g_test_log_buffer_new();
 	}
 	public ref struct TestLogMsg
 	{
@@ -1184,6 +2002,7 @@ namespace GLib {
 		}
 		public static explicit operator TestLogMsg(IntPtr pointer) => new TestLogMsg(pointer, checkType: true);
 		public static explicit operator IntPtr(TestLogMsg value) => value._pointer;
+		public void free() => GLib.GLibInterop.g_test_log_msg_free(this);
 	}
 	public enum TestLogType
 	{
@@ -1216,6 +2035,8 @@ namespace GLib {
 		}
 		public static explicit operator TestSuite(IntPtr pointer) => new TestSuite(pointer, checkType: true);
 		public static explicit operator IntPtr(TestSuite value) => value._pointer;
+		public void add(GLib.TestCase test_case) => GLib.GLibInterop.g_test_suite_add(this, test_case);
+		public void add_suite(GLib.TestSuite nestedsuite) => GLib.GLibInterop.g_test_suite_add_suite(this, nestedsuite);
 	}
 	[Flags]
 	public enum TestTrapFlags
@@ -1233,6 +2054,15 @@ namespace GLib {
 		}
 		public static explicit operator Thread(IntPtr pointer) => new Thread(pointer, checkType: true);
 		public static explicit operator IntPtr(Thread value) => value._pointer;
+		public static GLib.Thread @new(string name, System.IntPtr func, System.IntPtr data) => GLibInterop.g_thread_new(name, func, data);
+		public static GLib.Thread try_new(string name, System.IntPtr func, System.IntPtr data, out GLib.Error error) => GLibInterop.g_thread_try_new(name, func, data, out error);
+		public System.IntPtr join() => GLib.GLibInterop.g_thread_join(this);
+		public GLib.Thread @ref() => GLib.GLibInterop.g_thread_ref(this);
+		public void unref() => GLib.GLibInterop.g_thread_unref(this);
+		public static uint error_quark() => GLibInterop.g_thread_error_quark();
+		public static void exit(System.IntPtr retval) => GLibInterop.g_thread_exit(retval);
+		public static GLib.Thread self() => GLibInterop.g_thread_self();
+		public static void yield() => GLibInterop.g_thread_yield();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_thread_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1249,6 +2079,21 @@ namespace GLib {
 		}
 		public static explicit operator ThreadPool(IntPtr pointer) => new ThreadPool(pointer, checkType: true);
 		public static explicit operator IntPtr(ThreadPool value) => value._pointer;
+		public void free(bool immediate, bool wait_) => GLib.GLibInterop.g_thread_pool_free(this, immediate, wait_);
+		public int get_max_threads() => GLib.GLibInterop.g_thread_pool_get_max_threads(this);
+		public uint get_num_threads() => GLib.GLibInterop.g_thread_pool_get_num_threads(this);
+		public bool move_to_front(System.IntPtr data) => GLib.GLibInterop.g_thread_pool_move_to_front(this, data);
+		public bool push(System.IntPtr data, out GLib.Error error) => GLib.GLibInterop.g_thread_pool_push(this, data, out error);
+		public bool set_max_threads(int max_threads, out GLib.Error error) => GLib.GLibInterop.g_thread_pool_set_max_threads(this, max_threads, out error);
+		public void set_sort_function(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_thread_pool_set_sort_function(this, func, user_data);
+		public uint unprocessed() => GLib.GLibInterop.g_thread_pool_unprocessed(this);
+		public static uint get_max_idle_time() => GLibInterop.g_thread_pool_get_max_idle_time();
+		public static int get_max_unused_threads() => GLibInterop.g_thread_pool_get_max_unused_threads();
+		public static uint get_num_unused_threads() => GLibInterop.g_thread_pool_get_num_unused_threads();
+		public static GLib.ThreadPool @new(System.IntPtr func, System.IntPtr user_data, int max_threads, bool exclusive, out GLib.Error error) => GLibInterop.g_thread_pool_new(func, user_data, max_threads, exclusive, out error);
+		public static void set_max_idle_time(uint interval) => GLibInterop.g_thread_pool_set_max_idle_time(interval);
+		public static void set_max_unused_threads(int max_threads) => GLibInterop.g_thread_pool_set_max_unused_threads(max_threads);
+		public static void stop_unused_threads() => GLibInterop.g_thread_pool_stop_unused_threads();
 	}
 	public enum TimeType
 	{
@@ -1265,6 +2110,13 @@ namespace GLib {
 		}
 		public static explicit operator Timer(IntPtr pointer) => new Timer(pointer, checkType: true);
 		public static explicit operator IntPtr(Timer value) => value._pointer;
+		public void @continue() => GLib.GLibInterop.g_timer_continue(this);
+		public void destroy() => GLib.GLibInterop.g_timer_destroy(this);
+		public double elapsed(System.IntPtr microseconds) => GLib.GLibInterop.g_timer_elapsed(this, microseconds);
+		public void reset() => GLib.GLibInterop.g_timer_reset(this);
+		public void start() => GLib.GLibInterop.g_timer_start(this);
+		public void stop() => GLib.GLibInterop.g_timer_stop(this);
+		public static GLib.Timer @new() => GLibInterop.g_timer_new();
 	}
 	public ref struct TrashStack
 	{
@@ -1285,6 +2137,23 @@ namespace GLib {
 		}
 		public static explicit operator Tree(IntPtr pointer) => new Tree(pointer, checkType: true);
 		public static explicit operator IntPtr(Tree value) => value._pointer;
+		public void destroy() => GLib.GLibInterop.g_tree_destroy(this);
+		public void @foreach(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_tree_foreach(this, func, user_data);
+		public int height() => GLib.GLibInterop.g_tree_height(this);
+		public void insert(System.IntPtr key, System.IntPtr value) => GLib.GLibInterop.g_tree_insert(this, key, value);
+		public System.IntPtr lookup(System.IntPtr key) => GLib.GLibInterop.g_tree_lookup(this, key);
+		public bool lookup_extended(System.IntPtr lookup_key, System.IntPtr orig_key, System.IntPtr value) => GLib.GLibInterop.g_tree_lookup_extended(this, lookup_key, orig_key, value);
+		public int nnodes() => GLib.GLibInterop.g_tree_nnodes(this);
+		public GLib.Tree @ref() => GLib.GLibInterop.g_tree_ref(this);
+		public bool remove(System.IntPtr key) => GLib.GLibInterop.g_tree_remove(this, key);
+		public void replace(System.IntPtr key, System.IntPtr value) => GLib.GLibInterop.g_tree_replace(this, key, value);
+		public System.IntPtr search(System.IntPtr search_func, System.IntPtr user_data) => GLib.GLibInterop.g_tree_search(this, search_func, user_data);
+		public bool steal(System.IntPtr key) => GLib.GLibInterop.g_tree_steal(this, key);
+		public void traverse(System.IntPtr traverse_func, GLib.TraverseType traverse_type, System.IntPtr user_data) => GLib.GLibInterop.g_tree_traverse(this, traverse_func, traverse_type, user_data);
+		public void unref() => GLib.GLibInterop.g_tree_unref(this);
+		public static GLib.Tree @new(System.IntPtr key_compare_func) => GLibInterop.g_tree_new(key_compare_func);
+		public static GLib.Tree new_full(System.IntPtr key_compare_func, System.IntPtr key_compare_data, System.IntPtr key_destroy_func, System.IntPtr value_destroy_func) => GLibInterop.g_tree_new_full(key_compare_func, key_compare_data, key_destroy_func, value_destroy_func);
+		public static GLib.Tree new_with_data(System.IntPtr key_compare_func, System.IntPtr key_compare_data) => GLibInterop.g_tree_new_with_data(key_compare_func, key_compare_data);
 	}
 	public enum UnicodeBreakType
 	{
@@ -1532,6 +2401,91 @@ namespace GLib {
 		}
 		public static explicit operator Variant(IntPtr pointer) => new Variant(pointer, checkType: true);
 		public static explicit operator IntPtr(Variant value) => value._pointer;
+		public static GLib.Variant new_array(GLib.VariantType child_type, System.IntPtr children, ulong n_children) => GLibInterop.g_variant_new_array(child_type, children, n_children);
+		public static GLib.Variant new_boolean(bool value) => GLibInterop.g_variant_new_boolean(value);
+		public static GLib.Variant new_byte(byte value) => GLibInterop.g_variant_new_byte(value);
+		public static GLib.Variant new_bytestring(System.IntPtr @string) => GLibInterop.g_variant_new_bytestring(@string);
+		public static GLib.Variant new_bytestring_array(System.IntPtr strv, long length) => GLibInterop.g_variant_new_bytestring_array(strv, length);
+		public static GLib.Variant new_dict_entry(GLib.Variant key, GLib.Variant value) => GLibInterop.g_variant_new_dict_entry(key, value);
+		public static GLib.Variant new_double(double value) => GLibInterop.g_variant_new_double(value);
+		public static GLib.Variant new_fixed_array(GLib.VariantType element_type, System.IntPtr elements, ulong n_elements, ulong element_size) => GLibInterop.g_variant_new_fixed_array(element_type, elements, n_elements, element_size);
+		public static GLib.Variant new_from_bytes(GLib.VariantType type, GLib.Bytes bytes, bool trusted) => GLibInterop.g_variant_new_from_bytes(type, bytes, trusted);
+		public static GLib.Variant new_from_data(GLib.VariantType type, System.IntPtr data, ulong size, bool trusted, System.IntPtr notify, System.IntPtr user_data) => GLibInterop.g_variant_new_from_data(type, data, size, trusted, notify, user_data);
+		public static GLib.Variant new_handle(int value) => GLibInterop.g_variant_new_handle(value);
+		public static GLib.Variant new_int16(short value) => GLibInterop.g_variant_new_int16(value);
+		public static GLib.Variant new_int32(int value) => GLibInterop.g_variant_new_int32(value);
+		public static GLib.Variant new_int64(long value) => GLibInterop.g_variant_new_int64(value);
+		public static GLib.Variant new_maybe(GLib.VariantType child_type, GLib.Variant child) => GLibInterop.g_variant_new_maybe(child_type, child);
+		public static GLib.Variant new_object_path(string object_path) => GLibInterop.g_variant_new_object_path(object_path);
+		public static GLib.Variant new_objv(System.IntPtr strv, long length) => GLibInterop.g_variant_new_objv(strv, length);
+		public static GLib.Variant new_parsed_va(string format, System.IntPtr app) => GLibInterop.g_variant_new_parsed_va(format, app);
+		public static GLib.Variant new_signature(string signature) => GLibInterop.g_variant_new_signature(signature);
+		public static GLib.Variant new_string(string @string) => GLibInterop.g_variant_new_string(@string);
+		public static GLib.Variant new_strv(System.IntPtr strv, long length) => GLibInterop.g_variant_new_strv(strv, length);
+		public static GLib.Variant new_take_string(string @string) => GLibInterop.g_variant_new_take_string(@string);
+		public static GLib.Variant new_tuple(System.IntPtr children, ulong n_children) => GLibInterop.g_variant_new_tuple(children, n_children);
+		public static GLib.Variant new_uint16(ushort value) => GLibInterop.g_variant_new_uint16(value);
+		public static GLib.Variant new_uint32(uint value) => GLibInterop.g_variant_new_uint32(value);
+		public static GLib.Variant new_uint64(ulong value) => GLibInterop.g_variant_new_uint64(value);
+		public static GLib.Variant new_va(string format_string, string endptr, System.IntPtr app) => GLibInterop.g_variant_new_va(format_string, endptr, app);
+		public static GLib.Variant new_variant(GLib.Variant value) => GLibInterop.g_variant_new_variant(value);
+		public GLib.Variant byteswap() => GLib.GLibInterop.g_variant_byteswap(this);
+		public bool check_format_string(string format_string, bool copy_only) => GLib.GLibInterop.g_variant_check_format_string(this, format_string, copy_only);
+		public GLib.VariantClass classify() => GLib.GLibInterop.g_variant_classify(this);
+		public int compare(GLib.Variant two) => GLib.GLibInterop.g_variant_compare(this, two);
+		public System.IntPtr dup_bytestring(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_bytestring(this, length);
+		public System.IntPtr dup_bytestring_array(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_bytestring_array(this, length);
+		public System.IntPtr dup_objv(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_objv(this, length);
+		public string dup_string(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_string(this, length);
+		public System.IntPtr dup_strv(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_strv(this, length);
+		public bool equal(GLib.Variant two) => GLib.GLibInterop.g_variant_equal(this, two);
+		public bool get_boolean() => GLib.GLibInterop.g_variant_get_boolean(this);
+		public byte get_byte() => GLib.GLibInterop.g_variant_get_byte(this);
+		public System.IntPtr get_bytestring() => GLib.GLibInterop.g_variant_get_bytestring(this);
+		public System.IntPtr get_bytestring_array(System.IntPtr length) => GLib.GLibInterop.g_variant_get_bytestring_array(this, length);
+		public GLib.Variant get_child_value(ulong index_) => GLib.GLibInterop.g_variant_get_child_value(this, index_);
+		public System.IntPtr get_data() => GLib.GLibInterop.g_variant_get_data(this);
+		public GLib.Bytes get_data_as_bytes() => GLib.GLibInterop.g_variant_get_data_as_bytes(this);
+		public double get_double() => GLib.GLibInterop.g_variant_get_double(this);
+		public System.IntPtr get_fixed_array(System.IntPtr n_elements, ulong element_size) => GLib.GLibInterop.g_variant_get_fixed_array(this, n_elements, element_size);
+		public int get_handle() => GLib.GLibInterop.g_variant_get_handle(this);
+		public short get_int16() => GLib.GLibInterop.g_variant_get_int16(this);
+		public int get_int32() => GLib.GLibInterop.g_variant_get_int32(this);
+		public long get_int64() => GLib.GLibInterop.g_variant_get_int64(this);
+		public GLib.Variant get_maybe() => GLib.GLibInterop.g_variant_get_maybe(this);
+		public GLib.Variant get_normal_form() => GLib.GLibInterop.g_variant_get_normal_form(this);
+		public System.IntPtr get_objv(System.IntPtr length) => GLib.GLibInterop.g_variant_get_objv(this, length);
+		public ulong get_size() => GLib.GLibInterop.g_variant_get_size(this);
+		public string get_string(System.IntPtr length) => GLib.GLibInterop.g_variant_get_string(this, length);
+		public System.IntPtr get_strv(System.IntPtr length) => GLib.GLibInterop.g_variant_get_strv(this, length);
+		public GLib.VariantType get_type() => GLib.GLibInterop.g_variant_get_type(this);
+		public string get_type_string() => GLib.GLibInterop.g_variant_get_type_string(this);
+		public ushort get_uint16() => GLib.GLibInterop.g_variant_get_uint16(this);
+		public uint get_uint32() => GLib.GLibInterop.g_variant_get_uint32(this);
+		public ulong get_uint64() => GLib.GLibInterop.g_variant_get_uint64(this);
+		public void get_va(string format_string, string endptr, System.IntPtr app) => GLib.GLibInterop.g_variant_get_va(this, format_string, endptr, app);
+		public GLib.Variant get_variant() => GLib.GLibInterop.g_variant_get_variant(this);
+		public uint hash() => GLib.GLibInterop.g_variant_hash(this);
+		public bool is_container() => GLib.GLibInterop.g_variant_is_container(this);
+		public bool is_floating() => GLib.GLibInterop.g_variant_is_floating(this);
+		public bool is_normal_form() => GLib.GLibInterop.g_variant_is_normal_form(this);
+		public bool is_of_type(GLib.VariantType type) => GLib.GLibInterop.g_variant_is_of_type(this, type);
+		public GLib.VariantIter iter_new() => GLib.GLibInterop.g_variant_iter_new(this);
+		public GLib.Variant lookup_value(string key, GLib.VariantType expected_type) => GLib.GLibInterop.g_variant_lookup_value(this, key, expected_type);
+		public ulong n_children() => GLib.GLibInterop.g_variant_n_children(this);
+		public string print(bool type_annotate) => GLib.GLibInterop.g_variant_print(this, type_annotate);
+		public GLib.String print_string(GLib.String @string, bool type_annotate) => GLib.GLibInterop.g_variant_print_string(this, @string, type_annotate);
+		public GLib.Variant @ref() => GLib.GLibInterop.g_variant_ref(this);
+		public GLib.Variant ref_sink() => GLib.GLibInterop.g_variant_ref_sink(this);
+		public void store(System.IntPtr data) => GLib.GLibInterop.g_variant_store(this, data);
+		public GLib.Variant take_ref() => GLib.GLibInterop.g_variant_take_ref(this);
+		public void unref() => GLib.GLibInterop.g_variant_unref(this);
+		public static bool is_object_path(string @string) => GLibInterop.g_variant_is_object_path(@string);
+		public static bool is_signature(string @string) => GLibInterop.g_variant_is_signature(@string);
+		public static GLib.Variant parse(GLib.VariantType type, string text, string limit, string endptr, out GLib.Error error) => GLibInterop.g_variant_parse(type, text, limit, endptr, out error);
+		public static string parse_error_print_context(GLib.Error error, string source_str) => GLibInterop.g_variant_parse_error_print_context(error, source_str);
+		public static uint parse_error_quark() => GLibInterop.g_variant_parse_error_quark();
+		public static uint parser_get_error_quark() => GLibInterop.g_variant_parser_get_error_quark();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "intern")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1544,6 +2498,36 @@ namespace GLib {
 		}
 		public static explicit operator VariantType(IntPtr pointer) => new VariantType(pointer, checkType: true);
 		public static explicit operator IntPtr(VariantType value) => value._pointer;
+		public static GLib.VariantType @new(string type_string) => GLibInterop.g_variant_type_new(type_string);
+		public static GLib.VariantType new_array(GLib.VariantType element) => GLibInterop.g_variant_type_new_array(element);
+		public static GLib.VariantType new_dict_entry(GLib.VariantType key, GLib.VariantType value) => GLibInterop.g_variant_type_new_dict_entry(key, value);
+		public static GLib.VariantType new_maybe(GLib.VariantType element) => GLibInterop.g_variant_type_new_maybe(element);
+		public static GLib.VariantType new_tuple(System.IntPtr items, int length) => GLibInterop.g_variant_type_new_tuple(items, length);
+		public GLib.VariantType copy() => GLib.GLibInterop.g_variant_type_copy(this);
+		public string dup_string() => GLib.GLibInterop.g_variant_type_dup_string(this);
+		public GLib.VariantType element() => GLib.GLibInterop.g_variant_type_element(this);
+		public bool equal(GLib.VariantType type2) => GLib.GLibInterop.g_variant_type_equal(this, type2);
+		public GLib.VariantType first() => GLib.GLibInterop.g_variant_type_first(this);
+		public void free() => GLib.GLibInterop.g_variant_type_free(this);
+		public ulong get_string_length() => GLib.GLibInterop.g_variant_type_get_string_length(this);
+		public uint hash() => GLib.GLibInterop.g_variant_type_hash(this);
+		public bool is_array() => GLib.GLibInterop.g_variant_type_is_array(this);
+		public bool is_basic() => GLib.GLibInterop.g_variant_type_is_basic(this);
+		public bool is_container() => GLib.GLibInterop.g_variant_type_is_container(this);
+		public bool is_definite() => GLib.GLibInterop.g_variant_type_is_definite(this);
+		public bool is_dict_entry() => GLib.GLibInterop.g_variant_type_is_dict_entry(this);
+		public bool is_maybe() => GLib.GLibInterop.g_variant_type_is_maybe(this);
+		public bool is_subtype_of(GLib.VariantType supertype) => GLib.GLibInterop.g_variant_type_is_subtype_of(this, supertype);
+		public bool is_tuple() => GLib.GLibInterop.g_variant_type_is_tuple(this);
+		public bool is_variant() => GLib.GLibInterop.g_variant_type_is_variant(this);
+		public GLib.VariantType key() => GLib.GLibInterop.g_variant_type_key(this);
+		public ulong n_items() => GLib.GLibInterop.g_variant_type_n_items(this);
+		public GLib.VariantType next() => GLib.GLibInterop.g_variant_type_next(this);
+		public string peek_string() => GLib.GLibInterop.g_variant_type_peek_string(this);
+		public GLib.VariantType value() => GLib.GLibInterop.g_variant_type_value(this);
+		public static GLib.VariantType checked_(string arg0) => GLibInterop.g_variant_type_checked_(arg0);
+		public static bool string_is_valid(string type_string) => GLibInterop.g_variant_type_string_is_valid(type_string);
+		public static bool string_scan(string @string, string limit, string endptr) => GLibInterop.g_variant_type_string_scan(@string, limit, endptr);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_variant_type_get_gtype")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1577,6 +2561,11 @@ namespace GLib {
 		}
 		public static explicit operator VariantIter(IntPtr pointer) => new VariantIter(pointer, checkType: true);
 		public static explicit operator IntPtr(VariantIter value) => value._pointer;
+		public GLib.VariantIter copy() => GLib.GLibInterop.g_variant_iter_copy(this);
+		public void free() => GLib.GLibInterop.g_variant_iter_free(this);
+		public ulong init(GLib.Variant value) => GLib.GLibInterop.g_variant_iter_init(this, value);
+		public ulong n_children() => GLib.GLibInterop.g_variant_iter_n_children(this);
+		public GLib.Variant next_value() => GLib.GLibInterop.g_variant_iter_next_value(this);
 	}
 	public ref struct VariantBuilder
 	{
@@ -1587,6 +2576,15 @@ namespace GLib {
 		}
 		public static explicit operator VariantBuilder(IntPtr pointer) => new VariantBuilder(pointer, checkType: true);
 		public static explicit operator IntPtr(VariantBuilder value) => value._pointer;
+		public static GLib.VariantBuilder @new(GLib.VariantType type) => GLibInterop.g_variant_builder_new(type);
+		public void add_value(GLib.Variant value) => GLib.GLibInterop.g_variant_builder_add_value(this, value);
+		public void clear() => GLib.GLibInterop.g_variant_builder_clear(this);
+		public void close() => GLib.GLibInterop.g_variant_builder_close(this);
+		public GLib.Variant end() => GLib.GLibInterop.g_variant_builder_end(this);
+		public void init(GLib.VariantType type) => GLib.GLibInterop.g_variant_builder_init(this, type);
+		public void open(GLib.VariantType type) => GLib.GLibInterop.g_variant_builder_open(this, type);
+		public GLib.VariantBuilder @ref() => GLib.GLibInterop.g_variant_builder_ref(this);
+		public void unref() => GLib.GLibInterop.g_variant_builder_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_variant_builder_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1599,6 +2597,16 @@ namespace GLib {
 		}
 		public static explicit operator VariantDict(IntPtr pointer) => new VariantDict(pointer, checkType: true);
 		public static explicit operator IntPtr(VariantDict value) => value._pointer;
+		public static GLib.VariantDict @new(GLib.Variant from_asv) => GLibInterop.g_variant_dict_new(from_asv);
+		public void clear() => GLib.GLibInterop.g_variant_dict_clear(this);
+		public bool contains(string key) => GLib.GLibInterop.g_variant_dict_contains(this, key);
+		public GLib.Variant end() => GLib.GLibInterop.g_variant_dict_end(this);
+		public void init(GLib.Variant from_asv) => GLib.GLibInterop.g_variant_dict_init(this, from_asv);
+		public void insert_value(string key, GLib.Variant value) => GLib.GLibInterop.g_variant_dict_insert_value(this, key, value);
+		public GLib.Variant lookup_value(string key, GLib.VariantType expected_type) => GLib.GLibInterop.g_variant_dict_lookup_value(this, key, expected_type);
+		public GLib.VariantDict @ref() => GLib.GLibInterop.g_variant_dict_ref(this);
+		public bool remove(string key) => GLib.GLibInterop.g_variant_dict_remove(this, key);
+		public void unref() => GLib.GLibInterop.g_variant_dict_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_variant_dict_get_type")]
 		public static extern GLib.GType TypeOf();
 	}

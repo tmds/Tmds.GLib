@@ -985,7 +985,7 @@ namespace Tmds.Gir
             {
                 Name = functionName,
                 CIdentifier = cIdentifier,
-                Kind = kind,
+                Kind = functionKind,
                 Parameters = parameters,
                 Return = ret,
                 Throws = throws,

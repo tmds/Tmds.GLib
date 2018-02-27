@@ -137,11 +137,55 @@ namespace Tmds.Gir
                 while (parent != null)
                 {
                     _sb.AppendFormat("\t\tpublic static implicit operator {0}({1} value) => new {0}((IntPtr)value, checkType: false);\n", parent.FullName, type.Name);
-                    // TODO: add type check
                     _sb.AppendFormat("\t\tpublic static explicit operator {0}({1} value) => new {0}((IntPtr)value, checkType: true);\n", type.Name, parent.FullName);
                     parent = parent.Parent as ClassType;
                 }
             }
+            GLibType functionType = type;
+            HashSet<string> functionNames = new HashSet<string>();
+            do
+            {
+                var functions = GetFunctions(functionType); // TODO: skip deprecated
+                if (functions != null)
+                {
+                    foreach (Function function in functions)
+                    {
+                        (bool unknownType, ParameterInfo returnParameter, ParameterInfo[] argumentParameters) = InspectParameters(function);
+                        if (unknownType)
+                        {
+                            continue;
+                        }
+                        if (functionNames.Contains(function.Name))
+                        {
+                            continue;
+                        }
+                        functionNames.Add(function.Name);
+                        switch (function.Kind)
+                        {
+                            case FunctionKind.Constructor:
+                            case FunctionKind.Function:
+                            if (functionType == type)
+                            {
+                                _sb.AppendFormat("\t\tpublic static {0} {1}", returnParameter.Type, EscapeIdentifier(function.Name)); // TODO: prettify
+                                AddArgumentList(param => $"{param.Modifier}{param.Type} {param.Name}", argumentParameters);
+                                _sb.AppendFormat(" => {0}Interop.{1}", type.Namespace.Name, function.CIdentifier);
+                                AddArgumentList(param => $"{param.Modifier}{param.Name}", argumentParameters);
+                                _sb.Append(";\n");
+                            }
+                                break;
+                            case FunctionKind.Method:
+                                _sb.AppendFormat("\t\tpublic {0} {1}", returnParameter.Type, EscapeIdentifier(function.Name)); // TODO: prettify
+                                AddArgumentList(param => $"{param.Modifier}{param.Type} {param.Name}", argumentParameters.Skip(1).ToList());
+                                _sb.AppendFormat(" => {0}.{0}Interop.{1}", functionType.Namespace.Name, function.CIdentifier);
+                                argumentParameters[0].Name = "this";
+                                AddArgumentList(param => $"{param.Modifier}{param.Name}", argumentParameters);
+                                _sb.Append(";\n");
+                                break;
+                        }
+                    }
+                }
+                functionType = (functionType as ClassType)?.Parent;
+            } while (functionType != null);
             if (getGLibType != null)
             {
                 string libraryName = type.Namespace.SharedLibraries[0];
@@ -167,6 +211,7 @@ namespace Tmds.Gir
         {
             public string Type;
             public string Name;
+            public string Modifier;
         }
 
         private void AddFunctionMethods(Namespace ns, List<Function> functions)
@@ -178,28 +223,7 @@ namespace Tmds.Gir
             foreach (var function in functions)
             {
                 string functionName = function.CIdentifier;
-                string returnType = MarshallAsType(function.Return, function);
-                if (returnType == null)
-                {
-                    continue;
-                }
-                bool unknownType = false;
-                ParameterInfo[] parameters = function.Parameters.Count == 0 ? null : new ParameterInfo[function.Parameters.Count];
-                for (int i = 0; i < function.Parameters.Count; i++)
-                {
-                    Parameter p = function.Parameters[i];
-                    var parameterType = MarshallAsType(p, function);
-                    if (parameterType == null)
-                    {
-                        unknownType = true;
-                        break;
-                    }
-                    parameters[i] = new ParameterInfo
-                    {
-                        Type = parameterType,
-                        Name = EscapeIdentifier(p.Name)
-                    };
-                }
+                (bool unknownType, ParameterInfo returnParameter, ParameterInfo[] argumentParameters) = InspectParameters(function);
                 if (unknownType)
                 {
                     continue;
@@ -210,20 +234,59 @@ namespace Tmds.Gir
                 }
                 string libraryName = ns.SharedLibraries[0];
                 _sb.AppendFormat("\t\t[DllImport(\"{0}\")]\n", libraryName);
-                _sb.AppendFormat("\t\tpublic static extern {0} {1}(", returnType, functionName);
-                if (parameters != null)
+                _sb.AppendFormat("\t\tpublic static extern {0} {1}", returnParameter.Type, functionName);
+                AddArgumentList(param => $"{param.Modifier}{param.Type} {param.Name}", argumentParameters);
+                _sb.Append(";\n");
+            }
+        }
+
+        private void AddArgumentList<T>(Func<T, string> formatter, IList<T> arguments)
+        {
+            _sb.Append("(");
+            if (arguments != null)
+            {
+                for (int i = 0; i < arguments.Count; i++)
                 {
-                    for (int i = 0; i < parameters.Length; i++)
+                    _sb.Append(formatter(arguments[i]));
+                    if (i != arguments.Count - 1)
                     {
-                        _sb.AppendFormat("{0} {1}", parameters[i].Type, parameters[i].Name);
-                        if (i != parameters.Length - 1)
-                        {
-                            _sb.Append(", ");
-                        }
+                        _sb.Append(", ");
                     }
                 }
-                _sb.Append(");\n");
             }
+            _sb.Append(")");
+        }
+
+        private (bool unknownType, ParameterInfo returnParameter, ParameterInfo[] argumentParameters) InspectParameters(Function function)
+        {
+            (_, string returnType) = MarshallAsType(function.Return, function);
+            if (returnType == null)
+            {
+                return (true, default(ParameterInfo), null);
+            }
+            bool unknownType = false;
+            ParameterInfo[] parameters = function.Parameters.Count == 0 ? null : new ParameterInfo[function.Parameters.Count];
+            for (int i = 0; i < function.Parameters.Count; i++)
+            {
+                Parameter p = function.Parameters[i];
+                (var modifier, var parameterType) = MarshallAsType(p, function);
+                if (parameterType == null)
+                {
+                    unknownType = true;
+                    break;
+                }
+                parameters[i] = new ParameterInfo
+                {
+                    Type = parameterType,
+                    Name = EscapeIdentifier(p.Name),
+                    Modifier = modifier
+                };
+            }
+            if (unknownType)
+            {
+                return (true, default(ParameterInfo), null);
+            }
+            return (false, new ParameterInfo { Type = returnType }, parameters);
         }
 
         private static readonly string[] s_keywords = new[]
@@ -244,7 +307,7 @@ namespace Tmds.Gir
             return identifier;
         }
 
-        private static string MarshallAsType(Parameter p, Function function)
+        private static (string modifier, string typeName) MarshallAsType(Parameter p, Function function)
         {
             GLibType type = p.Type;
             string cType = p.CType;
@@ -260,100 +323,103 @@ namespace Tmds.Gir
             {
                 if (starCount == 0)
                 {
-                    return null;
+                    return (null, null);
                 }
                 starCount--;
                 cType = cType.Substring(0, cType.Length - 1);
             }
+            string typeName = null;
+            string modifier = string.Empty;
             if (enumType || byRefType)
-            {   
-                string typeName = type.FullName;
-                string modifier = null;
+            {
+                typeName = type.FullName;
                 switch (p.Direction)
                 {
                     case ParameterDirection.In:
                     case ParameterDirection.Return:
                         break;
                     case ParameterDirection.InOut:
-                        modifier = "ref";
+                        modifier = "ref ";
                         break;
                     case ParameterDirection.Out:
-                        modifier = "out";
+                        modifier = "out ";
                         break;
                 }
-                if (modifier == null)
+                if (string.IsNullOrEmpty(modifier))
                 {
                     if (starCount != 0)
                     {
-                        return null;
+                        return (null, null);
                     }
-                    return typeName;
+                    return (modifier, typeName);
                 }
                 else
                 {
                     if (starCount != 1)
                     {
-                        return null;
+                        return (null, null);
                     }
-                    return $"{modifier} {typeName}";
+                    return (modifier, typeName);
                 }
             }
             bool isPointer = cType.EndsWith("*") || (type is RecordType rec && rec.Disguised);
             bool isUtf8String = (type is FundamentalType fund && fund.Fundamental == Fundamental.Utf8);
             if (isPointer && !isUtf8String)
             {
-                return "System.IntPtr";
+                typeName = "System.IntPtr";
+                return (modifier, typeName);
             }
             if (type is ListType || type is HashTableType || type is CallbackType || type is ClassType || type is InterfaceType)
             {
-                return "System.IntPtr";
+                typeName = "System.IntPtr";
+                return (modifier, typeName);
             }
             if (type is FundamentalType f)
             {
                 switch (f.Fundamental)
                 {
-                    case Fundamental.None: return "void";
-                    case Fundamental.Boolean: return "bool";
-                    case Fundamental.Int8: return "sbyte";
-                    case Fundamental.UInt8: return "byte";
-                    case Fundamental.Int16: return "short";
-                    case Fundamental.UInt16: return "ushort";
-                    case Fundamental.Int32: return "int";
-                    case Fundamental.UInt32: return "uint";
-                    case Fundamental.Int64: return "long";
-                    case Fundamental.UInt64: return "ulong";
-                    case Fundamental.Pointer: return "System.IntPtr";
-                    case Fundamental.Float: return "float";
-                    case Fundamental.Double: return "double";
-                    case Fundamental.Char: return "sbyte";
-                    case Fundamental.UChar: return "byte";
-                    case Fundamental.Short: return "short";
-                    case Fundamental.UShort: return "ushort";
-                    case Fundamental.Int: return "int";
-                    case Fundamental.UInt: return "uint";
-                    case Fundamental.IntPtr: return "System.IntPtr";
-                    case Fundamental.UIntPtr: return "System.UIntPtr";
-                    case Fundamental.UniChar: return "uint";
-                    case Fundamental.Utf8: return "string";
-                    case Fundamental.Filename: return "System.IntPtr";
+                    case Fundamental.None: typeName = "void"; break;
+                    case Fundamental.Boolean: typeName = "bool"; break;
+                    case Fundamental.Int8: typeName = "sbyte"; break;
+                    case Fundamental.UInt8: typeName = "byte"; break;
+                    case Fundamental.Int16: typeName = "short"; break;
+                    case Fundamental.UInt16: typeName = "ushort"; break;
+                    case Fundamental.Int32: typeName = "int"; break;
+                    case Fundamental.UInt32: typeName = "uint"; break;
+                    case Fundamental.Int64: typeName = "long"; break;
+                    case Fundamental.UInt64: typeName = "ulong"; break;
+                    case Fundamental.Pointer: typeName = "System.IntPtr"; break;
+                    case Fundamental.Float: typeName = "float"; break;
+                    case Fundamental.Double: typeName = "double"; break;
+                    case Fundamental.Char: typeName = "sbyte"; break;
+                    case Fundamental.UChar: typeName = "byte"; break;
+                    case Fundamental.Short: typeName = "short"; break;
+                    case Fundamental.UShort: typeName = "ushort"; break;
+                    case Fundamental.Int: typeName = "int"; break;
+                    case Fundamental.UInt: typeName = "uint"; break;
+                    case Fundamental.IntPtr: typeName = "System.IntPtr"; break;
+                    case Fundamental.UIntPtr: typeName = "System.UIntPtr"; break;
+                    case Fundamental.UniChar: typeName = "uint"; break;
+                    case Fundamental.Utf8: typeName = "string"; break;
+                    case Fundamental.Filename: typeName = "System.IntPtr"; break;
 
                     // Note: this is 32-bit on Windows:
-                    case Fundamental.Long: return "long";
-                    case Fundamental.ULong: return "ulong";
+                    case Fundamental.Long: typeName = "long"; break;
+                    case Fundamental.ULong: typeName = "ulong"; break;
 
                     // Note: this is 32-bit on a 32-bit system
-                    case Fundamental.Type: return "GLib.GType"; // manually defined
-                    case Fundamental.Size: return "ulong";
-                    case Fundamental.SSize: return "long";
+                    case Fundamental.Type: typeName = "GLib.GType";  break;// manually defined
+                    case Fundamental.Size: typeName = "ulong"; break;
+                    case Fundamental.SSize: typeName = "long"; break;
 
                     // unsupported:
                     case Fundamental.VarArgs:
                     case Fundamental.LongDouble:
                     case Fundamental.VaList:
-                        return null;
+                        typeName = null; break;
                 }
             }
-            return null;
+            return (modifier, typeName);
         }
 
         private static (string cType, GLibType type) ResolveType(string cType, GLibType type)

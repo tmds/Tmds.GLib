@@ -10,6 +10,14 @@ namespace GModule {
 		}
 		public static explicit operator Module(IntPtr pointer) => new Module(pointer, checkType: true);
 		public static explicit operator IntPtr(Module value) => value._pointer;
+		public bool close() => GModule.GModuleInterop.g_module_close(this);
+		public void make_resident() => GModule.GModuleInterop.g_module_make_resident(this);
+		public string name() => GModule.GModuleInterop.g_module_name(this);
+		public bool symbol(string symbol_name, System.IntPtr symbol) => GModule.GModuleInterop.g_module_symbol(this, symbol_name, symbol);
+		public static string build_path(string directory, string module_name) => GModuleInterop.g_module_build_path(directory, module_name);
+		public static string error() => GModuleInterop.g_module_error();
+		public static GModule.Module open(string file_name, GModule.ModuleFlags flags) => GModuleInterop.g_module_open(file_name, flags);
+		public static bool supported() => GModuleInterop.g_module_supported();
 	}
 	[Flags]
 	public enum ModuleFlags

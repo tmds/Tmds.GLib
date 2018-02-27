@@ -7,7 +7,7 @@ namespace Tmds.Gir
     {
         public string Name { get; set; }
         public string CIdentifier { get; set; }
-        public string Kind { get; set; }
+        public FunctionKind Kind { get; set; }
         public List<Parameter> Parameters { get; set; }
         public Parameter Return { get; set; }
         public bool Throws { get; set; }
