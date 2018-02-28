@@ -1162,7 +1162,8 @@ namespace Tmds.Gir
                 GLibType type = new ListType
                 {
                     Kind = kind,
-                    ArrayLength = arrayLength
+                    ArrayLength = arrayLength,
+                    ItemTypeName = innerTypes[0]
                 };
                 TypeName tid = ns.AddType(null, type);
                 return (tid, cType, arrayLength);

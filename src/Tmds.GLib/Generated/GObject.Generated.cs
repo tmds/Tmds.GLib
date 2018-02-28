@@ -16,7 +16,7 @@ namespace GObject {
 		public GObject.TypeClass peek_parent() => GObject.GObjectInterop.g_type_class_peek_parent(this);
 		public void unref() => GObject.GObjectInterop.g_type_class_unref(this);
 		public void unref_uncached() => GObject.GObjectInterop.g_type_class_unref_uncached(this);
-		public static void adjust_private_offset(System.IntPtr g_class, System.IntPtr private_size_or_offset) => GObjectInterop.g_type_class_adjust_private_offset(g_class, private_size_or_offset);
+		public static void adjust_private_offset(System.IntPtr g_class, int private_size_or_offset) => GObjectInterop.g_type_class_adjust_private_offset(g_class, private_size_or_offset);
 		public static GObject.TypeClass peek(GLib.GType type) => GObjectInterop.g_type_class_peek(type);
 		public static GObject.TypeClass peek_static(GLib.GType type) => GObjectInterop.g_type_class_peek_static(type);
 		public static GObject.TypeClass @ref(GLib.GType type) => GObjectInterop.g_type_class_ref(type);
@@ -51,7 +51,7 @@ namespace GObject {
 		public string get_target_property() => GObject.GObjectInterop.g_binding_get_target_property(this);
 		public void unbind() => GObject.GObjectInterop.g_binding_unbind(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -60,7 +60,6 @@ namespace GObject {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -69,13 +68,12 @@ namespace GObject {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -107,9 +105,9 @@ namespace GObject {
 		public static ulong compat_control(ulong what, System.IntPtr data) => GObjectInterop.g_object_compat_control(what, data);
 		public static GObject.ParamSpec interface_find_property(GObject.TypeInterface g_iface, string property_name) => GObjectInterop.g_object_interface_find_property(g_iface, property_name);
 		public static void interface_install_property(GObject.TypeInterface g_iface, GObject.ParamSpec pspec) => GObjectInterop.g_object_interface_install_property(g_iface, pspec);
-		public static System.IntPtr interface_list_properties(GObject.TypeInterface g_iface, System.IntPtr n_properties_p) => GObjectInterop.g_object_interface_list_properties(g_iface, n_properties_p);
+		public static System.IntPtr interface_list_properties(GObject.TypeInterface g_iface, out uint n_properties_p) => GObjectInterop.g_object_interface_list_properties(g_iface, out n_properties_p);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -118,7 +116,6 @@ namespace GObject {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -127,13 +124,12 @@ namespace GObject {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -145,88 +141,6 @@ namespace GObject {
 		public void weak_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_ref(this, notify, data);
 		public void weak_unref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_weak_unref(this, notify, data);
 		[DllImport("libgobject-2.0.so.0", EntryPoint = "g_object_get_type")]
-		public static extern GLib.GType TypeOf();
-	}
-	public ref struct Value
-	{
-		private IntPtr _pointer;
-		public Value(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator Value(IntPtr pointer) => new Value(pointer, checkType: true);
-		public static explicit operator IntPtr(Value value) => value._pointer;
-		public void copy(GObject.Value dest_value) => GObject.GObjectInterop.g_value_copy(this, dest_value);
-		public System.IntPtr dup_boxed() => GObject.GObjectInterop.g_value_dup_boxed(this);
-		public GObject.Object dup_object() => GObject.GObjectInterop.g_value_dup_object(this);
-		public GObject.ParamSpec dup_param() => GObject.GObjectInterop.g_value_dup_param(this);
-		public string dup_string() => GObject.GObjectInterop.g_value_dup_string(this);
-		public GLib.Variant dup_variant() => GObject.GObjectInterop.g_value_dup_variant(this);
-		public bool fits_pointer() => GObject.GObjectInterop.g_value_fits_pointer(this);
-		public bool get_boolean() => GObject.GObjectInterop.g_value_get_boolean(this);
-		public System.IntPtr get_boxed() => GObject.GObjectInterop.g_value_get_boxed(this);
-		public sbyte get_char() => GObject.GObjectInterop.g_value_get_char(this);
-		public double get_double() => GObject.GObjectInterop.g_value_get_double(this);
-		public int get_enum() => GObject.GObjectInterop.g_value_get_enum(this);
-		public uint get_flags() => GObject.GObjectInterop.g_value_get_flags(this);
-		public float get_float() => GObject.GObjectInterop.g_value_get_float(this);
-		public GLib.GType get_gtype() => GObject.GObjectInterop.g_value_get_gtype(this);
-		public int get_int() => GObject.GObjectInterop.g_value_get_int(this);
-		public long get_int64() => GObject.GObjectInterop.g_value_get_int64(this);
-		public long get_long() => GObject.GObjectInterop.g_value_get_long(this);
-		public GObject.Object get_object() => GObject.GObjectInterop.g_value_get_object(this);
-		public GObject.ParamSpec get_param() => GObject.GObjectInterop.g_value_get_param(this);
-		public System.IntPtr get_pointer() => GObject.GObjectInterop.g_value_get_pointer(this);
-		public sbyte get_schar() => GObject.GObjectInterop.g_value_get_schar(this);
-		public string get_string() => GObject.GObjectInterop.g_value_get_string(this);
-		public byte get_uchar() => GObject.GObjectInterop.g_value_get_uchar(this);
-		public uint get_uint() => GObject.GObjectInterop.g_value_get_uint(this);
-		public ulong get_uint64() => GObject.GObjectInterop.g_value_get_uint64(this);
-		public ulong get_ulong() => GObject.GObjectInterop.g_value_get_ulong(this);
-		public GLib.Variant get_variant() => GObject.GObjectInterop.g_value_get_variant(this);
-		public GObject.Value init(GLib.GType g_type) => GObject.GObjectInterop.g_value_init(this, g_type);
-		public void init_from_instance(GObject.TypeInstance instance) => GObject.GObjectInterop.g_value_init_from_instance(this, instance);
-		public System.IntPtr peek_pointer() => GObject.GObjectInterop.g_value_peek_pointer(this);
-		public GObject.Value reset() => GObject.GObjectInterop.g_value_reset(this);
-		public void set_boolean(bool v_boolean) => GObject.GObjectInterop.g_value_set_boolean(this, v_boolean);
-		public void set_boxed(System.IntPtr v_boxed) => GObject.GObjectInterop.g_value_set_boxed(this, v_boxed);
-		public void set_boxed_take_ownership(System.IntPtr v_boxed) => GObject.GObjectInterop.g_value_set_boxed_take_ownership(this, v_boxed);
-		public void set_char(sbyte v_char) => GObject.GObjectInterop.g_value_set_char(this, v_char);
-		public void set_double(double v_double) => GObject.GObjectInterop.g_value_set_double(this, v_double);
-		public void set_enum(int v_enum) => GObject.GObjectInterop.g_value_set_enum(this, v_enum);
-		public void set_flags(uint v_flags) => GObject.GObjectInterop.g_value_set_flags(this, v_flags);
-		public void set_float(float v_float) => GObject.GObjectInterop.g_value_set_float(this, v_float);
-		public void set_gtype(GLib.GType v_gtype) => GObject.GObjectInterop.g_value_set_gtype(this, v_gtype);
-		public void set_instance(System.IntPtr instance) => GObject.GObjectInterop.g_value_set_instance(this, instance);
-		public void set_int(int v_int) => GObject.GObjectInterop.g_value_set_int(this, v_int);
-		public void set_int64(long v_int64) => GObject.GObjectInterop.g_value_set_int64(this, v_int64);
-		public void set_long(long v_long) => GObject.GObjectInterop.g_value_set_long(this, v_long);
-		public void set_object(GObject.Object v_object) => GObject.GObjectInterop.g_value_set_object(this, v_object);
-		public void set_object_take_ownership(System.IntPtr v_object) => GObject.GObjectInterop.g_value_set_object_take_ownership(this, v_object);
-		public void set_param(GObject.ParamSpec param) => GObject.GObjectInterop.g_value_set_param(this, param);
-		public void set_param_take_ownership(GObject.ParamSpec param) => GObject.GObjectInterop.g_value_set_param_take_ownership(this, param);
-		public void set_pointer(System.IntPtr v_pointer) => GObject.GObjectInterop.g_value_set_pointer(this, v_pointer);
-		public void set_schar(sbyte v_char) => GObject.GObjectInterop.g_value_set_schar(this, v_char);
-		public void set_static_boxed(System.IntPtr v_boxed) => GObject.GObjectInterop.g_value_set_static_boxed(this, v_boxed);
-		public void set_static_string(string v_string) => GObject.GObjectInterop.g_value_set_static_string(this, v_string);
-		public void set_string(string v_string) => GObject.GObjectInterop.g_value_set_string(this, v_string);
-		public void set_string_take_ownership(string v_string) => GObject.GObjectInterop.g_value_set_string_take_ownership(this, v_string);
-		public void set_uchar(byte v_uchar) => GObject.GObjectInterop.g_value_set_uchar(this, v_uchar);
-		public void set_uint(uint v_uint) => GObject.GObjectInterop.g_value_set_uint(this, v_uint);
-		public void set_uint64(ulong v_uint64) => GObject.GObjectInterop.g_value_set_uint64(this, v_uint64);
-		public void set_ulong(ulong v_ulong) => GObject.GObjectInterop.g_value_set_ulong(this, v_ulong);
-		public void set_variant(GLib.Variant variant) => GObject.GObjectInterop.g_value_set_variant(this, variant);
-		public void take_boxed(System.IntPtr v_boxed) => GObject.GObjectInterop.g_value_take_boxed(this, v_boxed);
-		public void take_object(System.IntPtr v_object) => GObject.GObjectInterop.g_value_take_object(this, v_object);
-		public void take_param(GObject.ParamSpec param) => GObject.GObjectInterop.g_value_take_param(this, param);
-		public void take_string(string v_string) => GObject.GObjectInterop.g_value_take_string(this, v_string);
-		public void take_variant(GLib.Variant variant) => GObject.GObjectInterop.g_value_take_variant(this, variant);
-		public bool transform(GObject.Value dest_value) => GObject.GObjectInterop.g_value_transform(this, dest_value);
-		public void unset() => GObject.GObjectInterop.g_value_unset(this);
-		public static void register_transform_func(GLib.GType src_type, GLib.GType dest_type, System.IntPtr transform_func) => GObjectInterop.g_value_register_transform_func(src_type, dest_type, transform_func);
-		public static bool type_compatible(GLib.GType src_type, GLib.GType dest_type) => GObjectInterop.g_value_type_compatible(src_type, dest_type);
-		public static bool type_transformable(GLib.GType src_type, GLib.GType dest_type) => GObjectInterop.g_value_type_transformable(src_type, dest_type);
-		[DllImport("libgobject-2.0.so.0", EntryPoint = "g_value_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
 	public ref struct Closure
@@ -274,29 +188,6 @@ namespace GObject {
 		}
 		public static explicit operator CClosure(IntPtr pointer) => new CClosure(pointer, checkType: true);
 		public static explicit operator IntPtr(CClosure value) => value._pointer;
-		public static void marshal_BOOLEAN__BOXED_BOXED(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_BOOLEAN__BOXED_BOXED(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_BOOLEAN__FLAGS(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_BOOLEAN__FLAGS(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_STRING__OBJECT_POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_STRING__OBJECT_POINTER(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__BOOLEAN(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__BOOLEAN(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__BOXED(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__BOXED(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__CHAR(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__CHAR(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__DOUBLE(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__DOUBLE(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__ENUM(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__ENUM(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__FLAGS(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__FLAGS(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__FLOAT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__FLOAT(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__INT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__INT(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__LONG(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__LONG(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__OBJECT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__OBJECT(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__PARAM(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__PARAM(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__POINTER(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__STRING(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__STRING(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__UCHAR(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__UCHAR(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__UINT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__UINT(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__UINT_POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__UINT_POINTER(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__ULONG(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__ULONG(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__VARIANT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__VARIANT(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_VOID__VOID(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_VOID__VOID(closure, return_value, n_param_values, param_values, invocation_hint, marshal_data);
-		public static void marshal_generic(GObject.Closure closure, GObject.Value return_gvalue, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data) => GObjectInterop.g_cclosure_marshal_generic(closure, return_gvalue, n_param_values, param_values, invocation_hint, marshal_data);
 		public static GObject.Closure @new(System.IntPtr callback_func, System.IntPtr user_data, System.IntPtr destroy_data) => GObjectInterop.g_cclosure_new(callback_func, user_data, destroy_data);
 		public static GObject.Closure new_object(System.IntPtr callback_func, GObject.Object @object) => GObjectInterop.g_cclosure_new_object(callback_func, @object);
 		public static GObject.Closure new_object_swap(System.IntPtr callback_func, GObject.Object @object) => GObjectInterop.g_cclosure_new_object_swap(callback_func, @object);
@@ -374,7 +265,7 @@ namespace GObject {
 		public static implicit operator GObject.Object(InitiallyUnowned value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator InitiallyUnowned(GObject.Object value) => new InitiallyUnowned((IntPtr)value, checkType: true);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -383,7 +274,6 @@ namespace GObject {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -392,13 +282,12 @@ namespace GObject {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -433,7 +322,6 @@ namespace GObject {
 		public static explicit operator IntPtr(ParamSpec value) => value._pointer;
 		public static GObject.ParamSpec @internal(GLib.GType param_type, string name, string nick, string blurb, GObject.ParamFlags flags) => GObjectInterop.g_param_spec_internal(param_type, name, nick, blurb, flags);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -472,7 +360,7 @@ namespace GObject {
 		public static void add_prerequisite(GLib.GType interface_type, GLib.GType prerequisite_type) => GObjectInterop.g_type_interface_add_prerequisite(interface_type, prerequisite_type);
 		public static GObject.TypePlugin get_plugin(GLib.GType instance_type, GLib.GType interface_type) => GObjectInterop.g_type_interface_get_plugin(instance_type, interface_type);
 		public static GObject.TypeInterface peek(GObject.TypeClass instance_class, GLib.GType iface_type) => GObjectInterop.g_type_interface_peek(instance_class, iface_type);
-		public static System.IntPtr prerequisites(GLib.GType interface_type, System.IntPtr n_prerequisites) => GObjectInterop.g_type_interface_prerequisites(interface_type, n_prerequisites);
+		public static System.IntPtr prerequisites(GLib.GType interface_type, out uint n_prerequisites) => GObjectInterop.g_type_interface_prerequisites(interface_type, out n_prerequisites);
 	}
 	public ref struct InterfaceInfo
 	{
@@ -506,7 +394,7 @@ namespace GObject {
 		public GObject.ParamSpec find_property(string property_name) => GObject.GObjectInterop.g_object_class_find_property(this, property_name);
 		public void install_properties(uint n_pspecs, System.IntPtr pspecs) => GObject.GObjectInterop.g_object_class_install_properties(this, n_pspecs, pspecs);
 		public void install_property(uint property_id, GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_class_install_property(this, property_id, pspec);
-		public System.IntPtr list_properties(System.IntPtr n_properties) => GObject.GObjectInterop.g_object_class_list_properties(this, n_properties);
+		public System.IntPtr list_properties(out uint n_properties) => GObject.GObjectInterop.g_object_class_list_properties(this, out n_properties);
 		public void override_property(uint property_id, string name) => GObject.GObjectInterop.g_object_class_override_property(this, property_id, name);
 	}
 	[Flags]
@@ -537,7 +425,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecBoolean value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecBoolean(GObject.ParamSpec value) => new ParamSpecBoolean((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -565,7 +452,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecBoxed value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecBoxed(GObject.ParamSpec value) => new ParamSpecBoxed((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -593,7 +479,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecChar value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecChar(GObject.ParamSpec value) => new ParamSpecChar((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -631,7 +516,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecDouble value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecDouble(GObject.ParamSpec value) => new ParamSpecDouble((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -659,7 +543,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecEnum value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecEnum(GObject.ParamSpec value) => new ParamSpecEnum((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -687,7 +570,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecFlags value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecFlags(GObject.ParamSpec value) => new ParamSpecFlags((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -715,7 +597,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecFloat value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecFloat(GObject.ParamSpec value) => new ParamSpecFloat((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -743,7 +624,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecGType value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecGType(GObject.ParamSpec value) => new ParamSpecGType((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -771,7 +651,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecInt value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecInt(GObject.ParamSpec value) => new ParamSpecInt((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -799,7 +678,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecInt64 value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecInt64(GObject.ParamSpec value) => new ParamSpecInt64((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -827,7 +705,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecLong value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecLong(GObject.ParamSpec value) => new ParamSpecLong((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -855,7 +732,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecObject value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecObject(GObject.ParamSpec value) => new ParamSpecObject((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -883,7 +759,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecOverride value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecOverride(GObject.ParamSpec value) => new ParamSpecOverride((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -911,7 +786,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecParam value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecParam(GObject.ParamSpec value) => new ParamSpecParam((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -939,7 +813,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecPointer value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecPointer(GObject.ParamSpec value) => new ParamSpecPointer((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -965,7 +838,7 @@ namespace GObject {
 		public static explicit operator ParamSpecPool(IntPtr pointer) => new ParamSpecPool(pointer, checkType: true);
 		public static explicit operator IntPtr(ParamSpecPool value) => value._pointer;
 		public void insert(GObject.ParamSpec pspec, GLib.GType owner_type) => GObject.GObjectInterop.g_param_spec_pool_insert(this, pspec, owner_type);
-		public System.IntPtr list(GLib.GType owner_type, System.IntPtr n_pspecs_p) => GObject.GObjectInterop.g_param_spec_pool_list(this, owner_type, n_pspecs_p);
+		public System.IntPtr list(GLib.GType owner_type, out uint n_pspecs_p) => GObject.GObjectInterop.g_param_spec_pool_list(this, owner_type, out n_pspecs_p);
 		public System.IntPtr list_owned(GLib.GType owner_type) => GObject.GObjectInterop.g_param_spec_pool_list_owned(this, owner_type);
 		public GObject.ParamSpec lookup(string param_name, GLib.GType owner_type, bool walk_ancestors) => GObject.GObjectInterop.g_param_spec_pool_lookup(this, param_name, owner_type, walk_ancestors);
 		public void remove(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_param_spec_pool_remove(this, pspec);
@@ -983,7 +856,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecString value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecString(GObject.ParamSpec value) => new ParamSpecString((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1021,7 +893,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecUChar value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecUChar(GObject.ParamSpec value) => new ParamSpecUChar((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1049,7 +920,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecUInt value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecUInt(GObject.ParamSpec value) => new ParamSpecUInt((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1077,7 +947,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecUInt64 value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecUInt64(GObject.ParamSpec value) => new ParamSpecUInt64((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1105,7 +974,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecULong value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecULong(GObject.ParamSpec value) => new ParamSpecULong((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1133,7 +1001,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecUnichar value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecUnichar(GObject.ParamSpec value) => new ParamSpecUnichar((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1161,7 +1028,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecValueArray value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecValueArray(GObject.ParamSpec value) => new ParamSpecValueArray((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1189,7 +1055,6 @@ namespace GObject {
 		public static implicit operator GObject.ParamSpec(ParamSpecVariant value) => new GObject.ParamSpec((IntPtr)value, checkType: false);
 		public static explicit operator ParamSpecVariant(GObject.ParamSpec value) => new ParamSpecVariant((IntPtr)value, checkType: true);
 		public string get_blurb() => GObject.GObjectInterop.g_param_spec_get_blurb(this);
-		public GObject.Value get_default_value() => GObject.GObjectInterop.g_param_spec_get_default_value(this);
 		public string get_name() => GObject.GObjectInterop.g_param_spec_get_name(this);
 		public uint get_name_quark() => GObject.GObjectInterop.g_param_spec_get_name_quark(this);
 		public string get_nick() => GObject.GObjectInterop.g_param_spec_get_nick(this);
@@ -1238,16 +1103,6 @@ namespace GObject {
 		data = 16,
 		unblocked = 32,
 	}
-	public ref struct SignalQuery
-	{
-		private IntPtr _pointer;
-		public SignalQuery(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator SignalQuery(IntPtr pointer) => new SignalQuery(pointer, checkType: true);
-		public static explicit operator IntPtr(SignalQuery value) => value._pointer;
-	}
 	[Flags]
 	public enum TypeDebugFlags
 	{
@@ -1292,16 +1147,6 @@ namespace GObject {
 		public static explicit operator IntPtr(TypeValueTable value) => value._pointer;
 		public static GObject.TypeValueTable peek(GLib.GType type) => GObjectInterop.g_type_value_table_peek(type);
 	}
-	public ref struct TypeInfo
-	{
-		private IntPtr _pointer;
-		public TypeInfo(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator TypeInfo(IntPtr pointer) => new TypeInfo(pointer, checkType: true);
-		public static explicit operator IntPtr(TypeInfo value) => value._pointer;
-	}
 	public ref struct TypePlugin
 	{
 		private IntPtr _pointer;
@@ -1312,7 +1157,6 @@ namespace GObject {
 		public static explicit operator TypePlugin(IntPtr pointer) => new TypePlugin(pointer, checkType: true);
 		public static explicit operator IntPtr(TypePlugin value) => value._pointer;
 		public void complete_interface_info(GLib.GType instance_type, GLib.GType interface_type, GObject.InterfaceInfo info) => GObject.GObjectInterop.g_type_plugin_complete_interface_info(this, instance_type, interface_type, info);
-		public void complete_type_info(GLib.GType g_type, GObject.TypeInfo info, GObject.TypeValueTable value_table) => GObject.GObjectInterop.g_type_plugin_complete_type_info(this, g_type, info, value_table);
 		public void unuse() => GObject.GObjectInterop.g_type_plugin_unuse(this);
 		public void use() => GObject.GObjectInterop.g_type_plugin_use(this);
 		[DllImport("libgobject-2.0.so.0", EntryPoint = "g_type_plugin_get_type")]
@@ -1336,12 +1180,11 @@ namespace GObject {
 		public void add_interface(GLib.GType instance_type, GLib.GType interface_type, GObject.InterfaceInfo interface_info) => GObject.GObjectInterop.g_type_module_add_interface(this, instance_type, interface_type, interface_info);
 		public GLib.GType register_enum(string name, GObject.EnumValue const_static_values) => GObject.GObjectInterop.g_type_module_register_enum(this, name, const_static_values);
 		public GLib.GType register_flags(string name, GObject.FlagsValue const_static_values) => GObject.GObjectInterop.g_type_module_register_flags(this, name, const_static_values);
-		public GLib.GType register_type(GLib.GType parent_type, string type_name, GObject.TypeInfo type_info, GObject.TypeFlags flags) => GObject.GObjectInterop.g_type_module_register_type(this, parent_type, type_name, type_info, flags);
 		public void set_name(string name) => GObject.GObjectInterop.g_type_module_set_name(this, name);
 		public void unuse() => GObject.GObjectInterop.g_type_module_unuse(this);
 		public bool use() => GObject.GObjectInterop.g_type_module_use(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1350,7 +1193,6 @@ namespace GObject {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1359,13 +1201,12 @@ namespace GObject {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1399,16 +1240,6 @@ namespace GObject {
 		public static explicit operator TypePluginClass(IntPtr pointer) => new TypePluginClass(pointer, checkType: true);
 		public static explicit operator IntPtr(TypePluginClass value) => value._pointer;
 	}
-	public ref struct TypeQuery
-	{
-		private IntPtr _pointer;
-		public TypeQuery(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator TypeQuery(IntPtr pointer) => new TypeQuery(pointer, checkType: true);
-		public static explicit operator IntPtr(TypeQuery value) => value._pointer;
-	}
 	public ref struct ValueArray
 	{
 		private IntPtr _pointer;
@@ -1419,28 +1250,13 @@ namespace GObject {
 		public static explicit operator ValueArray(IntPtr pointer) => new ValueArray(pointer, checkType: true);
 		public static explicit operator IntPtr(ValueArray value) => value._pointer;
 		public static GObject.ValueArray @new(uint n_prealloced) => GObjectInterop.g_value_array_new(n_prealloced);
-		public GObject.ValueArray append(GObject.Value value) => GObject.GObjectInterop.g_value_array_append(this, value);
 		public GObject.ValueArray copy() => GObject.GObjectInterop.g_value_array_copy(this);
 		public void free() => GObject.GObjectInterop.g_value_array_free(this);
-		public GObject.Value get_nth(uint index_) => GObject.GObjectInterop.g_value_array_get_nth(this, index_);
-		public GObject.ValueArray insert(uint index_, GObject.Value value) => GObject.GObjectInterop.g_value_array_insert(this, index_, value);
-		public GObject.ValueArray prepend(GObject.Value value) => GObject.GObjectInterop.g_value_array_prepend(this, value);
 		public GObject.ValueArray remove(uint index_) => GObject.GObjectInterop.g_value_array_remove(this, index_);
 		public GObject.ValueArray sort(System.IntPtr compare_func) => GObject.GObjectInterop.g_value_array_sort(this, compare_func);
 		public GObject.ValueArray sort_with_data(System.IntPtr compare_func, System.IntPtr user_data) => GObject.GObjectInterop.g_value_array_sort_with_data(this, compare_func, user_data);
 		[DllImport("libgobject-2.0.so.0", EntryPoint = "g_value_array_get_type")]
 		public static extern GLib.GType TypeOf();
-	}
-	public ref struct WeakRef
-	{
-		private IntPtr _pointer;
-		public WeakRef(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator WeakRef(IntPtr pointer) => new WeakRef(pointer, checkType: true);
-		public static explicit operator IntPtr(WeakRef value) => value._pointer;
-		public void set(GObject.Object @object) => GObject.GObjectInterop.g_weak_ref_set(this, @object);
 	}
 	public static class GObjectInterop {
 		[DllImport("libgobject-2.0.so.0")]
@@ -1449,6 +1265,8 @@ namespace GObject {
 		public static extern void g_boxed_free(GLib.GType boxed_type, System.IntPtr boxed);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_boxed_type_register_static(string name, System.IntPtr boxed_copy, System.IntPtr boxed_free);
+		[DllImport("libgobject-2.0.so.0")]
+		public static extern void g_clear_object(GObject.Object object_ptr);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.EnumValue g_enum_get_value(GObject.EnumClass enum_class, int value);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1520,25 +1338,9 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_param_type_register_static(string name, GObject.ParamSpecTypeInfo pspec_info);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_param_value_convert(GObject.ParamSpec pspec, GObject.Value src_value, GObject.Value dest_value, bool strict_validation);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_param_value_defaults(GObject.ParamSpec pspec, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_param_value_set_default(GObject.ParamSpec pspec, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_param_value_validate(GObject.ParamSpec pspec, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern int g_param_values_cmp(GObject.ParamSpec pspec, GObject.Value value1, GObject.Value value2);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_pointer_type_register_static(string name);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_signal_accumulator_first_wins(GObject.SignalInvocationHint ihint, GObject.Value return_accu, GObject.Value handler_return, System.IntPtr dummy);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_signal_accumulator_true_handled(GObject.SignalInvocationHint ihint, GObject.Value return_accu, GObject.Value handler_return, System.IntPtr dummy);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_signal_add_emission_hook(uint signal_id, uint detail, System.IntPtr hook_func, System.IntPtr hook_data, System.IntPtr data_destroy);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_signal_chain_from_overridden(System.IntPtr instance_and_params, GObject.Value return_value);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern ulong g_signal_connect_closure(GObject.Object instance, string detailed_signal, GObject.Closure closure, bool after);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1570,7 +1372,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern bool g_signal_has_handler_pending(GObject.Object instance, uint signal_id, uint detail, bool may_be_blocked);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_signal_list_ids(GLib.GType itype, System.IntPtr n_ids);
+		public static extern System.IntPtr g_signal_list_ids(GLib.GType itype, out uint n_ids);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern uint g_signal_lookup(string name, GLib.GType itype);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1582,7 +1384,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_override_class_handler(string signal_name, GLib.GType instance_type, System.IntPtr class_handler);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_signal_parse_name(string detailed_signal, GLib.GType itype, System.IntPtr signal_id_p, System.IntPtr detail_p, bool force_detail_quark);
+		public static extern bool g_signal_parse_name(string detailed_signal, GLib.GType itype, out uint signal_id_p, out uint detail_p, bool force_detail_quark);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_signal_remove_emission_hook(uint signal_id, ulong hook_id);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1597,8 +1399,6 @@ namespace GObject {
 		public static extern void g_source_set_closure(GLib.Source source, GObject.Closure closure);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_source_set_dummy_callback(GLib.Source source);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern string g_strdup_value_contents(GObject.Value value);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_add_class_cache_func(System.IntPtr cache_data, System.IntPtr cache_func);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1626,11 +1426,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern bool g_type_check_is_value_type(GLib.GType type);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_type_check_value(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_type_check_value_holds(GObject.Value value, GLib.GType type);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_type_children(GLib.GType type, System.IntPtr n_children);
+		public static extern System.IntPtr g_type_children(GLib.GType type, out uint n_children);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.TypeInstance g_type_create_instance(GLib.GType type);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1664,7 +1460,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_init_with_debug_flags(GObject.TypeDebugFlags debug_flags);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_type_interfaces(GLib.GType type, System.IntPtr n_interfaces);
+		public static extern System.IntPtr g_type_interfaces(GLib.GType type, out uint n_interfaces);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern bool g_type_is_a(GLib.GType type, GLib.GType is_a_type);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1681,10 +1477,6 @@ namespace GObject {
 		public static extern uint g_type_qname(GLib.GType type);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_type_register_dynamic(GLib.GType parent_type, string type_name, GObject.TypePlugin plugin, GObject.TypeFlags flags);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.GType g_type_register_fundamental(GLib.GType type_id, string type_name, GObject.TypeInfo info, GObject.TypeFundamentalInfo finfo, GObject.TypeFlags flags);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.GType g_type_register_static(GLib.GType parent_type, string type_name, GObject.TypeInfo info, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_type_register_static_simple(GLib.GType parent_type, string type_name, uint class_size, System.IntPtr class_init, uint instance_size, System.IntPtr instance_init, GObject.TypeFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1708,7 +1500,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_class_unref_uncached(GObject.TypeClass g_class);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_type_class_adjust_private_offset(System.IntPtr g_class, System.IntPtr private_size_or_offset);
+		public static extern void g_type_class_adjust_private_offset(System.IntPtr g_class, int private_size_or_offset);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.TypeClass g_type_class_peek(GLib.GType type);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1738,11 +1530,11 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_interface_install_property(GObject.TypeInterface g_iface, GObject.ParamSpec pspec);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_object_interface_list_properties(GObject.TypeInterface g_iface, System.IntPtr n_properties_p);
+		public static extern System.IntPtr g_object_interface_list_properties(GObject.TypeInterface g_iface, out uint n_properties_p);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_add_toggle_ref(GObject.Object @object, System.IntPtr notify, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_object_add_weak_pointer(GObject.Object @object, System.IntPtr weak_pointer_location);
+		public static extern void g_object_add_weak_pointer(GObject.Object @object, ref System.IntPtr weak_pointer_location);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.Binding g_object_bind_property(GObject.Object source, string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1760,8 +1552,6 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_object_get_data(GObject.Object @object, string key);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_object_get_property(GObject.Object @object, string property_name, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_object_get_qdata(GObject.Object @object, uint quark);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_getv(GObject.Object @object, uint n_properties, System.IntPtr names, System.IntPtr values);
@@ -1778,7 +1568,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_remove_toggle_ref(GObject.Object @object, System.IntPtr notify, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_object_remove_weak_pointer(GObject.Object @object, System.IntPtr weak_pointer_location);
+		public static extern void g_object_remove_weak_pointer(GObject.Object @object, ref System.IntPtr weak_pointer_location);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern bool g_object_replace_data(GObject.Object @object, string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1789,8 +1579,6 @@ namespace GObject {
 		public static extern void g_object_set_data(GObject.Object @object, string key, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_set_data_full(GObject.Object @object, string key, System.IntPtr data, System.IntPtr destroy);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_object_set_property(GObject.Object @object, string property_name, GObject.Value value);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_set_qdata(GObject.Object @object, uint quark, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1811,140 +1599,6 @@ namespace GObject {
 		public static extern void g_object_weak_ref(GObject.Object @object, System.IntPtr notify, System.IntPtr data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_weak_unref(GObject.Object @object, System.IntPtr notify, System.IntPtr data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_copy(GObject.Value src_value, GObject.Value dest_value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_value_dup_boxed(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Object g_value_dup_object(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.ParamSpec g_value_dup_param(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern string g_value_dup_string(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.Variant g_value_dup_variant(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_value_fits_pointer(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_value_get_boolean(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_value_get_boxed(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern sbyte g_value_get_char(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern double g_value_get_double(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern int g_value_get_enum(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_value_get_flags(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern float g_value_get_float(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.GType g_value_get_gtype(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern int g_value_get_int(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern long g_value_get_int64(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern long g_value_get_long(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Object g_value_get_object(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.ParamSpec g_value_get_param(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_value_get_pointer(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern sbyte g_value_get_schar(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern string g_value_get_string(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern byte g_value_get_uchar(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern uint g_value_get_uint(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_value_get_uint64(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern ulong g_value_get_ulong(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.Variant g_value_get_variant(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Value g_value_init(GObject.Value value, GLib.GType g_type);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_init_from_instance(GObject.Value value, GObject.TypeInstance instance);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_value_peek_pointer(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Value g_value_reset(GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_boolean(GObject.Value value, bool v_boolean);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_boxed(GObject.Value value, System.IntPtr v_boxed);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_boxed_take_ownership(GObject.Value value, System.IntPtr v_boxed);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_char(GObject.Value value, sbyte v_char);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_double(GObject.Value value, double v_double);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_enum(GObject.Value value, int v_enum);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_flags(GObject.Value value, uint v_flags);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_float(GObject.Value value, float v_float);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_gtype(GObject.Value value, GLib.GType v_gtype);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_instance(GObject.Value value, System.IntPtr instance);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_int(GObject.Value value, int v_int);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_int64(GObject.Value value, long v_int64);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_long(GObject.Value value, long v_long);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_object(GObject.Value value, GObject.Object v_object);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_object_take_ownership(GObject.Value value, System.IntPtr v_object);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_param(GObject.Value value, GObject.ParamSpec param);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_param_take_ownership(GObject.Value value, GObject.ParamSpec param);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_pointer(GObject.Value value, System.IntPtr v_pointer);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_schar(GObject.Value value, sbyte v_char);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_static_boxed(GObject.Value value, System.IntPtr v_boxed);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_static_string(GObject.Value value, string v_string);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_string(GObject.Value value, string v_string);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_string_take_ownership(GObject.Value value, string v_string);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_uchar(GObject.Value value, byte v_uchar);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_uint(GObject.Value value, uint v_uint);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_uint64(GObject.Value value, ulong v_uint64);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_ulong(GObject.Value value, ulong v_ulong);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_set_variant(GObject.Value value, GLib.Variant variant);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_take_boxed(GObject.Value value, System.IntPtr v_boxed);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_take_object(GObject.Value value, System.IntPtr v_object);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_take_param(GObject.Value value, GObject.ParamSpec param);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_take_string(GObject.Value value, string v_string);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_take_variant(GObject.Value value, GLib.Variant variant);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern bool g_value_transform(GObject.Value src_value, GObject.Value dest_value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_value_unset(GObject.Value value);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_value_register_transform_func(GLib.GType src_type, GLib.GType dest_type, System.IntPtr transform_func);
 		[DllImport("libgobject-2.0.so.0")]
@@ -1980,52 +1634,6 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_type_instance_get_private(GObject.TypeInstance instance, GLib.GType private_type);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_BOOLEAN__BOXED_BOXED(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_BOOLEAN__FLAGS(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_STRING__OBJECT_POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__BOOLEAN(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__BOXED(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__CHAR(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__DOUBLE(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__ENUM(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__FLAGS(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__FLOAT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__INT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__LONG(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__OBJECT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__PARAM(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__STRING(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__UCHAR(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__UINT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__UINT_POINTER(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__ULONG(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__VARIANT(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_VOID__VOID(GObject.Closure closure, GObject.Value return_value, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_cclosure_marshal_generic(GObject.Closure closure, GObject.Value return_gvalue, uint n_param_values, GObject.Value param_values, System.IntPtr invocation_hint, System.IntPtr marshal_data);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.Closure g_cclosure_new(System.IntPtr callback_func, System.IntPtr user_data, System.IntPtr destroy_data);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.Closure g_cclosure_new_object(System.IntPtr callback_func, GObject.Object @object);
@@ -2037,8 +1645,6 @@ namespace GObject {
 		public static extern GObject.ParamSpec g_param_spec_internal(GLib.GType param_type, string name, string nick, string blurb, GObject.ParamFlags flags);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern string g_param_spec_get_blurb(GObject.ParamSpec pspec);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Value g_param_spec_get_default_value(GObject.ParamSpec pspec);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern string g_param_spec_get_name(GObject.ParamSpec pspec);
 		[DllImport("libgobject-2.0.so.0")]
@@ -2072,7 +1678,7 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.TypeInterface g_type_interface_peek(GObject.TypeClass instance_class, GLib.GType iface_type);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_type_interface_prerequisites(GLib.GType interface_type, System.IntPtr n_prerequisites);
+		public static extern System.IntPtr g_type_interface_prerequisites(GLib.GType interface_type, out uint n_prerequisites);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ParamSpec g_object_class_find_property(GObject.ObjectClass oclass, string property_name);
 		[DllImport("libgobject-2.0.so.0")]
@@ -2080,13 +1686,13 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_class_install_property(GObject.ObjectClass oclass, uint property_id, GObject.ParamSpec pspec);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_object_class_list_properties(GObject.ObjectClass oclass, System.IntPtr n_properties);
+		public static extern System.IntPtr g_object_class_list_properties(GObject.ObjectClass oclass, out uint n_properties);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_object_class_override_property(GObject.ObjectClass oclass, uint property_id, string name);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_param_spec_pool_insert(GObject.ParamSpecPool pool, GObject.ParamSpec pspec, GLib.GType owner_type);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern System.IntPtr g_param_spec_pool_list(GObject.ParamSpecPool pool, GLib.GType owner_type, System.IntPtr n_pspecs_p);
+		public static extern System.IntPtr g_param_spec_pool_list(GObject.ParamSpecPool pool, GLib.GType owner_type, out uint n_pspecs_p);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern System.IntPtr g_param_spec_pool_list_owned(GObject.ParamSpecPool pool, GLib.GType owner_type);
 		[DllImport("libgobject-2.0.so.0")]
@@ -2100,8 +1706,6 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_plugin_complete_interface_info(GObject.TypePlugin plugin, GLib.GType instance_type, GLib.GType interface_type, GObject.InterfaceInfo info);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_type_plugin_complete_type_info(GObject.TypePlugin plugin, GLib.GType g_type, GObject.TypeInfo info, GObject.TypeValueTable value_table);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_plugin_unuse(GObject.TypePlugin plugin);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_plugin_use(GObject.TypePlugin plugin);
@@ -2112,8 +1716,6 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GLib.GType g_type_module_register_flags(GObject.TypeModule module, string name, GObject.FlagsValue const_static_values);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern GLib.GType g_type_module_register_type(GObject.TypeModule module, GLib.GType parent_type, string type_name, GObject.TypeInfo type_info, GObject.TypeFlags flags);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_module_set_name(GObject.TypeModule module, string name);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_type_module_unuse(GObject.TypeModule module);
@@ -2122,24 +1724,14 @@ namespace GObject {
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ValueArray g_value_array_new(uint n_prealloced);
 		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.ValueArray g_value_array_append(GObject.ValueArray value_array, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ValueArray g_value_array_copy(GObject.ValueArray value_array);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern void g_value_array_free(GObject.ValueArray value_array);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.Value g_value_array_get_nth(GObject.ValueArray value_array, uint index_);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.ValueArray g_value_array_insert(GObject.ValueArray value_array, uint index_, GObject.Value value);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern GObject.ValueArray g_value_array_prepend(GObject.ValueArray value_array, GObject.Value value);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ValueArray g_value_array_remove(GObject.ValueArray value_array, uint index_);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ValueArray g_value_array_sort(GObject.ValueArray value_array, System.IntPtr compare_func);
 		[DllImport("libgobject-2.0.so.0")]
 		public static extern GObject.ValueArray g_value_array_sort_with_data(GObject.ValueArray value_array, System.IntPtr compare_func, System.IntPtr user_data);
-		[DllImport("libgobject-2.0.so.0")]
-		public static extern void g_weak_ref_set(GObject.WeakRef weak_ref, GObject.Object @object);
 	}
 }

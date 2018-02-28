@@ -45,7 +45,7 @@ namespace Gdk {
 		public void setenv(string variable, string value) => Gio.GioInterop.g_app_launch_context_setenv(this, variable, value);
 		public void unsetenv(string variable) => Gio.GioInterop.g_app_launch_context_unsetenv(this, variable);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -54,7 +54,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -63,13 +62,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -111,28 +109,26 @@ namespace Gdk {
 		public Gdk.Screen get_default_screen() => Gdk.GdkInterop.gdk_display_get_default_screen(this);
 		public Gdk.Seat get_default_seat() => Gdk.GdkInterop.gdk_display_get_default_seat(this);
 		public Gdk.DeviceManager get_device_manager() => Gdk.GdkInterop.gdk_display_get_device_manager(this);
-		public System.IntPtr get_event() => Gdk.GdkInterop.gdk_display_get_event(this);
-		public void get_maximal_cursor_size(System.IntPtr width, System.IntPtr height) => Gdk.GdkInterop.gdk_display_get_maximal_cursor_size(this, width, height);
+		public void get_maximal_cursor_size(out uint width, out uint height) => Gdk.GdkInterop.gdk_display_get_maximal_cursor_size(this, out width, out height);
 		public Gdk.Monitor get_monitor(int monitor_num) => Gdk.GdkInterop.gdk_display_get_monitor(this, monitor_num);
 		public Gdk.Monitor get_monitor_at_point(int x, int y) => Gdk.GdkInterop.gdk_display_get_monitor_at_point(this, x, y);
 		public Gdk.Monitor get_monitor_at_window(Gdk.Window window) => Gdk.GdkInterop.gdk_display_get_monitor_at_window(this, window);
 		public int get_n_monitors() => Gdk.GdkInterop.gdk_display_get_n_monitors(this);
 		public int get_n_screens() => Gdk.GdkInterop.gdk_display_get_n_screens(this);
 		public string get_name() => Gdk.GdkInterop.gdk_display_get_name(this);
-		public void get_pointer(out Gdk.Screen screen, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_display_get_pointer(this, out screen, x, y, out mask);
+		public void get_pointer(out Gdk.Screen screen, out int x, out int y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_display_get_pointer(this, out screen, out x, out y, out mask);
 		public Gdk.Monitor get_primary_monitor() => Gdk.GdkInterop.gdk_display_get_primary_monitor(this);
 		public Gdk.Screen get_screen(int screen_num) => Gdk.GdkInterop.gdk_display_get_screen(this, screen_num);
-		public Gdk.Window get_window_at_pointer(System.IntPtr win_x, System.IntPtr win_y) => Gdk.GdkInterop.gdk_display_get_window_at_pointer(this, win_x, win_y);
+		public Gdk.Window get_window_at_pointer(out int win_x, out int win_y) => Gdk.GdkInterop.gdk_display_get_window_at_pointer(this, out win_x, out win_y);
 		public bool has_pending() => Gdk.GdkInterop.gdk_display_has_pending(this);
 		public bool is_closed() => Gdk.GdkInterop.gdk_display_is_closed(this);
 		public void keyboard_ungrab(uint time_) => Gdk.GdkInterop.gdk_display_keyboard_ungrab(this, time_);
 		public System.IntPtr list_devices() => Gdk.GdkInterop.gdk_display_list_devices(this);
 		public System.IntPtr list_seats() => Gdk.GdkInterop.gdk_display_list_seats(this);
 		public void notify_startup_complete(string startup_id) => Gdk.GdkInterop.gdk_display_notify_startup_complete(this, startup_id);
-		public System.IntPtr peek_event() => Gdk.GdkInterop.gdk_display_peek_event(this);
 		public bool pointer_is_grabbed() => Gdk.GdkInterop.gdk_display_pointer_is_grabbed(this);
 		public void pointer_ungrab(uint time_) => Gdk.GdkInterop.gdk_display_pointer_ungrab(this, time_);
-		public void put_event(System.IntPtr @event) => Gdk.GdkInterop.gdk_display_put_event(this, @event);
+		public bool request_selection_notification(Gdk.Atom selection) => Gdk.GdkInterop.gdk_display_request_selection_notification(this, selection);
 		public void set_double_click_distance(uint distance) => Gdk.GdkInterop.gdk_display_set_double_click_distance(this, distance);
 		public void set_double_click_time(uint msec) => Gdk.GdkInterop.gdk_display_set_double_click_time(this, msec);
 		public void store_clipboard(Gdk.Window clipboard_window, uint time_, System.IntPtr targets, int n_targets) => Gdk.GdkInterop.gdk_display_store_clipboard(this, clipboard_window, time_, targets, n_targets);
@@ -146,7 +142,7 @@ namespace Gdk {
 		public void sync() => Gdk.GdkInterop.gdk_display_sync(this);
 		public void warp_pointer(Gdk.Screen screen, int x, int y) => Gdk.GdkInterop.gdk_display_warp_pointer(this, screen, x, y);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -155,7 +151,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -164,13 +159,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -221,7 +215,6 @@ namespace Gdk {
 		public double get_resolution() => Gdk.GdkInterop.gdk_screen_get_resolution(this);
 		public Gdk.Visual get_rgba_visual() => Gdk.GdkInterop.gdk_screen_get_rgba_visual(this);
 		public Gdk.Window get_root_window() => Gdk.GdkInterop.gdk_screen_get_root_window(this);
-		public bool get_setting(string name, GObject.Value value) => Gdk.GdkInterop.gdk_screen_get_setting(this, name, value);
 		public Gdk.Visual get_system_visual() => Gdk.GdkInterop.gdk_screen_get_system_visual(this);
 		public System.IntPtr get_toplevel_windows() => Gdk.GdkInterop.gdk_screen_get_toplevel_windows(this);
 		public int get_width() => Gdk.GdkInterop.gdk_screen_get_width(this);
@@ -233,7 +226,7 @@ namespace Gdk {
 		public void set_font_options(cairo.FontOptions options) => Gdk.GdkInterop.gdk_screen_set_font_options(this, options);
 		public void set_resolution(double dpi) => Gdk.GdkInterop.gdk_screen_set_resolution(this, dpi);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -242,7 +235,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -251,13 +243,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -280,6 +271,9 @@ namespace Gdk {
 		}
 		public static explicit operator Atom(IntPtr pointer) => new Atom(pointer, checkType: true);
 		public static explicit operator IntPtr(Atom value) => value._pointer;
+		public string name() => Gdk.GdkInterop.gdk_atom_name(this);
+		public static Gdk.Atom intern(string atom_name, bool only_if_exists) => GdkInterop.gdk_atom_intern(atom_name, only_if_exists);
+		public static Gdk.Atom intern_static_string(string atom_name) => GdkInterop.gdk_atom_intern_static_string(atom_name);
 	}
 	[Flags]
 	public enum AxisFlags
@@ -312,23 +306,6 @@ namespace Gdk {
 	{
 		lsb_first = 0,
 		msb_first = 1,
-	}
-	public ref struct Color
-	{
-		private IntPtr _pointer;
-		public Color(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator Color(IntPtr pointer) => new Color(pointer, checkType: true);
-		public static explicit operator IntPtr(Color value) => value._pointer;
-		public Gdk.Color copy() => Gdk.GdkInterop.gdk_color_copy(this);
-		public bool equal(Gdk.Color colorb) => Gdk.GdkInterop.gdk_color_equal(this, colorb);
-		public void free() => Gdk.GdkInterop.gdk_color_free(this);
-		public uint hash() => Gdk.GdkInterop.gdk_color_hash(this);
-		public string to_string() => Gdk.GdkInterop.gdk_color_to_string(this);
-		[DllImport("libgdk-3.so.0", EntryPoint = "gdk_color_get_type")]
-		public static extern GLib.GType TypeOf();
 	}
 	public enum CrossingMode
 	{
@@ -365,11 +342,11 @@ namespace Gdk {
 		public Gdk.CursorType get_cursor_type() => Gdk.GdkInterop.gdk_cursor_get_cursor_type(this);
 		public Gdk.Display get_display() => Gdk.GdkInterop.gdk_cursor_get_display(this);
 		public GdkPixbuf.Pixbuf get_image() => Gdk.GdkInterop.gdk_cursor_get_image(this);
-		public cairo.Surface get_surface(System.IntPtr x_hot, System.IntPtr y_hot) => Gdk.GdkInterop.gdk_cursor_get_surface(this, x_hot, y_hot);
+		public cairo.Surface get_surface(out double x_hot, out double y_hot) => Gdk.GdkInterop.gdk_cursor_get_surface(this, out x_hot, out y_hot);
 		public Gdk.Cursor @ref() => Gdk.GdkInterop.gdk_cursor_ref(this);
 		public void unref() => Gdk.GdkInterop.gdk_cursor_unref(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -378,7 +355,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -386,13 +362,12 @@ namespace Gdk {
 		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -514,30 +489,31 @@ namespace Gdk {
 		public static implicit operator GObject.Object(Device value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Device(GObject.Object value) => new Device((IntPtr)value, checkType: true);
 		public static void free_history(System.IntPtr events, int n_events) => GdkInterop.gdk_device_free_history(events, n_events);
-		public static bool grab_info_libgtk_only(Gdk.Display display, Gdk.Device device, out Gdk.Window grab_window, System.IntPtr owner_events) => GdkInterop.gdk_device_grab_info_libgtk_only(display, device, out grab_window, owner_events);
+		public static bool grab_info_libgtk_only(Gdk.Display display, Gdk.Device device, out Gdk.Window grab_window, out bool owner_events) => GdkInterop.gdk_device_grab_info_libgtk_only(display, device, out grab_window, out owner_events);
 		public Gdk.Device get_associated_device() => Gdk.GdkInterop.gdk_device_get_associated_device(this);
 		public Gdk.AxisFlags get_axes() => Gdk.GdkInterop.gdk_device_get_axes(this);
-		public bool get_axis(System.IntPtr axes, Gdk.AxisUse use, System.IntPtr value) => Gdk.GdkInterop.gdk_device_get_axis(this, axes, use, value);
+		public bool get_axis(System.IntPtr axes, Gdk.AxisUse use, out double value) => Gdk.GdkInterop.gdk_device_get_axis(this, axes, use, out value);
 		public Gdk.AxisUse get_axis_use(uint index_) => Gdk.GdkInterop.gdk_device_get_axis_use(this, index_);
+		public bool get_axis_value(System.IntPtr axes, Gdk.Atom axis_label, out double value) => Gdk.GdkInterop.gdk_device_get_axis_value(this, axes, axis_label, out value);
 		public Gdk.DeviceType get_device_type() => Gdk.GdkInterop.gdk_device_get_device_type(this);
 		public Gdk.Display get_display() => Gdk.GdkInterop.gdk_device_get_display(this);
 		public bool get_has_cursor() => Gdk.GdkInterop.gdk_device_get_has_cursor(this);
-		public bool get_history(Gdk.Window window, uint start, uint stop, System.IntPtr events, System.IntPtr n_events) => Gdk.GdkInterop.gdk_device_get_history(this, window, start, stop, events, n_events);
-		public bool get_key(uint index_, System.IntPtr keyval, out Gdk.ModifierType modifiers) => Gdk.GdkInterop.gdk_device_get_key(this, index_, keyval, out modifiers);
+		public bool get_history(Gdk.Window window, uint start, uint stop, out System.IntPtr events, out int n_events) => Gdk.GdkInterop.gdk_device_get_history(this, window, start, stop, out events, out n_events);
+		public bool get_key(uint index_, out uint keyval, out Gdk.ModifierType modifiers) => Gdk.GdkInterop.gdk_device_get_key(this, index_, out keyval, out modifiers);
 		public Gdk.Window get_last_event_window() => Gdk.GdkInterop.gdk_device_get_last_event_window(this);
 		public Gdk.InputMode get_mode() => Gdk.GdkInterop.gdk_device_get_mode(this);
 		public int get_n_axes() => Gdk.GdkInterop.gdk_device_get_n_axes(this);
 		public int get_n_keys() => Gdk.GdkInterop.gdk_device_get_n_keys(this);
 		public string get_name() => Gdk.GdkInterop.gdk_device_get_name(this);
-		public void get_position(out Gdk.Screen screen, System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_device_get_position(this, out screen, x, y);
-		public void get_position_double(out Gdk.Screen screen, System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_device_get_position_double(this, out screen, x, y);
+		public void get_position(out Gdk.Screen screen, out int x, out int y) => Gdk.GdkInterop.gdk_device_get_position(this, out screen, out x, out y);
+		public void get_position_double(out Gdk.Screen screen, out double x, out double y) => Gdk.GdkInterop.gdk_device_get_position_double(this, out screen, out x, out y);
 		public string get_product_id() => Gdk.GdkInterop.gdk_device_get_product_id(this);
 		public Gdk.Seat get_seat() => Gdk.GdkInterop.gdk_device_get_seat(this);
 		public Gdk.InputSource get_source() => Gdk.GdkInterop.gdk_device_get_source(this);
 		public void get_state(Gdk.Window window, System.IntPtr axes, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_device_get_state(this, window, axes, out mask);
 		public string get_vendor_id() => Gdk.GdkInterop.gdk_device_get_vendor_id(this);
-		public Gdk.Window get_window_at_position(System.IntPtr win_x, System.IntPtr win_y) => Gdk.GdkInterop.gdk_device_get_window_at_position(this, win_x, win_y);
-		public Gdk.Window get_window_at_position_double(System.IntPtr win_x, System.IntPtr win_y) => Gdk.GdkInterop.gdk_device_get_window_at_position_double(this, win_x, win_y);
+		public Gdk.Window get_window_at_position(out int win_x, out int win_y) => Gdk.GdkInterop.gdk_device_get_window_at_position(this, out win_x, out win_y);
+		public Gdk.Window get_window_at_position_double(out double win_x, out double win_y) => Gdk.GdkInterop.gdk_device_get_window_at_position_double(this, out win_x, out win_y);
 		public Gdk.GrabStatus grab(Gdk.Window window, Gdk.GrabOwnership grab_ownership, bool owner_events, Gdk.EventMask event_mask, Gdk.Cursor cursor, uint time_) => Gdk.GdkInterop.gdk_device_grab(this, window, grab_ownership, owner_events, event_mask, cursor, time_);
 		public System.IntPtr list_axes() => Gdk.GdkInterop.gdk_device_list_axes(this);
 		public System.IntPtr list_slave_devices() => Gdk.GdkInterop.gdk_device_list_slave_devices(this);
@@ -547,7 +523,7 @@ namespace Gdk {
 		public void ungrab(uint time_) => Gdk.GdkInterop.gdk_device_ungrab(this, time_);
 		public void warp(Gdk.Screen screen, int x, int y) => Gdk.GdkInterop.gdk_device_warp(this, screen, x, y);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -556,7 +532,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -565,13 +540,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -601,8 +575,8 @@ namespace Gdk {
 		public static implicit operator GObject.Object(Window value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Window(GObject.Object value) => new Window((IntPtr)value, checkType: true);
 		public static Gdk.Window @new(Gdk.Window parent, Gdk.WindowAttr attributes, Gdk.WindowAttributesType attributes_mask) => GdkInterop.gdk_window_new(parent, attributes, attributes_mask);
-		public static Gdk.Window at_pointer(System.IntPtr win_x, System.IntPtr win_y) => GdkInterop.gdk_window_at_pointer(win_x, win_y);
-		public static void constrain_size(Gdk.Geometry geometry, Gdk.WindowHints flags, int width, int height, System.IntPtr new_width, System.IntPtr new_height) => GdkInterop.gdk_window_constrain_size(geometry, flags, width, height, new_width, new_height);
+		public static Gdk.Window at_pointer(out int win_x, out int win_y) => GdkInterop.gdk_window_at_pointer(out win_x, out win_y);
+		public static void constrain_size(Gdk.Geometry geometry, Gdk.WindowHints flags, int width, int height, out int new_width, out int new_height) => GdkInterop.gdk_window_constrain_size(geometry, flags, width, height, out new_width, out new_height);
 		public static void process_all_updates() => GdkInterop.gdk_window_process_all_updates();
 		public static void set_debug_updates(bool setting) => GdkInterop.gdk_window_set_debug_updates(setting);
 		public void add_filter(System.IntPtr function, System.IntPtr data) => Gdk.GdkInterop.gdk_window_add_filter(this, function, data);
@@ -610,13 +584,12 @@ namespace Gdk {
 		public Gdk.DrawingContext begin_draw_frame(cairo.Region region) => Gdk.GdkInterop.gdk_window_begin_draw_frame(this, region);
 		public void begin_move_drag(int button, int root_x, int root_y, uint timestamp) => Gdk.GdkInterop.gdk_window_begin_move_drag(this, button, root_x, root_y, timestamp);
 		public void begin_move_drag_for_device(Gdk.Device device, int button, int root_x, int root_y, uint timestamp) => Gdk.GdkInterop.gdk_window_begin_move_drag_for_device(this, device, button, root_x, root_y, timestamp);
-		public void begin_paint_rect(Gdk.Rectangle rectangle) => Gdk.GdkInterop.gdk_window_begin_paint_rect(this, rectangle);
 		public void begin_paint_region(cairo.Region region) => Gdk.GdkInterop.gdk_window_begin_paint_region(this, region);
 		public void begin_resize_drag(Gdk.WindowEdge edge, int button, int root_x, int root_y, uint timestamp) => Gdk.GdkInterop.gdk_window_begin_resize_drag(this, edge, button, root_x, root_y, timestamp);
 		public void begin_resize_drag_for_device(Gdk.WindowEdge edge, Gdk.Device device, int button, int root_x, int root_y, uint timestamp) => Gdk.GdkInterop.gdk_window_begin_resize_drag_for_device(this, edge, device, button, root_x, root_y, timestamp);
 		public void configure_finished() => Gdk.GdkInterop.gdk_window_configure_finished(this);
-		public void coords_from_parent(double parent_x, double parent_y, System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_window_coords_from_parent(this, parent_x, parent_y, x, y);
-		public void coords_to_parent(double x, double y, System.IntPtr parent_x, System.IntPtr parent_y) => Gdk.GdkInterop.gdk_window_coords_to_parent(this, x, y, parent_x, parent_y);
+		public void coords_from_parent(double parent_x, double parent_y, out double x, out double y) => Gdk.GdkInterop.gdk_window_coords_from_parent(this, parent_x, parent_y, out x, out y);
+		public void coords_to_parent(double x, double y, out double parent_x, out double parent_y) => Gdk.GdkInterop.gdk_window_coords_to_parent(this, x, y, out parent_x, out parent_y);
 		public Gdk.GLContext create_gl_context(out GLib.Error error) => Gdk.GdkInterop.gdk_window_create_gl_context(this, out error);
 		public cairo.Surface create_similar_image_surface(int format, int width, int height, int scale) => Gdk.GdkInterop.gdk_window_create_similar_image_surface(this, format, width, height, scale);
 		public cairo.Surface create_similar_surface(cairo.Content content, int width, int height) => Gdk.GdkInterop.gdk_window_create_similar_surface(this, content, width, height);
@@ -644,8 +617,8 @@ namespace Gdk {
 		public bool get_decorations(out Gdk.WMDecoration decorations) => Gdk.GdkInterop.gdk_window_get_decorations(this, out decorations);
 		public Gdk.Cursor get_device_cursor(Gdk.Device device) => Gdk.GdkInterop.gdk_window_get_device_cursor(this, device);
 		public Gdk.EventMask get_device_events(Gdk.Device device) => Gdk.GdkInterop.gdk_window_get_device_events(this, device);
-		public Gdk.Window get_device_position(Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_device_position(this, device, x, y, out mask);
-		public Gdk.Window get_device_position_double(Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_device_position_double(this, device, x, y, out mask);
+		public Gdk.Window get_device_position(Gdk.Device device, out int x, out int y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_device_position(this, device, out x, out y, out mask);
+		public Gdk.Window get_device_position_double(Gdk.Device device, out double x, out double y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_device_position_double(this, device, out x, out y, out mask);
 		public Gdk.Display get_display() => Gdk.GdkInterop.gdk_window_get_display(this);
 		public Gdk.DragProtocol get_drag_protocol(out Gdk.Window target) => Gdk.GdkInterop.gdk_window_get_drag_protocol(this, out target);
 		public Gdk.Window get_effective_parent() => Gdk.GdkInterop.gdk_window_get_effective_parent(this);
@@ -655,17 +628,17 @@ namespace Gdk {
 		public bool get_focus_on_map() => Gdk.GdkInterop.gdk_window_get_focus_on_map(this);
 		public Gdk.FrameClock get_frame_clock() => Gdk.GdkInterop.gdk_window_get_frame_clock(this);
 		public Gdk.FullscreenMode get_fullscreen_mode() => Gdk.GdkInterop.gdk_window_get_fullscreen_mode(this);
-		public void get_geometry(System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height) => Gdk.GdkInterop.gdk_window_get_geometry(this, x, y, width, height);
+		public void get_geometry(out int x, out int y, out int width, out int height) => Gdk.GdkInterop.gdk_window_get_geometry(this, out x, out y, out width, out height);
 		public Gdk.Window get_group() => Gdk.GdkInterop.gdk_window_get_group(this);
 		public int get_height() => Gdk.GdkInterop.gdk_window_get_height(this);
 		public bool get_modal_hint() => Gdk.GdkInterop.gdk_window_get_modal_hint(this);
-		public int get_origin(System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_window_get_origin(this, x, y);
+		public int get_origin(out int x, out int y) => Gdk.GdkInterop.gdk_window_get_origin(this, out x, out y);
 		public Gdk.Window get_parent() => Gdk.GdkInterop.gdk_window_get_parent(this);
 		public bool get_pass_through() => Gdk.GdkInterop.gdk_window_get_pass_through(this);
-		public Gdk.Window get_pointer(System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_pointer(this, x, y, out mask);
-		public void get_position(System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_window_get_position(this, x, y);
-		public void get_root_coords(int x, int y, System.IntPtr root_x, System.IntPtr root_y) => Gdk.GdkInterop.gdk_window_get_root_coords(this, x, y, root_x, root_y);
-		public void get_root_origin(System.IntPtr x, System.IntPtr y) => Gdk.GdkInterop.gdk_window_get_root_origin(this, x, y);
+		public Gdk.Window get_pointer(out int x, out int y, out Gdk.ModifierType mask) => Gdk.GdkInterop.gdk_window_get_pointer(this, out x, out y, out mask);
+		public void get_position(out int x, out int y) => Gdk.GdkInterop.gdk_window_get_position(this, out x, out y);
+		public void get_root_coords(int x, int y, out int root_x, out int root_y) => Gdk.GdkInterop.gdk_window_get_root_coords(this, x, y, out root_x, out root_y);
+		public void get_root_origin(out int x, out int y) => Gdk.GdkInterop.gdk_window_get_root_origin(this, out x, out y);
 		public int get_scale_factor() => Gdk.GdkInterop.gdk_window_get_scale_factor(this);
 		public Gdk.Screen get_screen() => Gdk.GdkInterop.gdk_window_get_screen(this);
 		public Gdk.EventMask get_source_events(Gdk.InputSource source) => Gdk.GdkInterop.gdk_window_get_source_events(this, source);
@@ -674,7 +647,7 @@ namespace Gdk {
 		public Gdk.Window get_toplevel() => Gdk.GdkInterop.gdk_window_get_toplevel(this);
 		public Gdk.WindowTypeHint get_type_hint() => Gdk.GdkInterop.gdk_window_get_type_hint(this);
 		public cairo.Region get_update_area() => Gdk.GdkInterop.gdk_window_get_update_area(this);
-		public void get_user_data(System.IntPtr data) => Gdk.GdkInterop.gdk_window_get_user_data(this, data);
+		public void get_user_data(out System.IntPtr data) => Gdk.GdkInterop.gdk_window_get_user_data(this, out data);
 		public cairo.Region get_visible_region() => Gdk.GdkInterop.gdk_window_get_visible_region(this);
 		public Gdk.Visual get_visual() => Gdk.GdkInterop.gdk_window_get_visual(this);
 		public int get_width() => Gdk.GdkInterop.gdk_window_get_width(this);
@@ -684,7 +657,6 @@ namespace Gdk {
 		public void iconify() => Gdk.GdkInterop.gdk_window_iconify(this);
 		public void input_shape_combine_region(cairo.Region shape_region, int offset_x, int offset_y) => Gdk.GdkInterop.gdk_window_input_shape_combine_region(this, shape_region, offset_x, offset_y);
 		public void invalidate_maybe_recurse(cairo.Region region, System.IntPtr child_func, System.IntPtr user_data) => Gdk.GdkInterop.gdk_window_invalidate_maybe_recurse(this, region, child_func, user_data);
-		public void invalidate_rect(Gdk.Rectangle rect, bool invalidate_children) => Gdk.GdkInterop.gdk_window_invalidate_rect(this, rect, invalidate_children);
 		public void invalidate_region(cairo.Region region, bool invalidate_children) => Gdk.GdkInterop.gdk_window_invalidate_region(this, region, invalidate_children);
 		public bool is_destroyed() => Gdk.GdkInterop.gdk_window_is_destroyed(this);
 		public bool is_input_only() => Gdk.GdkInterop.gdk_window_is_input_only(this);
@@ -709,9 +681,7 @@ namespace Gdk {
 		public void restack(Gdk.Window sibling, bool above) => Gdk.GdkInterop.gdk_window_restack(this, sibling, above);
 		public void scroll(int dx, int dy) => Gdk.GdkInterop.gdk_window_scroll(this, dx, dy);
 		public void set_accept_focus(bool accept_focus) => Gdk.GdkInterop.gdk_window_set_accept_focus(this, accept_focus);
-		public void set_background(Gdk.Color color) => Gdk.GdkInterop.gdk_window_set_background(this, color);
 		public void set_background_pattern(cairo.Pattern pattern) => Gdk.GdkInterop.gdk_window_set_background_pattern(this, pattern);
-		public void set_background_rgba(Gdk.RGBA rgba) => Gdk.GdkInterop.gdk_window_set_background_rgba(this, rgba);
 		public void set_child_input_shapes() => Gdk.GdkInterop.gdk_window_set_child_input_shapes(this);
 		public void set_child_shapes() => Gdk.GdkInterop.gdk_window_set_child_shapes(this);
 		public void set_composited(bool composited) => Gdk.GdkInterop.gdk_window_set_composited(this, composited);
@@ -752,7 +722,6 @@ namespace Gdk {
 		public void shape_combine_region(cairo.Region shape_region, int offset_x, int offset_y) => Gdk.GdkInterop.gdk_window_shape_combine_region(this, shape_region, offset_x, offset_y);
 		public void show() => Gdk.GdkInterop.gdk_window_show(this);
 		public void show_unraised() => Gdk.GdkInterop.gdk_window_show_unraised(this);
-		public bool show_window_menu(System.IntPtr @event) => Gdk.GdkInterop.gdk_window_show_window_menu(this, @event);
 		public void stick() => Gdk.GdkInterop.gdk_window_stick(this);
 		public void thaw_toplevel_updates_libgtk_only() => Gdk.GdkInterop.gdk_window_thaw_toplevel_updates_libgtk_only(this);
 		public void thaw_updates() => Gdk.GdkInterop.gdk_window_thaw_updates(this);
@@ -761,7 +730,7 @@ namespace Gdk {
 		public void unstick() => Gdk.GdkInterop.gdk_window_unstick(this);
 		public void withdraw() => Gdk.GdkInterop.gdk_window_withdraw(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -770,7 +739,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -779,13 +747,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -867,10 +834,9 @@ namespace Gdk {
 		public Gdk.Device get_keyboard() => Gdk.GdkInterop.gdk_seat_get_keyboard(this);
 		public Gdk.Device get_pointer() => Gdk.GdkInterop.gdk_seat_get_pointer(this);
 		public System.IntPtr get_slaves(Gdk.SeatCapabilities capabilities) => Gdk.GdkInterop.gdk_seat_get_slaves(this, capabilities);
-		public Gdk.GrabStatus grab(Gdk.Window window, Gdk.SeatCapabilities capabilities, bool owner_events, Gdk.Cursor cursor, System.IntPtr @event, System.IntPtr prepare_func, System.IntPtr prepare_func_data) => Gdk.GdkInterop.gdk_seat_grab(this, window, capabilities, owner_events, cursor, @event, prepare_func, prepare_func_data);
 		public void ungrab() => Gdk.GdkInterop.gdk_seat_ungrab(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -879,7 +845,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -888,13 +853,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -984,7 +948,7 @@ namespace Gdk {
 		public Gdk.Display get_display() => Gdk.GdkInterop.gdk_device_manager_get_display(this);
 		public System.IntPtr list_devices(Gdk.DeviceType type) => Gdk.GdkInterop.gdk_device_manager_list_devices(this, type);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -993,7 +957,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1002,13 +965,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1041,7 +1003,7 @@ namespace Gdk {
 		public ulong get_serial() => Gdk.GdkInterop.gdk_device_tool_get_serial(this);
 		public Gdk.DeviceToolType get_tool_type() => Gdk.GdkInterop.gdk_device_tool_get_tool_type(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1050,7 +1012,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1059,13 +1020,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1147,7 +1107,7 @@ namespace Gdk {
 		public int get_width_mm() => Gdk.GdkInterop.gdk_monitor_get_width_mm(this);
 		public bool is_primary() => Gdk.GdkInterop.gdk_monitor_is_primary(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1156,7 +1116,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1165,13 +1124,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1206,7 +1164,7 @@ namespace Gdk {
 		public Gdk.Display open_display(string name) => Gdk.GdkInterop.gdk_display_manager_open_display(this, name);
 		public void set_default_display(Gdk.Display display) => Gdk.GdkInterop.gdk_display_manager_set_default_display(this, display);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1215,7 +1173,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1224,13 +1181,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1288,7 +1244,7 @@ namespace Gdk {
 		public void set_device(Gdk.Device device) => Gdk.GdkInterop.gdk_drag_context_set_device(this, device);
 		public void set_hotspot(int hot_x, int hot_y) => Gdk.GdkInterop.gdk_drag_context_set_hotspot(this, hot_x, hot_y);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1297,7 +1253,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1306,13 +1261,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1357,7 +1311,7 @@ namespace Gdk {
 		public Gdk.Window get_window() => Gdk.GdkInterop.gdk_drawing_context_get_window(this);
 		public bool is_valid() => Gdk.GdkInterop.gdk_drawing_context_is_valid(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1366,7 +1320,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1375,13 +1328,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1728,19 +1680,6 @@ namespace Gdk {
 		nonlinear_virtual = 4,
 		unknown = 5,
 	}
-	public ref struct Rectangle
-	{
-		private IntPtr _pointer;
-		public Rectangle(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle(pointer, checkType: true);
-		public static explicit operator IntPtr(Rectangle value) => value._pointer;
-		public bool equal(Gdk.Rectangle rect2) => Gdk.GdkInterop.gdk_rectangle_equal(this, rect2);
-		[DllImport("libgdk-3.so.0", EntryPoint = "gdk_rectangle_get_type")]
-		public static extern GLib.GType TypeOf();
-	}
 	public enum OwnerChange
 	{
 		new_owner = 0,
@@ -1819,11 +1758,11 @@ namespace Gdk {
 		public long get_frame_counter() => Gdk.GdkInterop.gdk_frame_clock_get_frame_counter(this);
 		public long get_frame_time() => Gdk.GdkInterop.gdk_frame_clock_get_frame_time(this);
 		public long get_history_start() => Gdk.GdkInterop.gdk_frame_clock_get_history_start(this);
-		public void get_refresh_info(long base_time, System.IntPtr refresh_interval_return, System.IntPtr presentation_time_return) => Gdk.GdkInterop.gdk_frame_clock_get_refresh_info(this, base_time, refresh_interval_return, presentation_time_return);
+		public void get_refresh_info(long base_time, long refresh_interval_return, long presentation_time_return) => Gdk.GdkInterop.gdk_frame_clock_get_refresh_info(this, base_time, refresh_interval_return, presentation_time_return);
 		public Gdk.FrameTimings get_timings(long frame_counter) => Gdk.GdkInterop.gdk_frame_clock_get_timings(this, frame_counter);
 		public void request_phase(Gdk.FrameClockPhase phase) => Gdk.GdkInterop.gdk_frame_clock_request_phase(this, phase);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1832,7 +1771,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1841,13 +1779,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1938,10 +1875,10 @@ namespace Gdk {
 		public bool get_debug_enabled() => Gdk.GdkInterop.gdk_gl_context_get_debug_enabled(this);
 		public Gdk.Display get_display() => Gdk.GdkInterop.gdk_gl_context_get_display(this);
 		public bool get_forward_compatible() => Gdk.GdkInterop.gdk_gl_context_get_forward_compatible(this);
-		public void get_required_version(System.IntPtr major, System.IntPtr minor) => Gdk.GdkInterop.gdk_gl_context_get_required_version(this, major, minor);
+		public void get_required_version(out int major, out int minor) => Gdk.GdkInterop.gdk_gl_context_get_required_version(this, out major, out minor);
 		public Gdk.GLContext get_shared_context() => Gdk.GdkInterop.gdk_gl_context_get_shared_context(this);
 		public bool get_use_es() => Gdk.GdkInterop.gdk_gl_context_get_use_es(this);
-		public void get_version(System.IntPtr major, System.IntPtr minor) => Gdk.GdkInterop.gdk_gl_context_get_version(this, major, minor);
+		public void get_version(out int major, out int minor) => Gdk.GdkInterop.gdk_gl_context_get_version(this, out major, out minor);
 		public Gdk.Window get_window() => Gdk.GdkInterop.gdk_gl_context_get_window(this);
 		public bool is_legacy() => Gdk.GdkInterop.gdk_gl_context_is_legacy(this);
 		public void make_current() => Gdk.GdkInterop.gdk_gl_context_make_current(this);
@@ -1951,7 +1888,7 @@ namespace Gdk {
 		public void set_required_version(int major, int minor) => Gdk.GdkInterop.gdk_gl_context_set_required_version(this, major, minor);
 		public void set_use_es(int use_es) => Gdk.GdkInterop.gdk_gl_context_set_use_es(this, use_es);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1960,7 +1897,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1969,13 +1905,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2038,8 +1973,8 @@ namespace Gdk {
 		public void add_virtual_modifiers(ref Gdk.ModifierType state) => Gdk.GdkInterop.gdk_keymap_add_virtual_modifiers(this, ref state);
 		public bool get_caps_lock_state() => Gdk.GdkInterop.gdk_keymap_get_caps_lock_state(this);
 		public Pango.Direction get_direction() => Gdk.GdkInterop.gdk_keymap_get_direction(this);
-		public bool get_entries_for_keycode(uint hardware_keycode, System.IntPtr keys, System.IntPtr keyvals, System.IntPtr n_entries) => Gdk.GdkInterop.gdk_keymap_get_entries_for_keycode(this, hardware_keycode, keys, keyvals, n_entries);
-		public bool get_entries_for_keyval(uint keyval, System.IntPtr keys, System.IntPtr n_keys) => Gdk.GdkInterop.gdk_keymap_get_entries_for_keyval(this, keyval, keys, n_keys);
+		public bool get_entries_for_keycode(uint hardware_keycode, out System.IntPtr keys, out System.IntPtr keyvals, out int n_entries) => Gdk.GdkInterop.gdk_keymap_get_entries_for_keycode(this, hardware_keycode, out keys, out keyvals, out n_entries);
+		public bool get_entries_for_keyval(uint keyval, out System.IntPtr keys, out int n_keys) => Gdk.GdkInterop.gdk_keymap_get_entries_for_keyval(this, keyval, out keys, out n_keys);
 		public Gdk.ModifierType get_modifier_mask(Gdk.ModifierIntent intent) => Gdk.GdkInterop.gdk_keymap_get_modifier_mask(this, intent);
 		public uint get_modifier_state() => Gdk.GdkInterop.gdk_keymap_get_modifier_state(this);
 		public bool get_num_lock_state() => Gdk.GdkInterop.gdk_keymap_get_num_lock_state(this);
@@ -2047,9 +1982,9 @@ namespace Gdk {
 		public bool have_bidi_layouts() => Gdk.GdkInterop.gdk_keymap_have_bidi_layouts(this);
 		public uint lookup_key(Gdk.KeymapKey key) => Gdk.GdkInterop.gdk_keymap_lookup_key(this, key);
 		public bool map_virtual_modifiers(ref Gdk.ModifierType state) => Gdk.GdkInterop.gdk_keymap_map_virtual_modifiers(this, ref state);
-		public bool translate_keyboard_state(uint hardware_keycode, Gdk.ModifierType state, int group, System.IntPtr keyval, System.IntPtr effective_group, System.IntPtr level, out Gdk.ModifierType consumed_modifiers) => Gdk.GdkInterop.gdk_keymap_translate_keyboard_state(this, hardware_keycode, state, group, keyval, effective_group, level, out consumed_modifiers);
+		public bool translate_keyboard_state(uint hardware_keycode, Gdk.ModifierType state, int group, out uint keyval, out int effective_group, out int level, out Gdk.ModifierType consumed_modifiers) => Gdk.GdkInterop.gdk_keymap_translate_keyboard_state(this, hardware_keycode, state, group, out keyval, out effective_group, out level, out consumed_modifiers);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2058,7 +1993,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2067,13 +2001,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2142,24 +2075,6 @@ namespace Gdk {
 		prepend = 1,
 		append = 2,
 	}
-	public ref struct RGBA
-	{
-		private IntPtr _pointer;
-		public RGBA(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator RGBA(IntPtr pointer) => new RGBA(pointer, checkType: true);
-		public static explicit operator IntPtr(RGBA value) => value._pointer;
-		public Gdk.RGBA copy() => Gdk.GdkInterop.gdk_rgba_copy(this);
-		public bool equal(Gdk.RGBA p2) => Gdk.GdkInterop.gdk_rgba_equal(this, p2);
-		public void free() => Gdk.GdkInterop.gdk_rgba_free(this);
-		public uint hash() => Gdk.GdkInterop.gdk_rgba_hash(this);
-		public bool parse(string spec) => Gdk.GdkInterop.gdk_rgba_parse(this, spec);
-		public string to_string() => Gdk.GdkInterop.gdk_rgba_to_string(this);
-		[DllImport("libgdk-3.so.0", EntryPoint = "gdk_rgba_get_type")]
-		public static extern GLib.GType TypeOf();
-	}
 	public ref struct Visual
 	{
 		private IntPtr _pointer;
@@ -2183,16 +2098,16 @@ namespace Gdk {
 		public static Gdk.Visual get_best_with_type(Gdk.VisualType visual_type) => GdkInterop.gdk_visual_get_best_with_type(visual_type);
 		public static Gdk.Visual get_system() => GdkInterop.gdk_visual_get_system();
 		public int get_bits_per_rgb() => Gdk.GdkInterop.gdk_visual_get_bits_per_rgb(this);
-		public void get_blue_pixel_details(System.IntPtr mask, System.IntPtr shift, System.IntPtr precision) => Gdk.GdkInterop.gdk_visual_get_blue_pixel_details(this, mask, shift, precision);
+		public void get_blue_pixel_details(out uint mask, out int shift, out int precision) => Gdk.GdkInterop.gdk_visual_get_blue_pixel_details(this, out mask, out shift, out precision);
 		public Gdk.ByteOrder get_byte_order() => Gdk.GdkInterop.gdk_visual_get_byte_order(this);
 		public int get_colormap_size() => Gdk.GdkInterop.gdk_visual_get_colormap_size(this);
 		public int get_depth() => Gdk.GdkInterop.gdk_visual_get_depth(this);
-		public void get_green_pixel_details(System.IntPtr mask, System.IntPtr shift, System.IntPtr precision) => Gdk.GdkInterop.gdk_visual_get_green_pixel_details(this, mask, shift, precision);
-		public void get_red_pixel_details(System.IntPtr mask, System.IntPtr shift, System.IntPtr precision) => Gdk.GdkInterop.gdk_visual_get_red_pixel_details(this, mask, shift, precision);
+		public void get_green_pixel_details(out uint mask, out int shift, out int precision) => Gdk.GdkInterop.gdk_visual_get_green_pixel_details(this, out mask, out shift, out precision);
+		public void get_red_pixel_details(out uint mask, out int shift, out int precision) => Gdk.GdkInterop.gdk_visual_get_red_pixel_details(this, out mask, out shift, out precision);
 		public Gdk.Screen get_screen() => Gdk.GdkInterop.gdk_visual_get_screen(this);
 		public Gdk.VisualType get_visual_type() => Gdk.GdkInterop.gdk_visual_get_visual_type(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2201,7 +2116,6 @@ namespace Gdk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2210,13 +2124,12 @@ namespace Gdk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2389,17 +2302,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.DrawingContext gdk_cairo_get_drawing_context(cairo.Context cr);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_rectangle(cairo.Context cr, Gdk.Rectangle rectangle);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_cairo_region(cairo.Context cr, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
 		public static extern cairo.Region gdk_cairo_region_create_from_surface(cairo.Surface surface);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_color(cairo.Context cr, Gdk.Color color);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_cairo_set_source_pixbuf(cairo.Context cr, GdkPixbuf.Pixbuf pixbuf, double pixbuf_x, double pixbuf_y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_cairo_set_source_rgba(cairo.Context cr, Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_cairo_set_source_window(cairo.Context cr, Gdk.Window window, double x, double y);
 		[DllImport("libgdk-3.so.0")]
@@ -2423,6 +2330,8 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_drag_find_window_for_screen(Gdk.DragContext context, Gdk.Window drag_window, Gdk.Screen screen, int x_root, int y_root, out Gdk.Window dest_window, out Gdk.DragProtocol protocol);
 		[DllImport("libgdk-3.so.0")]
+		public static extern Gdk.Atom gdk_drag_get_selection(Gdk.DragContext context);
+		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_drag_motion(Gdk.DragContext context, Gdk.Window dest_window, Gdk.DragProtocol protocol, int x_root, int y_root, Gdk.DragAction suggested_action, Gdk.DragAction possible_actions, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_drag_status(Gdk.DragContext context, Gdk.DragAction action, uint time_);
@@ -2436,12 +2345,6 @@ namespace Gdk {
 		public static extern void gdk_error_trap_pop_ignored();
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_error_trap_push();
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_events_get_angle(System.IntPtr event1, System.IntPtr event2, System.IntPtr angle);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_events_get_center(System.IntPtr event1, System.IntPtr event2, System.IntPtr x, System.IntPtr y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_events_get_distance(System.IntPtr event1, System.IntPtr event2, System.IntPtr distance);
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_events_pending();
 		[DllImport("libgdk-3.so.0")]
@@ -2457,15 +2360,15 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_get_show_events();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_init(System.IntPtr argc, System.IntPtr argv);
+		public static extern void gdk_init(ref int argc, ref System.IntPtr argv);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_init_check(System.IntPtr argc, System.IntPtr argv);
+		public static extern bool gdk_init_check(ref int argc, ref System.IntPtr argv);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.GrabStatus gdk_keyboard_grab(Gdk.Window window, bool owner_events, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_keyboard_ungrab(uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_keyval_convert_case(uint symbol, System.IntPtr lower, System.IntPtr upper);
+		public static extern void gdk_keyval_convert_case(uint symbol, out uint lower, out uint upper);
 		[DllImport("libgdk-3.so.0")]
 		public static extern uint gdk_keyval_from_name(string keyval_name);
 		[DllImport("libgdk-3.so.0")]
@@ -2499,11 +2402,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Pango.Context gdk_pango_context_get_for_screen(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern cairo.Region gdk_pango_layout_get_clip_region(Pango.Layout layout, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
+		public static extern cairo.Region gdk_pango_layout_get_clip_region(Pango.Layout layout, int x_origin, int y_origin, int index_ranges, int n_ranges);
 		[DllImport("libgdk-3.so.0")]
 		public static extern cairo.Region gdk_pango_layout_line_get_clip_region(Pango.LayoutLine line, int x_origin, int y_origin, System.IntPtr index_ranges, int n_ranges);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_parse_args(System.IntPtr argc, System.IntPtr argv);
+		public static extern void gdk_parse_args(ref int argc, ref System.IntPtr argv);
 		[DllImport("libgdk-3.so.0")]
 		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_get_from_surface(cairo.Surface surface, int src_x, int src_y, int width, int height);
 		[DllImport("libgdk-3.so.0")]
@@ -2517,11 +2420,29 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_pre_parse_libgtk_only();
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_query_depths(System.IntPtr depths, System.IntPtr count);
+		public static extern void gdk_property_change(Gdk.Window window, Gdk.Atom property, Gdk.Atom type, int format, Gdk.PropMode mode, byte data, int nelements);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_query_visual_types(System.IntPtr visual_types, System.IntPtr count);
+		public static extern void gdk_property_delete(Gdk.Window window, Gdk.Atom property);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_selection_property_get(Gdk.Window requestor, System.IntPtr data, Gdk.Atom prop_type, System.IntPtr prop_format);
+		public static extern bool gdk_property_get(Gdk.Window window, Gdk.Atom property, Gdk.Atom type, ulong offset, ulong length, int pdelete, ref Gdk.Atom actual_property_type, out int actual_format, out int actual_length, out System.IntPtr data);
+		[DllImport("libgdk-3.so.0")]
+		public static extern void gdk_query_depths(out System.IntPtr depths, out int count);
+		[DllImport("libgdk-3.so.0")]
+		public static extern void gdk_query_visual_types(out System.IntPtr visual_types, out int count);
+		[DllImport("libgdk-3.so.0")]
+		public static extern void gdk_selection_convert(Gdk.Window requestor, Gdk.Atom selection, Gdk.Atom target, uint time_);
+		[DllImport("libgdk-3.so.0")]
+		public static extern Gdk.Window gdk_selection_owner_get(Gdk.Atom selection);
+		[DllImport("libgdk-3.so.0")]
+		public static extern Gdk.Window gdk_selection_owner_get_for_display(Gdk.Display display, Gdk.Atom selection);
+		[DllImport("libgdk-3.so.0")]
+		public static extern bool gdk_selection_owner_set(Gdk.Window owner, Gdk.Atom selection, uint time_, bool send_event);
+		[DllImport("libgdk-3.so.0")]
+		public static extern bool gdk_selection_owner_set_for_display(Gdk.Display display, Gdk.Window owner, Gdk.Atom selection, uint time_, bool send_event);
+		[DllImport("libgdk-3.so.0")]
+		public static extern void gdk_selection_send_notify(Gdk.Window requestor, Gdk.Atom selection, Gdk.Atom target, Gdk.Atom property, uint time_);
+		[DllImport("libgdk-3.so.0")]
+		public static extern void gdk_selection_send_notify_for_display(Gdk.Display display, Gdk.Window requestor, Gdk.Atom selection, Gdk.Atom target, Gdk.Atom property, uint time_);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_set_allowed_backends(string backends);
 		[DllImport("libgdk-3.so.0")]
@@ -2531,8 +2452,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_set_show_events(bool show_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_setting_get(string name, GObject.Value value);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_synthesize_window_state(Gdk.Window window, Gdk.WindowState unset_flags, Gdk.WindowState set_flags);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_test_render_sync(Gdk.Window window);
@@ -2540,6 +2459,8 @@ namespace Gdk {
 		public static extern bool gdk_test_simulate_button(Gdk.Window window, int x, int y, uint button, Gdk.ModifierType modifiers, Gdk.EventType button_pressrelease);
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_test_simulate_key(Gdk.Window window, int x, int y, uint keyval, Gdk.ModifierType modifiers, Gdk.EventType key_pressrelease);
+		[DllImport("libgdk-3.so.0")]
+		public static extern int gdk_text_property_to_utf8_list_for_display(Gdk.Display display, Gdk.Atom encoding, int format, System.IntPtr text, int length, out System.IntPtr list);
 		[DllImport("libgdk-3.so.0")]
 		public static extern uint gdk_threads_add_idle(System.IntPtr function, System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
@@ -2605,9 +2526,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.DeviceManager gdk_display_get_device_manager(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_get_event(Gdk.Display display);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_get_maximal_cursor_size(Gdk.Display display, System.IntPtr width, System.IntPtr height);
+		public static extern void gdk_display_get_maximal_cursor_size(Gdk.Display display, out uint width, out uint height);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Monitor gdk_display_get_monitor(Gdk.Display display, int monitor_num);
 		[DllImport("libgdk-3.so.0")]
@@ -2621,13 +2540,13 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_display_get_name(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_get_pointer(Gdk.Display display, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern void gdk_display_get_pointer(Gdk.Display display, out Gdk.Screen screen, out int x, out int y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Monitor gdk_display_get_primary_monitor(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Screen gdk_display_get_screen(Gdk.Display display, int screen_num);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_display_get_window_at_pointer(Gdk.Display display, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_display_get_window_at_pointer(Gdk.Display display, out int win_x, out int win_y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_display_has_pending(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
@@ -2641,13 +2560,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_display_notify_startup_complete(Gdk.Display display, string startup_id);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_display_peek_event(Gdk.Display display);
-		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_display_pointer_is_grabbed(Gdk.Display display);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_display_pointer_ungrab(Gdk.Display display, uint time_);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_display_put_event(Gdk.Display display, System.IntPtr @event);
+		public static extern bool gdk_display_request_selection_notification(Gdk.Display display, Gdk.Atom selection);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_display_set_double_click_distance(Gdk.Display display, uint distance);
 		[DllImport("libgdk-3.so.0")]
@@ -2717,8 +2634,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_screen_get_root_window(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_screen_get_setting(Gdk.Screen screen, string name, GObject.Value value);
-		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Visual gdk_screen_get_system_visual(Gdk.Screen screen);
 		[DllImport("libgdk-3.so.0")]
 		public static extern System.IntPtr gdk_screen_get_toplevel_windows(Gdk.Screen screen);
@@ -2739,15 +2654,11 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_screen_set_resolution(Gdk.Screen screen, double dpi);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Color gdk_color_copy(Gdk.Color color);
+		public static extern string gdk_atom_name(Gdk.Atom atom);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_color_equal(Gdk.Color colora, Gdk.Color colorb);
+		public static extern Gdk.Atom gdk_atom_intern(string atom_name, bool only_if_exists);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_color_free(Gdk.Color color);
-		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_color_hash(Gdk.Color color);
-		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_color_to_string(Gdk.Color color);
+		public static extern Gdk.Atom gdk_atom_intern_static_string(string atom_name);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Cursor gdk_cursor_new(Gdk.CursorType cursor_type);
 		[DllImport("libgdk-3.so.0")]
@@ -2765,7 +2676,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern GdkPixbuf.Pixbuf gdk_cursor_get_image(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
-		public static extern cairo.Surface gdk_cursor_get_surface(Gdk.Cursor cursor, System.IntPtr x_hot, System.IntPtr y_hot);
+		public static extern cairo.Surface gdk_cursor_get_surface(Gdk.Cursor cursor, out double x_hot, out double y_hot);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Cursor gdk_cursor_ref(Gdk.Cursor cursor);
 		[DllImport("libgdk-3.so.0")]
@@ -2773,15 +2684,17 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_device_free_history(System.IntPtr events, int n_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_device_grab_info_libgtk_only(Gdk.Display display, Gdk.Device device, out Gdk.Window grab_window, System.IntPtr owner_events);
+		public static extern bool gdk_device_grab_info_libgtk_only(Gdk.Display display, Gdk.Device device, out Gdk.Window grab_window, out bool owner_events);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Device gdk_device_get_associated_device(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.AxisFlags gdk_device_get_axes(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_device_get_axis(Gdk.Device device, System.IntPtr axes, Gdk.AxisUse use, System.IntPtr value);
+		public static extern bool gdk_device_get_axis(Gdk.Device device, System.IntPtr axes, Gdk.AxisUse use, out double value);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.AxisUse gdk_device_get_axis_use(Gdk.Device device, uint index_);
+		[DllImport("libgdk-3.so.0")]
+		public static extern bool gdk_device_get_axis_value(Gdk.Device device, System.IntPtr axes, Gdk.Atom axis_label, out double value);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.DeviceType gdk_device_get_device_type(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
@@ -2789,9 +2702,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_device_get_has_cursor(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_device_get_history(Gdk.Device device, Gdk.Window window, uint start, uint stop, System.IntPtr events, System.IntPtr n_events);
+		public static extern bool gdk_device_get_history(Gdk.Device device, Gdk.Window window, uint start, uint stop, out System.IntPtr events, out int n_events);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_device_get_key(Gdk.Device device, uint index_, System.IntPtr keyval, out Gdk.ModifierType modifiers);
+		public static extern bool gdk_device_get_key(Gdk.Device device, uint index_, out uint keyval, out Gdk.ModifierType modifiers);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_device_get_last_event_window(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
@@ -2803,9 +2716,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_device_get_name(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_get_position(Gdk.Device device, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_device_get_position(Gdk.Device device, out Gdk.Screen screen, out int x, out int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_device_get_position_double(Gdk.Device device, out Gdk.Screen screen, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_device_get_position_double(Gdk.Device device, out Gdk.Screen screen, out double x, out double y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_device_get_product_id(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
@@ -2817,9 +2730,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern string gdk_device_get_vendor_id(Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_device_get_window_at_position(Gdk.Device device, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_device_get_window_at_position(Gdk.Device device, out int win_x, out int win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_device_get_window_at_position_double(Gdk.Device device, System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_device_get_window_at_position_double(Gdk.Device device, out double win_x, out double win_y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.GrabStatus gdk_device_grab(Gdk.Device device, Gdk.Window window, Gdk.GrabOwnership grab_ownership, bool owner_events, Gdk.EventMask event_mask, Gdk.Cursor cursor, uint time_);
 		[DllImport("libgdk-3.so.0")]
@@ -2839,9 +2752,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_window_new(Gdk.Window parent, Gdk.WindowAttr attributes, Gdk.WindowAttributesType attributes_mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_window_at_pointer(System.IntPtr win_x, System.IntPtr win_y);
+		public static extern Gdk.Window gdk_window_at_pointer(out int win_x, out int win_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_constrain_size(Gdk.Geometry geometry, Gdk.WindowHints flags, int width, int height, System.IntPtr new_width, System.IntPtr new_height);
+		public static extern void gdk_window_constrain_size(Gdk.Geometry geometry, Gdk.WindowHints flags, int width, int height, out int new_width, out int new_height);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_process_all_updates();
 		[DllImport("libgdk-3.so.0")]
@@ -2857,8 +2770,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_begin_move_drag_for_device(Gdk.Window window, Gdk.Device device, int button, int root_x, int root_y, uint timestamp);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_begin_paint_rect(Gdk.Window window, Gdk.Rectangle rectangle);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_begin_paint_region(Gdk.Window window, cairo.Region region);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_begin_resize_drag(Gdk.Window window, Gdk.WindowEdge edge, int button, int root_x, int root_y, uint timestamp);
@@ -2867,9 +2778,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_configure_finished(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_coords_from_parent(Gdk.Window window, double parent_x, double parent_y, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_window_coords_from_parent(Gdk.Window window, double parent_x, double parent_y, out double x, out double y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_coords_to_parent(Gdk.Window window, double x, double y, System.IntPtr parent_x, System.IntPtr parent_y);
+		public static extern void gdk_window_coords_to_parent(Gdk.Window window, double x, double y, out double parent_x, out double parent_y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.GLContext gdk_window_create_gl_context(Gdk.Window window, out GLib.Error error);
 		[DllImport("libgdk-3.so.0")]
@@ -2925,9 +2836,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.EventMask gdk_window_get_device_events(Gdk.Window window, Gdk.Device device);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_window_get_device_position(Gdk.Window window, Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern Gdk.Window gdk_window_get_device_position(Gdk.Window window, Gdk.Device device, out int x, out int y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_window_get_device_position_double(Gdk.Window window, Gdk.Device device, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern Gdk.Window gdk_window_get_device_position_double(Gdk.Window window, Gdk.Device device, out double x, out double y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Display gdk_window_get_display(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
@@ -2947,7 +2858,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.FullscreenMode gdk_window_get_fullscreen_mode(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_geometry(Gdk.Window window, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height);
+		public static extern void gdk_window_get_geometry(Gdk.Window window, out int x, out int y, out int width, out int height);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_window_get_group(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
@@ -2955,19 +2866,19 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_window_get_modal_hint(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_window_get_origin(Gdk.Window window, System.IntPtr x, System.IntPtr y);
+		public static extern int gdk_window_get_origin(Gdk.Window window, out int x, out int y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_window_get_parent(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_window_get_pass_through(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_window_get_pointer(Gdk.Window window, System.IntPtr x, System.IntPtr y, out Gdk.ModifierType mask);
+		public static extern Gdk.Window gdk_window_get_pointer(Gdk.Window window, out int x, out int y, out Gdk.ModifierType mask);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_position(Gdk.Window window, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_window_get_position(Gdk.Window window, out int x, out int y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_root_coords(Gdk.Window window, int x, int y, System.IntPtr root_x, System.IntPtr root_y);
+		public static extern void gdk_window_get_root_coords(Gdk.Window window, int x, int y, out int root_x, out int root_y);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_root_origin(Gdk.Window window, System.IntPtr x, System.IntPtr y);
+		public static extern void gdk_window_get_root_origin(Gdk.Window window, out int x, out int y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_window_get_scale_factor(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
@@ -2985,7 +2896,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern cairo.Region gdk_window_get_update_area(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_get_user_data(Gdk.Window window, System.IntPtr data);
+		public static extern void gdk_window_get_user_data(Gdk.Window window, out System.IntPtr data);
 		[DllImport("libgdk-3.so.0")]
 		public static extern cairo.Region gdk_window_get_visible_region(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
@@ -3004,8 +2915,6 @@ namespace Gdk {
 		public static extern void gdk_window_input_shape_combine_region(Gdk.Window window, cairo.Region shape_region, int offset_x, int offset_y);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_invalidate_maybe_recurse(Gdk.Window window, cairo.Region region, System.IntPtr child_func, System.IntPtr user_data);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_invalidate_rect(Gdk.Window window, Gdk.Rectangle rect, bool invalidate_children);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_invalidate_region(Gdk.Window window, cairo.Region region, bool invalidate_children);
 		[DllImport("libgdk-3.so.0")]
@@ -3055,11 +2964,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_set_accept_focus(Gdk.Window window, bool accept_focus);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_background(Gdk.Window window, Gdk.Color color);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_set_background_pattern(Gdk.Window window, cairo.Pattern pattern);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_window_set_background_rgba(Gdk.Window window, Gdk.RGBA rgba);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_set_child_input_shapes(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
@@ -3141,8 +3046,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_show_unraised(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_window_show_window_menu(Gdk.Window window, System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_stick(Gdk.Window window);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_window_thaw_toplevel_updates_libgtk_only(Gdk.Window window);
@@ -3167,8 +3070,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern System.IntPtr gdk_seat_get_slaves(Gdk.Seat seat, Gdk.SeatCapabilities capabilities);
 		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.GrabStatus gdk_seat_grab(Gdk.Seat seat, Gdk.Window window, Gdk.SeatCapabilities capabilities, bool owner_events, Gdk.Cursor cursor, System.IntPtr @event, System.IntPtr prepare_func, System.IntPtr prepare_func_data);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_seat_ungrab(Gdk.Seat seat);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Device gdk_device_manager_get_client_pointer(Gdk.DeviceManager device_manager);
@@ -3191,73 +3092,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_device_pad_get_n_groups(Gdk.DevicePad pad);
 		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_new(Gdk.EventType type);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_copy(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_free(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_axis(System.IntPtr @event, Gdk.AxisUse axis_use, System.IntPtr value);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_button(System.IntPtr @event, System.IntPtr button);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_click_count(System.IntPtr @event, System.IntPtr click_count);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_coords(System.IntPtr @event, System.IntPtr x_win, System.IntPtr y_win);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Device gdk_event_get_device(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.DeviceTool gdk_event_get_device_tool(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.EventSequence gdk_event_get_event_sequence(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.EventType gdk_event_get_event_type(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_keycode(System.IntPtr @event, System.IntPtr keycode);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_keyval(System.IntPtr @event, System.IntPtr keyval);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_pointer_emulated(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_root_coords(System.IntPtr @event, System.IntPtr x_root, System.IntPtr y_root);
-		[DllImport("libgdk-3.so.0")]
-		public static extern int gdk_event_get_scancode(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Screen gdk_event_get_screen(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_scroll_deltas(System.IntPtr @event, System.IntPtr delta_x, System.IntPtr delta_y);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_scroll_direction(System.IntPtr @event, out Gdk.ScrollDirection direction);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Seat gdk_event_get_seat(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Device gdk_event_get_source_device(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_get_state(System.IntPtr @event, out Gdk.ModifierType state);
-		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_event_get_time(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.Window gdk_event_get_window(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_is_scroll_stop_event(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_put(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_device(System.IntPtr @event, Gdk.Device device);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_device_tool(System.IntPtr @event, Gdk.DeviceTool tool);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_screen(System.IntPtr @event, Gdk.Screen screen);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_event_set_source_device(System.IntPtr @event, Gdk.Device device);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_event_triggers_context_menu(System.IntPtr @event);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_get();
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_event_handler_set(System.IntPtr func, System.IntPtr data, System.IntPtr notify);
-		[DllImport("libgdk-3.so.0")]
-		public static extern System.IntPtr gdk_event_peek();
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_event_request_motions(Gdk.EventMotion @event);
 		[DllImport("libgdk-3.so.0")]
@@ -3321,8 +3156,6 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_drawing_context_is_valid(Gdk.DrawingContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_rectangle_equal(Gdk.Rectangle rect1, Gdk.Rectangle rect2);
-		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_frame_clock_begin_updating(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
 		public static extern void gdk_frame_clock_end_updating(Gdk.FrameClock frame_clock);
@@ -3335,7 +3168,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern long gdk_frame_clock_get_history_start(Gdk.FrameClock frame_clock);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_frame_clock_get_refresh_info(Gdk.FrameClock frame_clock, long base_time, System.IntPtr refresh_interval_return, System.IntPtr presentation_time_return);
+		public static extern void gdk_frame_clock_get_refresh_info(Gdk.FrameClock frame_clock, long base_time, long refresh_interval_return, long presentation_time_return);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.FrameTimings gdk_frame_clock_get_timings(Gdk.FrameClock frame_clock, long frame_counter);
 		[DllImport("libgdk-3.so.0")]
@@ -3367,13 +3200,13 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_gl_context_get_forward_compatible(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_get_required_version(Gdk.GLContext context, System.IntPtr major, System.IntPtr minor);
+		public static extern void gdk_gl_context_get_required_version(Gdk.GLContext context, out int major, out int minor);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.GLContext gdk_gl_context_get_shared_context(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_gl_context_get_use_es(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_gl_context_get_version(Gdk.GLContext context, System.IntPtr major, System.IntPtr minor);
+		public static extern void gdk_gl_context_get_version(Gdk.GLContext context, out int major, out int minor);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Window gdk_gl_context_get_window(Gdk.GLContext context);
 		[DllImport("libgdk-3.so.0")]
@@ -3403,9 +3236,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern Pango.Direction gdk_keymap_get_direction(Gdk.Keymap keymap);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_keymap_get_entries_for_keycode(Gdk.Keymap keymap, uint hardware_keycode, System.IntPtr keys, System.IntPtr keyvals, System.IntPtr n_entries);
+		public static extern bool gdk_keymap_get_entries_for_keycode(Gdk.Keymap keymap, uint hardware_keycode, out System.IntPtr keys, out System.IntPtr keyvals, out int n_entries);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_keymap_get_entries_for_keyval(Gdk.Keymap keymap, uint keyval, System.IntPtr keys, System.IntPtr n_keys);
+		public static extern bool gdk_keymap_get_entries_for_keyval(Gdk.Keymap keymap, uint keyval, out System.IntPtr keys, out int n_keys);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.ModifierType gdk_keymap_get_modifier_mask(Gdk.Keymap keymap, Gdk.ModifierIntent intent);
 		[DllImport("libgdk-3.so.0")]
@@ -3421,19 +3254,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern bool gdk_keymap_map_virtual_modifiers(Gdk.Keymap keymap, ref Gdk.ModifierType state);
 		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_keymap_translate_keyboard_state(Gdk.Keymap keymap, uint hardware_keycode, Gdk.ModifierType state, int group, System.IntPtr keyval, System.IntPtr effective_group, System.IntPtr level, out Gdk.ModifierType consumed_modifiers);
-		[DllImport("libgdk-3.so.0")]
-		public static extern Gdk.RGBA gdk_rgba_copy(Gdk.RGBA rgba);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_rgba_equal(Gdk.RGBA p1, Gdk.RGBA p2);
-		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_rgba_free(Gdk.RGBA rgba);
-		[DllImport("libgdk-3.so.0")]
-		public static extern uint gdk_rgba_hash(Gdk.RGBA p);
-		[DllImport("libgdk-3.so.0")]
-		public static extern bool gdk_rgba_parse(Gdk.RGBA rgba, string spec);
-		[DllImport("libgdk-3.so.0")]
-		public static extern string gdk_rgba_to_string(Gdk.RGBA rgba);
+		public static extern bool gdk_keymap_translate_keyboard_state(Gdk.Keymap keymap, uint hardware_keycode, Gdk.ModifierType state, int group, out uint keyval, out int effective_group, out int level, out Gdk.ModifierType consumed_modifiers);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Visual gdk_visual_get_best();
 		[DllImport("libgdk-3.so.0")]
@@ -3451,7 +3272,7 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_visual_get_bits_per_rgb(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_blue_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_blue_pixel_details(Gdk.Visual visual, out uint mask, out int shift, out int precision);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.ByteOrder gdk_visual_get_byte_order(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
@@ -3459,9 +3280,9 @@ namespace Gdk {
 		[DllImport("libgdk-3.so.0")]
 		public static extern int gdk_visual_get_depth(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_green_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_green_pixel_details(Gdk.Visual visual, out uint mask, out int shift, out int precision);
 		[DllImport("libgdk-3.so.0")]
-		public static extern void gdk_visual_get_red_pixel_details(Gdk.Visual visual, System.IntPtr mask, System.IntPtr shift, System.IntPtr precision);
+		public static extern void gdk_visual_get_red_pixel_details(Gdk.Visual visual, out uint mask, out int shift, out int precision);
 		[DllImport("libgdk-3.so.0")]
 		public static extern Gdk.Screen gdk_visual_get_screen(Gdk.Visual visual);
 		[DllImport("libgdk-3.so.0")]

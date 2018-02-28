@@ -70,8 +70,6 @@ namespace GLib {
 		public bool remove_unlocked(System.IntPtr item) => GLib.GLibInterop.g_async_queue_remove_unlocked(this, item);
 		public void sort(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_sort(this, func, user_data);
 		public void sort_unlocked(System.IntPtr func, System.IntPtr user_data) => GLib.GLibInterop.g_async_queue_sort_unlocked(this, func, user_data);
-		public System.IntPtr timed_pop(GLib.TimeVal end_time) => GLib.GLibInterop.g_async_queue_timed_pop(this, end_time);
-		public System.IntPtr timed_pop_unlocked(GLib.TimeVal end_time) => GLib.GLibInterop.g_async_queue_timed_pop_unlocked(this, end_time);
 		public System.IntPtr timeout_pop(ulong timeout) => GLib.GLibInterop.g_async_queue_timeout_pop(this, timeout);
 		public System.IntPtr timeout_pop_unlocked(ulong timeout) => GLib.GLibInterop.g_async_queue_timeout_pop_unlocked(this, timeout);
 		public System.IntPtr try_pop() => GLib.GLibInterop.g_async_queue_try_pop(this);
@@ -81,18 +79,6 @@ namespace GLib {
 		public void unref_and_unlock() => GLib.GLibInterop.g_async_queue_unref_and_unlock(this);
 		public static GLib.AsyncQueue @new() => GLibInterop.g_async_queue_new();
 		public static GLib.AsyncQueue new_full(System.IntPtr item_free_func) => GLibInterop.g_async_queue_new_full(item_free_func);
-	}
-	public ref struct TimeVal
-	{
-		private IntPtr _pointer;
-		public TimeVal(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator TimeVal(IntPtr pointer) => new TimeVal(pointer, checkType: true);
-		public static explicit operator IntPtr(TimeVal value) => value._pointer;
-		public void add(long microseconds) => GLib.GLibInterop.g_time_val_add(this, microseconds);
-		public string to_iso8601() => GLib.GLibInterop.g_time_val_to_iso8601(this);
 	}
 	public ref struct BookmarkFile
 	{
@@ -107,17 +93,17 @@ namespace GLib {
 		public void add_group(string uri, string group) => GLib.GLibInterop.g_bookmark_file_add_group(this, uri, group);
 		public void free() => GLib.GLibInterop.g_bookmark_file_free(this);
 		public long get_added(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_added(this, uri, out error);
-		public bool get_app_info(string uri, string name, string exec, System.IntPtr count, System.IntPtr stamp, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_app_info(this, uri, name, exec, count, stamp, out error);
-		public System.IntPtr get_applications(string uri, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_applications(this, uri, length, out error);
+		public bool get_app_info(string uri, string name, out string exec, out uint count, out long stamp, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_app_info(this, uri, name, out exec, out count, out stamp, out error);
+		public System.IntPtr get_applications(string uri, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_applications(this, uri, out length, out error);
 		public string get_description(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_description(this, uri, out error);
-		public System.IntPtr get_groups(string uri, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_groups(this, uri, length, out error);
-		public bool get_icon(string uri, string href, string mime_type, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_icon(this, uri, href, mime_type, out error);
+		public System.IntPtr get_groups(string uri, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_groups(this, uri, out length, out error);
+		public bool get_icon(string uri, out string href, out string mime_type, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_icon(this, uri, out href, out mime_type, out error);
 		public bool get_is_private(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_is_private(this, uri, out error);
 		public string get_mime_type(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_mime_type(this, uri, out error);
 		public long get_modified(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_modified(this, uri, out error);
 		public int get_size() => GLib.GLibInterop.g_bookmark_file_get_size(this);
 		public string get_title(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_title(this, uri, out error);
-		public System.IntPtr get_uris(System.IntPtr length) => GLib.GLibInterop.g_bookmark_file_get_uris(this, length);
+		public System.IntPtr get_uris(out ulong length) => GLib.GLibInterop.g_bookmark_file_get_uris(this, out length);
 		public long get_visited(string uri, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_get_visited(this, uri, out error);
 		public bool has_application(string uri, string name, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_has_application(this, uri, name, out error);
 		public bool has_group(string uri, string group, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_has_group(this, uri, group, out error);
@@ -139,7 +125,7 @@ namespace GLib {
 		public void set_modified(string uri, long modified) => GLib.GLibInterop.g_bookmark_file_set_modified(this, uri, modified);
 		public void set_title(string uri, string title) => GLib.GLibInterop.g_bookmark_file_set_title(this, uri, title);
 		public void set_visited(string uri, long visited) => GLib.GLibInterop.g_bookmark_file_set_visited(this, uri, visited);
-		public string to_data(System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_to_data(this, length, out error);
+		public string to_data(out ulong length, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_to_data(this, out length, out error);
 		public bool to_file(System.IntPtr filename, out GLib.Error error) => GLib.GLibInterop.g_bookmark_file_to_file(this, filename, out error);
 		public static uint error_quark() => GLibInterop.g_bookmark_file_error_quark();
 		public static GLib.BookmarkFile @new() => GLibInterop.g_bookmark_file_new();
@@ -180,12 +166,12 @@ namespace GLib {
 		}
 		public static explicit operator ByteArray(IntPtr pointer) => new ByteArray(pointer, checkType: true);
 		public static explicit operator IntPtr(ByteArray value) => value._pointer;
-		public static GLib.ByteArray append(GLib.ByteArray array, System.IntPtr data, uint len) => GLibInterop.g_byte_array_append(array, data, len);
-		public static System.IntPtr free(GLib.ByteArray array, bool free_segment) => GLibInterop.g_byte_array_free(array, free_segment);
+		public static GLib.ByteArray append(GLib.ByteArray array, byte data, uint len) => GLibInterop.g_byte_array_append(array, data, len);
+		public static byte free(GLib.ByteArray array, bool free_segment) => GLibInterop.g_byte_array_free(array, free_segment);
 		public static GLib.Bytes free_to_bytes(GLib.ByteArray array) => GLibInterop.g_byte_array_free_to_bytes(array);
 		public static GLib.ByteArray @new() => GLibInterop.g_byte_array_new();
 		public static GLib.ByteArray new_take(System.IntPtr data, ulong len) => GLibInterop.g_byte_array_new_take(data, len);
-		public static GLib.ByteArray prepend(GLib.ByteArray array, System.IntPtr data, uint len) => GLibInterop.g_byte_array_prepend(array, data, len);
+		public static GLib.ByteArray prepend(GLib.ByteArray array, byte data, uint len) => GLibInterop.g_byte_array_prepend(array, data, len);
 		public static GLib.ByteArray @ref(GLib.ByteArray array) => GLibInterop.g_byte_array_ref(array);
 		public static GLib.ByteArray remove_index(GLib.ByteArray array, uint index_) => GLibInterop.g_byte_array_remove_index(array, index_);
 		public static GLib.ByteArray remove_index_fast(GLib.ByteArray array, uint index_) => GLibInterop.g_byte_array_remove_index_fast(array, index_);
@@ -213,14 +199,14 @@ namespace GLib {
 		public static GLib.Bytes new_with_free_func(System.IntPtr data, ulong size, System.IntPtr free_func, System.IntPtr user_data) => GLibInterop.g_bytes_new_with_free_func(data, size, free_func, user_data);
 		public int compare(GLib.Bytes bytes2) => GLib.GLibInterop.g_bytes_compare(this, bytes2);
 		public bool equal(GLib.Bytes bytes2) => GLib.GLibInterop.g_bytes_equal(this, bytes2);
-		public System.IntPtr get_data(System.IntPtr size) => GLib.GLibInterop.g_bytes_get_data(this, size);
+		public System.IntPtr get_data(out ulong size) => GLib.GLibInterop.g_bytes_get_data(this, out size);
 		public ulong get_size() => GLib.GLibInterop.g_bytes_get_size(this);
 		public uint hash() => GLib.GLibInterop.g_bytes_hash(this);
 		public GLib.Bytes new_from_bytes(ulong offset, ulong length) => GLib.GLibInterop.g_bytes_new_from_bytes(this, offset, length);
 		public GLib.Bytes @ref() => GLib.GLibInterop.g_bytes_ref(this);
 		public void unref() => GLib.GLibInterop.g_bytes_unref(this);
 		public GLib.ByteArray unref_to_array() => GLib.GLibInterop.g_bytes_unref_to_array(this);
-		public System.IntPtr unref_to_data(System.IntPtr size) => GLib.GLibInterop.g_bytes_unref_to_data(this, size);
+		public System.IntPtr unref_to_data(out ulong size) => GLib.GLibInterop.g_bytes_unref_to_data(this, out size);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_bytes_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -236,7 +222,7 @@ namespace GLib {
 		public static GLib.Checksum @new(GLib.ChecksumType checksum_type) => GLibInterop.g_checksum_new(checksum_type);
 		public GLib.Checksum copy() => GLib.GLibInterop.g_checksum_copy(this);
 		public void free() => GLib.GLibInterop.g_checksum_free(this);
-		public void get_digest(System.IntPtr buffer, System.IntPtr digest_len) => GLib.GLibInterop.g_checksum_get_digest(this, buffer, digest_len);
+		public void get_digest(byte buffer, ulong digest_len) => GLib.GLibInterop.g_checksum_get_digest(this, buffer, digest_len);
 		public string get_string() => GLib.GLibInterop.g_checksum_get_string(this);
 		public void reset() => GLib.GLibInterop.g_checksum_reset(this);
 		public void update(System.IntPtr data, long length) => GLib.GLibInterop.g_checksum_update(this, data, length);
@@ -265,8 +251,6 @@ namespace GLib {
 		public void clear() => GLib.GLibInterop.g_cond_clear(this);
 		public void init() => GLib.GLibInterop.g_cond_init(this);
 		public void signal() => GLib.GLibInterop.g_cond_signal(this);
-		public void wait(System.IntPtr mutex) => GLib.GLibInterop.g_cond_wait(this, mutex);
-		public bool wait_until(System.IntPtr mutex, long end_time) => GLib.GLibInterop.g_cond_wait_until(this, mutex, end_time);
 	}
 	public enum ConvertError
 	{
@@ -327,7 +311,6 @@ namespace GLib {
 		public void set_parse(string str) => GLib.GLibInterop.g_date_set_parse(this, str);
 		public void set_time(int time_) => GLib.GLibInterop.g_date_set_time(this, time_);
 		public void set_time_t(long timet) => GLib.GLibInterop.g_date_set_time_t(this, timet);
-		public void set_time_val(GLib.TimeVal timeval) => GLib.GLibInterop.g_date_set_time_val(this, timeval);
 		public void set_year(ushort year) => GLib.GLibInterop.g_date_set_year(this, year);
 		public void subtract_days(uint n_days) => GLib.GLibInterop.g_date_subtract_days(this, n_days);
 		public void subtract_months(uint n_months) => GLib.GLibInterop.g_date_subtract_months(this, n_months);
@@ -391,8 +374,6 @@ namespace GLib {
 		public static explicit operator DateTime(IntPtr pointer) => new DateTime(pointer, checkType: true);
 		public static explicit operator IntPtr(DateTime value) => value._pointer;
 		public static GLib.DateTime @new(GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds) => GLibInterop.g_date_time_new(tz, year, month, day, hour, minute, seconds);
-		public static GLib.DateTime new_from_timeval_local(GLib.TimeVal tv) => GLibInterop.g_date_time_new_from_timeval_local(tv);
-		public static GLib.DateTime new_from_timeval_utc(GLib.TimeVal tv) => GLibInterop.g_date_time_new_from_timeval_utc(tv);
 		public static GLib.DateTime new_from_unix_local(long t) => GLibInterop.g_date_time_new_from_unix_local(t);
 		public static GLib.DateTime new_from_unix_utc(long t) => GLibInterop.g_date_time_new_from_unix_utc(t);
 		public static GLib.DateTime new_local(int year, int month, int day, int hour, int minute, double seconds) => GLibInterop.g_date_time_new_local(year, month, day, hour, minute, seconds);
@@ -425,11 +406,10 @@ namespace GLib {
 		public int get_week_numbering_year() => GLib.GLibInterop.g_date_time_get_week_numbering_year(this);
 		public int get_week_of_year() => GLib.GLibInterop.g_date_time_get_week_of_year(this);
 		public int get_year() => GLib.GLibInterop.g_date_time_get_year(this);
-		public void get_ymd(System.IntPtr year, System.IntPtr month, System.IntPtr day) => GLib.GLibInterop.g_date_time_get_ymd(this, year, month, day);
+		public void get_ymd(out int year, out int month, out int day) => GLib.GLibInterop.g_date_time_get_ymd(this, out year, out month, out day);
 		public bool is_daylight_savings() => GLib.GLibInterop.g_date_time_is_daylight_savings(this);
 		public GLib.DateTime @ref() => GLib.GLibInterop.g_date_time_ref(this);
 		public GLib.DateTime to_local() => GLib.GLibInterop.g_date_time_to_local(this);
-		public bool to_timeval(GLib.TimeVal tv) => GLib.GLibInterop.g_date_time_to_timeval(this, tv);
 		public GLib.DateTime to_timezone(GLib.TimeZone tz) => GLib.GLibInterop.g_date_time_to_timezone(this, tz);
 		public long to_unix() => GLib.GLibInterop.g_date_time_to_unix(this);
 		public GLib.DateTime to_utc() => GLib.GLibInterop.g_date_time_to_utc(this);
@@ -452,7 +432,7 @@ namespace GLib {
 		public static GLib.TimeZone @new(string identifier) => GLibInterop.g_time_zone_new(identifier);
 		public static GLib.TimeZone new_local() => GLibInterop.g_time_zone_new_local();
 		public static GLib.TimeZone new_utc() => GLibInterop.g_time_zone_new_utc();
-		public int adjust_time(GLib.TimeType type, System.IntPtr time_) => GLib.GLibInterop.g_time_zone_adjust_time(this, type, time_);
+		public int adjust_time(GLib.TimeType type, long time_) => GLib.GLibInterop.g_time_zone_adjust_time(this, type, time_);
 		public int find_interval(GLib.TimeType type, long time_) => GLib.GLibInterop.g_time_zone_find_interval(this, type, time_);
 		public string get_abbreviation(int interval) => GLib.GLibInterop.g_time_zone_get_abbreviation(this, interval);
 		public int get_offset(int interval) => GLib.GLibInterop.g_time_zone_get_offset(this, interval);
@@ -559,11 +539,11 @@ namespace GLib {
 		public static uint foreach_remove(System.IntPtr hash_table, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_hash_table_foreach_remove(hash_table, func, user_data);
 		public static uint foreach_steal(System.IntPtr hash_table, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_hash_table_foreach_steal(hash_table, func, user_data);
 		public static System.IntPtr get_keys(System.IntPtr hash_table) => GLibInterop.g_hash_table_get_keys(hash_table);
-		public static System.IntPtr get_keys_as_array(System.IntPtr hash_table, System.IntPtr length) => GLibInterop.g_hash_table_get_keys_as_array(hash_table, length);
+		public static System.IntPtr get_keys_as_array(System.IntPtr hash_table, out uint length) => GLibInterop.g_hash_table_get_keys_as_array(hash_table, out length);
 		public static System.IntPtr get_values(System.IntPtr hash_table) => GLibInterop.g_hash_table_get_values(hash_table);
 		public static bool insert(System.IntPtr hash_table, System.IntPtr key, System.IntPtr value) => GLibInterop.g_hash_table_insert(hash_table, key, value);
 		public static System.IntPtr lookup(System.IntPtr hash_table, System.IntPtr key) => GLibInterop.g_hash_table_lookup(hash_table, key);
-		public static bool lookup_extended(System.IntPtr hash_table, System.IntPtr lookup_key, System.IntPtr orig_key, System.IntPtr value) => GLibInterop.g_hash_table_lookup_extended(hash_table, lookup_key, orig_key, value);
+		public static bool lookup_extended(System.IntPtr hash_table, System.IntPtr lookup_key, out System.IntPtr orig_key, out System.IntPtr value) => GLibInterop.g_hash_table_lookup_extended(hash_table, lookup_key, out orig_key, out value);
 		public static System.IntPtr @new(System.IntPtr hash_func, System.IntPtr key_equal_func) => GLibInterop.g_hash_table_new(hash_func, key_equal_func);
 		public static System.IntPtr new_full(System.IntPtr hash_func, System.IntPtr key_equal_func, System.IntPtr key_destroy_func, System.IntPtr value_destroy_func) => GLibInterop.g_hash_table_new_full(hash_func, key_equal_func, key_destroy_func, value_destroy_func);
 		public static System.IntPtr @ref(System.IntPtr hash_table) => GLibInterop.g_hash_table_ref(hash_table);
@@ -588,7 +568,7 @@ namespace GLib {
 		public static explicit operator IntPtr(HashTableIter value) => value._pointer;
 		public System.IntPtr get_hash_table() => GLib.GLibInterop.g_hash_table_iter_get_hash_table(this);
 		public void init(System.IntPtr hash_table) => GLib.GLibInterop.g_hash_table_iter_init(this, hash_table);
-		public bool next(System.IntPtr key, System.IntPtr value) => GLib.GLibInterop.g_hash_table_iter_next(this, key, value);
+		public bool next(out System.IntPtr key, out System.IntPtr value) => GLib.GLibInterop.g_hash_table_iter_next(this, out key, out value);
 		public void remove() => GLib.GLibInterop.g_hash_table_iter_remove(this);
 		public void replace(System.IntPtr value) => GLib.GLibInterop.g_hash_table_iter_replace(this, value);
 		public void steal() => GLib.GLibInterop.g_hash_table_iter_steal(this);
@@ -603,7 +583,7 @@ namespace GLib {
 		public static explicit operator Hmac(IntPtr pointer) => new Hmac(pointer, checkType: true);
 		public static explicit operator IntPtr(Hmac value) => value._pointer;
 		public GLib.Hmac copy() => GLib.GLibInterop.g_hmac_copy(this);
-		public void get_digest(System.IntPtr buffer, System.IntPtr digest_len) => GLib.GLibInterop.g_hmac_get_digest(this, buffer, digest_len);
+		public void get_digest(byte buffer, ulong digest_len) => GLib.GLibInterop.g_hmac_get_digest(this, buffer, digest_len);
 		public string get_string() => GLib.GLibInterop.g_hmac_get_string(this);
 		public GLib.Hmac @ref() => GLib.GLibInterop.g_hmac_ref(this);
 		public void unref() => GLib.GLibInterop.g_hmac_unref(this);
@@ -669,6 +649,8 @@ namespace GLib {
 		}
 		public static explicit operator IConv(IntPtr pointer) => new IConv(pointer, checkType: true);
 		public static explicit operator IntPtr(IConv value) => value._pointer;
+		public int close() => GLib.GLibInterop.g_iconv_close(this);
+		public static GLib.IConv open(string to_codeset, string from_codeset) => GLibInterop.g_iconv_open(to_codeset, from_codeset);
 	}
 	public ref struct IOFuncs
 	{
@@ -679,45 +661,6 @@ namespace GLib {
 		}
 		public static explicit operator IOFuncs(IntPtr pointer) => new IOFuncs(pointer, checkType: true);
 		public static explicit operator IntPtr(IOFuncs value) => value._pointer;
-	}
-	public ref struct String
-	{
-		private IntPtr _pointer;
-		public String(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator String(IntPtr pointer) => new String(pointer, checkType: true);
-		public static explicit operator IntPtr(String value) => value._pointer;
-		public GLib.String append(string val) => GLib.GLibInterop.g_string_append(this, val);
-		public GLib.String append_c(sbyte c) => GLib.GLibInterop.g_string_append_c(this, c);
-		public GLib.String append_len(string val, long len) => GLib.GLibInterop.g_string_append_len(this, val, len);
-		public GLib.String append_unichar(uint wc) => GLib.GLibInterop.g_string_append_unichar(this, wc);
-		public GLib.String append_uri_escaped(string unescaped, string reserved_chars_allowed, bool allow_utf8) => GLib.GLibInterop.g_string_append_uri_escaped(this, unescaped, reserved_chars_allowed, allow_utf8);
-		public GLib.String ascii_down() => GLib.GLibInterop.g_string_ascii_down(this);
-		public GLib.String ascii_up() => GLib.GLibInterop.g_string_ascii_up(this);
-		public GLib.String assign(string rval) => GLib.GLibInterop.g_string_assign(this, rval);
-		public GLib.String down() => GLib.GLibInterop.g_string_down(this);
-		public bool equal(GLib.String v2) => GLib.GLibInterop.g_string_equal(this, v2);
-		public GLib.String erase(long pos, long len) => GLib.GLibInterop.g_string_erase(this, pos, len);
-		public string free(bool free_segment) => GLib.GLibInterop.g_string_free(this, free_segment);
-		public GLib.Bytes free_to_bytes() => GLib.GLibInterop.g_string_free_to_bytes(this);
-		public uint hash() => GLib.GLibInterop.g_string_hash(this);
-		public GLib.String insert(long pos, string val) => GLib.GLibInterop.g_string_insert(this, pos, val);
-		public GLib.String insert_c(long pos, sbyte c) => GLib.GLibInterop.g_string_insert_c(this, pos, c);
-		public GLib.String insert_len(long pos, string val, long len) => GLib.GLibInterop.g_string_insert_len(this, pos, val, len);
-		public GLib.String insert_unichar(long pos, uint wc) => GLib.GLibInterop.g_string_insert_unichar(this, pos, wc);
-		public GLib.String overwrite(ulong pos, string val) => GLib.GLibInterop.g_string_overwrite(this, pos, val);
-		public GLib.String overwrite_len(ulong pos, string val, long len) => GLib.GLibInterop.g_string_overwrite_len(this, pos, val, len);
-		public GLib.String prepend(string val) => GLib.GLibInterop.g_string_prepend(this, val);
-		public GLib.String prepend_c(sbyte c) => GLib.GLibInterop.g_string_prepend_c(this, c);
-		public GLib.String prepend_len(string val, long len) => GLib.GLibInterop.g_string_prepend_len(this, val, len);
-		public GLib.String prepend_unichar(uint wc) => GLib.GLibInterop.g_string_prepend_unichar(this, wc);
-		public GLib.String set_size(ulong len) => GLib.GLibInterop.g_string_set_size(this, len);
-		public GLib.String truncate(ulong len) => GLib.GLibInterop.g_string_truncate(this, len);
-		public GLib.String up() => GLib.GLibInterop.g_string_up(this);
-		[DllImport("libglib-2.0.so.0", EntryPoint = "g_gstring_get_type")]
-		public static extern GLib.GType TypeOf();
 	}
 	public ref struct IOChannel
 	{
@@ -738,14 +681,13 @@ namespace GLib {
 		public bool get_close_on_unref() => GLib.GLibInterop.g_io_channel_get_close_on_unref(this);
 		public string get_encoding() => GLib.GLibInterop.g_io_channel_get_encoding(this);
 		public GLib.IOFlags get_flags() => GLib.GLibInterop.g_io_channel_get_flags(this);
-		public string get_line_term(System.IntPtr length) => GLib.GLibInterop.g_io_channel_get_line_term(this, length);
+		public string get_line_term(int length) => GLib.GLibInterop.g_io_channel_get_line_term(this, length);
 		public void init() => GLib.GLibInterop.g_io_channel_init(this);
-		public GLib.IOError read(string buf, ulong count, System.IntPtr bytes_read) => GLib.GLibInterop.g_io_channel_read(this, buf, count, bytes_read);
-		public GLib.IOStatus read_chars(System.IntPtr buf, ulong count, System.IntPtr bytes_read, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_chars(this, buf, count, bytes_read, out error);
-		public GLib.IOStatus read_line(string str_return, System.IntPtr length, System.IntPtr terminator_pos, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_line(this, str_return, length, terminator_pos, out error);
-		public GLib.IOStatus read_line_string(GLib.String buffer, System.IntPtr terminator_pos, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_line_string(this, buffer, terminator_pos, out error);
-		public GLib.IOStatus read_to_end(System.IntPtr str_return, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_to_end(this, str_return, length, out error);
-		public GLib.IOStatus read_unichar(System.IntPtr thechar, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_unichar(this, thechar, out error);
+		public GLib.IOError read(string buf, ulong count, ulong bytes_read) => GLib.GLibInterop.g_io_channel_read(this, buf, count, bytes_read);
+		public GLib.IOStatus read_chars(ref System.IntPtr buf, ulong count, out ulong bytes_read, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_chars(this, ref buf, count, out bytes_read, out error);
+		public GLib.IOStatus read_line(out string str_return, out ulong length, out ulong terminator_pos, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_line(this, out str_return, out length, out terminator_pos, out error);
+		public GLib.IOStatus read_to_end(out System.IntPtr str_return, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_to_end(this, out str_return, out length, out error);
+		public GLib.IOStatus read_unichar(out uint thechar, out GLib.Error error) => GLib.GLibInterop.g_io_channel_read_unichar(this, out thechar, out error);
 		public GLib.IOChannel @ref() => GLib.GLibInterop.g_io_channel_ref(this);
 		public GLib.IOError seek(long offset, GLib.SeekType type) => GLib.GLibInterop.g_io_channel_seek(this, offset, type);
 		public GLib.IOStatus seek_position(long offset, GLib.SeekType type, out GLib.Error error) => GLib.GLibInterop.g_io_channel_seek_position(this, offset, type, out error);
@@ -758,8 +700,8 @@ namespace GLib {
 		public GLib.IOStatus shutdown(bool flush, out GLib.Error error) => GLib.GLibInterop.g_io_channel_shutdown(this, flush, out error);
 		public int unix_get_fd() => GLib.GLibInterop.g_io_channel_unix_get_fd(this);
 		public void unref() => GLib.GLibInterop.g_io_channel_unref(this);
-		public GLib.IOError write(string buf, ulong count, System.IntPtr bytes_written) => GLib.GLibInterop.g_io_channel_write(this, buf, count, bytes_written);
-		public GLib.IOStatus write_chars(System.IntPtr buf, long count, System.IntPtr bytes_written, out GLib.Error error) => GLib.GLibInterop.g_io_channel_write_chars(this, buf, count, bytes_written, out error);
+		public GLib.IOError write(string buf, ulong count, ulong bytes_written) => GLib.GLibInterop.g_io_channel_write(this, buf, count, bytes_written);
+		public GLib.IOStatus write_chars(System.IntPtr buf, long count, out ulong bytes_written, out GLib.Error error) => GLib.GLibInterop.g_io_channel_write_chars(this, buf, count, out bytes_written, out error);
 		public GLib.IOStatus write_unichar(uint thechar, out GLib.Error error) => GLib.GLibInterop.g_io_channel_write_unichar(this, thechar, out error);
 		public static GLib.IOChannelError error_from_errno(int en) => GLibInterop.g_io_channel_error_from_errno(en);
 		public static uint error_quark() => GLibInterop.g_io_channel_error_quark();
@@ -832,13 +774,11 @@ namespace GLib {
 		public static explicit operator IntPtr(Source value) => value._pointer;
 		public static GLib.Source @new(GLib.SourceFuncs source_funcs, uint struct_size) => GLibInterop.g_source_new(source_funcs, struct_size);
 		public void add_child_source(GLib.Source child_source) => GLib.GLibInterop.g_source_add_child_source(this, child_source);
-		public void add_poll(GLib.PollFD fd) => GLib.GLibInterop.g_source_add_poll(this, fd);
 		public System.IntPtr add_unix_fd(int fd, GLib.IOCondition events) => GLib.GLibInterop.g_source_add_unix_fd(this, fd, events);
 		public uint attach(GLib.MainContext context) => GLib.GLibInterop.g_source_attach(this, context);
 		public void destroy() => GLib.GLibInterop.g_source_destroy(this);
 		public bool get_can_recurse() => GLib.GLibInterop.g_source_get_can_recurse(this);
 		public GLib.MainContext get_context() => GLib.GLibInterop.g_source_get_context(this);
-		public void get_current_time(GLib.TimeVal timeval) => GLib.GLibInterop.g_source_get_current_time(this, timeval);
 		public uint get_id() => GLib.GLibInterop.g_source_get_id(this);
 		public string get_name() => GLib.GLibInterop.g_source_get_name(this);
 		public int get_priority() => GLib.GLibInterop.g_source_get_priority(this);
@@ -849,7 +789,6 @@ namespace GLib {
 		public GLib.IOCondition query_unix_fd(System.IntPtr tag) => GLib.GLibInterop.g_source_query_unix_fd(this, tag);
 		public GLib.Source @ref() => GLib.GLibInterop.g_source_ref(this);
 		public void remove_child_source(GLib.Source child_source) => GLib.GLibInterop.g_source_remove_child_source(this, child_source);
-		public void remove_poll(GLib.PollFD fd) => GLib.GLibInterop.g_source_remove_poll(this, fd);
 		public void remove_unix_fd(System.IntPtr tag) => GLib.GLibInterop.g_source_remove_unix_fd(this, tag);
 		public void set_callback(System.IntPtr func, System.IntPtr data, System.IntPtr notify) => GLib.GLibInterop.g_source_set_callback(this, func, data, notify);
 		public void set_callback_indirect(System.IntPtr callback_data, GLib.SourceCallbackFuncs callback_funcs) => GLib.GLibInterop.g_source_set_callback_indirect(this, callback_data, callback_funcs);
@@ -878,28 +817,28 @@ namespace GLib {
 		public static GLib.KeyFile @new() => GLibInterop.g_key_file_new();
 		public void free() => GLib.GLibInterop.g_key_file_free(this);
 		public bool get_boolean(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_boolean(this, group_name, key, out error);
-		public System.IntPtr get_boolean_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_boolean_list(this, group_name, key, length, out error);
+		public System.IntPtr get_boolean_list(string group_name, string key, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_boolean_list(this, group_name, key, out length, out error);
 		public string get_comment(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_comment(this, group_name, key, out error);
 		public double get_double(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_double(this, group_name, key, out error);
-		public System.IntPtr get_double_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_double_list(this, group_name, key, length, out error);
-		public System.IntPtr get_groups(System.IntPtr length) => GLib.GLibInterop.g_key_file_get_groups(this, length);
+		public System.IntPtr get_double_list(string group_name, string key, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_double_list(this, group_name, key, out length, out error);
+		public System.IntPtr get_groups(out ulong length) => GLib.GLibInterop.g_key_file_get_groups(this, out length);
 		public long get_int64(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_int64(this, group_name, key, out error);
 		public int get_integer(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_integer(this, group_name, key, out error);
-		public System.IntPtr get_integer_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_integer_list(this, group_name, key, length, out error);
-		public System.IntPtr get_keys(string group_name, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_keys(this, group_name, length, out error);
+		public System.IntPtr get_integer_list(string group_name, string key, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_integer_list(this, group_name, key, out length, out error);
+		public System.IntPtr get_keys(string group_name, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_keys(this, group_name, out length, out error);
 		public string get_locale_string(string group_name, string key, string locale, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_locale_string(this, group_name, key, locale, out error);
-		public System.IntPtr get_locale_string_list(string group_name, string key, string locale, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_locale_string_list(this, group_name, key, locale, length, out error);
+		public System.IntPtr get_locale_string_list(string group_name, string key, string locale, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_locale_string_list(this, group_name, key, locale, out length, out error);
 		public string get_start_group() => GLib.GLibInterop.g_key_file_get_start_group(this);
 		public string get_string(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_string(this, group_name, key, out error);
-		public System.IntPtr get_string_list(string group_name, string key, System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_string_list(this, group_name, key, length, out error);
+		public System.IntPtr get_string_list(string group_name, string key, out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_string_list(this, group_name, key, out length, out error);
 		public ulong get_uint64(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_uint64(this, group_name, key, out error);
 		public string get_value(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_get_value(this, group_name, key, out error);
 		public bool has_group(string group_name) => GLib.GLibInterop.g_key_file_has_group(this, group_name);
 		public bool has_key(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_has_key(this, group_name, key, out error);
 		public bool load_from_bytes(GLib.Bytes bytes, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_bytes(this, bytes, flags, out error);
 		public bool load_from_data(string data, ulong length, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_data(this, data, length, flags, out error);
-		public bool load_from_data_dirs(System.IntPtr file, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_data_dirs(this, file, full_path, flags, out error);
-		public bool load_from_dirs(System.IntPtr file, System.IntPtr search_dirs, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_dirs(this, file, search_dirs, full_path, flags, out error);
+		public bool load_from_data_dirs(System.IntPtr file, out System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_data_dirs(this, file, out full_path, flags, out error);
+		public bool load_from_dirs(System.IntPtr file, System.IntPtr search_dirs, out System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_dirs(this, file, search_dirs, out full_path, flags, out error);
 		public bool load_from_file(System.IntPtr file, GLib.KeyFileFlags flags, out GLib.Error error) => GLib.GLibInterop.g_key_file_load_from_file(this, file, flags, out error);
 		public GLib.KeyFile @ref() => GLib.GLibInterop.g_key_file_ref(this);
 		public bool remove_comment(string group_name, string key, out GLib.Error error) => GLib.GLibInterop.g_key_file_remove_comment(this, group_name, key, out error);
@@ -921,7 +860,7 @@ namespace GLib {
 		public void set_string_list(string group_name, string key, System.IntPtr list, ulong length) => GLib.GLibInterop.g_key_file_set_string_list(this, group_name, key, list, length);
 		public void set_uint64(string group_name, string key, ulong value) => GLib.GLibInterop.g_key_file_set_uint64(this, group_name, key, value);
 		public void set_value(string group_name, string key, string value) => GLib.GLibInterop.g_key_file_set_value(this, group_name, key, value);
-		public string to_data(System.IntPtr length, out GLib.Error error) => GLib.GLibInterop.g_key_file_to_data(this, length, out error);
+		public string to_data(out ulong length, out GLib.Error error) => GLib.GLibInterop.g_key_file_to_data(this, out length, out error);
 		public void unref() => GLib.GLibInterop.g_key_file_unref(this);
 		public static uint error_quark() => GLibInterop.g_key_file_error_quark();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_key_file_get_type")]
@@ -1023,7 +962,6 @@ namespace GLib {
 		public static explicit operator IntPtr(MainContext value) => value._pointer;
 		public static GLib.MainContext @new() => GLibInterop.g_main_context_new();
 		public bool acquire() => GLib.GLibInterop.g_main_context_acquire(this);
-		public void add_poll(GLib.PollFD fd, int priority) => GLib.GLibInterop.g_main_context_add_poll(this, fd, priority);
 		public bool check(int max_priority, System.IntPtr fds, int n_fds) => GLib.GLibInterop.g_main_context_check(this, max_priority, fds, n_fds);
 		public void dispatch() => GLib.GLibInterop.g_main_context_dispatch(this);
 		public GLib.Source find_source_by_funcs_user_data(GLib.SourceFuncs funcs, System.IntPtr user_data) => GLib.GLibInterop.g_main_context_find_source_by_funcs_user_data(this, funcs, user_data);
@@ -1036,32 +974,18 @@ namespace GLib {
 		public bool iteration(bool may_block) => GLib.GLibInterop.g_main_context_iteration(this, may_block);
 		public bool pending() => GLib.GLibInterop.g_main_context_pending(this);
 		public void pop_thread_default() => GLib.GLibInterop.g_main_context_pop_thread_default(this);
-		public bool prepare(System.IntPtr priority) => GLib.GLibInterop.g_main_context_prepare(this, priority);
+		public bool prepare(int priority) => GLib.GLibInterop.g_main_context_prepare(this, priority);
 		public void push_thread_default() => GLib.GLibInterop.g_main_context_push_thread_default(this);
-		public int query(int max_priority, System.IntPtr timeout_, System.IntPtr fds, int n_fds) => GLib.GLibInterop.g_main_context_query(this, max_priority, timeout_, fds, n_fds);
+		public int query(int max_priority, out int timeout_, ref System.IntPtr fds, int n_fds) => GLib.GLibInterop.g_main_context_query(this, max_priority, out timeout_, ref fds, n_fds);
 		public GLib.MainContext @ref() => GLib.GLibInterop.g_main_context_ref(this);
 		public void release() => GLib.GLibInterop.g_main_context_release(this);
-		public void remove_poll(GLib.PollFD fd) => GLib.GLibInterop.g_main_context_remove_poll(this, fd);
 		public void set_poll_func(System.IntPtr func) => GLib.GLibInterop.g_main_context_set_poll_func(this, func);
 		public void unref() => GLib.GLibInterop.g_main_context_unref(this);
-		public bool wait(GLib.Cond cond, System.IntPtr mutex) => GLib.GLibInterop.g_main_context_wait(this, cond, mutex);
 		public void wakeup() => GLib.GLibInterop.g_main_context_wakeup(this);
 		public static GLib.MainContext @default() => GLibInterop.g_main_context_default();
 		public static GLib.MainContext get_thread_default() => GLibInterop.g_main_context_get_thread_default();
 		public static GLib.MainContext ref_thread_default() => GLibInterop.g_main_context_ref_thread_default();
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_main_context_get_type")]
-		public static extern GLib.GType TypeOf();
-	}
-	public ref struct PollFD
-	{
-		private IntPtr _pointer;
-		public PollFD(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator PollFD(IntPtr pointer) => new PollFD(pointer, checkType: true);
-		public static explicit operator IntPtr(PollFD value) => value._pointer;
-		[DllImport("libglib-2.0.so.0", EntryPoint = "g_pollfd_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
 	public ref struct SourceFuncs
@@ -1142,30 +1066,18 @@ namespace GLib {
 		}
 		public static explicit operator MarkupParseContext(IntPtr pointer) => new MarkupParseContext(pointer, checkType: true);
 		public static explicit operator IntPtr(MarkupParseContext value) => value._pointer;
-		public static GLib.MarkupParseContext @new(GLib.MarkupParser parser, GLib.MarkupParseFlags flags, System.IntPtr user_data, System.IntPtr user_data_dnotify) => GLibInterop.g_markup_parse_context_new(parser, flags, user_data, user_data_dnotify);
 		public bool end_parse(out GLib.Error error) => GLib.GLibInterop.g_markup_parse_context_end_parse(this, out error);
 		public void free() => GLib.GLibInterop.g_markup_parse_context_free(this);
 		public string get_element() => GLib.GLibInterop.g_markup_parse_context_get_element(this);
 		public System.IntPtr get_element_stack() => GLib.GLibInterop.g_markup_parse_context_get_element_stack(this);
-		public void get_position(System.IntPtr line_number, System.IntPtr char_number) => GLib.GLibInterop.g_markup_parse_context_get_position(this, line_number, char_number);
+		public void get_position(int line_number, int char_number) => GLib.GLibInterop.g_markup_parse_context_get_position(this, line_number, char_number);
 		public System.IntPtr get_user_data() => GLib.GLibInterop.g_markup_parse_context_get_user_data(this);
 		public bool parse(string text, long text_len, out GLib.Error error) => GLib.GLibInterop.g_markup_parse_context_parse(this, text, text_len, out error);
 		public System.IntPtr pop() => GLib.GLibInterop.g_markup_parse_context_pop(this);
-		public void push(GLib.MarkupParser parser, System.IntPtr user_data) => GLib.GLibInterop.g_markup_parse_context_push(this, parser, user_data);
 		public GLib.MarkupParseContext @ref() => GLib.GLibInterop.g_markup_parse_context_ref(this);
 		public void unref() => GLib.GLibInterop.g_markup_parse_context_unref(this);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_markup_parse_context_get_type")]
 		public static extern GLib.GType TypeOf();
-	}
-	public ref struct MarkupParser
-	{
-		private IntPtr _pointer;
-		public MarkupParser(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator MarkupParser(IntPtr pointer) => new MarkupParser(pointer, checkType: true);
-		public static explicit operator IntPtr(MarkupParser value) => value._pointer;
 	}
 	[Flags]
 	public enum MarkupParseFlags
@@ -1188,8 +1100,8 @@ namespace GLib {
 		public string fetch(int match_num) => GLib.GLibInterop.g_match_info_fetch(this, match_num);
 		public System.IntPtr fetch_all() => GLib.GLibInterop.g_match_info_fetch_all(this);
 		public string fetch_named(string name) => GLib.GLibInterop.g_match_info_fetch_named(this, name);
-		public bool fetch_named_pos(string name, System.IntPtr start_pos, System.IntPtr end_pos) => GLib.GLibInterop.g_match_info_fetch_named_pos(this, name, start_pos, end_pos);
-		public bool fetch_pos(int match_num, System.IntPtr start_pos, System.IntPtr end_pos) => GLib.GLibInterop.g_match_info_fetch_pos(this, match_num, start_pos, end_pos);
+		public bool fetch_named_pos(string name, out int start_pos, out int end_pos) => GLib.GLibInterop.g_match_info_fetch_named_pos(this, name, out start_pos, out end_pos);
+		public bool fetch_pos(int match_num, out int start_pos, out int end_pos) => GLib.GLibInterop.g_match_info_fetch_pos(this, match_num, out start_pos, out end_pos);
 		public void free() => GLib.GLibInterop.g_match_info_free(this);
 		public int get_match_count() => GLib.GLibInterop.g_match_info_get_match_count(this);
 		public GLib.Regex get_regex() => GLib.GLibInterop.g_match_info_get_regex(this);
@@ -1231,7 +1143,7 @@ namespace GLib {
 		public System.IntPtr split(string @string, GLib.RegexMatchFlags match_options) => GLib.GLibInterop.g_regex_split(this, @string, match_options);
 		public System.IntPtr split_full(System.IntPtr @string, long string_len, int start_position, GLib.RegexMatchFlags match_options, int max_tokens, out GLib.Error error) => GLib.GLibInterop.g_regex_split_full(this, @string, string_len, start_position, match_options, max_tokens, out error);
 		public void unref() => GLib.GLibInterop.g_regex_unref(this);
-		public static bool check_replacement(string replacement, System.IntPtr has_references, out GLib.Error error) => GLibInterop.g_regex_check_replacement(replacement, has_references, out error);
+		public static bool check_replacement(string replacement, out bool has_references, out GLib.Error error) => GLibInterop.g_regex_check_replacement(replacement, out has_references, out error);
 		public static uint error_quark() => GLibInterop.g_regex_error_quark();
 		public static string escape_nul(string @string, int length) => GLibInterop.g_regex_escape_nul(@string, length);
 		public static string escape_string(System.IntPtr @string, int length) => GLibInterop.g_regex_escape_string(@string, length);
@@ -1369,8 +1281,8 @@ namespace GLib {
 		public GLib.OptionGroup get_main_group() => GLib.GLibInterop.g_option_context_get_main_group(this);
 		public bool get_strict_posix() => GLib.GLibInterop.g_option_context_get_strict_posix(this);
 		public string get_summary() => GLib.GLibInterop.g_option_context_get_summary(this);
-		public bool parse(System.IntPtr argc, System.IntPtr argv, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse(this, argc, argv, out error);
-		public bool parse_strv(System.IntPtr arguments, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse_strv(this, arguments, out error);
+		public bool parse(ref int argc, ref System.IntPtr argv, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse(this, ref argc, ref argv, out error);
+		public bool parse_strv(ref System.IntPtr arguments, out GLib.Error error) => GLib.GLibInterop.g_option_context_parse_strv(this, ref arguments, out error);
 		public void set_description(string description) => GLib.GLibInterop.g_option_context_set_description(this, description);
 		public void set_help_enabled(bool help_enabled) => GLib.GLibInterop.g_option_context_set_help_enabled(this, help_enabled);
 		public void set_ignore_unknown_options(bool ignore_unknown) => GLib.GLibInterop.g_option_context_set_ignore_unknown_options(this, ignore_unknown);
@@ -1466,8 +1378,8 @@ namespace GLib {
 		public static explicit operator PtrArray(IntPtr pointer) => new PtrArray(pointer, checkType: true);
 		public static explicit operator IntPtr(PtrArray value) => value._pointer;
 		public static void add(System.IntPtr array, System.IntPtr data) => GLibInterop.g_ptr_array_add(array, data);
-		public static bool find(System.IntPtr haystack, System.IntPtr needle, System.IntPtr index_) => GLibInterop.g_ptr_array_find(haystack, needle, index_);
-		public static bool find_with_equal_func(System.IntPtr haystack, System.IntPtr needle, System.IntPtr equal_func, System.IntPtr index_) => GLibInterop.g_ptr_array_find_with_equal_func(haystack, needle, equal_func, index_);
+		public static bool find(System.IntPtr haystack, System.IntPtr needle, ref uint index_) => GLibInterop.g_ptr_array_find(haystack, needle, ref index_);
+		public static bool find_with_equal_func(System.IntPtr haystack, System.IntPtr needle, System.IntPtr equal_func, ref uint index_) => GLibInterop.g_ptr_array_find_with_equal_func(haystack, needle, equal_func, ref index_);
 		public static void @foreach(System.IntPtr array, System.IntPtr func, System.IntPtr user_data) => GLibInterop.g_ptr_array_foreach(array, func, user_data);
 		public static System.IntPtr free(System.IntPtr array, bool free_seg) => GLibInterop.g_ptr_array_free(array, free_seg);
 		public static void insert(System.IntPtr array, int index_, System.IntPtr data) => GLibInterop.g_ptr_array_insert(array, index_, data);
@@ -1573,10 +1485,10 @@ namespace GLib {
 		public uint @int() => GLib.GLibInterop.g_rand_int(this);
 		public int int_range(int begin, int end) => GLib.GLibInterop.g_rand_int_range(this, begin, end);
 		public void set_seed(uint seed) => GLib.GLibInterop.g_rand_set_seed(this, seed);
-		public void set_seed_array(System.IntPtr seed, uint seed_length) => GLib.GLibInterop.g_rand_set_seed_array(this, seed, seed_length);
+		public void set_seed_array(uint seed, uint seed_length) => GLib.GLibInterop.g_rand_set_seed_array(this, seed, seed_length);
 		public static GLib.Rand @new() => GLibInterop.g_rand_new();
 		public static GLib.Rand new_with_seed(uint seed) => GLibInterop.g_rand_new_with_seed(seed);
-		public static GLib.Rand new_with_seed_array(System.IntPtr seed, uint seed_length) => GLibInterop.g_rand_new_with_seed_array(seed, seed_length);
+		public static GLib.Rand new_with_seed_array(uint seed, uint seed_length) => GLibInterop.g_rand_new_with_seed_array(seed, seed_length);
 	}
 	public ref struct RecMutex
 	{
@@ -1990,7 +1902,7 @@ namespace GLib {
 		public static explicit operator IntPtr(TestLogBuffer value) => value._pointer;
 		public void free() => GLib.GLibInterop.g_test_log_buffer_free(this);
 		public GLib.TestLogMsg pop() => GLib.GLibInterop.g_test_log_buffer_pop(this);
-		public void push(uint n_bytes, System.IntPtr bytes) => GLib.GLibInterop.g_test_log_buffer_push(this, n_bytes, bytes);
+		public void push(uint n_bytes, byte bytes) => GLib.GLibInterop.g_test_log_buffer_push(this, n_bytes, bytes);
 		public static GLib.TestLogBuffer @new() => GLibInterop.g_test_log_buffer_new();
 	}
 	public ref struct TestLogMsg
@@ -2112,7 +2024,7 @@ namespace GLib {
 		public static explicit operator IntPtr(Timer value) => value._pointer;
 		public void @continue() => GLib.GLibInterop.g_timer_continue(this);
 		public void destroy() => GLib.GLibInterop.g_timer_destroy(this);
-		public double elapsed(System.IntPtr microseconds) => GLib.GLibInterop.g_timer_elapsed(this, microseconds);
+		public double elapsed(ulong microseconds) => GLib.GLibInterop.g_timer_elapsed(this, microseconds);
 		public void reset() => GLib.GLibInterop.g_timer_reset(this);
 		public void start() => GLib.GLibInterop.g_timer_start(this);
 		public void stop() => GLib.GLibInterop.g_timer_stop(this);
@@ -2127,6 +2039,10 @@ namespace GLib {
 		}
 		public static explicit operator TrashStack(IntPtr pointer) => new TrashStack(pointer, checkType: true);
 		public static explicit operator IntPtr(TrashStack value) => value._pointer;
+		public static uint height(GLib.TrashStack stack_p) => GLibInterop.g_trash_stack_height(stack_p);
+		public static System.IntPtr peek(GLib.TrashStack stack_p) => GLibInterop.g_trash_stack_peek(stack_p);
+		public static System.IntPtr pop(GLib.TrashStack stack_p) => GLibInterop.g_trash_stack_pop(stack_p);
+		public static void push(GLib.TrashStack stack_p, System.IntPtr data_p) => GLibInterop.g_trash_stack_push(stack_p, data_p);
 	}
 	public ref struct Tree
 	{
@@ -2418,7 +2334,6 @@ namespace GLib {
 		public static GLib.Variant new_maybe(GLib.VariantType child_type, GLib.Variant child) => GLibInterop.g_variant_new_maybe(child_type, child);
 		public static GLib.Variant new_object_path(string object_path) => GLibInterop.g_variant_new_object_path(object_path);
 		public static GLib.Variant new_objv(System.IntPtr strv, long length) => GLibInterop.g_variant_new_objv(strv, length);
-		public static GLib.Variant new_parsed_va(string format, System.IntPtr app) => GLibInterop.g_variant_new_parsed_va(format, app);
 		public static GLib.Variant new_signature(string signature) => GLibInterop.g_variant_new_signature(signature);
 		public static GLib.Variant new_string(string @string) => GLibInterop.g_variant_new_string(@string);
 		public static GLib.Variant new_strv(System.IntPtr strv, long length) => GLibInterop.g_variant_new_strv(strv, length);
@@ -2427,43 +2342,41 @@ namespace GLib {
 		public static GLib.Variant new_uint16(ushort value) => GLibInterop.g_variant_new_uint16(value);
 		public static GLib.Variant new_uint32(uint value) => GLibInterop.g_variant_new_uint32(value);
 		public static GLib.Variant new_uint64(ulong value) => GLibInterop.g_variant_new_uint64(value);
-		public static GLib.Variant new_va(string format_string, string endptr, System.IntPtr app) => GLibInterop.g_variant_new_va(format_string, endptr, app);
 		public static GLib.Variant new_variant(GLib.Variant value) => GLibInterop.g_variant_new_variant(value);
 		public GLib.Variant byteswap() => GLib.GLibInterop.g_variant_byteswap(this);
 		public bool check_format_string(string format_string, bool copy_only) => GLib.GLibInterop.g_variant_check_format_string(this, format_string, copy_only);
 		public GLib.VariantClass classify() => GLib.GLibInterop.g_variant_classify(this);
 		public int compare(GLib.Variant two) => GLib.GLibInterop.g_variant_compare(this, two);
-		public System.IntPtr dup_bytestring(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_bytestring(this, length);
-		public System.IntPtr dup_bytestring_array(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_bytestring_array(this, length);
-		public System.IntPtr dup_objv(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_objv(this, length);
-		public string dup_string(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_string(this, length);
-		public System.IntPtr dup_strv(System.IntPtr length) => GLib.GLibInterop.g_variant_dup_strv(this, length);
+		public System.IntPtr dup_bytestring(out ulong length) => GLib.GLibInterop.g_variant_dup_bytestring(this, out length);
+		public System.IntPtr dup_bytestring_array(out ulong length) => GLib.GLibInterop.g_variant_dup_bytestring_array(this, out length);
+		public System.IntPtr dup_objv(out ulong length) => GLib.GLibInterop.g_variant_dup_objv(this, out length);
+		public string dup_string(out ulong length) => GLib.GLibInterop.g_variant_dup_string(this, out length);
+		public System.IntPtr dup_strv(out ulong length) => GLib.GLibInterop.g_variant_dup_strv(this, out length);
 		public bool equal(GLib.Variant two) => GLib.GLibInterop.g_variant_equal(this, two);
 		public bool get_boolean() => GLib.GLibInterop.g_variant_get_boolean(this);
 		public byte get_byte() => GLib.GLibInterop.g_variant_get_byte(this);
 		public System.IntPtr get_bytestring() => GLib.GLibInterop.g_variant_get_bytestring(this);
-		public System.IntPtr get_bytestring_array(System.IntPtr length) => GLib.GLibInterop.g_variant_get_bytestring_array(this, length);
+		public System.IntPtr get_bytestring_array(out ulong length) => GLib.GLibInterop.g_variant_get_bytestring_array(this, out length);
 		public GLib.Variant get_child_value(ulong index_) => GLib.GLibInterop.g_variant_get_child_value(this, index_);
 		public System.IntPtr get_data() => GLib.GLibInterop.g_variant_get_data(this);
 		public GLib.Bytes get_data_as_bytes() => GLib.GLibInterop.g_variant_get_data_as_bytes(this);
 		public double get_double() => GLib.GLibInterop.g_variant_get_double(this);
-		public System.IntPtr get_fixed_array(System.IntPtr n_elements, ulong element_size) => GLib.GLibInterop.g_variant_get_fixed_array(this, n_elements, element_size);
+		public System.IntPtr get_fixed_array(out ulong n_elements, ulong element_size) => GLib.GLibInterop.g_variant_get_fixed_array(this, out n_elements, element_size);
 		public int get_handle() => GLib.GLibInterop.g_variant_get_handle(this);
 		public short get_int16() => GLib.GLibInterop.g_variant_get_int16(this);
 		public int get_int32() => GLib.GLibInterop.g_variant_get_int32(this);
 		public long get_int64() => GLib.GLibInterop.g_variant_get_int64(this);
 		public GLib.Variant get_maybe() => GLib.GLibInterop.g_variant_get_maybe(this);
 		public GLib.Variant get_normal_form() => GLib.GLibInterop.g_variant_get_normal_form(this);
-		public System.IntPtr get_objv(System.IntPtr length) => GLib.GLibInterop.g_variant_get_objv(this, length);
+		public System.IntPtr get_objv(out ulong length) => GLib.GLibInterop.g_variant_get_objv(this, out length);
 		public ulong get_size() => GLib.GLibInterop.g_variant_get_size(this);
-		public string get_string(System.IntPtr length) => GLib.GLibInterop.g_variant_get_string(this, length);
-		public System.IntPtr get_strv(System.IntPtr length) => GLib.GLibInterop.g_variant_get_strv(this, length);
+		public string get_string(out ulong length) => GLib.GLibInterop.g_variant_get_string(this, out length);
+		public System.IntPtr get_strv(out ulong length) => GLib.GLibInterop.g_variant_get_strv(this, out length);
 		public GLib.VariantType get_type() => GLib.GLibInterop.g_variant_get_type(this);
 		public string get_type_string() => GLib.GLibInterop.g_variant_get_type_string(this);
 		public ushort get_uint16() => GLib.GLibInterop.g_variant_get_uint16(this);
 		public uint get_uint32() => GLib.GLibInterop.g_variant_get_uint32(this);
 		public ulong get_uint64() => GLib.GLibInterop.g_variant_get_uint64(this);
-		public void get_va(string format_string, string endptr, System.IntPtr app) => GLib.GLibInterop.g_variant_get_va(this, format_string, endptr, app);
 		public GLib.Variant get_variant() => GLib.GLibInterop.g_variant_get_variant(this);
 		public uint hash() => GLib.GLibInterop.g_variant_hash(this);
 		public bool is_container() => GLib.GLibInterop.g_variant_is_container(this);
@@ -2474,7 +2387,6 @@ namespace GLib {
 		public GLib.Variant lookup_value(string key, GLib.VariantType expected_type) => GLib.GLibInterop.g_variant_lookup_value(this, key, expected_type);
 		public ulong n_children() => GLib.GLibInterop.g_variant_n_children(this);
 		public string print(bool type_annotate) => GLib.GLibInterop.g_variant_print(this, type_annotate);
-		public GLib.String print_string(GLib.String @string, bool type_annotate) => GLib.GLibInterop.g_variant_print_string(this, @string, type_annotate);
 		public GLib.Variant @ref() => GLib.GLibInterop.g_variant_ref(this);
 		public GLib.Variant ref_sink() => GLib.GLibInterop.g_variant_ref_sink(this);
 		public void store(System.IntPtr data) => GLib.GLibInterop.g_variant_store(this, data);
@@ -2527,7 +2439,7 @@ namespace GLib {
 		public GLib.VariantType value() => GLib.GLibInterop.g_variant_type_value(this);
 		public static GLib.VariantType checked_(string arg0) => GLibInterop.g_variant_type_checked_(arg0);
 		public static bool string_is_valid(string type_string) => GLibInterop.g_variant_type_string_is_valid(type_string);
-		public static bool string_scan(string @string, string limit, string endptr) => GLibInterop.g_variant_type_string_scan(@string, limit, endptr);
+		public static bool string_scan(string @string, string limit, out string endptr) => GLibInterop.g_variant_type_string_scan(@string, limit, out endptr);
 		[DllImport("libglib-2.0.so.0", EntryPoint = "g_variant_type_get_gtype")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -2645,17 +2557,17 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_ascii_strdown(string str, long len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_ascii_string_to_signed(string str, uint @base, long min, long max, System.IntPtr out_num, out GLib.Error error);
+		public static extern bool g_ascii_string_to_signed(string str, uint @base, long min, long max, out long out_num, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_ascii_string_to_unsigned(string str, uint @base, ulong min, ulong max, System.IntPtr out_num, out GLib.Error error);
+		public static extern bool g_ascii_string_to_unsigned(string str, uint @base, ulong min, ulong max, out ulong out_num, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_ascii_strncasecmp(string s1, string s2, ulong n);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern double g_ascii_strtod(string nptr, string endptr);
+		public static extern double g_ascii_strtod(string nptr, out string endptr);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern long g_ascii_strtoll(string nptr, string endptr, uint @base);
+		public static extern long g_ascii_strtoll(string nptr, out string endptr, uint @base);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern ulong g_ascii_strtoull(string nptr, string endptr, uint @base);
+		public static extern ulong g_ascii_strtoull(string nptr, out string endptr, uint @base);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_ascii_strup(string str, long len);
 		[DllImport("libglib-2.0.so.0")]
@@ -2677,25 +2589,25 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_atexit(System.IntPtr func);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_atomic_int_add(System.IntPtr atomic, int val);
+		public static extern int g_atomic_int_add(int atomic, int val);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_atomic_int_and(System.IntPtr atomic, uint val);
+		public static extern uint g_atomic_int_and(uint atomic, uint val);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_atomic_int_compare_and_exchange(System.IntPtr atomic, int oldval, int newval);
+		public static extern bool g_atomic_int_compare_and_exchange(int atomic, int oldval, int newval);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_atomic_int_dec_and_test(System.IntPtr atomic);
+		public static extern bool g_atomic_int_dec_and_test(int atomic);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_atomic_int_exchange_and_add(System.IntPtr atomic, int val);
+		public static extern int g_atomic_int_exchange_and_add(int atomic, int val);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_atomic_int_get(System.IntPtr atomic);
+		public static extern int g_atomic_int_get(int atomic);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_atomic_int_inc(System.IntPtr atomic);
+		public static extern void g_atomic_int_inc(int atomic);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_atomic_int_or(System.IntPtr atomic, uint val);
+		public static extern uint g_atomic_int_or(uint atomic, uint val);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_atomic_int_set(System.IntPtr atomic, int newval);
+		public static extern void g_atomic_int_set(int atomic, int newval);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_atomic_int_xor(System.IntPtr atomic, uint val);
+		public static extern uint g_atomic_int_xor(uint atomic, uint val);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern long g_atomic_pointer_add(System.IntPtr atomic, long val);
 		[DllImport("libglib-2.0.so.0")]
@@ -2711,21 +2623,21 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_atomic_pointer_xor(System.IntPtr atomic, ulong val);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_base64_decode(string text, System.IntPtr out_len);
+		public static extern System.IntPtr g_base64_decode(string text, out ulong out_len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_base64_decode_inplace(System.IntPtr text, System.IntPtr out_len);
+		public static extern byte g_base64_decode_inplace(ref System.IntPtr text, ref ulong out_len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern ulong g_base64_decode_step(System.IntPtr @in, ulong len, System.IntPtr @out, System.IntPtr state, System.IntPtr save);
+		public static extern ulong g_base64_decode_step(System.IntPtr @in, ulong len, out System.IntPtr @out, ref int state, ref uint save);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_base64_encode(System.IntPtr data, ulong len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern ulong g_base64_encode_close(bool break_lines, System.IntPtr @out, System.IntPtr state, System.IntPtr save);
+		public static extern ulong g_base64_encode_close(bool break_lines, out System.IntPtr @out, ref int state, ref int save);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern ulong g_base64_encode_step(System.IntPtr @in, ulong len, bool break_lines, System.IntPtr @out, System.IntPtr state, System.IntPtr save);
+		public static extern ulong g_base64_encode_step(System.IntPtr @in, ulong len, bool break_lines, out System.IntPtr @out, ref int state, ref int save);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_basename(System.IntPtr file_name);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_bit_lock(System.IntPtr address, int lock_bit);
+		public static extern void g_bit_lock(int address, int lock_bit);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_bit_nth_lsf(ulong mask, int nth_bit);
 		[DllImport("libglib-2.0.so.0")]
@@ -2733,9 +2645,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_bit_storage(ulong number);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_bit_trylock(System.IntPtr address, int lock_bit);
+		public static extern bool g_bit_trylock(int address, int lock_bit);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_bit_unlock(System.IntPtr address, int lock_bit);
+		public static extern void g_bit_unlock(int address, int lock_bit);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_build_filenamev(System.IntPtr args);
 		[DllImport("libglib-2.0.so.0")]
@@ -2769,11 +2681,37 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_compute_hmac_for_string(GLib.ChecksumType digest_type, System.IntPtr key, ulong key_len, string str, long length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_convert(string str, long len, string to_codeset, string from_codeset, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern string g_convert(string str, long len, string to_codeset, string from_codeset, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_convert_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_convert_with_fallback(string str, long len, string to_codeset, string from_codeset, string fallback, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern string g_convert_with_fallback(string str, long len, string to_codeset, string from_codeset, string fallback, ulong bytes_read, ulong bytes_written, out GLib.Error error);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern string g_convert_with_iconv(string str, long len, GLib.IConv converter, ulong bytes_read, ulong bytes_written, out GLib.Error error);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_clear(GLib.Data datalist);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_foreach(GLib.Data datalist, System.IntPtr func, System.IntPtr user_data);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_datalist_get_data(GLib.Data datalist, string key);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern uint g_datalist_get_flags(GLib.Data datalist);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_datalist_id_dup_data(GLib.Data datalist, uint key_id, System.IntPtr dup_func, System.IntPtr user_data);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_datalist_id_get_data(GLib.Data datalist, uint key_id);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_datalist_id_remove_no_notify(GLib.Data datalist, uint key_id);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern bool g_datalist_id_replace_data(GLib.Data datalist, uint key_id, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_id_set_data_full(GLib.Data datalist, uint key_id, System.IntPtr data, System.IntPtr destroy_func);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_init(GLib.Data datalist);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_set_flags(GLib.Data datalist, uint flags);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_datalist_unset_flags(GLib.Data datalist, uint flags);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_dataset_destroy(System.IntPtr dataset_location);
 		[DllImport("libglib-2.0.so.0")]
@@ -2813,9 +2751,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_file_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_file_get_contents(System.IntPtr filename, System.IntPtr contents, System.IntPtr length, out GLib.Error error);
+		public static extern bool g_file_get_contents(System.IntPtr filename, out System.IntPtr contents, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_file_open_tmp(System.IntPtr tmpl, System.IntPtr name_used, out GLib.Error error);
+		public static extern int g_file_open_tmp(System.IntPtr tmpl, out System.IntPtr name_used, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_file_read_link(System.IntPtr filename, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -2827,13 +2765,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_filename_display_name(System.IntPtr filename);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_filename_from_uri(string uri, string hostname, out GLib.Error error);
+		public static extern System.IntPtr g_filename_from_uri(string uri, out string hostname, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_filename_from_utf8(string utf8string, long len, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern System.IntPtr g_filename_from_utf8(string utf8string, long len, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_filename_to_uri(System.IntPtr filename, string hostname, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_filename_to_utf8(System.IntPtr opsysstring, long len, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern string g_filename_to_utf8(System.IntPtr opsysstring, long len, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_find_program_in_path(System.IntPtr program);
 		[DllImport("libglib-2.0.so.0")]
@@ -2847,17 +2785,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_get_application_name();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_get_charset(string charset);
+		public static extern bool g_get_charset(out string charset);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_get_codeset();
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_get_current_dir();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_get_current_time(GLib.TimeVal result);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_get_environ();
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_get_filename_charsets(string charsets);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_get_home_dir();
 		[DllImport("libglib-2.0.so.0")]
@@ -2907,6 +2841,8 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_hostname_to_unicode(string hostname);
 		[DllImport("libglib-2.0.so.0")]
+		public static extern ulong g_iconv(GLib.IConv converter, string inbuf, ulong inbytes_left, string outbuf, ulong outbytes_left);
+		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_idle_add(System.IntPtr function, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_idle_add_full(int priority, System.IntPtr function, System.IntPtr data, System.IntPtr notify);
@@ -2935,9 +2871,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_listenv();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_locale_from_utf8(string utf8string, long len, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern string g_locale_from_utf8(string utf8string, long len, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_locale_to_utf8(string opsysstring, long len, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern string g_locale_to_utf8(string opsysstring, long len, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_log_default_handler(string log_domain, GLib.LogLevelFlags log_level, string message, System.IntPtr unused_data);
 		[DllImport("libglib-2.0.so.0")]
@@ -3037,8 +2973,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_pointer_bit_unlock(System.IntPtr address, int lock_bit);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_poll(GLib.PollFD fds, uint nfds, int timeout);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_propagate_error(out GLib.Error dest, GLib.Error src);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_qsort_with_data(System.IntPtr pbase, int total_elems, ulong size, System.IntPtr compare_func, System.IntPtr user_data);
@@ -3085,7 +3019,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_shell_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_shell_parse_argv(string command_line, System.IntPtr argcp, System.IntPtr argvp, out GLib.Error error);
+		public static extern bool g_shell_parse_argv(string command_line, out int argcp, out System.IntPtr argvp, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_shell_quote(string unquoted_string);
 		[DllImport("libglib-2.0.so.0")]
@@ -3103,15 +3037,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern long g_slice_get_config(GLib.SliceConfig ckey);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_slice_get_config_state(GLib.SliceConfig ckey, long address, System.IntPtr n_values);
+		public static extern long g_slice_get_config_state(GLib.SliceConfig ckey, long address, uint n_values);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_slice_set_config(GLib.SliceConfig ckey, long value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_spaced_primes_closest(uint num);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_spawn_async(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, out GLib.Error error);
+		public static extern bool g_spawn_async(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, out int child_pid, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_spawn_async_with_pipes(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr child_pid, System.IntPtr standard_input, System.IntPtr standard_output, System.IntPtr standard_error, out GLib.Error error);
+		public static extern bool g_spawn_async_with_pipes(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, out int child_pid, out int standard_input, out int standard_output, out int standard_error, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_spawn_check_exit_status(int exit_status, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -3119,13 +3053,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_spawn_command_line_async(string command_line, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_spawn_command_line_sync(string command_line, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr exit_status, out GLib.Error error);
+		public static extern bool g_spawn_command_line_sync(string command_line, out System.IntPtr standard_output, out System.IntPtr standard_error, out int exit_status, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_spawn_error_quark();
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_spawn_exit_error_quark();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_spawn_sync(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, System.IntPtr standard_output, System.IntPtr standard_error, System.IntPtr exit_status, out GLib.Error error);
+		public static extern bool g_spawn_sync(System.IntPtr working_directory, System.IntPtr argv, System.IntPtr envp, GLib.SpawnFlags flags, System.IntPtr child_setup, System.IntPtr user_data, out System.IntPtr standard_output, out System.IntPtr standard_error, out int exit_status, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_stpcpy(string dest, string src);
 		[DllImport("libglib-2.0.so.0")]
@@ -3143,7 +3077,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_str_to_ascii(string str, string from_locale);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_str_tokenize_and_fold(string @string, string translit_locale, System.IntPtr ascii_alternates);
+		public static extern System.IntPtr g_str_tokenize_and_fold(string @string, string translit_locale, out System.IntPtr ascii_alternates);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_strcanon(string @string, string valid_chars, sbyte substitutor);
 		[DllImport("libglib-2.0.so.0")]
@@ -3170,12 +3104,6 @@ namespace GLib {
 		public static extern string g_strescape(string source, string exceptions);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_strfreev(string str_array);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_new(string init);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_new_len(string init, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_sized_new(ulong dfl_size);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_strip_context(string msgid, string msgval);
 		[DllImport("libglib-2.0.so.0")]
@@ -3205,7 +3133,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_strstr_len(string haystack, long haystack_len, string needle);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern double g_strtod(string nptr, string endptr);
+		public static extern double g_strtod(string nptr, out string endptr);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_strup(string @string);
 		[DllImport("libglib-2.0.so.0")]
@@ -3311,23 +3239,23 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_try_realloc_n(System.IntPtr mem, ulong n_blocks, ulong n_block_bytes);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_ucs4_to_utf16(System.IntPtr str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern ushort g_ucs4_to_utf16(uint str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_ucs4_to_utf8(System.IntPtr str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern string g_ucs4_to_utf8(uint str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.UnicodeBreakType g_unichar_break_type(uint c);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_combining_class(uint uc);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_unichar_compose(uint a, uint b, System.IntPtr ch);
+		public static extern bool g_unichar_compose(uint a, uint b, uint ch);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_unichar_decompose(uint ch, System.IntPtr a, System.IntPtr b);
+		public static extern bool g_unichar_decompose(uint ch, uint a, uint b);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_digit_value(uint c);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern ulong g_unichar_fully_decompose(uint ch, bool compat, System.IntPtr result, ulong result_len);
+		public static extern ulong g_unichar_fully_decompose(uint ch, bool compat, uint result, ulong result_len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_unichar_get_mirror_char(uint ch, System.IntPtr mirrored_ch);
+		public static extern bool g_unichar_get_mirror_char(uint ch, uint mirrored_ch);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.UnicodeScript g_unichar_get_script(uint ch);
 		[DllImport("libglib-2.0.so.0")]
@@ -3365,7 +3293,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_unichar_iszerowidth(uint c);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_unichar_to_utf8(uint c, string outbuf);
+		public static extern int g_unichar_to_utf8(uint c, ref string outbuf);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_unichar_tolower(uint c);
 		[DllImport("libglib-2.0.so.0")]
@@ -3379,9 +3307,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_unichar_xdigit_value(uint c);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_unicode_canonical_decomposition(uint ch, System.IntPtr result_len);
+		public static extern uint g_unicode_canonical_decomposition(uint ch, ulong result_len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_unicode_canonical_ordering(System.IntPtr @string, ulong len);
+		public static extern void g_unicode_canonical_ordering(uint @string, ulong len);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.UnicodeScript g_unicode_script_from_iso15924(uint iso15924);
 		[DllImport("libglib-2.0.so.0")]
@@ -3395,7 +3323,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Source g_unix_fd_source_new(int fd, GLib.IOCondition condition);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_unix_open_pipe(System.IntPtr fds, int flags, out GLib.Error error);
+		public static extern bool g_unix_open_pipe(int fds, int flags, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_unix_set_fd_nonblocking(int fd, bool nonblock, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -3421,9 +3349,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_usleep(ulong microseconds);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_utf16_to_ucs4(System.IntPtr str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern uint g_utf16_to_ucs4(ushort str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_utf16_to_utf8(System.IntPtr str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern string g_utf16_to_utf8(ushort str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_utf8_casefold(string str, long len);
 		[DllImport("libglib-2.0.so.0")]
@@ -3467,13 +3395,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_utf8_substring(string str, long start_pos, long end_pos);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_utf8_to_ucs4(string str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern uint g_utf8_to_ucs4(string str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_utf8_to_ucs4_fast(string str, long len, System.IntPtr items_written);
+		public static extern uint g_utf8_to_ucs4_fast(string str, long len, ref long items_written);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_utf8_to_utf16(string str, long len, System.IntPtr items_read, System.IntPtr items_written, out GLib.Error error);
+		public static extern ushort g_utf8_to_utf16(string str, long len, ref long items_read, ref long items_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_utf8_validate(System.IntPtr str, long max_len, string end);
+		public static extern bool g_utf8_validate(System.IntPtr str, long max_len, out string end);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_uuid_string_is_valid(string str);
 		[DllImport("libglib-2.0.so.0")]
@@ -3549,10 +3477,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_async_queue_sort_unlocked(GLib.AsyncQueue queue, System.IntPtr func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_async_queue_timed_pop(GLib.AsyncQueue queue, GLib.TimeVal end_time);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_async_queue_timed_pop_unlocked(GLib.AsyncQueue queue, GLib.TimeVal end_time);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_async_queue_timeout_pop(GLib.AsyncQueue queue, ulong timeout);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_async_queue_timeout_pop_unlocked(GLib.AsyncQueue queue, ulong timeout);
@@ -3571,10 +3495,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.AsyncQueue g_async_queue_new_full(System.IntPtr item_free_func);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_time_val_add(GLib.TimeVal time_, long microseconds);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_time_val_to_iso8601(GLib.TimeVal time_);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_bookmark_file_add_application(GLib.BookmarkFile bookmark, string uri, string name, string exec);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_bookmark_file_add_group(GLib.BookmarkFile bookmark, string uri, string group);
@@ -3583,15 +3503,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern long g_bookmark_file_get_added(GLib.BookmarkFile bookmark, string uri, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_bookmark_file_get_app_info(GLib.BookmarkFile bookmark, string uri, string name, string exec, System.IntPtr count, System.IntPtr stamp, out GLib.Error error);
+		public static extern bool g_bookmark_file_get_app_info(GLib.BookmarkFile bookmark, string uri, string name, out string exec, out uint count, out long stamp, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_bookmark_file_get_applications(GLib.BookmarkFile bookmark, string uri, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_bookmark_file_get_applications(GLib.BookmarkFile bookmark, string uri, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_bookmark_file_get_description(GLib.BookmarkFile bookmark, string uri, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_bookmark_file_get_groups(GLib.BookmarkFile bookmark, string uri, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_bookmark_file_get_groups(GLib.BookmarkFile bookmark, string uri, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_bookmark_file_get_icon(GLib.BookmarkFile bookmark, string uri, string href, string mime_type, out GLib.Error error);
+		public static extern bool g_bookmark_file_get_icon(GLib.BookmarkFile bookmark, string uri, out string href, out string mime_type, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_bookmark_file_get_is_private(GLib.BookmarkFile bookmark, string uri, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -3603,7 +3523,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_bookmark_file_get_title(GLib.BookmarkFile bookmark, string uri, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_bookmark_file_get_uris(GLib.BookmarkFile bookmark, System.IntPtr length);
+		public static extern System.IntPtr g_bookmark_file_get_uris(GLib.BookmarkFile bookmark, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern long g_bookmark_file_get_visited(GLib.BookmarkFile bookmark, string uri, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -3647,7 +3567,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_bookmark_file_set_visited(GLib.BookmarkFile bookmark, string uri, long visited);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_bookmark_file_to_data(GLib.BookmarkFile bookmark, System.IntPtr length, out GLib.Error error);
+		public static extern string g_bookmark_file_to_data(GLib.BookmarkFile bookmark, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_bookmark_file_to_file(GLib.BookmarkFile bookmark, System.IntPtr filename, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -3663,9 +3583,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_error_matches(GLib.Error error, uint domain, int code);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.ByteArray g_byte_array_append(GLib.ByteArray array, System.IntPtr data, uint len);
+		public static extern GLib.ByteArray g_byte_array_append(GLib.ByteArray array, byte data, uint len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_byte_array_free(GLib.ByteArray array, bool free_segment);
+		public static extern byte g_byte_array_free(GLib.ByteArray array, bool free_segment);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Bytes g_byte_array_free_to_bytes(GLib.ByteArray array);
 		[DllImport("libglib-2.0.so.0")]
@@ -3673,7 +3593,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.ByteArray g_byte_array_new_take(System.IntPtr data, ulong len);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.ByteArray g_byte_array_prepend(GLib.ByteArray array, System.IntPtr data, uint len);
+		public static extern GLib.ByteArray g_byte_array_prepend(GLib.ByteArray array, byte data, uint len);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.ByteArray g_byte_array_ref(GLib.ByteArray array);
 		[DllImport("libglib-2.0.so.0")]
@@ -3705,7 +3625,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_bytes_equal(GLib.Bytes bytes1, GLib.Bytes bytes2);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_bytes_get_data(GLib.Bytes bytes, System.IntPtr size);
+		public static extern System.IntPtr g_bytes_get_data(GLib.Bytes bytes, out ulong size);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_bytes_get_size(GLib.Bytes bytes);
 		[DllImport("libglib-2.0.so.0")]
@@ -3719,7 +3639,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.ByteArray g_bytes_unref_to_array(GLib.Bytes bytes);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_bytes_unref_to_data(GLib.Bytes bytes, System.IntPtr size);
+		public static extern System.IntPtr g_bytes_unref_to_data(GLib.Bytes bytes, out ulong size);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Checksum g_checksum_new(GLib.ChecksumType checksum_type);
 		[DllImport("libglib-2.0.so.0")]
@@ -3727,7 +3647,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_checksum_free(GLib.Checksum checksum);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_checksum_get_digest(GLib.Checksum checksum, System.IntPtr buffer, System.IntPtr digest_len);
+		public static extern void g_checksum_get_digest(GLib.Checksum checksum, byte buffer, ulong digest_len);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_checksum_get_string(GLib.Checksum checksum);
 		[DllImport("libglib-2.0.so.0")]
@@ -3744,20 +3664,6 @@ namespace GLib {
 		public static extern void g_cond_init(GLib.Cond cond);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_cond_signal(GLib.Cond cond);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_cond_wait(GLib.Cond cond, System.IntPtr mutex);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_cond_wait_until(GLib.Cond cond, System.IntPtr mutex, long end_time);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_mutex_clear(System.IntPtr mutex);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_mutex_init(System.IntPtr mutex);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_mutex_lock(System.IntPtr mutex);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_mutex_trylock(System.IntPtr mutex);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_mutex_unlock(System.IntPtr mutex);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Date g_date_new();
 		[DllImport("libglib-2.0.so.0")]
@@ -3819,8 +3725,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_set_time_t(GLib.Date date, long timet);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_date_set_time_val(GLib.Date date, GLib.TimeVal timeval);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_set_year(GLib.Date date, ushort year);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_date_subtract_days(GLib.Date date, uint n_days);
@@ -3856,10 +3760,6 @@ namespace GLib {
 		public static extern bool g_date_valid_year(ushort year);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.DateTime g_date_time_new(GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.DateTime g_date_time_new_from_timeval_local(GLib.TimeVal tv);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.DateTime g_date_time_new_from_timeval_utc(GLib.TimeVal tv);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.DateTime g_date_time_new_from_unix_local(long t);
 		[DllImport("libglib-2.0.so.0")]
@@ -3925,15 +3825,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_date_time_get_year(GLib.DateTime datetime);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_date_time_get_ymd(GLib.DateTime datetime, System.IntPtr year, System.IntPtr month, System.IntPtr day);
+		public static extern void g_date_time_get_ymd(GLib.DateTime datetime, out int year, out int month, out int day);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_date_time_is_daylight_savings(GLib.DateTime datetime);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.DateTime g_date_time_ref(GLib.DateTime datetime);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.DateTime g_date_time_to_local(GLib.DateTime datetime);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_date_time_to_timeval(GLib.DateTime datetime, GLib.TimeVal tv);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.DateTime g_date_time_to_timezone(GLib.DateTime datetime, GLib.TimeZone tz);
 		[DllImport("libglib-2.0.so.0")]
@@ -3955,7 +3853,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.TimeZone g_time_zone_new_utc();
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_time_zone_adjust_time(GLib.TimeZone tz, GLib.TimeType type, System.IntPtr time_);
+		public static extern int g_time_zone_adjust_time(GLib.TimeZone tz, GLib.TimeType type, long time_);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_time_zone_find_interval(GLib.TimeZone tz, GLib.TimeType type, long time_);
 		[DllImport("libglib-2.0.so.0")]
@@ -3995,7 +3893,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_hash_table_get_keys(System.IntPtr hash_table);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_hash_table_get_keys_as_array(System.IntPtr hash_table, System.IntPtr length);
+		public static extern System.IntPtr g_hash_table_get_keys_as_array(System.IntPtr hash_table, out uint length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_hash_table_get_values(System.IntPtr hash_table);
 		[DllImport("libglib-2.0.so.0")]
@@ -4003,7 +3901,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_hash_table_lookup(System.IntPtr hash_table, System.IntPtr key);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_hash_table_lookup_extended(System.IntPtr hash_table, System.IntPtr lookup_key, System.IntPtr orig_key, System.IntPtr value);
+		public static extern bool g_hash_table_lookup_extended(System.IntPtr hash_table, System.IntPtr lookup_key, out System.IntPtr orig_key, out System.IntPtr value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_hash_table_new(System.IntPtr hash_func, System.IntPtr key_equal_func);
 		[DllImport("libglib-2.0.so.0")]
@@ -4029,7 +3927,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_hash_table_iter_init(GLib.HashTableIter iter, System.IntPtr hash_table);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_hash_table_iter_next(GLib.HashTableIter iter, System.IntPtr key, System.IntPtr value);
+		public static extern bool g_hash_table_iter_next(GLib.HashTableIter iter, out System.IntPtr key, out System.IntPtr value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_hash_table_iter_remove(GLib.HashTableIter iter);
 		[DllImport("libglib-2.0.so.0")]
@@ -4039,7 +3937,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Hmac g_hmac_copy(GLib.Hmac hmac);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_hmac_get_digest(GLib.Hmac hmac, System.IntPtr buffer, System.IntPtr digest_len);
+		public static extern void g_hmac_get_digest(GLib.Hmac hmac, byte buffer, ulong digest_len);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_hmac_get_string(GLib.Hmac hmac);
 		[DllImport("libglib-2.0.so.0")]
@@ -4097,59 +3995,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_hook_list_marshal_check(GLib.HookList hook_list, bool may_recurse, System.IntPtr marshaller, System.IntPtr marshal_data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_append(GLib.String @string, string val);
+		public static extern int g_iconv_close(GLib.IConv converter);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_append_c(GLib.String @string, sbyte c);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_append_len(GLib.String @string, string val, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_append_unichar(GLib.String @string, uint wc);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_append_uri_escaped(GLib.String @string, string unescaped, string reserved_chars_allowed, bool allow_utf8);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_ascii_down(GLib.String @string);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_ascii_up(GLib.String @string);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_assign(GLib.String @string, string rval);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_down(GLib.String @string);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_string_equal(GLib.String v, GLib.String v2);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_erase(GLib.String @string, long pos, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_string_free(GLib.String @string, bool free_segment);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.Bytes g_string_free_to_bytes(GLib.String @string);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern uint g_string_hash(GLib.String str);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_insert(GLib.String @string, long pos, string val);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_insert_c(GLib.String @string, long pos, sbyte c);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_insert_len(GLib.String @string, long pos, string val, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_insert_unichar(GLib.String @string, long pos, uint wc);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_overwrite(GLib.String @string, ulong pos, string val);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_overwrite_len(GLib.String @string, ulong pos, string val, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_prepend(GLib.String @string, string val);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_prepend_c(GLib.String @string, sbyte c);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_prepend_len(GLib.String @string, string val, long len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_prepend_unichar(GLib.String @string, uint wc);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_set_size(GLib.String @string, ulong len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_truncate(GLib.String @string, ulong len);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_string_up(GLib.String @string);
+		public static extern GLib.IConv g_iconv_open(string to_codeset, string from_codeset);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.IOChannel g_io_channel_new_file(System.IntPtr filename, string mode, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -4171,21 +4019,19 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.IOFlags g_io_channel_get_flags(GLib.IOChannel channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_io_channel_get_line_term(GLib.IOChannel channel, System.IntPtr length);
+		public static extern string g_io_channel_get_line_term(GLib.IOChannel channel, int length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_init(GLib.IOChannel channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOError g_io_channel_read(GLib.IOChannel channel, string buf, ulong count, System.IntPtr bytes_read);
+		public static extern GLib.IOError g_io_channel_read(GLib.IOChannel channel, string buf, ulong count, ulong bytes_read);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_read_chars(GLib.IOChannel channel, System.IntPtr buf, ulong count, System.IntPtr bytes_read, out GLib.Error error);
+		public static extern GLib.IOStatus g_io_channel_read_chars(GLib.IOChannel channel, ref System.IntPtr buf, ulong count, out ulong bytes_read, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_read_line(GLib.IOChannel channel, string str_return, System.IntPtr length, System.IntPtr terminator_pos, out GLib.Error error);
+		public static extern GLib.IOStatus g_io_channel_read_line(GLib.IOChannel channel, out string str_return, out ulong length, out ulong terminator_pos, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_read_line_string(GLib.IOChannel channel, GLib.String buffer, System.IntPtr terminator_pos, out GLib.Error error);
+		public static extern GLib.IOStatus g_io_channel_read_to_end(GLib.IOChannel channel, out System.IntPtr str_return, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_read_to_end(GLib.IOChannel channel, System.IntPtr str_return, System.IntPtr length, out GLib.Error error);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_read_unichar(GLib.IOChannel channel, System.IntPtr thechar, out GLib.Error error);
+		public static extern GLib.IOStatus g_io_channel_read_unichar(GLib.IOChannel channel, out uint thechar, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.IOChannel g_io_channel_ref(GLib.IOChannel channel);
 		[DllImport("libglib-2.0.so.0")]
@@ -4211,9 +4057,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_io_channel_unref(GLib.IOChannel channel);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOError g_io_channel_write(GLib.IOChannel channel, string buf, ulong count, System.IntPtr bytes_written);
+		public static extern GLib.IOError g_io_channel_write(GLib.IOChannel channel, string buf, ulong count, ulong bytes_written);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.IOStatus g_io_channel_write_chars(GLib.IOChannel channel, System.IntPtr buf, long count, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern GLib.IOStatus g_io_channel_write_chars(GLib.IOChannel channel, System.IntPtr buf, long count, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.IOStatus g_io_channel_write_unichar(GLib.IOChannel channel, uint thechar, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -4225,8 +4071,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_source_add_child_source(GLib.Source source, GLib.Source child_source);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_source_add_poll(GLib.Source source, GLib.PollFD fd);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_source_add_unix_fd(GLib.Source source, int fd, GLib.IOCondition events);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_source_attach(GLib.Source source, GLib.MainContext context);
@@ -4236,8 +4080,6 @@ namespace GLib {
 		public static extern bool g_source_get_can_recurse(GLib.Source source);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.MainContext g_source_get_context(GLib.Source source);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_source_get_current_time(GLib.Source source, GLib.TimeVal timeval);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_source_get_id(GLib.Source source);
 		[DllImport("libglib-2.0.so.0")]
@@ -4258,8 +4100,6 @@ namespace GLib {
 		public static extern GLib.Source g_source_ref(GLib.Source source);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_source_remove_child_source(GLib.Source source, GLib.Source child_source);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_source_remove_poll(GLib.Source source, GLib.PollFD fd);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_source_remove_unix_fd(GLib.Source source, System.IntPtr tag);
 		[DllImport("libglib-2.0.so.0")]
@@ -4293,33 +4133,33 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_key_file_get_boolean(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_boolean_list(GLib.KeyFile key_file, string group_name, string key, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_boolean_list(GLib.KeyFile key_file, string group_name, string key, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_key_file_get_comment(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern double g_key_file_get_double(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_double_list(GLib.KeyFile key_file, string group_name, string key, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_double_list(GLib.KeyFile key_file, string group_name, string key, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_groups(GLib.KeyFile key_file, System.IntPtr length);
+		public static extern System.IntPtr g_key_file_get_groups(GLib.KeyFile key_file, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern long g_key_file_get_int64(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_key_file_get_integer(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_integer_list(GLib.KeyFile key_file, string group_name, string key, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_integer_list(GLib.KeyFile key_file, string group_name, string key, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_keys(GLib.KeyFile key_file, string group_name, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_keys(GLib.KeyFile key_file, string group_name, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_key_file_get_locale_string(GLib.KeyFile key_file, string group_name, string key, string locale, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_locale_string_list(GLib.KeyFile key_file, string group_name, string key, string locale, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_locale_string_list(GLib.KeyFile key_file, string group_name, string key, string locale, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_key_file_get_start_group(GLib.KeyFile key_file);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_key_file_get_string(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_key_file_get_string_list(GLib.KeyFile key_file, string group_name, string key, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_key_file_get_string_list(GLib.KeyFile key_file, string group_name, string key, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_key_file_get_uint64(GLib.KeyFile key_file, string group_name, string key, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -4333,9 +4173,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_key_file_load_from_data(GLib.KeyFile key_file, string data, ulong length, GLib.KeyFileFlags flags, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_key_file_load_from_data_dirs(GLib.KeyFile key_file, System.IntPtr file, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error);
+		public static extern bool g_key_file_load_from_data_dirs(GLib.KeyFile key_file, System.IntPtr file, out System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_key_file_load_from_dirs(GLib.KeyFile key_file, System.IntPtr file, System.IntPtr search_dirs, System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error);
+		public static extern bool g_key_file_load_from_dirs(GLib.KeyFile key_file, System.IntPtr file, System.IntPtr search_dirs, out System.IntPtr full_path, GLib.KeyFileFlags flags, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_key_file_load_from_file(GLib.KeyFile key_file, System.IntPtr file, GLib.KeyFileFlags flags, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
@@ -4379,7 +4219,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_key_file_set_value(GLib.KeyFile key_file, string group_name, string key, string value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_key_file_to_data(GLib.KeyFile key_file, System.IntPtr length, out GLib.Error error);
+		public static extern string g_key_file_to_data(GLib.KeyFile key_file, out ulong length, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_key_file_unref(GLib.KeyFile key_file);
 		[DllImport("libglib-2.0.so.0")]
@@ -4451,8 +4291,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_main_context_acquire(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_main_context_add_poll(GLib.MainContext context, GLib.PollFD fd, int priority);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_main_context_check(GLib.MainContext context, int max_priority, System.IntPtr fds, int n_fds);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_dispatch(GLib.MainContext context);
@@ -4477,23 +4315,19 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_pop_thread_default(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_main_context_prepare(GLib.MainContext context, System.IntPtr priority);
+		public static extern bool g_main_context_prepare(GLib.MainContext context, int priority);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_push_thread_default(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern int g_main_context_query(GLib.MainContext context, int max_priority, System.IntPtr timeout_, System.IntPtr fds, int n_fds);
+		public static extern int g_main_context_query(GLib.MainContext context, int max_priority, out int timeout_, ref System.IntPtr fds, int n_fds);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.MainContext g_main_context_ref(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_release(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_main_context_remove_poll(GLib.MainContext context, GLib.PollFD fd);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_set_poll_func(GLib.MainContext context, System.IntPtr func);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_unref(GLib.MainContext context);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_main_context_wait(GLib.MainContext context, GLib.Cond cond, System.IntPtr mutex);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_main_context_wakeup(GLib.MainContext context);
 		[DllImport("libglib-2.0.so.0")]
@@ -4533,8 +4367,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_mapped_file_unref(GLib.MappedFile file);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.MarkupParseContext g_markup_parse_context_new(GLib.MarkupParser parser, GLib.MarkupParseFlags flags, System.IntPtr user_data, System.IntPtr user_data_dnotify);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_markup_parse_context_end_parse(GLib.MarkupParseContext context, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_markup_parse_context_free(GLib.MarkupParseContext context);
@@ -4543,15 +4375,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_markup_parse_context_get_element_stack(GLib.MarkupParseContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_markup_parse_context_get_position(GLib.MarkupParseContext context, System.IntPtr line_number, System.IntPtr char_number);
+		public static extern void g_markup_parse_context_get_position(GLib.MarkupParseContext context, int line_number, int char_number);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_markup_parse_context_get_user_data(GLib.MarkupParseContext context);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_markup_parse_context_parse(GLib.MarkupParseContext context, string text, long text_len, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_markup_parse_context_pop(GLib.MarkupParseContext context);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_markup_parse_context_push(GLib.MarkupParseContext context, GLib.MarkupParser parser, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.MarkupParseContext g_markup_parse_context_ref(GLib.MarkupParseContext context);
 		[DllImport("libglib-2.0.so.0")]
@@ -4565,9 +4395,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_match_info_fetch_named(GLib.MatchInfo match_info, string name);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_match_info_fetch_named_pos(GLib.MatchInfo match_info, string name, System.IntPtr start_pos, System.IntPtr end_pos);
+		public static extern bool g_match_info_fetch_named_pos(GLib.MatchInfo match_info, string name, out int start_pos, out int end_pos);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_match_info_fetch_pos(GLib.MatchInfo match_info, int match_num, System.IntPtr start_pos, System.IntPtr end_pos);
+		public static extern bool g_match_info_fetch_pos(GLib.MatchInfo match_info, int match_num, out int start_pos, out int end_pos);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_match_info_free(GLib.MatchInfo match_info);
 		[DllImport("libglib-2.0.so.0")]
@@ -4627,7 +4457,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_regex_unref(GLib.Regex regex);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_regex_check_replacement(string replacement, System.IntPtr has_references, out GLib.Error error);
+		public static extern bool g_regex_check_replacement(string replacement, out bool has_references, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern uint g_regex_error_quark();
 		[DllImport("libglib-2.0.so.0")]
@@ -4717,9 +4547,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_option_context_get_summary(GLib.OptionContext context);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_option_context_parse(GLib.OptionContext context, System.IntPtr argc, System.IntPtr argv, out GLib.Error error);
+		public static extern bool g_option_context_parse(GLib.OptionContext context, ref int argc, ref System.IntPtr argv, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_option_context_parse_strv(GLib.OptionContext context, System.IntPtr arguments, out GLib.Error error);
+		public static extern bool g_option_context_parse_strv(GLib.OptionContext context, ref System.IntPtr arguments, out GLib.Error error);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_option_context_set_description(GLib.OptionContext context, string description);
 		[DllImport("libglib-2.0.so.0")]
@@ -4771,9 +4601,9 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_ptr_array_add(System.IntPtr array, System.IntPtr data);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_ptr_array_find(System.IntPtr haystack, System.IntPtr needle, System.IntPtr index_);
+		public static extern bool g_ptr_array_find(System.IntPtr haystack, System.IntPtr needle, ref uint index_);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_ptr_array_find_with_equal_func(System.IntPtr haystack, System.IntPtr needle, System.IntPtr equal_func, System.IntPtr index_);
+		public static extern bool g_ptr_array_find_with_equal_func(System.IntPtr haystack, System.IntPtr needle, System.IntPtr equal_func, ref uint index_);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_ptr_array_foreach(System.IntPtr array, System.IntPtr func, System.IntPtr user_data);
 		[DllImport("libglib-2.0.so.0")]
@@ -4921,13 +4751,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_rand_set_seed(GLib.Rand rand_, uint seed);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_rand_set_seed_array(GLib.Rand rand_, System.IntPtr seed, uint seed_length);
+		public static extern void g_rand_set_seed_array(GLib.Rand rand_, uint seed, uint seed_length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Rand g_rand_new();
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Rand g_rand_new_with_seed(uint seed);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.Rand g_rand_new_with_seed_array(System.IntPtr seed, uint seed_length);
+		public static extern GLib.Rand g_rand_new_with_seed_array(uint seed, uint seed_length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_rec_mutex_clear(GLib.RecMutex rec_mutex);
 		[DllImport("libglib-2.0.so.0")]
@@ -5125,7 +4955,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.TestLogMsg g_test_log_buffer_pop(GLib.TestLogBuffer tbuffer);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_test_log_buffer_push(GLib.TestLogBuffer tbuffer, uint n_bytes, System.IntPtr bytes);
+		public static extern void g_test_log_buffer_push(GLib.TestLogBuffer tbuffer, uint n_bytes, byte bytes);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.TestLogBuffer g_test_log_buffer_new();
 		[DllImport("libglib-2.0.so.0")]
@@ -5187,7 +5017,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_timer_destroy(GLib.Timer timer);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern double g_timer_elapsed(GLib.Timer timer, System.IntPtr microseconds);
+		public static extern double g_timer_elapsed(GLib.Timer timer, ulong microseconds);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_timer_reset(GLib.Timer timer);
 		[DllImport("libglib-2.0.so.0")]
@@ -5196,6 +5026,14 @@ namespace GLib {
 		public static extern void g_timer_stop(GLib.Timer timer);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Timer g_timer_new();
+		[DllImport("libglib-2.0.so.0")]
+		public static extern uint g_trash_stack_height(GLib.TrashStack stack_p);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_trash_stack_peek(GLib.TrashStack stack_p);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern System.IntPtr g_trash_stack_pop(GLib.TrashStack stack_p);
+		[DllImport("libglib-2.0.so.0")]
+		public static extern void g_trash_stack_push(GLib.TrashStack stack_p, System.IntPtr data_p);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern void g_tree_destroy(GLib.Tree tree);
 		[DllImport("libglib-2.0.so.0")]
@@ -5265,8 +5103,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_new_objv(System.IntPtr strv, long length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.Variant g_variant_new_parsed_va(string format, System.IntPtr app);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_new_signature(string signature);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_new_string(string @string);
@@ -5283,8 +5119,6 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_new_uint64(ulong value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.Variant g_variant_new_va(string format_string, string endptr, System.IntPtr app);
-		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_new_variant(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_byteswap(GLib.Variant value);
@@ -5295,15 +5129,15 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_variant_compare(GLib.Variant one, GLib.Variant two);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_dup_bytestring(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_dup_bytestring(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_dup_bytestring_array(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_dup_bytestring_array(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_dup_objv(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_dup_objv(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_variant_dup_string(GLib.Variant value, System.IntPtr length);
+		public static extern string g_variant_dup_string(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_dup_strv(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_dup_strv(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_variant_equal(GLib.Variant one, GLib.Variant two);
 		[DllImport("libglib-2.0.so.0")]
@@ -5313,7 +5147,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern System.IntPtr g_variant_get_bytestring(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_get_bytestring_array(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_get_bytestring_array(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_get_child_value(GLib.Variant value, ulong index_);
 		[DllImport("libglib-2.0.so.0")]
@@ -5323,7 +5157,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern double g_variant_get_double(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_get_fixed_array(GLib.Variant value, System.IntPtr n_elements, ulong element_size);
+		public static extern System.IntPtr g_variant_get_fixed_array(GLib.Variant value, out ulong n_elements, ulong element_size);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern int g_variant_get_handle(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
@@ -5337,13 +5171,13 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_get_normal_form(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_get_objv(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_get_objv(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_variant_get_size(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern string g_variant_get_string(GLib.Variant value, System.IntPtr length);
+		public static extern string g_variant_get_string(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern System.IntPtr g_variant_get_strv(GLib.Variant value, System.IntPtr length);
+		public static extern System.IntPtr g_variant_get_strv(GLib.Variant value, out ulong length);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.VariantType g_variant_get_type(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
@@ -5354,8 +5188,6 @@ namespace GLib {
 		public static extern uint g_variant_get_uint32(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern ulong g_variant_get_uint64(GLib.Variant value);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern void g_variant_get_va(GLib.Variant value, string format_string, string endptr, System.IntPtr app);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_get_variant(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
@@ -5376,8 +5208,6 @@ namespace GLib {
 		public static extern ulong g_variant_n_children(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern string g_variant_print(GLib.Variant value, bool type_annotate);
-		[DllImport("libglib-2.0.so.0")]
-		public static extern GLib.String g_variant_print_string(GLib.Variant value, GLib.String @string, bool type_annotate);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.Variant g_variant_ref(GLib.Variant value);
 		[DllImport("libglib-2.0.so.0")]
@@ -5459,7 +5289,7 @@ namespace GLib {
 		[DllImport("libglib-2.0.so.0")]
 		public static extern bool g_variant_type_string_is_valid(string type_string);
 		[DllImport("libglib-2.0.so.0")]
-		public static extern bool g_variant_type_string_scan(string @string, string limit, string endptr);
+		public static extern bool g_variant_type_string_scan(string @string, string limit, out string endptr);
 		[DllImport("libglib-2.0.so.0")]
 		public static extern GLib.VariantIter g_variant_iter_copy(GLib.VariantIter iter);
 		[DllImport("libglib-2.0.so.0")]

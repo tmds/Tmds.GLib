@@ -43,7 +43,7 @@ namespace Pango {
 		public static implicit operator GObject.Object(EngineShape value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator EngineShape(GObject.Object value) => new EngineShape((IntPtr)value, checkType: true);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -52,7 +52,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -61,13 +60,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -99,7 +97,7 @@ namespace Pango {
 		public static implicit operator GObject.Object(EngineLang value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator EngineLang(GObject.Object value) => new EngineLang((IntPtr)value, checkType: true);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -108,7 +106,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -117,13 +114,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -160,7 +156,7 @@ namespace Pango {
 		public Pango.FontMap get_font_map() => Pango.PangoInterop.pango_font_get_font_map(this);
 		public Pango.FontMetrics get_metrics(Pango.Language language) => Pango.PangoInterop.pango_font_get_metrics(this, language);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -169,7 +165,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -178,13 +173,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -208,7 +202,7 @@ namespace Pango {
 		public static explicit operator Language(IntPtr pointer) => new Language(pointer, checkType: true);
 		public static explicit operator IntPtr(Language value) => value._pointer;
 		public string get_sample_string() => Pango.PangoInterop.pango_language_get_sample_string(this);
-		public System.IntPtr get_scripts(System.IntPtr num_scripts) => Pango.PangoInterop.pango_language_get_scripts(this, num_scripts);
+		public System.IntPtr get_scripts(ref int num_scripts) => Pango.PangoInterop.pango_language_get_scripts(this, ref num_scripts);
 		public bool includes_script(Pango.Script script) => Pango.PangoInterop.pango_language_includes_script(this, script);
 		public bool matches(string range_list) => Pango.PangoInterop.pango_language_matches(this, range_list);
 		public string to_string() => Pango.PangoInterop.pango_language_to_string(this);
@@ -404,8 +398,9 @@ namespace Pango {
 		public void destroy() => Pango.PangoInterop.pango_attr_iterator_destroy(this);
 		public Pango.Attribute get(Pango.AttrType type) => Pango.PangoInterop.pango_attr_iterator_get(this, type);
 		public System.IntPtr get_attrs() => Pango.PangoInterop.pango_attr_iterator_get_attrs(this);
+		public void get_font(Pango.FontDescription desc, Pango.Language language, System.IntPtr extra_attrs) => Pango.PangoInterop.pango_attr_iterator_get_font(this, desc, language, extra_attrs);
 		public bool next() => Pango.PangoInterop.pango_attr_iterator_next(this);
-		public void range(System.IntPtr start, System.IntPtr end) => Pango.PangoInterop.pango_attr_iterator_range(this, start, end);
+		public void range(out int start, out int end) => Pango.PangoInterop.pango_attr_iterator_range(this, out start, out end);
 	}
 	public ref struct AttrLanguage
 	{
@@ -440,16 +435,6 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_attr_list_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
-	public ref struct Rectangle
-	{
-		private IntPtr _pointer;
-		public Rectangle(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator Rectangle(IntPtr pointer) => new Rectangle(pointer, checkType: true);
-		public static explicit operator IntPtr(Rectangle value) => value._pointer;
-	}
 	public ref struct AttrShape
 	{
 		private IntPtr _pointer;
@@ -459,8 +444,6 @@ namespace Pango {
 		}
 		public static explicit operator AttrShape(IntPtr pointer) => new AttrShape(pointer, checkType: true);
 		public static explicit operator IntPtr(AttrShape value) => value._pointer;
-		public static Pango.Attribute @new(Pango.Rectangle ink_rect, Pango.Rectangle logical_rect) => PangoInterop.pango_attr_shape_new(ink_rect, logical_rect);
-		public static Pango.Attribute new_with_data(Pango.Rectangle ink_rect, Pango.Rectangle logical_rect, System.IntPtr data, System.IntPtr copy_func, System.IntPtr destroy_func) => PangoInterop.pango_attr_shape_new_with_data(ink_rect, logical_rect, data, copy_func, destroy_func);
 	}
 	public ref struct AttrSize
 	{
@@ -533,7 +516,7 @@ namespace Pango {
 		public Pango.Matrix get_matrix() => Pango.PangoInterop.pango_context_get_matrix(this);
 		public Pango.FontMetrics get_metrics(Pango.FontDescription desc, Pango.Language language) => Pango.PangoInterop.pango_context_get_metrics(this, desc, language);
 		public uint get_serial() => Pango.PangoInterop.pango_context_get_serial(this);
-		public void list_families(System.IntPtr families, System.IntPtr n_families) => Pango.PangoInterop.pango_context_list_families(this, families, n_families);
+		public void list_families(out System.IntPtr families, out int n_families) => Pango.PangoInterop.pango_context_list_families(this, out families, out n_families);
 		public Pango.Font load_font(Pango.FontDescription desc) => Pango.PangoInterop.pango_context_load_font(this, desc);
 		public Pango.Fontset load_fontset(Pango.FontDescription desc, Pango.Language language) => Pango.PangoInterop.pango_context_load_fontset(this, desc, language);
 		public void set_base_dir(Pango.Direction direction) => Pango.PangoInterop.pango_context_set_base_dir(this, direction);
@@ -544,7 +527,7 @@ namespace Pango {
 		public void set_language(Pango.Language language) => Pango.PangoInterop.pango_context_set_language(this, language);
 		public void set_matrix(Pango.Matrix matrix) => Pango.PangoInterop.pango_context_set_matrix(this, matrix);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -553,7 +536,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -562,13 +544,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -619,11 +600,11 @@ namespace Pango {
 		public Pango.Context create_context() => Pango.PangoInterop.pango_font_map_create_context(this);
 		public uint get_serial() => Pango.PangoInterop.pango_font_map_get_serial(this);
 		public string get_shape_engine_type() => Pango.PangoInterop.pango_font_map_get_shape_engine_type(this);
-		public void list_families(System.IntPtr families, System.IntPtr n_families) => Pango.PangoInterop.pango_font_map_list_families(this, families, n_families);
+		public void list_families(out System.IntPtr families, out int n_families) => Pango.PangoInterop.pango_font_map_list_families(this, out families, out n_families);
 		public Pango.Font load_font(Pango.Context context, Pango.FontDescription desc) => Pango.PangoInterop.pango_font_map_load_font(this, context, desc);
 		public Pango.Fontset load_fontset(Pango.Context context, Pango.FontDescription desc, Pango.Language language) => Pango.PangoInterop.pango_font_map_load_fontset(this, context, desc, language);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -632,7 +613,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -641,13 +621,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -680,11 +659,11 @@ namespace Pango {
 		public Pango.Matrix copy() => Pango.PangoInterop.pango_matrix_copy(this);
 		public void free() => Pango.PangoInterop.pango_matrix_free(this);
 		public double get_font_scale_factor() => Pango.PangoInterop.pango_matrix_get_font_scale_factor(this);
-		public void get_font_scale_factors(System.IntPtr xscale, System.IntPtr yscale) => Pango.PangoInterop.pango_matrix_get_font_scale_factors(this, xscale, yscale);
+		public void get_font_scale_factors(out double xscale, out double yscale) => Pango.PangoInterop.pango_matrix_get_font_scale_factors(this, out xscale, out yscale);
 		public void rotate(double degrees) => Pango.PangoInterop.pango_matrix_rotate(this, degrees);
 		public void scale(double scale_x, double scale_y) => Pango.PangoInterop.pango_matrix_scale(this, scale_x, scale_y);
-		public void transform_distance(System.IntPtr dx, System.IntPtr dy) => Pango.PangoInterop.pango_matrix_transform_distance(this, dx, dy);
-		public void transform_point(System.IntPtr x, System.IntPtr y) => Pango.PangoInterop.pango_matrix_transform_point(this, x, y);
+		public void transform_distance(ref double dx, ref double dy) => Pango.PangoInterop.pango_matrix_transform_distance(this, ref dx, ref dy);
+		public void transform_point(ref double x, ref double y) => Pango.PangoInterop.pango_matrix_transform_point(this, ref x, ref y);
 		public void translate(double tx, double ty) => Pango.PangoInterop.pango_matrix_translate(this, tx, ty);
 		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_matrix_get_type")]
 		public static extern GLib.GType TypeOf();
@@ -729,9 +708,9 @@ namespace Pango {
 		public static explicit operator FontFamily(GObject.Object value) => new FontFamily((IntPtr)value, checkType: true);
 		public string get_name() => Pango.PangoInterop.pango_font_family_get_name(this);
 		public bool is_monospace() => Pango.PangoInterop.pango_font_family_is_monospace(this);
-		public void list_faces(System.IntPtr faces, System.IntPtr n_faces) => Pango.PangoInterop.pango_font_family_list_faces(this, faces, n_faces);
+		public void list_faces(out System.IntPtr faces, out int n_faces) => Pango.PangoInterop.pango_font_family_list_faces(this, out faces, out n_faces);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -740,7 +719,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -749,13 +727,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -788,7 +765,7 @@ namespace Pango {
 		public Pango.Font get_font(uint wc) => Pango.PangoInterop.pango_fontset_get_font(this, wc);
 		public Pango.FontMetrics get_metrics() => Pango.PangoInterop.pango_fontset_get_metrics(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -797,7 +774,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -806,13 +782,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -850,7 +825,7 @@ namespace Pango {
 		public void max(Pango.Coverage other) => Pango.PangoInterop.pango_coverage_max(this, other);
 		public Pango.Coverage @ref() => Pango.PangoInterop.pango_coverage_ref(this);
 		public void set(int index_, Pango.CoverageLevel level) => Pango.PangoInterop.pango_coverage_set(this, index_, level);
-		public void to_bytes(System.IntPtr bytes, System.IntPtr n_bytes) => Pango.PangoInterop.pango_coverage_to_bytes(this, bytes, n_bytes);
+		public void to_bytes(out System.IntPtr bytes, out int n_bytes) => Pango.PangoInterop.pango_coverage_to_bytes(this, out bytes, out n_bytes);
 		public void unref() => Pango.PangoInterop.pango_coverage_unref(this);
 		public static Pango.Coverage from_bytes(System.IntPtr bytes, int n_bytes) => PangoInterop.pango_coverage_from_bytes(bytes, n_bytes);
 		public static Pango.Coverage @new() => PangoInterop.pango_coverage_new();
@@ -885,7 +860,7 @@ namespace Pango {
 		public static implicit operator GObject.Object(Engine value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Engine(GObject.Object value) => new Engine((IntPtr)value, checkType: true);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -894,7 +869,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -903,13 +877,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1108,9 +1081,9 @@ namespace Pango {
 		public void free() => Pango.PangoInterop.pango_glyph_string_free(this);
 		public void get_logical_widths(string text, int length, int embedding_level, System.IntPtr logical_widths) => Pango.PangoInterop.pango_glyph_string_get_logical_widths(this, text, length, embedding_level, logical_widths);
 		public int get_width() => Pango.PangoInterop.pango_glyph_string_get_width(this);
-		public void index_to_x(string text, int length, Pango.Analysis analysis, int index_, bool trailing, System.IntPtr x_pos) => Pango.PangoInterop.pango_glyph_string_index_to_x(this, text, length, analysis, index_, trailing, x_pos);
+		public void index_to_x(string text, int length, Pango.Analysis analysis, int index_, bool trailing, out int x_pos) => Pango.PangoInterop.pango_glyph_string_index_to_x(this, text, length, analysis, index_, trailing, out x_pos);
 		public void set_size(int new_len) => Pango.PangoInterop.pango_glyph_string_set_size(this, new_len);
-		public void x_to_index(string text, int length, Pango.Analysis analysis, int x_pos, System.IntPtr index_, System.IntPtr trailing) => Pango.PangoInterop.pango_glyph_string_x_to_index(this, text, length, analysis, x_pos, index_, trailing);
+		public void x_to_index(string text, int length, Pango.Analysis analysis, int x_pos, out int index_, out int trailing) => Pango.PangoInterop.pango_glyph_string_x_to_index(this, text, length, analysis, x_pos, out index_, out trailing);
 		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_glyph_string_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1201,9 +1174,9 @@ namespace Pango {
 		public Pango.FontDescription describe() => Pango.PangoInterop.pango_font_face_describe(this);
 		public string get_face_name() => Pango.PangoInterop.pango_font_face_get_face_name(this);
 		public bool is_synthesized() => Pango.PangoInterop.pango_font_face_is_synthesized(this);
-		public void list_sizes(System.IntPtr sizes, System.IntPtr n_sizes) => Pango.PangoInterop.pango_font_face_list_sizes(this, sizes, n_sizes);
+		public void list_sizes(out System.IntPtr sizes, out int n_sizes) => Pango.PangoInterop.pango_font_face_list_sizes(this, out sizes, out n_sizes);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1212,7 +1185,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1221,13 +1193,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1305,7 +1276,7 @@ namespace Pango {
 		public Pango.Font get_font(uint wc) => Pango.PangoInterop.pango_fontset_get_font(this, wc);
 		public Pango.FontMetrics get_metrics() => Pango.PangoInterop.pango_fontset_get_metrics(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1314,7 +1285,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1323,13 +1293,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1462,22 +1431,22 @@ namespace Pango {
 		public Pango.LayoutLine get_line_readonly(int line) => Pango.PangoInterop.pango_layout_get_line_readonly(this, line);
 		public System.IntPtr get_lines() => Pango.PangoInterop.pango_layout_get_lines(this);
 		public System.IntPtr get_lines_readonly() => Pango.PangoInterop.pango_layout_get_lines_readonly(this);
-		public void get_log_attrs(System.IntPtr attrs, System.IntPtr n_attrs) => Pango.PangoInterop.pango_layout_get_log_attrs(this, attrs, n_attrs);
-		public System.IntPtr get_log_attrs_readonly(System.IntPtr n_attrs) => Pango.PangoInterop.pango_layout_get_log_attrs_readonly(this, n_attrs);
-		public void get_pixel_size(System.IntPtr width, System.IntPtr height) => Pango.PangoInterop.pango_layout_get_pixel_size(this, width, height);
+		public void get_log_attrs(out System.IntPtr attrs, out int n_attrs) => Pango.PangoInterop.pango_layout_get_log_attrs(this, out attrs, out n_attrs);
+		public System.IntPtr get_log_attrs_readonly(out int n_attrs) => Pango.PangoInterop.pango_layout_get_log_attrs_readonly(this, out n_attrs);
+		public void get_pixel_size(out int width, out int height) => Pango.PangoInterop.pango_layout_get_pixel_size(this, out width, out height);
 		public uint get_serial() => Pango.PangoInterop.pango_layout_get_serial(this);
 		public bool get_single_paragraph_mode() => Pango.PangoInterop.pango_layout_get_single_paragraph_mode(this);
-		public void get_size(System.IntPtr width, System.IntPtr height) => Pango.PangoInterop.pango_layout_get_size(this, width, height);
+		public void get_size(out int width, out int height) => Pango.PangoInterop.pango_layout_get_size(this, out width, out height);
 		public int get_spacing() => Pango.PangoInterop.pango_layout_get_spacing(this);
 		public Pango.TabArray get_tabs() => Pango.PangoInterop.pango_layout_get_tabs(this);
 		public string get_text() => Pango.PangoInterop.pango_layout_get_text(this);
 		public int get_unknown_glyphs_count() => Pango.PangoInterop.pango_layout_get_unknown_glyphs_count(this);
 		public int get_width() => Pango.PangoInterop.pango_layout_get_width(this);
 		public Pango.WrapMode get_wrap() => Pango.PangoInterop.pango_layout_get_wrap(this);
-		public void index_to_line_x(int index_, bool trailing, System.IntPtr line, System.IntPtr x_pos) => Pango.PangoInterop.pango_layout_index_to_line_x(this, index_, trailing, line, x_pos);
+		public void index_to_line_x(int index_, bool trailing, out int line, out int x_pos) => Pango.PangoInterop.pango_layout_index_to_line_x(this, index_, trailing, out line, out x_pos);
 		public bool is_ellipsized() => Pango.PangoInterop.pango_layout_is_ellipsized(this);
 		public bool is_wrapped() => Pango.PangoInterop.pango_layout_is_wrapped(this);
-		public void move_cursor_visually(bool strong, int old_index, int old_trailing, int direction, System.IntPtr new_index, System.IntPtr new_trailing) => Pango.PangoInterop.pango_layout_move_cursor_visually(this, strong, old_index, old_trailing, direction, new_index, new_trailing);
+		public void move_cursor_visually(bool strong, int old_index, int old_trailing, int direction, out int new_index, out int new_trailing) => Pango.PangoInterop.pango_layout_move_cursor_visually(this, strong, old_index, old_trailing, direction, out new_index, out new_trailing);
 		public void set_alignment(Pango.Alignment alignment) => Pango.PangoInterop.pango_layout_set_alignment(this, alignment);
 		public void set_attributes(Pango.AttrList attrs) => Pango.PangoInterop.pango_layout_set_attributes(this, attrs);
 		public void set_auto_dir(bool auto_dir) => Pango.PangoInterop.pango_layout_set_auto_dir(this, auto_dir);
@@ -1487,16 +1456,16 @@ namespace Pango {
 		public void set_indent(int indent) => Pango.PangoInterop.pango_layout_set_indent(this, indent);
 		public void set_justify(bool justify) => Pango.PangoInterop.pango_layout_set_justify(this, justify);
 		public void set_markup(string markup, int length) => Pango.PangoInterop.pango_layout_set_markup(this, markup, length);
-		public void set_markup_with_accel(string markup, int length, uint accel_marker, System.IntPtr accel_char) => Pango.PangoInterop.pango_layout_set_markup_with_accel(this, markup, length, accel_marker, accel_char);
+		public void set_markup_with_accel(string markup, int length, uint accel_marker, ref uint accel_char) => Pango.PangoInterop.pango_layout_set_markup_with_accel(this, markup, length, accel_marker, ref accel_char);
 		public void set_single_paragraph_mode(bool setting) => Pango.PangoInterop.pango_layout_set_single_paragraph_mode(this, setting);
 		public void set_spacing(int spacing) => Pango.PangoInterop.pango_layout_set_spacing(this, spacing);
 		public void set_tabs(Pango.TabArray tabs) => Pango.PangoInterop.pango_layout_set_tabs(this, tabs);
 		public void set_text(string text, int length) => Pango.PangoInterop.pango_layout_set_text(this, text, length);
 		public void set_width(int width) => Pango.PangoInterop.pango_layout_set_width(this, width);
 		public void set_wrap(Pango.WrapMode wrap) => Pango.PangoInterop.pango_layout_set_wrap(this, wrap);
-		public bool xy_to_index(int x, int y, System.IntPtr index_, System.IntPtr trailing) => Pango.PangoInterop.pango_layout_xy_to_index(this, x, y, index_, trailing);
+		public bool xy_to_index(int x, int y, out int index_, out int trailing) => Pango.PangoInterop.pango_layout_xy_to_index(this, x, y, out index_, out trailing);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1505,7 +1474,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1514,13 +1482,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1551,7 +1518,7 @@ namespace Pango {
 		public Pango.Layout get_layout() => Pango.PangoInterop.pango_layout_iter_get_layout(this);
 		public Pango.LayoutLine get_line() => Pango.PangoInterop.pango_layout_iter_get_line(this);
 		public Pango.LayoutLine get_line_readonly() => Pango.PangoInterop.pango_layout_iter_get_line_readonly(this);
-		public void get_line_yrange(System.IntPtr y0_, System.IntPtr y1_) => Pango.PangoInterop.pango_layout_iter_get_line_yrange(this, y0_, y1_);
+		public void get_line_yrange(out int y0_, out int y1_) => Pango.PangoInterop.pango_layout_iter_get_line_yrange(this, out y0_, out y1_);
 		public Pango.GlyphItem get_run() => Pango.PangoInterop.pango_layout_iter_get_run(this);
 		public Pango.GlyphItem get_run_readonly() => Pango.PangoInterop.pango_layout_iter_get_run_readonly(this);
 		public bool next_char() => Pango.PangoInterop.pango_layout_iter_next_char(this);
@@ -1570,11 +1537,11 @@ namespace Pango {
 		}
 		public static explicit operator LayoutLine(IntPtr pointer) => new LayoutLine(pointer, checkType: true);
 		public static explicit operator IntPtr(LayoutLine value) => value._pointer;
-		public void get_x_ranges(int start_index, int end_index, System.IntPtr ranges, System.IntPtr n_ranges) => Pango.PangoInterop.pango_layout_line_get_x_ranges(this, start_index, end_index, ranges, n_ranges);
-		public void index_to_x(int index_, bool trailing, System.IntPtr x_pos) => Pango.PangoInterop.pango_layout_line_index_to_x(this, index_, trailing, x_pos);
+		public void get_x_ranges(int start_index, int end_index, out System.IntPtr ranges, out int n_ranges) => Pango.PangoInterop.pango_layout_line_get_x_ranges(this, start_index, end_index, out ranges, out n_ranges);
+		public void index_to_x(int index_, bool trailing, out int x_pos) => Pango.PangoInterop.pango_layout_line_index_to_x(this, index_, trailing, out x_pos);
 		public Pango.LayoutLine @ref() => Pango.PangoInterop.pango_layout_line_ref(this);
 		public void unref() => Pango.PangoInterop.pango_layout_line_unref(this);
-		public bool x_to_index(int x_pos, System.IntPtr index_, System.IntPtr trailing) => Pango.PangoInterop.pango_layout_line_x_to_index(this, x_pos, index_, trailing);
+		public bool x_to_index(int x_pos, out int index_, out int trailing) => Pango.PangoInterop.pango_layout_line_x_to_index(this, x_pos, out index_, out trailing);
 		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_layout_line_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1592,7 +1559,8 @@ namespace Pango {
 		public void free() => Pango.PangoInterop.pango_tab_array_free(this);
 		public bool get_positions_in_pixels() => Pango.PangoInterop.pango_tab_array_get_positions_in_pixels(this);
 		public int get_size() => Pango.PangoInterop.pango_tab_array_get_size(this);
-		public void get_tab(int tab_index, out Pango.TabAlign alignment, System.IntPtr location) => Pango.PangoInterop.pango_tab_array_get_tab(this, tab_index, out alignment, location);
+		public void get_tab(int tab_index, out Pango.TabAlign alignment, out int location) => Pango.PangoInterop.pango_tab_array_get_tab(this, tab_index, out alignment, out location);
+		public void get_tabs(out Pango.TabAlign alignments, out System.IntPtr locations) => Pango.PangoInterop.pango_tab_array_get_tabs(this, out alignments, out locations);
 		public void resize(int new_size) => Pango.PangoInterop.pango_tab_array_resize(this, new_size);
 		public void set_tab(int tab_index, Pango.TabAlign alignment, int location) => Pango.PangoInterop.pango_tab_array_set_tab(this, tab_index, alignment, location);
 		[DllImport("libpango-1.0.so.0", EntryPoint = "pango_tab_array_get_type")]
@@ -1678,7 +1646,7 @@ namespace Pango {
 		public void set_color(Pango.RenderPart part, Pango.Color color) => Pango.PangoInterop.pango_renderer_set_color(this, part, color);
 		public void set_matrix(Pango.Matrix matrix) => Pango.PangoInterop.pango_renderer_set_matrix(this, matrix);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1687,7 +1655,6 @@ namespace Pango {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1696,13 +1663,12 @@ namespace Pango {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1764,7 +1730,7 @@ namespace Pango {
 		public static explicit operator ScriptIter(IntPtr pointer) => new ScriptIter(pointer, checkType: true);
 		public static explicit operator IntPtr(ScriptIter value) => value._pointer;
 		public void free() => Pango.PangoInterop.pango_script_iter_free(this);
-		public void get_range(string start, string end, out Pango.Script script) => Pango.PangoInterop.pango_script_iter_get_range(this, start, end, out script);
+		public void get_range(out string start, out string end, out Pango.Script script) => Pango.PangoInterop.pango_script_iter_get_range(this, out start, out end, out script);
 		public bool next() => Pango.PangoInterop.pango_script_iter_next(this);
 		public static Pango.ScriptIter @new(string text, int length) => PangoInterop.pango_script_iter_new(text, length);
 	}
@@ -1820,19 +1786,17 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_default_break(string text, int length, Pango.Analysis analysis, Pango.LogAttr attrs, int attrs_len);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_extents_to_pixels(Pango.Rectangle inclusive, Pango.Rectangle nearest);
-		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Direction pango_find_base_dir(string text, int length);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Map pango_find_map(Pango.Language language, uint engine_type_id, uint render_type_id);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_find_paragraph_boundary(string text, int length, System.IntPtr paragraph_delimiter_index, System.IntPtr next_paragraph_start);
+		public static extern void pango_find_paragraph_boundary(string text, int length, out int paragraph_delimiter_index, out int next_paragraph_start);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_get_lib_subdirectory();
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_get_log_attrs(string text, int length, int level, Pango.Language language, System.IntPtr log_attrs, int attrs_len);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_get_mirror_char(uint ch, System.IntPtr mirrored_ch);
+		public static extern bool pango_get_mirror_char(uint ch, uint mirrored_ch);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_get_sysconf_subdirectory();
 		[DllImport("libpango-1.0.so.0")]
@@ -1842,37 +1806,39 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_itemize_with_base_dir(Pango.Context context, Pango.Direction base_dir, string text, int start_index, int length, Pango.AttrList attrs, Pango.AttrIterator cached_iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_lookup_aliases(string fontname, System.IntPtr families, System.IntPtr n_families);
+		public static extern byte pango_log2vis_get_embedding_levels(string text, int length, Pango.Direction pbase_dir);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_markup_parser_finish(GLib.MarkupParseContext context, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
+		public static extern void pango_lookup_aliases(string fontname, out System.IntPtr families, out int n_families);
+		[DllImport("libpango-1.0.so.0")]
+		public static extern bool pango_markup_parser_finish(GLib.MarkupParseContext context, out Pango.AttrList attr_list, out string text, out uint accel_char, out GLib.Error error);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern GLib.MarkupParseContext pango_markup_parser_new(uint accel_marker);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_module_register(Pango.IncludedModule module);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_enum(GLib.GType type, string str, System.IntPtr value, bool warn, string possible_values);
+		public static extern bool pango_parse_enum(GLib.GType type, string str, out int value, bool warn, out string possible_values);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_markup(string markup_text, int length, uint accel_marker, out Pango.AttrList attr_list, string text, System.IntPtr accel_char, out GLib.Error error);
+		public static extern bool pango_parse_markup(string markup_text, int length, uint accel_marker, out Pango.AttrList attr_list, out string text, out uint accel_char, out GLib.Error error);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_stretch(string str, out Pango.Stretch stretch, bool warn);
+		public static extern bool pango_parse_stretch(string str, ref Pango.Stretch stretch, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_style(string str, out Pango.Style style, bool warn);
+		public static extern bool pango_parse_style(string str, ref Pango.Style style, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_variant(string str, out Pango.Variant variant, bool warn);
+		public static extern bool pango_parse_variant(string str, ref Pango.Variant variant, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_parse_weight(string str, out Pango.Weight weight, bool warn);
+		public static extern bool pango_parse_weight(string str, ref Pango.Weight weight, bool warn);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_quantize_line_geometry(System.IntPtr thickness, System.IntPtr position);
+		public static extern void pango_quantize_line_geometry(ref int thickness, ref int position);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_reorder_items(System.IntPtr logical_items);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_scan_int(string pos, System.IntPtr @out);
+		public static extern bool pango_scan_int(ref string pos, out int @out);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_shape(string text, int length, Pango.Analysis analysis, Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_shape_full(string item_text, int item_length, string paragraph_text, int paragraph_length, Pango.Analysis analysis, Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_skip_space(string pos);
+		public static extern bool pango_skip_space(ref string pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_split_file_list(string str);
 		[DllImport("libpango-1.0.so.0")]
@@ -1918,7 +1884,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_language_get_sample_string(Pango.Language language);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_language_get_scripts(Pango.Language language, System.IntPtr num_scripts);
+		public static extern System.IntPtr pango_language_get_scripts(Pango.Language language, ref int num_scripts);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_language_includes_script(Pango.Language language, Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
@@ -2024,9 +1990,11 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_attr_iterator_get_attrs(Pango.AttrIterator iterator);
 		[DllImport("libpango-1.0.so.0")]
+		public static extern void pango_attr_iterator_get_font(Pango.AttrIterator iterator, Pango.FontDescription desc, Pango.Language language, System.IntPtr extra_attrs);
+		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_attr_iterator_next(Pango.AttrIterator iterator);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_attr_iterator_range(Pango.AttrIterator iterator, System.IntPtr start, System.IntPtr end);
+		public static extern void pango_attr_iterator_range(Pango.AttrIterator iterator, out int start, out int end);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_language_new(Pango.Language language);
 		[DllImport("libpango-1.0.so.0")]
@@ -2049,10 +2017,6 @@ namespace Pango {
 		public static extern void pango_attr_list_splice(Pango.AttrList list, Pango.AttrList other, int pos, int len);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_attr_list_unref(Pango.AttrList list);
-		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.Attribute pango_attr_shape_new(Pango.Rectangle ink_rect, Pango.Rectangle logical_rect);
-		[DllImport("libpango-1.0.so.0")]
-		public static extern Pango.Attribute pango_attr_shape_new_with_data(Pango.Rectangle ink_rect, Pango.Rectangle logical_rect, System.IntPtr data, System.IntPtr copy_func, System.IntPtr destroy_func);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Attribute pango_attr_size_new(int size);
 		[DllImport("libpango-1.0.so.0")]
@@ -2084,7 +2048,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern uint pango_context_get_serial(Pango.Context context);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_context_list_families(Pango.Context context, System.IntPtr families, System.IntPtr n_families);
+		public static extern void pango_context_list_families(Pango.Context context, out System.IntPtr families, out int n_families);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Font pango_context_load_font(Pango.Context context, Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -2120,7 +2084,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern string pango_font_map_get_shape_engine_type(Pango.FontMap fontmap);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_map_list_families(Pango.FontMap fontmap, System.IntPtr families, System.IntPtr n_families);
+		public static extern void pango_font_map_list_families(Pango.FontMap fontmap, out System.IntPtr families, out int n_families);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.Font pango_font_map_load_font(Pango.FontMap fontmap, Pango.Context context, Pango.FontDescription desc);
 		[DllImport("libpango-1.0.so.0")]
@@ -2134,15 +2098,15 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern double pango_matrix_get_font_scale_factor(Pango.Matrix matrix);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_matrix_get_font_scale_factors(Pango.Matrix matrix, System.IntPtr xscale, System.IntPtr yscale);
+		public static extern void pango_matrix_get_font_scale_factors(Pango.Matrix matrix, out double xscale, out double yscale);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_matrix_rotate(Pango.Matrix matrix, double degrees);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_matrix_scale(Pango.Matrix matrix, double scale_x, double scale_y);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_matrix_transform_distance(Pango.Matrix matrix, System.IntPtr dx, System.IntPtr dy);
+		public static extern void pango_matrix_transform_distance(Pango.Matrix matrix, ref double dx, ref double dy);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_matrix_transform_point(Pango.Matrix matrix, System.IntPtr x, System.IntPtr y);
+		public static extern void pango_matrix_transform_point(Pango.Matrix matrix, ref double x, ref double y);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_matrix_translate(Pango.Matrix matrix, double tx, double ty);
 		[DllImport("libpango-1.0.so.0")]
@@ -2172,7 +2136,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_font_family_is_monospace(Pango.FontFamily family);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_family_list_faces(Pango.FontFamily family, System.IntPtr faces, System.IntPtr n_faces);
+		public static extern void pango_font_family_list_faces(Pango.FontFamily family, out System.IntPtr faces, out int n_faces);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_fontset_foreach(Pango.Fontset fontset, System.IntPtr func, System.IntPtr data);
 		[DllImport("libpango-1.0.so.0")]
@@ -2190,7 +2154,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_coverage_set(Pango.Coverage coverage, int index_, Pango.CoverageLevel level);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_coverage_to_bytes(Pango.Coverage coverage, System.IntPtr bytes, System.IntPtr n_bytes);
+		public static extern void pango_coverage_to_bytes(Pango.Coverage coverage, out System.IntPtr bytes, out int n_bytes);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_coverage_unref(Pango.Coverage coverage);
 		[DllImport("libpango-1.0.so.0")]
@@ -2212,11 +2176,11 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_glyph_string_get_width(Pango.GlyphString glyphs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_glyph_string_index_to_x(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int index_, bool trailing, System.IntPtr x_pos);
+		public static extern void pango_glyph_string_index_to_x(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int index_, bool trailing, out int x_pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_glyph_string_set_size(Pango.GlyphString @string, int new_len);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_glyph_string_x_to_index(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int x_pos, System.IntPtr index_, System.IntPtr trailing);
+		public static extern void pango_glyph_string_x_to_index(Pango.GlyphString glyphs, string text, int length, Pango.Analysis analysis, int x_pos, out int index_, out int trailing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.FontDescription pango_font_face_describe(Pango.FontFace face);
 		[DllImport("libpango-1.0.so.0")]
@@ -2224,7 +2188,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_font_face_is_synthesized(Pango.FontFace face);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_font_face_list_sizes(Pango.FontFace face, System.IntPtr sizes, System.IntPtr n_sizes);
+		public static extern void pango_font_face_list_sizes(Pango.FontFace face, out System.IntPtr sizes, out int n_sizes);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.FontsetSimple pango_fontset_simple_new(Pango.Language language);
 		[DllImport("libpango-1.0.so.0")]
@@ -2292,17 +2256,17 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern System.IntPtr pango_layout_get_lines_readonly(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_get_log_attrs(Pango.Layout layout, System.IntPtr attrs, System.IntPtr n_attrs);
+		public static extern void pango_layout_get_log_attrs(Pango.Layout layout, out System.IntPtr attrs, out int n_attrs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern System.IntPtr pango_layout_get_log_attrs_readonly(Pango.Layout layout, System.IntPtr n_attrs);
+		public static extern System.IntPtr pango_layout_get_log_attrs_readonly(Pango.Layout layout, out int n_attrs);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_get_pixel_size(Pango.Layout layout, System.IntPtr width, System.IntPtr height);
+		public static extern void pango_layout_get_pixel_size(Pango.Layout layout, out int width, out int height);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern uint pango_layout_get_serial(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_layout_get_single_paragraph_mode(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_get_size(Pango.Layout layout, System.IntPtr width, System.IntPtr height);
+		public static extern void pango_layout_get_size(Pango.Layout layout, out int width, out int height);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_layout_get_spacing(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
@@ -2316,13 +2280,13 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.WrapMode pango_layout_get_wrap(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_index_to_line_x(Pango.Layout layout, int index_, bool trailing, System.IntPtr line, System.IntPtr x_pos);
+		public static extern void pango_layout_index_to_line_x(Pango.Layout layout, int index_, bool trailing, out int line, out int x_pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_layout_is_ellipsized(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_layout_is_wrapped(Pango.Layout layout);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_move_cursor_visually(Pango.Layout layout, bool strong, int old_index, int old_trailing, int direction, System.IntPtr new_index, System.IntPtr new_trailing);
+		public static extern void pango_layout_move_cursor_visually(Pango.Layout layout, bool strong, int old_index, int old_trailing, int direction, out int new_index, out int new_trailing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_alignment(Pango.Layout layout, Pango.Alignment alignment);
 		[DllImport("libpango-1.0.so.0")]
@@ -2342,7 +2306,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_markup(Pango.Layout layout, string markup, int length);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_set_markup_with_accel(Pango.Layout layout, string markup, int length, uint accel_marker, System.IntPtr accel_char);
+		public static extern void pango_layout_set_markup_with_accel(Pango.Layout layout, string markup, int length, uint accel_marker, ref uint accel_char);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_single_paragraph_mode(Pango.Layout layout, bool setting);
 		[DllImport("libpango-1.0.so.0")]
@@ -2356,7 +2320,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_set_wrap(Pango.Layout layout, Pango.WrapMode wrap);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_layout_xy_to_index(Pango.Layout layout, int x, int y, System.IntPtr index_, System.IntPtr trailing);
+		public static extern bool pango_layout_xy_to_index(Pango.Layout layout, int x, int y, out int index_, out int trailing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_layout_iter_at_last_line(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
@@ -2374,7 +2338,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutLine pango_layout_iter_get_line_readonly(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_iter_get_line_yrange(Pango.LayoutIter iter, System.IntPtr y0_, System.IntPtr y1_);
+		public static extern void pango_layout_iter_get_line_yrange(Pango.LayoutIter iter, out int y0_, out int y1_);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.GlyphItem pango_layout_iter_get_run(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
@@ -2388,15 +2352,15 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_layout_iter_next_run(Pango.LayoutIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_line_get_x_ranges(Pango.LayoutLine line, int start_index, int end_index, System.IntPtr ranges, System.IntPtr n_ranges);
+		public static extern void pango_layout_line_get_x_ranges(Pango.LayoutLine line, int start_index, int end_index, out System.IntPtr ranges, out int n_ranges);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_layout_line_index_to_x(Pango.LayoutLine line, int index_, bool trailing, System.IntPtr x_pos);
+		public static extern void pango_layout_line_index_to_x(Pango.LayoutLine line, int index_, bool trailing, out int x_pos);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.LayoutLine pango_layout_line_ref(Pango.LayoutLine line);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_layout_line_unref(Pango.LayoutLine line);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern bool pango_layout_line_x_to_index(Pango.LayoutLine line, int x_pos, System.IntPtr index_, System.IntPtr trailing);
+		public static extern bool pango_layout_line_x_to_index(Pango.LayoutLine line, int x_pos, out int index_, out int trailing);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern Pango.TabArray pango_tab_array_new(int initial_size, bool positions_in_pixels);
 		[DllImport("libpango-1.0.so.0")]
@@ -2408,7 +2372,9 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern int pango_tab_array_get_size(Pango.TabArray tab_array);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_tab_array_get_tab(Pango.TabArray tab_array, int tab_index, out Pango.TabAlign alignment, System.IntPtr location);
+		public static extern void pango_tab_array_get_tab(Pango.TabArray tab_array, int tab_index, out Pango.TabAlign alignment, out int location);
+		[DllImport("libpango-1.0.so.0")]
+		public static extern void pango_tab_array_get_tabs(Pango.TabArray tab_array, out Pango.TabAlign alignments, out System.IntPtr locations);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_tab_array_resize(Pango.TabArray tab_array, int new_size);
 		[DllImport("libpango-1.0.so.0")]
@@ -2458,7 +2424,7 @@ namespace Pango {
 		[DllImport("libpango-1.0.so.0")]
 		public static extern void pango_script_iter_free(Pango.ScriptIter iter);
 		[DllImport("libpango-1.0.so.0")]
-		public static extern void pango_script_iter_get_range(Pango.ScriptIter iter, string start, string end, out Pango.Script script);
+		public static extern void pango_script_iter_get_range(Pango.ScriptIter iter, out string start, out string end, out Pango.Script script);
 		[DllImport("libpango-1.0.so.0")]
 		public static extern bool pango_script_iter_next(Pango.ScriptIter iter);
 		[DllImport("libpango-1.0.so.0")]

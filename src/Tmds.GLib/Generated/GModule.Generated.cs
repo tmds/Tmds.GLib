@@ -13,7 +13,7 @@ namespace GModule {
 		public bool close() => GModule.GModuleInterop.g_module_close(this);
 		public void make_resident() => GModule.GModuleInterop.g_module_make_resident(this);
 		public string name() => GModule.GModuleInterop.g_module_name(this);
-		public bool symbol(string symbol_name, System.IntPtr symbol) => GModule.GModuleInterop.g_module_symbol(this, symbol_name, symbol);
+		public bool symbol(string symbol_name, out System.IntPtr symbol) => GModule.GModuleInterop.g_module_symbol(this, symbol_name, out symbol);
 		public static string build_path(string directory, string module_name) => GModuleInterop.g_module_build_path(directory, module_name);
 		public static string error() => GModuleInterop.g_module_error();
 		public static GModule.Module open(string file_name, GModule.ModuleFlags flags) => GModuleInterop.g_module_open(file_name, flags);
@@ -34,7 +34,7 @@ namespace GModule {
 		[DllImport("libgmodule-2.0.so.0")]
 		public static extern string g_module_name(GModule.Module module);
 		[DllImport("libgmodule-2.0.so.0")]
-		public static extern bool g_module_symbol(GModule.Module module, string symbol_name, System.IntPtr symbol);
+		public static extern bool g_module_symbol(GModule.Module module, string symbol_name, out System.IntPtr symbol);
 		[DllImport("libgmodule-2.0.so.0")]
 		public static extern string g_module_build_path(string directory, string module_name);
 		[DllImport("libgmodule-2.0.so.0")]

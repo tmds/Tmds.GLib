@@ -53,11 +53,11 @@ namespace Atk {
 		public uint add_focus_handler(System.IntPtr handler) => Atk.AtkInterop.atk_component_add_focus_handler(this, handler);
 		public bool contains(int x, int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_contains(this, x, y, coord_type);
 		public double get_alpha() => Atk.AtkInterop.atk_component_get_alpha(this);
-		public void get_extents(System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_extents(this, x, y, width, height, coord_type);
+		public void get_extents(out int x, out int y, out int width, out int height, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_extents(this, out x, out y, out width, out height, coord_type);
 		public Atk.Layer get_layer() => Atk.AtkInterop.atk_component_get_layer(this);
 		public int get_mdi_zorder() => Atk.AtkInterop.atk_component_get_mdi_zorder(this);
-		public void get_position(System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_position(this, x, y, coord_type);
-		public void get_size(System.IntPtr width, System.IntPtr height) => Atk.AtkInterop.atk_component_get_size(this, width, height);
+		public void get_position(out int x, out int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_get_position(this, out x, out y, coord_type);
+		public void get_size(out int width, out int height) => Atk.AtkInterop.atk_component_get_size(this, out width, out height);
 		public bool grab_focus() => Atk.AtkInterop.atk_component_grab_focus(this);
 		public Atk.Object ref_accessible_at_point(int x, int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_component_ref_accessible_at_point(this, x, y, coord_type);
 		public void remove_focus_handler(uint handler_id) => Atk.AtkInterop.atk_component_remove_focus_handler(this, handler_id);
@@ -123,7 +123,7 @@ namespace Atk {
 		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
 		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -132,7 +132,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -141,13 +140,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -225,7 +223,7 @@ namespace Atk {
 		public void copy_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_copy_text(this, start_pos, end_pos);
 		public void cut_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_cut_text(this, start_pos, end_pos);
 		public void delete_text(int start_pos, int end_pos) => Atk.AtkInterop.atk_editable_text_delete_text(this, start_pos, end_pos);
-		public void insert_text(string @string, int length, System.IntPtr position) => Atk.AtkInterop.atk_editable_text_insert_text(this, @string, length, position);
+		public void insert_text(string @string, int length, int position) => Atk.AtkInterop.atk_editable_text_insert_text(this, @string, length, position);
 		public void paste_text(int position) => Atk.AtkInterop.atk_editable_text_paste_text(this, position);
 		public bool set_run_attributes(GLib.SList attrib_set, int start_offset, int end_offset) => Atk.AtkInterop.atk_editable_text_set_run_attributes(this, attrib_set, start_offset, end_offset);
 		public void set_text_contents(string @string) => Atk.AtkInterop.atk_editable_text_set_text_contents(this, @string);
@@ -286,7 +284,7 @@ namespace Atk {
 		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
 		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -295,7 +293,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -304,13 +301,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -368,7 +364,7 @@ namespace Atk {
 		public bool is_selected_link() => Atk.AtkInterop.atk_hyperlink_is_selected_link(this);
 		public bool is_valid() => Atk.AtkInterop.atk_hyperlink_is_valid(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -377,7 +373,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -386,13 +381,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -480,8 +474,8 @@ namespace Atk {
 		public static explicit operator IntPtr(Image value) => value._pointer;
 		public string get_image_description() => Atk.AtkInterop.atk_image_get_image_description(this);
 		public string get_image_locale() => Atk.AtkInterop.atk_image_get_image_locale(this);
-		public void get_image_position(System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_image_get_image_position(this, x, y, coord_type);
-		public void get_image_size(System.IntPtr width, System.IntPtr height) => Atk.AtkInterop.atk_image_get_image_size(this, width, height);
+		public void get_image_position(out int x, out int y, Atk.CoordType coord_type) => Atk.AtkInterop.atk_image_get_image_position(this, out x, out y, coord_type);
+		public void get_image_size(out int width, out int height) => Atk.AtkInterop.atk_image_get_image_size(this, out width, out height);
 		public bool set_image_description(string description) => Atk.AtkInterop.atk_image_set_image_description(this, description);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_image_get_type")]
 		public static extern GLib.GType TypeOf();
@@ -554,7 +548,7 @@ namespace Atk {
 		public void threads_enter() => Atk.AtkInterop.atk_misc_threads_enter(this);
 		public void threads_leave() => Atk.AtkInterop.atk_misc_threads_leave(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -563,7 +557,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -572,13 +565,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -644,8 +636,6 @@ namespace Atk {
 		public string get_row_description(int row) => Atk.AtkInterop.atk_table_get_row_description(this, row);
 		public int get_row_extent_at(int row, int column) => Atk.AtkInterop.atk_table_get_row_extent_at(this, row, column);
 		public Atk.Object get_row_header(int row) => Atk.AtkInterop.atk_table_get_row_header(this, row);
-		public int get_selected_columns(System.IntPtr selected) => Atk.AtkInterop.atk_table_get_selected_columns(this, selected);
-		public int get_selected_rows(System.IntPtr selected) => Atk.AtkInterop.atk_table_get_selected_rows(this, selected);
 		public Atk.Object get_summary() => Atk.AtkInterop.atk_table_get_summary(this);
 		public bool is_column_selected(int column) => Atk.AtkInterop.atk_table_is_column_selected(this, column);
 		public bool is_row_selected(int row) => Atk.AtkInterop.atk_table_is_row_selected(this, row);
@@ -673,8 +663,8 @@ namespace Atk {
 		public static explicit operator IntPtr(TableCell value) => value._pointer;
 		public System.IntPtr get_column_header_cells() => Atk.AtkInterop.atk_table_cell_get_column_header_cells(this);
 		public int get_column_span() => Atk.AtkInterop.atk_table_cell_get_column_span(this);
-		public bool get_position(System.IntPtr row, System.IntPtr column) => Atk.AtkInterop.atk_table_cell_get_position(this, row, column);
-		public bool get_row_column_span(System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span) => Atk.AtkInterop.atk_table_cell_get_row_column_span(this, row, column, row_span, column_span);
+		public bool get_position(out int row, out int column) => Atk.AtkInterop.atk_table_cell_get_position(this, out row, out column);
+		public bool get_row_column_span(out int row, out int column, out int row_span, out int column_span) => Atk.AtkInterop.atk_table_cell_get_row_column_span(this, out row, out column, out row_span, out column_span);
 		public System.IntPtr get_row_header_cells() => Atk.AtkInterop.atk_table_cell_get_row_header_cells(this);
 		public int get_row_span() => Atk.AtkInterop.atk_table_cell_get_row_span(this);
 		public Atk.Object get_table() => Atk.AtkInterop.atk_table_cell_get_table(this);
@@ -692,21 +682,20 @@ namespace Atk {
 		public static explicit operator IntPtr(Text value) => value._pointer;
 		public static void free_ranges(System.IntPtr ranges) => AtkInterop.atk_text_free_ranges(ranges);
 		public bool add_selection(int start_offset, int end_offset) => Atk.AtkInterop.atk_text_add_selection(this, start_offset, end_offset);
-		public System.IntPtr get_bounded_ranges(Atk.TextRectangle rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type) => Atk.AtkInterop.atk_text_get_bounded_ranges(this, rect, coord_type, x_clip_type, y_clip_type);
 		public int get_caret_offset() => Atk.AtkInterop.atk_text_get_caret_offset(this);
 		public uint get_character_at_offset(int offset) => Atk.AtkInterop.atk_text_get_character_at_offset(this, offset);
 		public int get_character_count() => Atk.AtkInterop.atk_text_get_character_count(this);
-		public void get_character_extents(int offset, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coords) => Atk.AtkInterop.atk_text_get_character_extents(this, offset, x, y, width, height, coords);
+		public void get_character_extents(int offset, out int x, out int y, out int width, out int height, Atk.CoordType coords) => Atk.AtkInterop.atk_text_get_character_extents(this, offset, out x, out y, out width, out height, coords);
 		public GLib.SList get_default_attributes() => Atk.AtkInterop.atk_text_get_default_attributes(this);
 		public int get_n_selections() => Atk.AtkInterop.atk_text_get_n_selections(this);
 		public int get_offset_at_point(int x, int y, Atk.CoordType coords) => Atk.AtkInterop.atk_text_get_offset_at_point(this, x, y, coords);
-		public GLib.SList get_run_attributes(int offset, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_run_attributes(this, offset, start_offset, end_offset);
-		public string get_selection(int selection_num, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_selection(this, selection_num, start_offset, end_offset);
-		public string get_string_at_offset(int offset, Atk.TextGranularity granularity, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_string_at_offset(this, offset, granularity, start_offset, end_offset);
+		public GLib.SList get_run_attributes(int offset, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_run_attributes(this, offset, out start_offset, out end_offset);
+		public string get_selection(int selection_num, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_selection(this, selection_num, out start_offset, out end_offset);
+		public string get_string_at_offset(int offset, Atk.TextGranularity granularity, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_string_at_offset(this, offset, granularity, out start_offset, out end_offset);
 		public string get_text(int start_offset, int end_offset) => Atk.AtkInterop.atk_text_get_text(this, start_offset, end_offset);
-		public string get_text_after_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_after_offset(this, offset, boundary_type, start_offset, end_offset);
-		public string get_text_at_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_at_offset(this, offset, boundary_type, start_offset, end_offset);
-		public string get_text_before_offset(int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset) => Atk.AtkInterop.atk_text_get_text_before_offset(this, offset, boundary_type, start_offset, end_offset);
+		public string get_text_after_offset(int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_text_after_offset(this, offset, boundary_type, out start_offset, out end_offset);
+		public string get_text_at_offset(int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_text_at_offset(this, offset, boundary_type, out start_offset, out end_offset);
+		public string get_text_before_offset(int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset) => Atk.AtkInterop.atk_text_get_text_before_offset(this, offset, boundary_type, out start_offset, out end_offset);
 		public bool remove_selection(int selection_num) => Atk.AtkInterop.atk_text_remove_selection(this, selection_num);
 		public bool set_caret_offset(int offset) => Atk.AtkInterop.atk_text_set_caret_offset(this, offset);
 		public bool set_selection(int selection_num, int start_offset, int end_offset) => Atk.AtkInterop.atk_text_set_selection(this, selection_num, start_offset, end_offset);
@@ -725,8 +714,7 @@ namespace Atk {
 		public double get_increment() => Atk.AtkInterop.atk_value_get_increment(this);
 		public Atk.Range get_range() => Atk.AtkInterop.atk_value_get_range(this);
 		public System.IntPtr get_sub_ranges() => Atk.AtkInterop.atk_value_get_sub_ranges(this);
-		public void get_value_and_text(System.IntPtr value, string text) => Atk.AtkInterop.atk_value_get_value_and_text(this, value, text);
-		public bool set_current_value(GObject.Value value) => Atk.AtkInterop.atk_value_set_current_value(this, value);
+		public void get_value_and_text(out double value, out string text) => Atk.AtkInterop.atk_value_get_value_and_text(this, out value, out text);
 		public void set_value(double new_value) => Atk.AtkInterop.atk_value_set_value(this, new_value);
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_value_get_type")]
 		public static extern GLib.GType TypeOf();
@@ -786,7 +774,7 @@ namespace Atk {
 		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
 		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -795,7 +783,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -804,13 +791,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -853,7 +839,7 @@ namespace Atk {
 		public GLib.GType get_accessible_type() => Atk.AtkInterop.atk_object_factory_get_accessible_type(this);
 		public void invalidate() => Atk.AtkInterop.atk_object_factory_invalidate(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -862,7 +848,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -871,13 +856,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -913,7 +897,7 @@ namespace Atk {
 		public GLib.GType get_accessible_type() => Atk.AtkInterop.atk_object_factory_get_accessible_type(this);
 		public void invalidate() => Atk.AtkInterop.atk_object_factory_invalidate(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -922,7 +906,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -931,13 +914,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1148,7 +1130,7 @@ namespace Atk {
 		public Atk.Relation get_relation_by_type(Atk.RelationType relationship) => Atk.AtkInterop.atk_relation_set_get_relation_by_type(this, relationship);
 		public void remove(Atk.Relation relation) => Atk.AtkInterop.atk_relation_set_remove(this, relation);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1157,7 +1139,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1166,13 +1147,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1213,7 +1193,7 @@ namespace Atk {
 		public bool remove_state(Atk.StateType type) => Atk.AtkInterop.atk_state_set_remove_state(this, type);
 		public Atk.StateSet xor_sets(Atk.StateSet compare_set) => Atk.AtkInterop.atk_state_set_xor_sets(this, compare_set);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1222,7 +1202,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1231,13 +1210,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1305,7 +1283,7 @@ namespace Atk {
 		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
 		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1314,7 +1292,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1323,13 +1300,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1390,7 +1366,7 @@ namespace Atk {
 		public GLib.GType get_factory_type(GLib.GType type) => Atk.AtkInterop.atk_registry_get_factory_type(this, type);
 		public void set_factory_type(GLib.GType type, GLib.GType factory_type) => Atk.AtkInterop.atk_registry_set_factory_type(this, type, factory_type);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1399,7 +1375,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1408,13 +1383,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1459,7 +1433,7 @@ namespace Atk {
 		public System.IntPtr get_target() => Atk.AtkInterop.atk_relation_get_target(this);
 		public bool remove_target(Atk.Object target) => Atk.AtkInterop.atk_relation_remove_target(this, target);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1468,7 +1442,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1477,13 +1450,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1572,7 +1544,7 @@ namespace Atk {
 		public void set_parent(Atk.Object parent) => Atk.AtkInterop.atk_object_set_parent(this, parent);
 		public void set_role(Atk.Role role) => Atk.AtkInterop.atk_object_set_role(this, role);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1581,7 +1553,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1590,13 +1561,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1735,16 +1705,6 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0", EntryPoint = "atk_text_range_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
-	public ref struct TextRectangle
-	{
-		private IntPtr _pointer;
-		public TextRectangle(IntPtr pointer, bool checkType = false)
-		{
-			_pointer = pointer;
-		}
-		public static explicit operator TextRectangle(IntPtr pointer) => new TextRectangle(pointer, checkType: true);
-		public static explicit operator IntPtr(TextRectangle value) => value._pointer;
-	}
 	public enum TextClipType
 	{
 		none = 0,
@@ -1828,7 +1788,7 @@ namespace Atk {
 		public static implicit operator GObject.Object(Util value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator Util(GObject.Object value) => new Util((IntPtr)value, checkType: true);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1837,7 +1797,6 @@ namespace Atk {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1846,13 +1805,12 @@ namespace Atk {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1977,15 +1935,15 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern double atk_component_get_alpha(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_extents(Atk.Component component, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coord_type);
+		public static extern void atk_component_get_extents(Atk.Component component, out int x, out int y, out int width, out int height, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Layer atk_component_get_layer(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_component_get_mdi_zorder(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_position(Atk.Component component, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
+		public static extern void atk_component_get_position(Atk.Component component, out int x, out int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_component_get_size(Atk.Component component, System.IntPtr width, System.IntPtr height);
+		public static extern void atk_component_get_size(Atk.Component component, out int width, out int height);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern bool atk_component_grab_focus(Atk.Component component);
 		[DllImport("libatk-1.0.so.0")]
@@ -2069,7 +2027,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_editable_text_delete_text(Atk.EditableText text, int start_pos, int end_pos);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_editable_text_insert_text(Atk.EditableText text, string @string, int length, System.IntPtr position);
+		public static extern void atk_editable_text_insert_text(Atk.EditableText text, string @string, int length, int position);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_editable_text_paste_text(Atk.EditableText text, int position);
 		[DllImport("libatk-1.0.so.0")]
@@ -2109,9 +2067,9 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_image_get_image_locale(Atk.Image image);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_image_get_image_position(Atk.Image image, System.IntPtr x, System.IntPtr y, Atk.CoordType coord_type);
+		public static extern void atk_image_get_image_position(Atk.Image image, out int x, out int y, Atk.CoordType coord_type);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_image_get_image_size(Atk.Image image, System.IntPtr width, System.IntPtr height);
+		public static extern void atk_image_get_image_size(Atk.Image image, out int width, out int height);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern bool atk_image_set_image_description(Atk.Image image, string description);
 		[DllImport("libatk-1.0.so.0")]
@@ -2165,10 +2123,6 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_table_get_row_header(Atk.Table table, int row);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_selected_columns(Atk.Table table, System.IntPtr selected);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern int atk_table_get_selected_rows(Atk.Table table, System.IntPtr selected);
-		[DllImport("libatk-1.0.so.0")]
 		public static extern Atk.Object atk_table_get_summary(Atk.Table table);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern bool atk_table_is_column_selected(Atk.Table table, int column);
@@ -2199,9 +2153,9 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_table_cell_get_column_span(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern bool atk_table_cell_get_position(Atk.TableCell cell, System.IntPtr row, System.IntPtr column);
+		public static extern bool atk_table_cell_get_position(Atk.TableCell cell, out int row, out int column);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern bool atk_table_cell_get_row_column_span(Atk.TableCell cell, System.IntPtr row, System.IntPtr column, System.IntPtr row_span, System.IntPtr column_span);
+		public static extern bool atk_table_cell_get_row_column_span(Atk.TableCell cell, out int row, out int column, out int row_span, out int column_span);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern System.IntPtr atk_table_cell_get_row_header_cells(Atk.TableCell cell);
 		[DllImport("libatk-1.0.so.0")]
@@ -2213,15 +2167,13 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern bool atk_text_add_selection(Atk.Text text, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern System.IntPtr atk_text_get_bounded_ranges(Atk.Text text, Atk.TextRectangle rect, Atk.CoordType coord_type, Atk.TextClipType x_clip_type, Atk.TextClipType y_clip_type);
-		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_text_get_caret_offset(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern uint atk_text_get_character_at_offset(Atk.Text text, int offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_text_get_character_count(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_text_get_character_extents(Atk.Text text, int offset, System.IntPtr x, System.IntPtr y, System.IntPtr width, System.IntPtr height, Atk.CoordType coords);
+		public static extern void atk_text_get_character_extents(Atk.Text text, int offset, out int x, out int y, out int width, out int height, Atk.CoordType coords);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern GLib.SList atk_text_get_default_attributes(Atk.Text text);
 		[DllImport("libatk-1.0.so.0")]
@@ -2229,19 +2181,19 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern int atk_text_get_offset_at_point(Atk.Text text, int x, int y, Atk.CoordType coords);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern GLib.SList atk_text_get_run_attributes(Atk.Text text, int offset, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern GLib.SList atk_text_get_run_attributes(Atk.Text text, int offset, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_selection(Atk.Text text, int selection_num, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_selection(Atk.Text text, int selection_num, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_string_at_offset(Atk.Text text, int offset, Atk.TextGranularity granularity, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_string_at_offset(Atk.Text text, int offset, Atk.TextGranularity granularity, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern string atk_text_get_text(Atk.Text text, int start_offset, int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_after_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text_after_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_at_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text_at_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern string atk_text_get_text_before_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, System.IntPtr start_offset, System.IntPtr end_offset);
+		public static extern string atk_text_get_text_before_offset(Atk.Text text, int offset, Atk.TextBoundary boundary_type, out int start_offset, out int end_offset);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern bool atk_text_remove_selection(Atk.Text text, int selection_num);
 		[DllImport("libatk-1.0.so.0")]
@@ -2255,9 +2207,7 @@ namespace Atk {
 		[DllImport("libatk-1.0.so.0")]
 		public static extern System.IntPtr atk_value_get_sub_ranges(Atk.Value obj);
 		[DllImport("libatk-1.0.so.0")]
-		public static extern void atk_value_get_value_and_text(Atk.Value obj, System.IntPtr value, string text);
-		[DllImport("libatk-1.0.so.0")]
-		public static extern bool atk_value_set_current_value(Atk.Value obj, GObject.Value value);
+		public static extern void atk_value_get_value_and_text(Atk.Value obj, out double value, out string text);
 		[DllImport("libatk-1.0.so.0")]
 		public static extern void atk_value_set_value(Atk.Value obj, double new_value);
 		[DllImport("libatk-1.0.so.0")]

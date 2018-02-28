@@ -11,7 +11,7 @@ namespace Gio {
 		public static explicit operator Action(IntPtr pointer) => new Action(pointer, checkType: true);
 		public static explicit operator IntPtr(Action value) => value._pointer;
 		public static bool name_is_valid(string action_name) => GioInterop.g_action_name_is_valid(action_name);
-		public static bool parse_detailed_name(string detailed_name, string action_name, out GLib.Variant target_value, out GLib.Error error) => GioInterop.g_action_parse_detailed_name(detailed_name, action_name, out target_value, out error);
+		public static bool parse_detailed_name(string detailed_name, out string action_name, out GLib.Variant target_value, out GLib.Error error) => GioInterop.g_action_parse_detailed_name(detailed_name, out action_name, out target_value, out error);
 		public static string print_detailed_name(string action_name, GLib.Variant target_value) => GioInterop.g_action_print_detailed_name(action_name, target_value);
 		public void activate(GLib.Variant parameter) => Gio.GioInterop.g_action_activate(this, parameter);
 		public void change_state(GLib.Variant value) => Gio.GioInterop.g_action_change_state(this, value);
@@ -45,7 +45,7 @@ namespace Gio {
 		public void set_state(GLib.Variant value) => Gio.GioInterop.g_simple_action_set_state(this, value);
 		public void set_state_hint(GLib.Variant state_hint) => Gio.GioInterop.g_simple_action_set_state_hint(this, state_hint);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -54,7 +54,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -63,13 +62,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -115,7 +113,7 @@ namespace Gio {
 		public GLib.VariantType get_action_state_type(string action_name) => Gio.GioInterop.g_action_group_get_action_state_type(this, action_name);
 		public bool has_action(string action_name) => Gio.GioInterop.g_action_group_has_action(this, action_name);
 		public System.IntPtr list_actions() => Gio.GioInterop.g_action_group_list_actions(this);
-		public bool query_action(string action_name, System.IntPtr enabled, out GLib.VariantType parameter_type, out GLib.VariantType state_type, out GLib.Variant state_hint, out GLib.Variant state) => Gio.GioInterop.g_action_group_query_action(this, action_name, enabled, out parameter_type, out state_type, out state_hint, out state);
+		public bool query_action(string action_name, out bool enabled, out GLib.VariantType parameter_type, out GLib.VariantType state_type, out GLib.Variant state_hint, out GLib.Variant state) => Gio.GioInterop.g_action_group_query_action(this, action_name, out enabled, out parameter_type, out state_type, out state_hint, out state);
 		[DllImport("libgio-2.0.so.0", EntryPoint = "g_action_group_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -242,7 +240,7 @@ namespace Gio {
 		public void setenv(string variable, string value) => Gio.GioInterop.g_app_launch_context_setenv(this, variable, value);
 		public void unsetenv(string variable) => Gio.GioInterop.g_app_launch_context_unsetenv(this, variable);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -251,7 +249,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -260,13 +257,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -302,7 +298,6 @@ namespace Gio {
 		public void disconnect(ulong handler_id) => Gio.GioInterop.g_cancellable_disconnect(this, handler_id);
 		public int get_fd() => Gio.GioInterop.g_cancellable_get_fd(this);
 		public bool is_cancelled() => Gio.GioInterop.g_cancellable_is_cancelled(this);
-		public bool make_pollfd(GLib.PollFD pollfd) => Gio.GioInterop.g_cancellable_make_pollfd(this, pollfd);
 		public void pop_current() => Gio.GioInterop.g_cancellable_pop_current(this);
 		public void push_current() => Gio.GioInterop.g_cancellable_push_current(this);
 		public void release_fd() => Gio.GioInterop.g_cancellable_release_fd(this);
@@ -310,7 +305,7 @@ namespace Gio {
 		public bool set_error_if_cancelled(out GLib.Error error) => Gio.GioInterop.g_cancellable_set_error_if_cancelled(this, out error);
 		public GLib.Source source_new() => Gio.GioInterop.g_cancellable_source_new(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -319,7 +314,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -328,13 +322,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -439,19 +432,19 @@ namespace Gio {
 		public bool has_uri_scheme(string uri_scheme) => Gio.GioInterop.g_file_has_uri_scheme(this, uri_scheme);
 		public uint hash() => Gio.GioInterop.g_file_hash(this);
 		public bool is_native() => Gio.GioInterop.g_file_is_native(this);
-		public bool load_contents(Gio.Cancellable cancellable, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_contents(this, cancellable, contents, length, etag_out, out error);
+		public bool load_contents(Gio.Cancellable cancellable, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_contents(this, cancellable, out contents, out length, out etag_out, out error);
 		public void load_contents_async(Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_load_contents_async(this, cancellable, callback, user_data);
-		public bool load_contents_finish(Gio.AsyncResult res, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_contents_finish(this, res, contents, length, etag_out, out error);
+		public bool load_contents_finish(Gio.AsyncResult res, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_contents_finish(this, res, out contents, out length, out etag_out, out error);
 		public void load_partial_contents_async(Gio.Cancellable cancellable, System.IntPtr read_more_callback, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_load_partial_contents_async(this, cancellable, read_more_callback, callback, user_data);
-		public bool load_partial_contents_finish(Gio.AsyncResult res, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_partial_contents_finish(this, res, contents, length, etag_out, out error);
+		public bool load_partial_contents_finish(Gio.AsyncResult res, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error) => Gio.GioInterop.g_file_load_partial_contents_finish(this, res, out contents, out length, out etag_out, out error);
 		public bool make_directory(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_make_directory(this, cancellable, out error);
 		public void make_directory_async(int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_make_directory_async(this, io_priority, cancellable, callback, user_data);
 		public bool make_directory_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_file_make_directory_finish(this, result, out error);
 		public bool make_directory_with_parents(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_make_directory_with_parents(this, cancellable, out error);
 		public bool make_symbolic_link(System.IntPtr symlink_value, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_make_symbolic_link(this, symlink_value, cancellable, out error);
-		public bool measure_disk_usage(Gio.FileMeasureFlags flags, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, out GLib.Error error) => Gio.GioInterop.g_file_measure_disk_usage(this, flags, cancellable, progress_callback, progress_data, disk_usage, num_dirs, num_files, out error);
+		public bool measure_disk_usage(Gio.FileMeasureFlags flags, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, out ulong disk_usage, out ulong num_dirs, out ulong num_files, out GLib.Error error) => Gio.GioInterop.g_file_measure_disk_usage(this, flags, cancellable, progress_callback, progress_data, out disk_usage, out num_dirs, out num_files, out error);
 		public void measure_disk_usage_async(Gio.FileMeasureFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_measure_disk_usage_async(this, flags, io_priority, cancellable, progress_callback, progress_data, callback, user_data);
-		public bool measure_disk_usage_finish(Gio.AsyncResult result, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, out GLib.Error error) => Gio.GioInterop.g_file_measure_disk_usage_finish(this, result, disk_usage, num_dirs, num_files, out error);
+		public bool measure_disk_usage_finish(Gio.AsyncResult result, out ulong disk_usage, out ulong num_dirs, out ulong num_files, out GLib.Error error) => Gio.GioInterop.g_file_measure_disk_usage_finish(this, result, out disk_usage, out num_dirs, out num_files, out error);
 		public Gio.FileMonitor monitor(Gio.FileMonitorFlags flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_monitor(this, flags, cancellable, out error);
 		public Gio.FileMonitor monitor_directory(Gio.FileMonitorFlags flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_monitor_directory(this, flags, cancellable, out error);
 		public Gio.FileMonitor monitor_file(Gio.FileMonitorFlags flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_monitor_file(this, flags, cancellable, out error);
@@ -481,10 +474,10 @@ namespace Gio {
 		public Gio.FileInputStream read_finish(Gio.AsyncResult res, out GLib.Error error) => Gio.GioInterop.g_file_read_finish(this, res, out error);
 		public Gio.FileOutputStream replace(string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_replace(this, etag, make_backup, flags, cancellable, out error);
 		public void replace_async(string etag, bool make_backup, Gio.FileCreateFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_replace_async(this, etag, make_backup, flags, io_priority, cancellable, callback, user_data);
-		public bool replace_contents(System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, string new_etag, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_replace_contents(this, contents, length, etag, make_backup, flags, new_etag, cancellable, out error);
+		public bool replace_contents(System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, out string new_etag, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_replace_contents(this, contents, length, etag, make_backup, flags, out new_etag, cancellable, out error);
 		public void replace_contents_async(System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_replace_contents_async(this, contents, length, etag, make_backup, flags, cancellable, callback, user_data);
 		public void replace_contents_bytes_async(GLib.Bytes contents, string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_replace_contents_bytes_async(this, contents, etag, make_backup, flags, cancellable, callback, user_data);
-		public bool replace_contents_finish(Gio.AsyncResult res, string new_etag, out GLib.Error error) => Gio.GioInterop.g_file_replace_contents_finish(this, res, new_etag, out error);
+		public bool replace_contents_finish(Gio.AsyncResult res, out string new_etag, out GLib.Error error) => Gio.GioInterop.g_file_replace_contents_finish(this, res, out new_etag, out error);
 		public Gio.FileOutputStream replace_finish(Gio.AsyncResult res, out GLib.Error error) => Gio.GioInterop.g_file_replace_finish(this, res, out error);
 		public Gio.FileIOStream replace_readwrite(string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_file_replace_readwrite(this, etag, make_backup, flags, cancellable, out error);
 		public void replace_readwrite_async(string etag, bool make_backup, Gio.FileCreateFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_file_replace_readwrite_async(this, etag, make_backup, flags, io_priority, cancellable, callback, user_data);
@@ -545,7 +538,7 @@ namespace Gio {
 		public static explicit operator AppInfoMonitor(GObject.Object value) => new AppInfoMonitor((IntPtr)value, checkType: true);
 		public static Gio.AppInfoMonitor get() => GioInterop.g_app_info_monitor_get();
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -554,7 +547,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -563,13 +555,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -653,7 +644,7 @@ namespace Gio {
 		public void unmark_busy() => Gio.GioInterop.g_application_unmark_busy(this);
 		public void withdraw_notification(string id) => Gio.GioInterop.g_application_withdraw_notification(this, id);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -662,7 +653,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -671,13 +661,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -752,10 +741,10 @@ namespace Gio {
 		public uint register_object_with_closures(string object_path, Gio.DBusInterfaceInfo interface_info, GObject.Closure method_call_closure, GObject.Closure get_property_closure, GObject.Closure set_property_closure, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_register_object_with_closures(this, object_path, interface_info, method_call_closure, get_property_closure, set_property_closure, out error);
 		public uint register_subtree(string object_path, Gio.DBusSubtreeVTable vtable, Gio.DBusSubtreeFlags flags, System.IntPtr user_data, System.IntPtr user_data_free_func, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_register_subtree(this, object_path, vtable, flags, user_data, user_data_free_func, out error);
 		public void remove_filter(uint filter_id) => Gio.GioInterop.g_dbus_connection_remove_filter(this, filter_id);
-		public bool send_message(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, System.IntPtr out_serial, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_send_message(this, message, flags, out_serial, out error);
-		public void send_message_with_reply(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_dbus_connection_send_message_with_reply(this, message, flags, timeout_msec, out_serial, cancellable, callback, user_data);
+		public bool send_message(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, out uint out_serial, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_send_message(this, message, flags, out out_serial, out error);
+		public void send_message_with_reply(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, out uint out_serial, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_dbus_connection_send_message_with_reply(this, message, flags, timeout_msec, out out_serial, cancellable, callback, user_data);
 		public Gio.DBusMessage send_message_with_reply_finish(Gio.AsyncResult res, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_send_message_with_reply_finish(this, res, out error);
-		public Gio.DBusMessage send_message_with_reply_sync(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_send_message_with_reply_sync(this, message, flags, timeout_msec, out_serial, cancellable, out error);
+		public Gio.DBusMessage send_message_with_reply_sync(Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, out uint out_serial, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_dbus_connection_send_message_with_reply_sync(this, message, flags, timeout_msec, out out_serial, cancellable, out error);
 		public void set_exit_on_close(bool exit_on_close) => Gio.GioInterop.g_dbus_connection_set_exit_on_close(this, exit_on_close);
 		public uint signal_subscribe(string sender, string interface_name, string member, string object_path, string arg0, Gio.DBusSignalFlags flags, System.IntPtr callback, System.IntPtr user_data, System.IntPtr user_data_free_func) => Gio.GioInterop.g_dbus_connection_signal_subscribe(this, sender, interface_name, member, object_path, arg0, flags, callback, user_data, user_data_free_func);
 		public void signal_unsubscribe(uint subscription_id) => Gio.GioInterop.g_dbus_connection_signal_unsubscribe(this, subscription_id);
@@ -765,7 +754,7 @@ namespace Gio {
 		public bool unregister_object(uint registration_id) => Gio.GioInterop.g_dbus_connection_unregister_object(this, registration_id);
 		public bool unregister_subtree(uint registration_id) => Gio.GioInterop.g_dbus_connection_unregister_subtree(this, registration_id);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -774,7 +763,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -783,13 +771,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -829,7 +816,7 @@ namespace Gio {
 		public void set_title(string title) => Gio.GioInterop.g_notification_set_title(this, title);
 		public void set_urgent(bool urgent) => Gio.GioInterop.g_notification_set_urgent(this, urgent);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -838,7 +825,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -847,13 +833,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -893,7 +878,7 @@ namespace Gio {
 		public static implicit operator GObject.Object(ApplicationCommandLine value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator ApplicationCommandLine(GObject.Object value) => new ApplicationCommandLine((IntPtr)value, checkType: true);
 		public Gio.File create_file_for_arg(string arg) => Gio.GioInterop.g_application_command_line_create_file_for_arg(this, arg);
-		public System.IntPtr get_arguments(System.IntPtr argc) => Gio.GioInterop.g_application_command_line_get_arguments(this, argc);
+		public System.IntPtr get_arguments(out int argc) => Gio.GioInterop.g_application_command_line_get_arguments(this, out argc);
 		public System.IntPtr get_cwd() => Gio.GioInterop.g_application_command_line_get_cwd(this);
 		public System.IntPtr get_environ() => Gio.GioInterop.g_application_command_line_get_environ(this);
 		public int get_exit_status() => Gio.GioInterop.g_application_command_line_get_exit_status(this);
@@ -904,7 +889,7 @@ namespace Gio {
 		public string getenv(string name) => Gio.GioInterop.g_application_command_line_getenv(this, name);
 		public void set_exit_status(int exit_status) => Gio.GioInterop.g_application_command_line_set_exit_status(this, exit_status);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -913,7 +898,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -922,13 +906,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -974,9 +957,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -987,7 +970,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -996,7 +979,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1005,13 +987,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1134,7 +1115,7 @@ namespace Gio {
 		public ulong get_available() => Gio.GioInterop.g_buffered_input_stream_get_available(this);
 		public ulong get_buffer_size() => Gio.GioInterop.g_buffered_input_stream_get_buffer_size(this);
 		public ulong peek(System.IntPtr buffer, ulong offset, ulong count) => Gio.GioInterop.g_buffered_input_stream_peek(this, buffer, offset, count);
-		public System.IntPtr peek_buffer(System.IntPtr count) => Gio.GioInterop.g_buffered_input_stream_peek_buffer(this, count);
+		public System.IntPtr peek_buffer(out ulong count) => Gio.GioInterop.g_buffered_input_stream_peek_buffer(this, out count);
 		public int read_byte(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_buffered_input_stream_read_byte(this, cancellable, out error);
 		public void set_buffer_size(ulong size) => Gio.GioInterop.g_buffered_input_stream_set_buffer_size(this, size);
 		public Gio.InputStream get_base_stream() => Gio.GioInterop.g_filter_input_stream_get_base_stream(this);
@@ -1147,9 +1128,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -1160,7 +1141,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1169,7 +1150,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1178,13 +1158,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1225,9 +1204,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -1238,7 +1217,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1247,7 +1226,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1256,13 +1234,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1336,16 +1313,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1354,7 +1331,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1363,13 +1339,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1426,16 +1401,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1444,7 +1419,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1453,13 +1427,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1508,16 +1481,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1526,7 +1499,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1535,13 +1507,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1615,9 +1586,9 @@ namespace Gio {
 		}
 		public static explicit operator LoadableIcon(IntPtr pointer) => new LoadableIcon(pointer, checkType: true);
 		public static explicit operator IntPtr(LoadableIcon value) => value._pointer;
-		public Gio.InputStream load(int size, string type, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_loadable_icon_load(this, size, type, cancellable, out error);
+		public Gio.InputStream load(int size, out string type, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_loadable_icon_load(this, size, out type, cancellable, out error);
 		public void load_async(int size, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_loadable_icon_load_async(this, size, cancellable, callback, user_data);
-		public Gio.InputStream load_finish(Gio.AsyncResult res, string type, out GLib.Error error) => Gio.GioInterop.g_loadable_icon_load_finish(this, res, type, out error);
+		public Gio.InputStream load_finish(Gio.AsyncResult res, out string type, out GLib.Error error) => Gio.GioInterop.g_loadable_icon_load_finish(this, res, out type, out error);
 		[DllImport("libgio-2.0.so.0", EntryPoint = "g_loadable_icon_get_type")]
 		public static extern GLib.GType TypeOf();
 	}
@@ -1639,7 +1610,7 @@ namespace Gio {
 		public static Gio.BytesIcon @new(GLib.Bytes bytes) => GioInterop.g_bytes_icon_new(bytes);
 		public GLib.Bytes get_bytes() => Gio.GioInterop.g_bytes_icon_get_bytes(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1648,7 +1619,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1657,13 +1627,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1706,7 +1675,7 @@ namespace Gio {
 		}
 		public static explicit operator Converter(IntPtr pointer) => new Converter(pointer, checkType: true);
 		public static explicit operator IntPtr(Converter value) => value._pointer;
-		public Gio.ConverterResult convert(System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, Gio.ConverterFlags flags, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_converter_convert(this, inbuf, inbuf_size, outbuf, outbuf_size, flags, bytes_read, bytes_written, out error);
+		public Gio.ConverterResult convert(System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, Gio.ConverterFlags flags, out ulong bytes_read, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_converter_convert(this, inbuf, inbuf_size, outbuf, outbuf_size, flags, out bytes_read, out bytes_written, out error);
 		public void reset() => Gio.GioInterop.g_converter_reset(this);
 		[DllImport("libgio-2.0.so.0", EntryPoint = "g_converter_get_type")]
 		public static extern GLib.GType TypeOf();
@@ -1745,7 +1714,7 @@ namespace Gio {
 		public bool get_use_fallback() => Gio.GioInterop.g_charset_converter_get_use_fallback(this);
 		public void set_use_fallback(bool use_fallback) => Gio.GioInterop.g_charset_converter_set_use_fallback(this, use_fallback);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1754,7 +1723,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1763,13 +1731,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1864,9 +1831,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -1877,7 +1844,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -1886,7 +1853,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -1895,13 +1861,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -1990,16 +1955,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2008,7 +1973,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2017,13 +1981,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2081,7 +2044,7 @@ namespace Gio {
 		public bool set_unix_user(uint uid, out GLib.Error error) => Gio.GioInterop.g_credentials_set_unix_user(this, uid, out error);
 		public string to_string() => Gio.GioInterop.g_credentials_to_string(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2090,7 +2053,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2099,13 +2061,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2169,7 +2130,7 @@ namespace Gio {
 		public static explicit operator DBusActionGroup(GObject.Object value) => new DBusActionGroup((IntPtr)value, checkType: true);
 		public static Gio.DBusActionGroup get(Gio.DBusConnection connection, string bus_name, string object_path) => GioInterop.g_dbus_action_group_get(connection, bus_name, object_path);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2178,7 +2139,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2187,13 +2147,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2255,7 +2214,7 @@ namespace Gio {
 		public bool allow_mechanism(string mechanism) => Gio.GioInterop.g_dbus_auth_observer_allow_mechanism(this, mechanism);
 		public bool authorize_authenticated_peer(Gio.IOStream stream, Gio.Credentials credentials) => Gio.GioInterop.g_dbus_auth_observer_authorize_authenticated_peer(this, stream, credentials);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2264,7 +2223,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2273,13 +2231,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2320,7 +2277,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2329,7 +2286,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2338,13 +2294,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2401,10 +2356,10 @@ namespace Gio {
 		public int append(int fd, out GLib.Error error) => Gio.GioInterop.g_unix_fd_list_append(this, fd, out error);
 		public int get(int index_, out GLib.Error error) => Gio.GioInterop.g_unix_fd_list_get(this, index_, out error);
 		public int get_length() => Gio.GioInterop.g_unix_fd_list_get_length(this);
-		public System.IntPtr peek_fds(System.IntPtr length) => Gio.GioInterop.g_unix_fd_list_peek_fds(this, length);
-		public System.IntPtr steal_fds(System.IntPtr length) => Gio.GioInterop.g_unix_fd_list_steal_fds(this, length);
+		public System.IntPtr peek_fds(out int length) => Gio.GioInterop.g_unix_fd_list_peek_fds(this, out length);
+		public System.IntPtr steal_fds(out int length) => Gio.GioInterop.g_unix_fd_list_steal_fds(this, out length);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2413,7 +2368,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2422,13 +2376,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2465,7 +2418,7 @@ namespace Gio {
 		public Gio.MenuAttributeIter iterate_item_attributes(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_attributes(this, item_index);
 		public Gio.MenuLinkIter iterate_item_links(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_links(this, item_index);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2474,7 +2427,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2483,13 +2435,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2514,7 +2465,6 @@ namespace Gio {
 		public static explicit operator IntPtr(DBusInterfaceInfo value) => value._pointer;
 		public void cache_build() => Gio.GioInterop.g_dbus_interface_info_cache_build(this);
 		public void cache_release() => Gio.GioInterop.g_dbus_interface_info_cache_release(this);
-		public void generate_xml(uint indent, GLib.String string_builder) => Gio.GioInterop.g_dbus_interface_info_generate_xml(this, indent, string_builder);
 		public Gio.DBusMethodInfo lookup_method(string name) => Gio.GioInterop.g_dbus_interface_info_lookup_method(this, name);
 		public Gio.DBusPropertyInfo lookup_property(string name) => Gio.GioInterop.g_dbus_interface_info_lookup_property(this, name);
 		public Gio.DBusSignalInfo lookup_signal(string name) => Gio.GioInterop.g_dbus_interface_info_lookup_signal(this, name);
@@ -2609,10 +2559,10 @@ namespace Gio {
 		public void set_serial(uint serial) => Gio.GioInterop.g_dbus_message_set_serial(this, serial);
 		public void set_signature(string value) => Gio.GioInterop.g_dbus_message_set_signature(this, value);
 		public void set_unix_fd_list(Gio.UnixFDList fd_list) => Gio.GioInterop.g_dbus_message_set_unix_fd_list(this, fd_list);
-		public System.IntPtr to_blob(System.IntPtr out_size, Gio.DBusCapabilityFlags capabilities, out GLib.Error error) => Gio.GioInterop.g_dbus_message_to_blob(this, out_size, capabilities, out error);
+		public System.IntPtr to_blob(out ulong out_size, Gio.DBusCapabilityFlags capabilities, out GLib.Error error) => Gio.GioInterop.g_dbus_message_to_blob(this, out out_size, capabilities, out error);
 		public bool to_gerror(out GLib.Error error) => Gio.GioInterop.g_dbus_message_to_gerror(this, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2621,7 +2571,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2630,13 +2579,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2837,7 +2785,7 @@ namespace Gio {
 		public void return_value_with_unix_fd_list(GLib.Variant parameters, Gio.UnixFDList fd_list) => Gio.GioInterop.g_dbus_method_invocation_return_value_with_unix_fd_list(this, parameters, fd_list);
 		public void take_error(GLib.Error error) => Gio.GioInterop.g_dbus_method_invocation_take_error(this, error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2846,7 +2794,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2855,13 +2802,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2904,7 +2850,7 @@ namespace Gio {
 		public void unexport() => Gio.GioInterop.g_dbus_interface_skeleton_unexport(this);
 		public void unexport_from_connection(Gio.DBusConnection connection) => Gio.GioInterop.g_dbus_interface_skeleton_unexport_from_connection(this, connection);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -2913,7 +2859,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -2922,13 +2867,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -2994,7 +2938,7 @@ namespace Gio {
 		public Gio.MenuAttributeIter iterate_item_attributes(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_attributes(this, item_index);
 		public Gio.MenuLinkIter iterate_item_links(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_links(this, item_index);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3003,7 +2947,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3012,13 +2955,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3076,7 +3018,6 @@ namespace Gio {
 		public static explicit operator DBusNodeInfo(IntPtr pointer) => new DBusNodeInfo(pointer, checkType: true);
 		public static explicit operator IntPtr(DBusNodeInfo value) => value._pointer;
 		public static Gio.DBusNodeInfo new_for_xml(string xml_data, out GLib.Error error) => GioInterop.g_dbus_node_info_new_for_xml(xml_data, out error);
-		public void generate_xml(uint indent, GLib.String string_builder) => Gio.GioInterop.g_dbus_node_info_generate_xml(this, indent, string_builder);
 		public Gio.DBusInterfaceInfo lookup_interface(string name) => Gio.GioInterop.g_dbus_node_info_lookup_interface(this, name);
 		public Gio.DBusNodeInfo @ref() => Gio.GioInterop.g_dbus_node_info_ref(this);
 		public void unref() => Gio.GioInterop.g_dbus_node_info_unref(this);
@@ -3135,7 +3076,7 @@ namespace Gio {
 		public string get_name() => Gio.GioInterop.g_dbus_object_manager_client_get_name(this);
 		public string get_name_owner() => Gio.GioInterop.g_dbus_object_manager_client_get_name_owner(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3144,7 +3085,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3153,13 +3093,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3207,7 +3146,7 @@ namespace Gio {
 		public static Gio.DBusObjectProxy @new(Gio.DBusConnection connection, string object_path) => GioInterop.g_dbus_object_proxy_new(connection, object_path);
 		public Gio.DBusConnection get_connection() => Gio.GioInterop.g_dbus_object_proxy_get_connection(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3216,7 +3155,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3225,13 +3163,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3286,7 +3223,7 @@ namespace Gio {
 		public void set_default_timeout(int timeout_msec) => Gio.GioInterop.g_dbus_proxy_set_default_timeout(this, timeout_msec);
 		public void set_interface_info(Gio.DBusInterfaceInfo info) => Gio.GioInterop.g_dbus_proxy_set_interface_info(this, info);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3295,7 +3232,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3304,13 +3240,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3367,7 +3302,7 @@ namespace Gio {
 		public void set_connection(Gio.DBusConnection connection) => Gio.GioInterop.g_dbus_object_manager_server_set_connection(this, connection);
 		public bool unexport(string object_path) => Gio.GioInterop.g_dbus_object_manager_server_unexport(this, object_path);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3376,7 +3311,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3385,13 +3319,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3427,7 +3360,7 @@ namespace Gio {
 		public void remove_interface_by_name(string interface_name) => Gio.GioInterop.g_dbus_object_skeleton_remove_interface_by_name(this, interface_name);
 		public void set_object_path(string object_path) => Gio.GioInterop.g_dbus_object_skeleton_set_object_path(this, object_path);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3436,7 +3369,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3445,13 +3377,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3585,7 +3516,7 @@ namespace Gio {
 		public void start() => Gio.GioInterop.g_dbus_server_start(this);
 		public void stop() => Gio.GioInterop.g_dbus_server_stop(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3594,7 +3525,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3603,13 +3533,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3658,20 +3587,20 @@ namespace Gio {
 		public short read_int16(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_int16(this, cancellable, out error);
 		public int read_int32(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_int32(this, cancellable, out error);
 		public long read_int64(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_int64(this, cancellable, out error);
-		public System.IntPtr read_line(System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line(this, length, cancellable, out error);
+		public System.IntPtr read_line(out ulong length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line(this, out length, cancellable, out error);
 		public void read_line_async(int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_data_input_stream_read_line_async(this, io_priority, cancellable, callback, user_data);
-		public System.IntPtr read_line_finish(Gio.AsyncResult result, System.IntPtr length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_finish(this, result, length, out error);
-		public string read_line_finish_utf8(Gio.AsyncResult result, System.IntPtr length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_finish_utf8(this, result, length, out error);
-		public string read_line_utf8(System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_utf8(this, length, cancellable, out error);
+		public System.IntPtr read_line_finish(Gio.AsyncResult result, out ulong length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_finish(this, result, out length, out error);
+		public string read_line_finish_utf8(Gio.AsyncResult result, out ulong length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_finish_utf8(this, result, out length, out error);
+		public string read_line_utf8(out ulong length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_line_utf8(this, out length, cancellable, out error);
 		public ushort read_uint16(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_uint16(this, cancellable, out error);
 		public uint read_uint32(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_uint32(this, cancellable, out error);
 		public ulong read_uint64(Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_uint64(this, cancellable, out error);
-		public string read_until(string stop_chars, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_until(this, stop_chars, length, cancellable, out error);
+		public string read_until(string stop_chars, out ulong length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_until(this, stop_chars, out length, cancellable, out error);
 		public void read_until_async(string stop_chars, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_data_input_stream_read_until_async(this, stop_chars, io_priority, cancellable, callback, user_data);
-		public string read_until_finish(Gio.AsyncResult result, System.IntPtr length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_until_finish(this, result, length, out error);
-		public string read_upto(string stop_chars, long stop_chars_len, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_upto(this, stop_chars, stop_chars_len, length, cancellable, out error);
+		public string read_until_finish(Gio.AsyncResult result, out ulong length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_until_finish(this, result, out length, out error);
+		public string read_upto(string stop_chars, long stop_chars_len, out ulong length, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_upto(this, stop_chars, stop_chars_len, out length, cancellable, out error);
 		public void read_upto_async(string stop_chars, long stop_chars_len, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_data_input_stream_read_upto_async(this, stop_chars, stop_chars_len, io_priority, cancellable, callback, user_data);
-		public string read_upto_finish(Gio.AsyncResult result, System.IntPtr length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_upto_finish(this, result, length, out error);
+		public string read_upto_finish(Gio.AsyncResult result, out ulong length, out GLib.Error error) => Gio.GioInterop.g_data_input_stream_read_upto_finish(this, result, out length, out error);
 		public void set_byte_order(Gio.DataStreamByteOrder order) => Gio.GioInterop.g_data_input_stream_set_byte_order(this, order);
 		public void set_newline_type(Gio.DataStreamNewlineType type) => Gio.GioInterop.g_data_input_stream_set_newline_type(this, type);
 		public long fill(long count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_buffered_input_stream_fill(this, count, cancellable, out error);
@@ -3680,7 +3609,7 @@ namespace Gio {
 		public ulong get_available() => Gio.GioInterop.g_buffered_input_stream_get_available(this);
 		public ulong get_buffer_size() => Gio.GioInterop.g_buffered_input_stream_get_buffer_size(this);
 		public ulong peek(System.IntPtr buffer, ulong offset, ulong count) => Gio.GioInterop.g_buffered_input_stream_peek(this, buffer, offset, count);
-		public System.IntPtr peek_buffer(System.IntPtr count) => Gio.GioInterop.g_buffered_input_stream_peek_buffer(this, count);
+		public System.IntPtr peek_buffer(out ulong count) => Gio.GioInterop.g_buffered_input_stream_peek_buffer(this, out count);
 		public void set_buffer_size(ulong size) => Gio.GioInterop.g_buffered_input_stream_set_buffer_size(this, size);
 		public Gio.InputStream get_base_stream() => Gio.GioInterop.g_filter_input_stream_get_base_stream(this);
 		public bool get_close_base_stream() => Gio.GioInterop.g_filter_input_stream_get_close_base_stream(this);
@@ -3692,9 +3621,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -3705,7 +3634,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3714,7 +3643,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3723,13 +3651,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3824,16 +3751,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3842,7 +3769,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3851,13 +3777,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -3975,7 +3900,7 @@ namespace Gio {
 		public bool launch_uris_as_manager(System.IntPtr uris, Gio.AppLaunchContext launch_context, GLib.SpawnFlags spawn_flags, System.IntPtr user_setup, System.IntPtr user_setup_data, System.IntPtr pid_callback, System.IntPtr pid_callback_data, out GLib.Error error) => Gio.GioInterop.g_desktop_app_info_launch_uris_as_manager(this, uris, launch_context, spawn_flags, user_setup, user_setup_data, pid_callback, pid_callback_data, out error);
 		public System.IntPtr list_actions() => Gio.GioInterop.g_desktop_app_info_list_actions(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -3984,7 +3909,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -3993,13 +3917,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4122,7 +4045,7 @@ namespace Gio {
 		public void set_password_save(Gio.PasswordSave save) => Gio.GioInterop.g_mount_operation_set_password_save(this, save);
 		public void set_username(string username) => Gio.GioInterop.g_mount_operation_set_username(this, username);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4131,7 +4054,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4140,13 +4062,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4326,7 +4247,7 @@ namespace Gio {
 		public bool is_same(Gio.TlsCertificate cert_two) => Gio.GioInterop.g_tls_certificate_is_same(this, cert_two);
 		public Gio.TlsCertificateFlags verify(Gio.SocketConnectable identity, Gio.TlsCertificate trusted_ca) => Gio.GioInterop.g_tls_certificate_verify(this, identity, trusted_ca);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4335,7 +4256,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4344,13 +4264,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4393,7 +4312,7 @@ namespace Gio {
 		public void verify_chain_async(Gio.TlsCertificate chain, string purpose, Gio.SocketConnectable identity, Gio.TlsInteraction interaction, Gio.TlsDatabaseVerifyFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_tls_database_verify_chain_async(this, chain, purpose, identity, interaction, flags, cancellable, callback, user_data);
 		public Gio.TlsCertificateFlags verify_chain_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_tls_database_verify_chain_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4402,7 +4321,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4411,13 +4329,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4455,7 +4372,7 @@ namespace Gio {
 		public void request_certificate_async(Gio.TlsConnection connection, Gio.TlsCertificateRequestFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_tls_interaction_request_certificate_async(this, connection, flags, cancellable, callback, user_data);
 		public Gio.TlsInteractionResult request_certificate_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_tls_interaction_request_certificate_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4464,7 +4381,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4473,13 +4389,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4558,7 +4473,7 @@ namespace Gio {
 		public Gio.Icon get_icon() => Gio.GioInterop.g_emblem_get_icon(this);
 		public Gio.EmblemOrigin get_origin() => Gio.GioInterop.g_emblem_get_origin(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4567,7 +4482,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4576,13 +4490,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4634,7 +4547,7 @@ namespace Gio {
 		public System.IntPtr get_emblems() => Gio.GioInterop.g_emblemed_icon_get_emblems(this);
 		public Gio.Icon get_icon() => Gio.GioInterop.g_emblemed_icon_get_icon(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4643,7 +4556,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4652,13 +4564,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4724,7 +4635,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4733,7 +4644,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4742,13 +4652,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4798,16 +4707,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4816,7 +4725,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4825,13 +4733,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -4891,7 +4798,7 @@ namespace Gio {
 		public System.IntPtr next_files_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_file_enumerator_next_files_finish(this, result, out error);
 		public void set_pending(bool pending) => Gio.GioInterop.g_file_enumerator_set_pending(this, pending);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -4900,7 +4807,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -4909,13 +4815,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5002,7 +4907,7 @@ namespace Gio {
 		public bool is_cancelled() => Gio.GioInterop.g_file_monitor_is_cancelled(this);
 		public void set_rate_limit(int limit_msecs) => Gio.GioInterop.g_file_monitor_set_rate_limit(this, limit_msecs);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5011,7 +4916,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5020,13 +4924,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5086,7 +4989,7 @@ namespace Gio {
 		public string get_attribute_as_string(string attribute) => Gio.GioInterop.g_file_info_get_attribute_as_string(this, attribute);
 		public bool get_attribute_boolean(string attribute) => Gio.GioInterop.g_file_info_get_attribute_boolean(this, attribute);
 		public string get_attribute_byte_string(string attribute) => Gio.GioInterop.g_file_info_get_attribute_byte_string(this, attribute);
-		public bool get_attribute_data(string attribute, out Gio.FileAttributeType type, System.IntPtr value_pp, out Gio.FileAttributeStatus status) => Gio.GioInterop.g_file_info_get_attribute_data(this, attribute, out type, value_pp, out status);
+		public bool get_attribute_data(string attribute, out Gio.FileAttributeType type, out System.IntPtr value_pp, out Gio.FileAttributeStatus status) => Gio.GioInterop.g_file_info_get_attribute_data(this, attribute, out type, out value_pp, out status);
 		public int get_attribute_int32(string attribute) => Gio.GioInterop.g_file_info_get_attribute_int32(this, attribute);
 		public long get_attribute_int64(string attribute) => Gio.GioInterop.g_file_info_get_attribute_int64(this, attribute);
 		public GObject.Object get_attribute_object(string attribute) => Gio.GioInterop.g_file_info_get_attribute_object(this, attribute);
@@ -5134,7 +5037,6 @@ namespace Gio {
 		public void set_icon(Gio.Icon icon) => Gio.GioInterop.g_file_info_set_icon(this, icon);
 		public void set_is_hidden(bool is_hidden) => Gio.GioInterop.g_file_info_set_is_hidden(this, is_hidden);
 		public void set_is_symlink(bool is_symlink) => Gio.GioInterop.g_file_info_set_is_symlink(this, is_symlink);
-		public void set_modification_time(GLib.TimeVal mtime) => Gio.GioInterop.g_file_info_set_modification_time(this, mtime);
 		public void set_name(System.IntPtr name) => Gio.GioInterop.g_file_info_set_name(this, name);
 		public void set_size(long size) => Gio.GioInterop.g_file_info_set_size(this, size);
 		public void set_sort_order(int sort_order) => Gio.GioInterop.g_file_info_set_sort_order(this, sort_order);
@@ -5142,7 +5044,7 @@ namespace Gio {
 		public void set_symlink_target(string symlink_target) => Gio.GioInterop.g_file_info_set_symlink_target(this, symlink_target);
 		public void unset_attribute_mask() => Gio.GioInterop.g_file_info_unset_attribute_mask(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5151,7 +5053,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5160,13 +5061,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5225,9 +5125,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -5238,7 +5138,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5247,7 +5147,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5256,13 +5155,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5424,7 +5322,7 @@ namespace Gio {
 		public static Gio.FileIcon @new(Gio.File file) => GioInterop.g_file_icon_new(file);
 		public Gio.File get_file() => Gio.GioInterop.g_file_icon_get_file(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5433,7 +5331,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5442,13 +5339,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5606,7 +5502,7 @@ namespace Gio {
 		public System.IntPtr get_completions(string initial_text) => Gio.GioInterop.g_filename_completer_get_completions(this, initial_text);
 		public void set_dirs_only(bool dirs_only) => Gio.GioInterop.g_filename_completer_set_dirs_only(this, dirs_only);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5615,7 +5511,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5624,13 +5519,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5766,12 +5660,11 @@ namespace Gio {
 		public void add_interface(GLib.GType instance_type, GLib.GType interface_type, GObject.InterfaceInfo interface_info) => GObject.GObjectInterop.g_type_module_add_interface(this, instance_type, interface_type, interface_info);
 		public GLib.GType register_enum(string name, GObject.EnumValue const_static_values) => GObject.GObjectInterop.g_type_module_register_enum(this, name, const_static_values);
 		public GLib.GType register_flags(string name, GObject.FlagsValue const_static_values) => GObject.GObjectInterop.g_type_module_register_flags(this, name, const_static_values);
-		public GLib.GType register_type(GLib.GType parent_type, string type_name, GObject.TypeInfo type_info, GObject.TypeFlags flags) => GObject.GObjectInterop.g_type_module_register_type(this, parent_type, type_name, type_info, flags);
 		public void set_name(string name) => GObject.GObjectInterop.g_type_module_set_name(this, name);
 		public void unuse() => GObject.GObjectInterop.g_type_module_unuse(this);
 		public bool use() => GObject.GObjectInterop.g_type_module_use(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5780,7 +5673,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5789,13 +5681,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -5919,10 +5810,10 @@ namespace Gio {
 		public bool get_is_multicast() => Gio.GioInterop.g_inet_address_get_is_multicast(this);
 		public bool get_is_site_local() => Gio.GioInterop.g_inet_address_get_is_site_local(this);
 		public ulong get_native_size() => Gio.GioInterop.g_inet_address_get_native_size(this);
-		public System.IntPtr to_bytes() => Gio.GioInterop.g_inet_address_to_bytes(this);
+		public byte to_bytes() => Gio.GioInterop.g_inet_address_to_bytes(this);
 		public string to_string() => Gio.GioInterop.g_inet_address_to_string(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -5931,7 +5822,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -5940,13 +5830,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6011,7 +5900,7 @@ namespace Gio {
 		public bool matches(Gio.InetAddress address) => Gio.GioInterop.g_inet_address_mask_matches(this, address);
 		public string to_string() => Gio.GioInterop.g_inet_address_mask_to_string(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6020,7 +5909,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6029,13 +5917,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6089,7 +5976,7 @@ namespace Gio {
 		public long get_native_size() => Gio.GioInterop.g_socket_address_get_native_size(this);
 		public bool to_native(System.IntPtr dest, ulong destlen, out GLib.Error error) => Gio.GioInterop.g_socket_address_to_native(this, dest, destlen, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6098,7 +5985,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6107,13 +5993,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6154,7 +6039,7 @@ namespace Gio {
 		public long get_native_size() => Gio.GioInterop.g_socket_address_get_native_size(this);
 		public bool to_native(System.IntPtr dest, ulong destlen, out GLib.Error error) => Gio.GioInterop.g_socket_address_to_native(this, dest, destlen, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6163,7 +6048,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6172,13 +6056,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6263,7 +6146,7 @@ namespace Gio {
 		public ulong get_size() => Gio.GioInterop.g_socket_control_message_get_size(this);
 		public void serialize(System.IntPtr data) => Gio.GioInterop.g_socket_control_message_serialize(this, data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6272,7 +6155,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6281,13 +6163,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6362,7 +6243,7 @@ namespace Gio {
 		public void sort(System.IntPtr compare_func, System.IntPtr user_data) => Gio.GioInterop.g_list_store_sort(this, compare_func, user_data);
 		public void splice(uint position, uint n_removals, System.IntPtr additions, uint n_additions) => Gio.GioInterop.g_list_store_splice(this, position, n_removals, additions, n_additions);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6371,7 +6252,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6380,13 +6260,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6449,9 +6328,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -6462,7 +6341,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6471,7 +6350,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6480,13 +6358,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6559,16 +6436,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6576,7 +6453,6 @@ namespace Gio {
 		public System.IntPtr dup_qdata(uint quark, System.IntPtr dup_func, System.IntPtr user_data) => GObject.GObjectInterop.g_object_dup_qdata(this, quark, dup_func, user_data);
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6585,13 +6461,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6665,7 +6540,7 @@ namespace Gio {
 		public Gio.MenuAttributeIter iterate_item_attributes(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_attributes(this, item_index);
 		public Gio.MenuLinkIter iterate_item_links(int item_index) => Gio.GioInterop.g_menu_model_iterate_item_links(this, item_index);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6674,7 +6549,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6683,13 +6557,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6733,7 +6606,7 @@ namespace Gio {
 		public void set_section(Gio.MenuModel section) => Gio.GioInterop.g_menu_item_set_section(this, section);
 		public void set_submenu(Gio.MenuModel submenu) => Gio.GioInterop.g_menu_item_set_submenu(this, submenu);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6742,7 +6615,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6751,13 +6623,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6787,11 +6658,11 @@ namespace Gio {
 		public static implicit operator GObject.Object(MenuAttributeIter value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator MenuAttributeIter(GObject.Object value) => new MenuAttributeIter((IntPtr)value, checkType: true);
 		public string get_name() => Gio.GioInterop.g_menu_attribute_iter_get_name(this);
-		public bool get_next(string out_name, out GLib.Variant value) => Gio.GioInterop.g_menu_attribute_iter_get_next(this, out_name, out value);
+		public bool get_next(out string out_name, out GLib.Variant value) => Gio.GioInterop.g_menu_attribute_iter_get_next(this, out out_name, out value);
 		public GLib.Variant get_value() => Gio.GioInterop.g_menu_attribute_iter_get_value(this);
 		public bool next() => Gio.GioInterop.g_menu_attribute_iter_next(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6800,7 +6671,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6809,13 +6679,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -6865,11 +6734,11 @@ namespace Gio {
 		public static implicit operator GObject.Object(MenuLinkIter value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator MenuLinkIter(GObject.Object value) => new MenuLinkIter((IntPtr)value, checkType: true);
 		public string get_name() => Gio.GioInterop.g_menu_link_iter_get_name(this);
-		public bool get_next(string out_link, out Gio.MenuModel value) => Gio.GioInterop.g_menu_link_iter_get_next(this, out_link, out value);
+		public bool get_next(out string out_link, out Gio.MenuModel value) => Gio.GioInterop.g_menu_link_iter_get_next(this, out out_link, out value);
 		public Gio.MenuModel get_value() => Gio.GioInterop.g_menu_link_iter_get_value(this);
 		public bool next() => Gio.GioInterop.g_menu_link_iter_next(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -6878,7 +6747,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -6887,13 +6755,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7022,7 +6889,7 @@ namespace Gio {
 		public Gio.Volume get_volume_for_uuid(string uuid) => Gio.GioInterop.g_volume_monitor_get_volume_for_uuid(this, uuid);
 		public System.IntPtr get_volumes() => Gio.GioInterop.g_volume_monitor_get_volumes(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7031,7 +6898,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7040,13 +6906,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7083,7 +6948,7 @@ namespace Gio {
 		public Gio.Volume get_volume_for_uuid(string uuid) => Gio.GioInterop.g_volume_monitor_get_volume_for_uuid(this, uuid);
 		public System.IntPtr get_volumes() => Gio.GioInterop.g_volume_monitor_get_volumes(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7092,7 +6957,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7101,13 +6965,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7164,7 +7027,7 @@ namespace Gio {
 		public ushort get_port() => Gio.GioInterop.g_network_address_get_port(this);
 		public string get_scheme() => Gio.GioInterop.g_network_address_get_scheme(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7173,7 +7036,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7182,13 +7044,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7280,7 +7141,7 @@ namespace Gio {
 		public string get_service() => Gio.GioInterop.g_network_service_get_service(this);
 		public void set_scheme(string scheme) => Gio.GioInterop.g_network_service_set_scheme(this, scheme);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7289,7 +7150,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7298,13 +7158,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7398,7 +7257,7 @@ namespace Gio {
 		public void release_async(Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_permission_release_async(this, cancellable, callback, user_data);
 		public bool release_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_permission_release_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7407,7 +7266,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7416,13 +7274,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7493,7 +7350,7 @@ namespace Gio {
 		public static explicit operator PropertyAction(GObject.Object value) => new PropertyAction((IntPtr)value, checkType: true);
 		public static Gio.PropertyAction @new(string name, GObject.Object @object, string property_name) => GioInterop.g_property_action_new(name, @object, property_name);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7502,7 +7359,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7511,13 +7367,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7583,7 +7438,7 @@ namespace Gio {
 		public long get_native_size() => Gio.GioInterop.g_socket_address_get_native_size(this);
 		public bool to_native(System.IntPtr dest, ulong destlen, out GLib.Error error) => Gio.GioInterop.g_socket_address_to_native(this, dest, destlen, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7592,7 +7447,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7601,13 +7455,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7677,7 +7530,7 @@ namespace Gio {
 		public void next_async(Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_socket_address_enumerator_next_async(this, cancellable, callback, user_data);
 		public Gio.SocketAddress next_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_socket_address_enumerator_next_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7686,7 +7539,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7695,13 +7547,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7746,7 +7597,7 @@ namespace Gio {
 		public void next_async(Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_socket_address_enumerator_next_async(this, cancellable, callback, user_data);
 		public Gio.SocketAddress next_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_socket_address_enumerator_next_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7755,7 +7606,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7764,13 +7614,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7866,7 +7715,7 @@ namespace Gio {
 		public System.IntPtr lookup_service_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_resolver_lookup_service_finish(this, result, out error);
 		public void set_default() => Gio.GioInterop.g_resolver_set_default(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -7875,7 +7724,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -7884,13 +7732,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -7969,7 +7816,7 @@ namespace Gio {
 		public static explicit operator IntPtr(Resource value) => value._pointer;
 		public static Gio.Resource new_from_data(GLib.Bytes data, out GLib.Error error) => GioInterop.g_resource_new_from_data(data, out error);
 		public System.IntPtr enumerate_children(string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error) => Gio.GioInterop.g_resource_enumerate_children(this, path, lookup_flags, out error);
-		public bool get_info(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr size, System.IntPtr flags, out GLib.Error error) => Gio.GioInterop.g_resource_get_info(this, path, lookup_flags, size, flags, out error);
+		public bool get_info(string path, Gio.ResourceLookupFlags lookup_flags, out ulong size, out uint flags, out GLib.Error error) => Gio.GioInterop.g_resource_get_info(this, path, lookup_flags, out size, out flags, out error);
 		public GLib.Bytes lookup_data(string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error) => Gio.GioInterop.g_resource_lookup_data(this, path, lookup_flags, out error);
 		public Gio.InputStream open_stream(string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error) => Gio.GioInterop.g_resource_open_stream(this, path, lookup_flags, out error);
 		public Gio.Resource @ref() => Gio.GioInterop.g_resource_ref(this);
@@ -8069,7 +7916,7 @@ namespace Gio {
 		public bool set_uint64(string key, ulong value) => Gio.GioInterop.g_settings_set_uint64(this, key, value);
 		public bool set_value(string key, GLib.Variant value) => Gio.GioInterop.g_settings_set_value(this, key, value);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8078,7 +7925,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8087,13 +7933,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8142,7 +7987,7 @@ namespace Gio {
 		public static explicit operator IntPtr(SettingsBackend value) => value._pointer;
 		public static implicit operator GObject.Object(SettingsBackend value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator SettingsBackend(GObject.Object value) => new SettingsBackend((IntPtr)value, checkType: true);
-		public static void flatten_tree(GLib.Tree tree, string path, System.IntPtr keys, System.IntPtr values) => GioInterop.g_settings_backend_flatten_tree(tree, path, keys, values);
+		public static void flatten_tree(GLib.Tree tree, out string path, out System.IntPtr keys, out System.IntPtr values) => GioInterop.g_settings_backend_flatten_tree(tree, out path, out keys, out values);
 		public static Gio.SettingsBackend get_default() => GioInterop.g_settings_backend_get_default();
 		public void changed(string key, System.IntPtr origin_tag) => Gio.GioInterop.g_settings_backend_changed(this, key, origin_tag);
 		public void changed_tree(GLib.Tree tree, System.IntPtr origin_tag) => Gio.GioInterop.g_settings_backend_changed_tree(this, tree, origin_tag);
@@ -8151,7 +7996,7 @@ namespace Gio {
 		public void path_writable_changed(string path) => Gio.GioInterop.g_settings_backend_path_writable_changed(this, path);
 		public void writable_changed(string key) => Gio.GioInterop.g_settings_backend_writable_changed(this, key);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8160,7 +8005,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8169,13 +8013,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8270,7 +8113,7 @@ namespace Gio {
 		public static explicit operator SettingsSchemaSource(IntPtr pointer) => new SettingsSchemaSource(pointer, checkType: true);
 		public static explicit operator IntPtr(SettingsSchemaSource value) => value._pointer;
 		public static Gio.SettingsSchemaSource new_from_directory(System.IntPtr directory, Gio.SettingsSchemaSource parent, bool trusted, out GLib.Error error) => GioInterop.g_settings_schema_source_new_from_directory(directory, parent, trusted, out error);
-		public void list_schemas(bool recursive, System.IntPtr non_relocatable, System.IntPtr relocatable) => Gio.GioInterop.g_settings_schema_source_list_schemas(this, recursive, non_relocatable, relocatable);
+		public void list_schemas(bool recursive, out System.IntPtr non_relocatable, out System.IntPtr relocatable) => Gio.GioInterop.g_settings_schema_source_list_schemas(this, recursive, out non_relocatable, out relocatable);
 		public Gio.SettingsSchema lookup(string schema_id, bool recursive) => Gio.GioInterop.g_settings_schema_source_lookup(this, schema_id, recursive);
 		public Gio.SettingsSchemaSource @ref() => Gio.GioInterop.g_settings_schema_source_ref(this);
 		public void unref() => Gio.GioInterop.g_settings_schema_source_unref(this);
@@ -8299,7 +8142,7 @@ namespace Gio {
 		public Gio.Action lookup(string action_name) => Gio.GioInterop.g_simple_action_group_lookup(this, action_name);
 		public void remove(string action_name) => Gio.GioInterop.g_simple_action_group_remove(this, action_name);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8308,7 +8151,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8317,13 +8159,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8392,7 +8233,7 @@ namespace Gio {
 		public void set_op_res_gssize(long op_res) => Gio.GioInterop.g_simple_async_result_set_op_res_gssize(this, op_res);
 		public void take_error(GLib.Error error) => Gio.GioInterop.g_simple_async_result_take_error(this, error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8401,7 +8242,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8410,13 +8250,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8469,7 +8308,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8478,7 +8317,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8487,13 +8325,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8536,7 +8373,7 @@ namespace Gio {
 		public void release_async(Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_permission_release_async(this, cancellable, callback, user_data);
 		public bool release_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_permission_release_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8545,7 +8382,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8554,13 +8390,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8594,7 +8429,7 @@ namespace Gio {
 		public void set_ignore_hosts(string ignore_hosts) => Gio.GioInterop.g_simple_proxy_resolver_set_ignore_hosts(this, ignore_hosts);
 		public void set_uri_proxy(string uri_scheme, string proxy) => Gio.GioInterop.g_simple_proxy_resolver_set_uri_proxy(this, uri_scheme, proxy);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8603,7 +8438,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8612,13 +8446,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8690,7 +8523,7 @@ namespace Gio {
 		public Gio.SocketAddress get_local_address(out GLib.Error error) => Gio.GioInterop.g_socket_get_local_address(this, out error);
 		public bool get_multicast_loopback() => Gio.GioInterop.g_socket_get_multicast_loopback(this);
 		public uint get_multicast_ttl() => Gio.GioInterop.g_socket_get_multicast_ttl(this);
-		public bool get_option(int level, int optname, System.IntPtr value, out GLib.Error error) => Gio.GioInterop.g_socket_get_option(this, level, optname, value, out error);
+		public bool get_option(int level, int optname, out int value, out GLib.Error error) => Gio.GioInterop.g_socket_get_option(this, level, optname, out value, out error);
 		public Gio.SocketProtocol get_protocol() => Gio.GioInterop.g_socket_get_protocol(this);
 		public Gio.SocketAddress get_remote_address(out GLib.Error error) => Gio.GioInterop.g_socket_get_remote_address(this, out error);
 		public Gio.SocketType get_socket_type() => Gio.GioInterop.g_socket_get_socket_type(this);
@@ -8703,7 +8536,7 @@ namespace Gio {
 		public bool listen(out GLib.Error error) => Gio.GioInterop.g_socket_listen(this, out error);
 		public long receive(System.IntPtr buffer, ulong size, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive(this, buffer, size, cancellable, out error);
 		public long receive_from(out Gio.SocketAddress address, System.IntPtr buffer, ulong size, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive_from(this, out address, buffer, size, cancellable, out error);
-		public long receive_message(out Gio.SocketAddress address, System.IntPtr vectors, int num_vectors, System.IntPtr messages, System.IntPtr num_messages, System.IntPtr flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive_message(this, out address, vectors, num_vectors, messages, num_messages, flags, cancellable, out error);
+		public long receive_message(out Gio.SocketAddress address, System.IntPtr vectors, int num_vectors, out System.IntPtr messages, out int num_messages, ref int flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive_message(this, out address, vectors, num_vectors, out messages, out num_messages, ref flags, cancellable, out error);
 		public int receive_messages(System.IntPtr messages, uint num_messages, int flags, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive_messages(this, messages, num_messages, flags, cancellable, out error);
 		public long receive_with_blocking(System.IntPtr buffer, ulong size, bool blocking, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_receive_with_blocking(this, buffer, size, blocking, cancellable, out error);
 		public long send(System.IntPtr buffer, ulong size, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_socket_send(this, buffer, size, cancellable, out error);
@@ -8723,7 +8556,7 @@ namespace Gio {
 		public bool shutdown(bool shutdown_read, bool shutdown_write, out GLib.Error error) => Gio.GioInterop.g_socket_shutdown(this, shutdown_read, shutdown_write, out error);
 		public bool speaks_ipv4() => Gio.GioInterop.g_socket_speaks_ipv4(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8732,7 +8565,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8741,13 +8573,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8813,7 +8644,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8822,7 +8653,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8831,13 +8661,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -8919,7 +8748,7 @@ namespace Gio {
 		public void set_tls(bool tls) => Gio.GioInterop.g_socket_client_set_tls(this, tls);
 		public void set_tls_validation_flags(Gio.TlsCertificateFlags flags) => Gio.GioInterop.g_socket_client_set_tls_validation_flags(this, flags);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -8928,7 +8757,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -8937,13 +8765,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9068,7 +8895,7 @@ namespace Gio {
 		public void close() => Gio.GioInterop.g_socket_listener_close(this);
 		public void set_backlog(int listen_backlog) => Gio.GioInterop.g_socket_listener_set_backlog(this, listen_backlog);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9077,7 +8904,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9086,13 +8912,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9175,7 +9000,7 @@ namespace Gio {
 		public void close() => Gio.GioInterop.g_socket_listener_close(this);
 		public void set_backlog(int listen_backlog) => Gio.GioInterop.g_socket_listener_set_backlog(this, listen_backlog);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9184,7 +9009,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9193,13 +9017,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9265,9 +9088,9 @@ namespace Gio {
 		public bool communicate(GLib.Bytes stdin_buf, Gio.Cancellable cancellable, out GLib.Bytes stdout_buf, out GLib.Bytes stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate(this, stdin_buf, cancellable, out stdout_buf, out stderr_buf, out error);
 		public void communicate_async(GLib.Bytes stdin_buf, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_subprocess_communicate_async(this, stdin_buf, cancellable, callback, user_data);
 		public bool communicate_finish(Gio.AsyncResult result, out GLib.Bytes stdout_buf, out GLib.Bytes stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate_finish(this, result, out stdout_buf, out stderr_buf, out error);
-		public bool communicate_utf8(string stdin_buf, Gio.Cancellable cancellable, string stdout_buf, string stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate_utf8(this, stdin_buf, cancellable, stdout_buf, stderr_buf, out error);
+		public bool communicate_utf8(string stdin_buf, Gio.Cancellable cancellable, out string stdout_buf, out string stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate_utf8(this, stdin_buf, cancellable, out stdout_buf, out stderr_buf, out error);
 		public void communicate_utf8_async(string stdin_buf, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_subprocess_communicate_utf8_async(this, stdin_buf, cancellable, callback, user_data);
-		public bool communicate_utf8_finish(Gio.AsyncResult result, string stdout_buf, string stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate_utf8_finish(this, result, stdout_buf, stderr_buf, out error);
+		public bool communicate_utf8_finish(Gio.AsyncResult result, out string stdout_buf, out string stderr_buf, out GLib.Error error) => Gio.GioInterop.g_subprocess_communicate_utf8_finish(this, result, out stdout_buf, out stderr_buf, out error);
 		public void force_exit() => Gio.GioInterop.g_subprocess_force_exit(this);
 		public int get_exit_status() => Gio.GioInterop.g_subprocess_get_exit_status(this);
 		public string get_identifier() => Gio.GioInterop.g_subprocess_get_identifier(this);
@@ -9287,7 +9110,7 @@ namespace Gio {
 		public bool wait_check_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_subprocess_wait_check_finish(this, result, out error);
 		public bool wait_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_subprocess_wait_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9296,7 +9119,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9305,13 +9127,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9370,7 +9191,7 @@ namespace Gio {
 		public void take_stdout_fd(int fd) => Gio.GioInterop.g_subprocess_launcher_take_stdout_fd(this, fd);
 		public void unsetenv(string variable) => Gio.GioInterop.g_subprocess_launcher_unsetenv(this, variable);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9379,7 +9200,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9388,13 +9208,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9453,7 +9272,7 @@ namespace Gio {
 		public void set_source_tag(System.IntPtr source_tag) => Gio.GioInterop.g_task_set_source_tag(this, source_tag);
 		public void set_task_data(System.IntPtr task_data, System.IntPtr task_data_destroy) => Gio.GioInterop.g_task_set_task_data(this, task_data, task_data_destroy);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9462,7 +9281,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9471,13 +9289,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9540,7 +9357,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9549,7 +9366,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9558,13 +9374,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9641,7 +9456,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9650,7 +9465,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9659,13 +9473,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9723,7 +9536,7 @@ namespace Gio {
 		public void stop() => Gio.GioInterop.g_test_dbus_stop(this);
 		public void up() => Gio.GioInterop.g_test_dbus_up(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9732,7 +9545,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9741,13 +9553,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9788,7 +9599,7 @@ namespace Gio {
 		public System.IntPtr get_names() => Gio.GioInterop.g_themed_icon_get_names(this);
 		public void prepend_name(string iconname) => Gio.GioInterop.g_themed_icon_prepend_name(this, iconname);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9797,7 +9608,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9806,13 +9616,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -9882,7 +9691,7 @@ namespace Gio {
 		public void close() => Gio.GioInterop.g_socket_listener_close(this);
 		public void set_backlog(int listen_backlog) => Gio.GioInterop.g_socket_listener_set_backlog(this, listen_backlog);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -9891,7 +9700,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -9900,13 +9708,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10032,7 +9839,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10041,7 +9848,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10050,13 +9856,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10208,15 +10013,15 @@ namespace Gio {
 		public static Gio.TlsPassword @new(Gio.TlsPasswordFlags flags, string description) => GioInterop.g_tls_password_new(flags, description);
 		public string get_description() => Gio.GioInterop.g_tls_password_get_description(this);
 		public Gio.TlsPasswordFlags get_flags() => Gio.GioInterop.g_tls_password_get_flags(this);
-		public System.IntPtr get_value(System.IntPtr length) => Gio.GioInterop.g_tls_password_get_value(this, length);
+		public byte get_value(ulong length) => Gio.GioInterop.g_tls_password_get_value(this, length);
 		public string get_warning() => Gio.GioInterop.g_tls_password_get_warning(this);
 		public void set_description(string description) => Gio.GioInterop.g_tls_password_set_description(this, description);
 		public void set_flags(Gio.TlsPasswordFlags flags) => Gio.GioInterop.g_tls_password_set_flags(this, flags);
-		public void set_value(System.IntPtr value, long length) => Gio.GioInterop.g_tls_password_set_value(this, value, length);
-		public void set_value_full(System.IntPtr value, long length, System.IntPtr destroy) => Gio.GioInterop.g_tls_password_set_value_full(this, value, length, destroy);
+		public void set_value(byte value, long length) => Gio.GioInterop.g_tls_password_set_value(this, value, length);
+		public void set_value_full(byte value, long length, System.IntPtr destroy) => Gio.GioInterop.g_tls_password_set_value_full(this, value, length, destroy);
 		public void set_warning(string warning) => Gio.GioInterop.g_tls_password_set_warning(this, warning);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10225,7 +10030,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10234,13 +10038,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10370,7 +10173,7 @@ namespace Gio {
 		public bool set_pending(out GLib.Error error) => Gio.GioInterop.g_io_stream_set_pending(this, out error);
 		public void splice_async(Gio.IOStream stream2, Gio.IOStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_io_stream_splice_async(this, stream2, flags, io_priority, cancellable, callback, user_data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10379,7 +10182,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10388,13 +10190,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10454,7 +10255,7 @@ namespace Gio {
 		public ulong get_size() => Gio.GioInterop.g_socket_control_message_get_size(this);
 		public void serialize(System.IntPtr data) => Gio.GioInterop.g_socket_control_message_serialize(this, data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10463,7 +10264,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10472,13 +10272,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10553,13 +10352,13 @@ namespace Gio {
 		public static Gio.SocketControlMessage new_with_fd_list(Gio.UnixFDList fd_list) => GioInterop.g_unix_fd_message_new_with_fd_list(fd_list);
 		public bool append_fd(int fd, out GLib.Error error) => Gio.GioInterop.g_unix_fd_message_append_fd(this, fd, out error);
 		public Gio.UnixFDList get_fd_list() => Gio.GioInterop.g_unix_fd_message_get_fd_list(this);
-		public System.IntPtr steal_fds(System.IntPtr length) => Gio.GioInterop.g_unix_fd_message_steal_fds(this, length);
+		public System.IntPtr steal_fds(out int length) => Gio.GioInterop.g_unix_fd_message_steal_fds(this, out length);
 		public int get_level() => Gio.GioInterop.g_socket_control_message_get_level(this);
 		public int get_msg_type() => Gio.GioInterop.g_socket_control_message_get_msg_type(this);
 		public ulong get_size() => Gio.GioInterop.g_socket_control_message_get_size(this);
 		public void serialize(System.IntPtr data) => Gio.GioInterop.g_socket_control_message_serialize(this, data);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10568,7 +10367,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10577,13 +10375,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10645,9 +10442,9 @@ namespace Gio {
 		public bool has_pending() => Gio.GioInterop.g_input_stream_has_pending(this);
 		public bool is_closed() => Gio.GioInterop.g_input_stream_is_closed(this);
 		public long read(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read(this, buffer, count, cancellable, out error);
-		public bool read_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, bytes_read, cancellable, out error);
+		public bool read_all(System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all(this, buffer, count, out bytes_read, cancellable, out error);
 		public void read_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool read_all_finish(Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, bytes_read, out error);
+		public bool read_all_finish(Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_all_finish(this, result, out bytes_read, out error);
 		public void read_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public GLib.Bytes read_bytes(ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_input_stream_read_bytes(this, count, cancellable, out error);
 		public void read_bytes_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_read_bytes_async(this, count, io_priority, cancellable, callback, user_data);
@@ -10658,7 +10455,7 @@ namespace Gio {
 		public void skip_async(ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_input_stream_skip_async(this, count, io_priority, cancellable, callback, user_data);
 		public long skip_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_input_stream_skip_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10667,7 +10464,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10676,13 +10472,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10747,7 +10542,7 @@ namespace Gio {
 		public static Gio.UnixMountMonitor get() => GioInterop.g_unix_mount_monitor_get();
 		public void set_rate_limit(int limit_msec) => Gio.GioInterop.g_unix_mount_monitor_set_rate_limit(this, limit_msec);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10756,7 +10551,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10765,13 +10559,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10857,16 +10650,16 @@ namespace Gio {
 		public void splice_async(Gio.InputStream source, Gio.OutputStreamSpliceFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_splice_async(this, source, flags, io_priority, cancellable, callback, user_data);
 		public long splice_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_splice_finish(this, result, out error);
 		public long write(System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write(this, buffer, count, cancellable, out error);
-		public bool write_all(System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, bytes_written, cancellable, out error);
+		public bool write_all(System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all(this, buffer, count, out bytes_written, cancellable, out error);
 		public void write_all_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_all_async(this, buffer, count, io_priority, cancellable, callback, user_data);
-		public bool write_all_finish(Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, bytes_written, out error);
+		public bool write_all_finish(Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_all_finish(this, result, out bytes_written, out error);
 		public void write_async(System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_async(this, buffer, count, io_priority, cancellable, callback, user_data);
 		public long write_bytes(GLib.Bytes bytes, Gio.Cancellable cancellable, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes(this, bytes, cancellable, out error);
 		public void write_bytes_async(GLib.Bytes bytes, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => Gio.GioInterop.g_output_stream_write_bytes_async(this, bytes, io_priority, cancellable, callback, user_data);
 		public long write_bytes_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_bytes_finish(this, result, out error);
 		public long write_finish(Gio.AsyncResult result, out GLib.Error error) => Gio.GioInterop.g_output_stream_write_finish(this, result, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10875,7 +10668,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10884,13 +10676,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -10961,7 +10752,7 @@ namespace Gio {
 		public long get_native_size() => Gio.GioInterop.g_socket_address_get_native_size(this);
 		public bool to_native(System.IntPtr dest, ulong destlen, out GLib.Error error) => Gio.GioInterop.g_socket_address_to_native(this, dest, destlen, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -10970,7 +10761,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -10979,13 +10769,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -11044,7 +10833,7 @@ namespace Gio {
 		public bool register_uri_scheme(string scheme, System.IntPtr uri_func, System.IntPtr uri_data, System.IntPtr uri_destroy, System.IntPtr parse_name_func, System.IntPtr parse_name_data, System.IntPtr parse_name_destroy) => Gio.GioInterop.g_vfs_register_uri_scheme(this, scheme, uri_func, uri_data, uri_destroy, parse_name_func, parse_name_data, parse_name_destroy);
 		public bool unregister_uri_scheme(string scheme) => Gio.GioInterop.g_vfs_unregister_uri_scheme(this, scheme);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -11053,7 +10842,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -11062,13 +10850,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -11121,7 +10908,7 @@ namespace Gio {
 		public Gio.FileInfo get_file_info() => Gio.GioInterop.g_zlib_compressor_get_file_info(this);
 		public void set_file_info(Gio.FileInfo file_info) => Gio.GioInterop.g_zlib_compressor_set_file_info(this, file_info);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -11130,7 +10917,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -11139,13 +10925,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -11193,7 +10978,7 @@ namespace Gio {
 		public static Gio.ZlibDecompressor @new(Gio.ZlibCompressorFormat format) => GioInterop.g_zlib_decompressor_new(format);
 		public Gio.FileInfo get_file_info() => Gio.GioInterop.g_zlib_decompressor_get_file_info(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -11202,7 +10987,6 @@ namespace Gio {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -11211,13 +10995,12 @@ namespace Gio {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -11285,7 +11068,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.Icon g_content_type_get_symbolic_icon(string type);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_content_type_guess(string filename, System.IntPtr data, ulong data_size, System.IntPtr result_uncertain);
+		public static extern string g_content_type_guess(string filename, System.IntPtr data, ulong data_size, out bool result_uncertain);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_content_type_guess_for_tree(Gio.File root);
 		[DllImport("libgio-2.0.so.0")]
@@ -11303,13 +11086,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_address_get_stream(string address, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.IOStream g_dbus_address_get_stream_finish(Gio.AsyncResult res, string out_guid, out GLib.Error error);
+		public static extern Gio.IOStream g_dbus_address_get_stream_finish(Gio.AsyncResult res, out string out_guid, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.IOStream g_dbus_address_get_stream_sync(string address, string out_guid, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern Gio.IOStream g_dbus_address_get_stream_sync(string address, out string out_guid, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_dbus_generate_guid();
-		[DllImport("libgio-2.0.so.0")]
-		public static extern GLib.Variant g_dbus_gvalue_to_gvariant(GObject.Value gvalue, GLib.VariantType type);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_dbus_is_address(string @string);
 		[DllImport("libgio-2.0.so.0")]
@@ -11357,11 +11138,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_pollable_stream_write(Gio.OutputStream stream, System.IntPtr buffer, ulong count, bool blocking, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_pollable_stream_write_all(Gio.OutputStream stream, System.IntPtr buffer, ulong count, bool blocking, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern bool g_pollable_stream_write_all(Gio.OutputStream stream, System.IntPtr buffer, ulong count, bool blocking, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resources_enumerate_children(string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_resources_get_info(string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr size, System.IntPtr flags, out GLib.Error error);
+		public static extern bool g_resources_get_info(string path, Gio.ResourceLookupFlags lookup_flags, out ulong size, out uint flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern GLib.Bytes g_resources_lookup_data(string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -11377,13 +11158,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_unix_is_mount_path_system_internal(System.IntPtr mount_path);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.UnixMountEntry g_unix_mount_at(System.IntPtr mount_path, System.IntPtr time_read);
+		public static extern Gio.UnixMountEntry g_unix_mount_at(System.IntPtr mount_path, out ulong time_read);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_unix_mount_compare(Gio.UnixMountEntry mount1, Gio.UnixMountEntry mount2);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.UnixMountEntry g_unix_mount_copy(Gio.UnixMountEntry mount_entry);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.UnixMountEntry g_unix_mount_for(System.IntPtr file_path, System.IntPtr time_read);
+		public static extern Gio.UnixMountEntry g_unix_mount_for(System.IntPtr file_path, out ulong time_read);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_unix_mount_free(Gio.UnixMountEntry mount_entry);
 		[DllImport("libgio-2.0.so.0")]
@@ -11409,15 +11190,15 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_unix_mount_points_changed_since(ulong time);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_mount_points_get(System.IntPtr time_read);
+		public static extern System.IntPtr g_unix_mount_points_get(out ulong time_read);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_unix_mounts_changed_since(ulong time);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_mounts_get(System.IntPtr time_read);
+		public static extern System.IntPtr g_unix_mounts_get(out ulong time_read);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_action_name_is_valid(string action_name);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_action_parse_detailed_name(string detailed_name, string action_name, out GLib.Variant target_value, out GLib.Error error);
+		public static extern bool g_action_parse_detailed_name(string detailed_name, out string action_name, out GLib.Variant target_value, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_action_print_detailed_name(string action_name, GLib.Variant target_value);
 		[DllImport("libgio-2.0.so.0")]
@@ -11473,7 +11254,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_action_group_list_actions(Gio.ActionGroup action_group);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_action_group_query_action(Gio.ActionGroup action_group, string action_name, System.IntPtr enabled, out GLib.VariantType parameter_type, out GLib.VariantType state_type, out GLib.Variant state_hint, out GLib.Variant state);
+		public static extern bool g_action_group_query_action(Gio.ActionGroup action_group, string action_name, out bool enabled, out GLib.VariantType parameter_type, out GLib.VariantType state_type, out GLib.Variant state_hint, out GLib.Variant state);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_action_map_add_action(Gio.ActionMap action_map, Gio.Action action);
 		[DllImport("libgio-2.0.so.0")]
@@ -11578,8 +11359,6 @@ namespace Gio {
 		public static extern int g_cancellable_get_fd(Gio.Cancellable cancellable);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_cancellable_is_cancelled(Gio.Cancellable cancellable);
-		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_cancellable_make_pollfd(Gio.Cancellable cancellable, GLib.PollFD pollfd);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_cancellable_pop_current(Gio.Cancellable cancellable);
 		[DllImport("libgio-2.0.so.0")]
@@ -11709,15 +11488,15 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_file_is_native(Gio.File file);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_load_contents(Gio.File file, Gio.Cancellable cancellable, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error);
+		public static extern bool g_file_load_contents(Gio.File file, Gio.Cancellable cancellable, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_load_contents_async(Gio.File file, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_load_contents_finish(Gio.File file, Gio.AsyncResult res, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error);
+		public static extern bool g_file_load_contents_finish(Gio.File file, Gio.AsyncResult res, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_load_partial_contents_async(Gio.File file, Gio.Cancellable cancellable, System.IntPtr read_more_callback, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_load_partial_contents_finish(Gio.File file, Gio.AsyncResult res, System.IntPtr contents, System.IntPtr length, string etag_out, out GLib.Error error);
+		public static extern bool g_file_load_partial_contents_finish(Gio.File file, Gio.AsyncResult res, out System.IntPtr contents, out ulong length, out string etag_out, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_file_make_directory(Gio.File file, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -11729,11 +11508,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_file_make_symbolic_link(Gio.File file, System.IntPtr symlink_value, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_measure_disk_usage(Gio.File file, Gio.FileMeasureFlags flags, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, out GLib.Error error);
+		public static extern bool g_file_measure_disk_usage(Gio.File file, Gio.FileMeasureFlags flags, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, out ulong disk_usage, out ulong num_dirs, out ulong num_files, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_measure_disk_usage_async(Gio.File file, Gio.FileMeasureFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr progress_callback, System.IntPtr progress_data, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_measure_disk_usage_finish(Gio.File file, Gio.AsyncResult result, System.IntPtr disk_usage, System.IntPtr num_dirs, System.IntPtr num_files, out GLib.Error error);
+		public static extern bool g_file_measure_disk_usage_finish(Gio.File file, Gio.AsyncResult result, out ulong disk_usage, out ulong num_dirs, out ulong num_files, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.FileMonitor g_file_monitor(Gio.File file, Gio.FileMonitorFlags flags, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -11793,13 +11572,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_replace_async(Gio.File file, string etag, bool make_backup, Gio.FileCreateFlags flags, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_replace_contents(Gio.File file, System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, string new_etag, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern bool g_file_replace_contents(Gio.File file, System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, out string new_etag, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_replace_contents_async(Gio.File file, System.IntPtr contents, ulong length, string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_replace_contents_bytes_async(Gio.File file, GLib.Bytes contents, string etag, bool make_backup, Gio.FileCreateFlags flags, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_replace_contents_finish(Gio.File file, Gio.AsyncResult res, string new_etag, out GLib.Error error);
+		public static extern bool g_file_replace_contents_finish(Gio.File file, Gio.AsyncResult res, out string new_etag, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.FileOutputStream g_file_replace_finish(Gio.File file, Gio.AsyncResult res, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -11999,13 +11778,13 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_remove_filter(Gio.DBusConnection connection, uint filter_id);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_dbus_connection_send_message(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, System.IntPtr out_serial, out GLib.Error error);
+		public static extern bool g_dbus_connection_send_message(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, out uint out_serial, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_connection_send_message_with_reply(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
+		public static extern void g_dbus_connection_send_message_with_reply(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, out uint out_serial, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.DBusMessage g_dbus_connection_send_message_with_reply_finish(Gio.DBusConnection connection, Gio.AsyncResult res, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.DBusMessage g_dbus_connection_send_message_with_reply_sync(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, System.IntPtr out_serial, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern Gio.DBusMessage g_dbus_connection_send_message_with_reply_sync(Gio.DBusConnection connection, Gio.DBusMessage message, Gio.DBusSendMessageFlags flags, int timeout_msec, out uint out_serial, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_connection_set_exit_on_close(Gio.DBusConnection connection, bool exit_on_close);
 		[DllImport("libgio-2.0.so.0")]
@@ -12045,7 +11824,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.File g_application_command_line_create_file_for_arg(Gio.ApplicationCommandLine cmdline, string arg);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_application_command_line_get_arguments(Gio.ApplicationCommandLine cmdline, System.IntPtr argc);
+		public static extern System.IntPtr g_application_command_line_get_arguments(Gio.ApplicationCommandLine cmdline, out int argc);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_application_command_line_get_cwd(Gio.ApplicationCommandLine cmdline);
 		[DllImport("libgio-2.0.so.0")]
@@ -12079,11 +11858,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_input_stream_read(Gio.InputStream stream, System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_input_stream_read_all(Gio.InputStream stream, System.IntPtr buffer, ulong count, System.IntPtr bytes_read, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern bool g_input_stream_read_all(Gio.InputStream stream, System.IntPtr buffer, ulong count, out ulong bytes_read, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_input_stream_read_all_async(Gio.InputStream stream, System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_input_stream_read_all_finish(Gio.InputStream stream, Gio.AsyncResult result, System.IntPtr bytes_read, out GLib.Error error);
+		public static extern bool g_input_stream_read_all_finish(Gio.InputStream stream, Gio.AsyncResult result, out ulong bytes_read, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_input_stream_read_async(Gio.InputStream stream, System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
@@ -12137,7 +11916,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern ulong g_buffered_input_stream_peek(Gio.BufferedInputStream stream, System.IntPtr buffer, ulong offset, ulong count);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_buffered_input_stream_peek_buffer(Gio.BufferedInputStream stream, System.IntPtr count);
+		public static extern System.IntPtr g_buffered_input_stream_peek_buffer(Gio.BufferedInputStream stream, out ulong count);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_buffered_input_stream_read_byte(Gio.BufferedInputStream stream, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -12179,11 +11958,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_output_stream_write(Gio.OutputStream stream, System.IntPtr buffer, ulong count, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_output_stream_write_all(Gio.OutputStream stream, System.IntPtr buffer, ulong count, System.IntPtr bytes_written, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern bool g_output_stream_write_all(Gio.OutputStream stream, System.IntPtr buffer, ulong count, out ulong bytes_written, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_output_stream_write_all_async(Gio.OutputStream stream, System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_output_stream_write_all_finish(Gio.OutputStream stream, Gio.AsyncResult result, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern bool g_output_stream_write_all_finish(Gio.OutputStream stream, Gio.AsyncResult result, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_output_stream_write_async(Gio.OutputStream stream, System.IntPtr buffer, ulong count, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
@@ -12213,17 +11992,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_filter_output_stream_set_close_base_stream(Gio.FilterOutputStream stream, bool close_base);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.InputStream g_loadable_icon_load(Gio.LoadableIcon icon, int size, string type, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern Gio.InputStream g_loadable_icon_load(Gio.LoadableIcon icon, int size, out string type, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_loadable_icon_load_async(Gio.LoadableIcon icon, int size, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.InputStream g_loadable_icon_load_finish(Gio.LoadableIcon icon, Gio.AsyncResult res, string type, out GLib.Error error);
+		public static extern Gio.InputStream g_loadable_icon_load_finish(Gio.LoadableIcon icon, Gio.AsyncResult res, out string type, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.BytesIcon g_bytes_icon_new(GLib.Bytes bytes);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern GLib.Bytes g_bytes_icon_get_bytes(Gio.BytesIcon icon);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern Gio.ConverterResult g_converter_convert(Gio.Converter converter, System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, Gio.ConverterFlags flags, System.IntPtr bytes_read, System.IntPtr bytes_written, out GLib.Error error);
+		public static extern Gio.ConverterResult g_converter_convert(Gio.Converter converter, System.IntPtr inbuf, ulong inbuf_size, System.IntPtr outbuf, ulong outbuf_size, Gio.ConverterFlags flags, out ulong bytes_read, out ulong bytes_written, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_converter_reset(Gio.Converter converter);
 		[DllImport("libgio-2.0.so.0")]
@@ -12333,9 +12112,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_unix_fd_list_get_length(Gio.UnixFDList list);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_fd_list_peek_fds(Gio.UnixFDList list, System.IntPtr length);
+		public static extern System.IntPtr g_unix_fd_list_peek_fds(Gio.UnixFDList list, out int length);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_fd_list_steal_fds(Gio.UnixFDList list, System.IntPtr length);
+		public static extern System.IntPtr g_unix_fd_list_steal_fds(Gio.UnixFDList list, out int length);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern GLib.Variant g_menu_model_get_item_attribute_value(Gio.MenuModel model, int item_index, string attribute, GLib.VariantType expected_type);
 		[DllImport("libgio-2.0.so.0")]
@@ -12354,8 +12133,6 @@ namespace Gio {
 		public static extern void g_dbus_interface_info_cache_build(Gio.DBusInterfaceInfo info);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_interface_info_cache_release(Gio.DBusInterfaceInfo info);
-		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_interface_info_generate_xml(Gio.DBusInterfaceInfo info, uint indent, GLib.String string_builder);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.DBusMethodInfo g_dbus_interface_info_lookup_method(Gio.DBusInterfaceInfo info, string name);
 		[DllImport("libgio-2.0.so.0")]
@@ -12457,7 +12234,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_dbus_message_set_unix_fd_list(Gio.DBusMessage message, Gio.UnixFDList fd_list);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_dbus_message_to_blob(Gio.DBusMessage message, System.IntPtr out_size, Gio.DBusCapabilityFlags capabilities, out GLib.Error error);
+		public static extern System.IntPtr g_dbus_message_to_blob(Gio.DBusMessage message, out ulong out_size, Gio.DBusCapabilityFlags capabilities, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_dbus_message_to_gerror(Gio.DBusMessage message, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -12473,7 +12250,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_dbus_error_register_error(uint error_domain, int error_code, string dbus_error_name);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_error_register_error_domain(string error_domain_quark_name, System.IntPtr quark_volatile, Gio.DBusErrorEntry entries, uint num_entries);
+		public static extern void g_dbus_error_register_error_domain(string error_domain_quark_name, ulong quark_volatile, Gio.DBusErrorEntry entries, uint num_entries);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_dbus_error_strip_remote_error(GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -12566,8 +12343,6 @@ namespace Gio {
 		public static extern Gio.DBusMenuModel g_dbus_menu_model_get(Gio.DBusConnection connection, string bus_name, string object_path);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.DBusNodeInfo g_dbus_node_info_new_for_xml(string xml_data, out GLib.Error error);
-		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_dbus_node_info_generate_xml(Gio.DBusNodeInfo info, uint indent, GLib.String string_builder);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.DBusInterfaceInfo g_dbus_node_info_lookup_interface(Gio.DBusNodeInfo info, string name);
 		[DllImport("libgio-2.0.so.0")]
@@ -12711,15 +12486,15 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_data_input_stream_read_int64(Gio.DataInputStream stream, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_data_input_stream_read_line(Gio.DataInputStream stream, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern System.IntPtr g_data_input_stream_read_line(Gio.DataInputStream stream, out ulong length, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_data_input_stream_read_line_async(Gio.DataInputStream stream, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_data_input_stream_read_line_finish(Gio.DataInputStream stream, Gio.AsyncResult result, System.IntPtr length, out GLib.Error error);
+		public static extern System.IntPtr g_data_input_stream_read_line_finish(Gio.DataInputStream stream, Gio.AsyncResult result, out ulong length, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_line_finish_utf8(Gio.DataInputStream stream, Gio.AsyncResult result, System.IntPtr length, out GLib.Error error);
+		public static extern string g_data_input_stream_read_line_finish_utf8(Gio.DataInputStream stream, Gio.AsyncResult result, out ulong length, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_line_utf8(Gio.DataInputStream stream, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern string g_data_input_stream_read_line_utf8(Gio.DataInputStream stream, out ulong length, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern ushort g_data_input_stream_read_uint16(Gio.DataInputStream stream, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -12727,17 +12502,17 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern ulong g_data_input_stream_read_uint64(Gio.DataInputStream stream, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_until(Gio.DataInputStream stream, string stop_chars, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern string g_data_input_stream_read_until(Gio.DataInputStream stream, string stop_chars, out ulong length, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_data_input_stream_read_until_async(Gio.DataInputStream stream, string stop_chars, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_until_finish(Gio.DataInputStream stream, Gio.AsyncResult result, System.IntPtr length, out GLib.Error error);
+		public static extern string g_data_input_stream_read_until_finish(Gio.DataInputStream stream, Gio.AsyncResult result, out ulong length, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_upto(Gio.DataInputStream stream, string stop_chars, long stop_chars_len, System.IntPtr length, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern string g_data_input_stream_read_upto(Gio.DataInputStream stream, string stop_chars, long stop_chars_len, out ulong length, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_data_input_stream_read_upto_async(Gio.DataInputStream stream, string stop_chars, long stop_chars_len, int io_priority, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern string g_data_input_stream_read_upto_finish(Gio.DataInputStream stream, Gio.AsyncResult result, System.IntPtr length, out GLib.Error error);
+		public static extern string g_data_input_stream_read_upto_finish(Gio.DataInputStream stream, Gio.AsyncResult result, out ulong length, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_data_input_stream_set_byte_order(Gio.DataInputStream stream, Gio.DataStreamByteOrder order);
 		[DllImport("libgio-2.0.so.0")]
@@ -13195,7 +12970,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_file_info_get_attribute_byte_string(Gio.FileInfo info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_file_info_get_attribute_data(Gio.FileInfo info, string attribute, out Gio.FileAttributeType type, System.IntPtr value_pp, out Gio.FileAttributeStatus status);
+		public static extern bool g_file_info_get_attribute_data(Gio.FileInfo info, string attribute, out Gio.FileAttributeType type, out System.IntPtr value_pp, out Gio.FileAttributeStatus status);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_file_info_get_attribute_int32(Gio.FileInfo info, string attribute);
 		[DllImport("libgio-2.0.so.0")]
@@ -13290,8 +13065,6 @@ namespace Gio {
 		public static extern void g_file_info_set_is_hidden(Gio.FileInfo info, bool is_hidden);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_is_symlink(Gio.FileInfo info, bool is_symlink);
-		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_file_info_set_modification_time(Gio.FileInfo info, GLib.TimeVal mtime);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_file_info_set_name(Gio.FileInfo info, System.IntPtr name);
 		[DllImport("libgio-2.0.so.0")]
@@ -13429,7 +13202,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern ulong g_inet_address_get_native_size(Gio.InetAddress address);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_inet_address_to_bytes(Gio.InetAddress address);
+		public static extern byte g_inet_address_to_bytes(Gio.InetAddress address);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_inet_address_to_string(Gio.InetAddress address);
 		[DllImport("libgio-2.0.so.0")]
@@ -13591,7 +13364,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_menu_attribute_iter_get_name(Gio.MenuAttributeIter iter);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_menu_attribute_iter_get_next(Gio.MenuAttributeIter iter, string out_name, out GLib.Variant value);
+		public static extern bool g_menu_attribute_iter_get_next(Gio.MenuAttributeIter iter, out string out_name, out GLib.Variant value);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern GLib.Variant g_menu_attribute_iter_get_value(Gio.MenuAttributeIter iter);
 		[DllImport("libgio-2.0.so.0")]
@@ -13599,7 +13372,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_menu_link_iter_get_name(Gio.MenuLinkIter iter);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_menu_link_iter_get_next(Gio.MenuLinkIter iter, string out_link, out Gio.MenuModel value);
+		public static extern bool g_menu_link_iter_get_next(Gio.MenuLinkIter iter, out string out_link, out Gio.MenuModel value);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.MenuModel g_menu_link_iter_get_value(Gio.MenuLinkIter iter);
 		[DllImport("libgio-2.0.so.0")]
@@ -13777,7 +13550,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern System.IntPtr g_resource_enumerate_children(Gio.Resource resource, string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_resource_get_info(Gio.Resource resource, string path, Gio.ResourceLookupFlags lookup_flags, System.IntPtr size, System.IntPtr flags, out GLib.Error error);
+		public static extern bool g_resource_get_info(Gio.Resource resource, string path, Gio.ResourceLookupFlags lookup_flags, out ulong size, out uint flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern GLib.Bytes g_resource_lookup_data(Gio.Resource resource, string path, Gio.ResourceLookupFlags lookup_flags, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -13905,7 +13678,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_settings_schema_unref(Gio.SettingsSchema schema);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_settings_backend_flatten_tree(GLib.Tree tree, string path, System.IntPtr keys, System.IntPtr values);
+		public static extern void g_settings_backend_flatten_tree(GLib.Tree tree, out string path, out System.IntPtr keys, out System.IntPtr values);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.SettingsBackend g_settings_backend_get_default();
 		[DllImport("libgio-2.0.so.0")]
@@ -13941,7 +13714,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.SettingsSchemaSource g_settings_schema_source_new_from_directory(System.IntPtr directory, Gio.SettingsSchemaSource parent, bool trusted, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_settings_schema_source_list_schemas(Gio.SettingsSchemaSource source, bool recursive, System.IntPtr non_relocatable, System.IntPtr relocatable);
+		public static extern void g_settings_schema_source_list_schemas(Gio.SettingsSchemaSource source, bool recursive, out System.IntPtr non_relocatable, out System.IntPtr relocatable);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.SettingsSchema g_settings_schema_source_lookup(Gio.SettingsSchemaSource source, string schema_id, bool recursive);
 		[DllImport("libgio-2.0.so.0")]
@@ -14057,7 +13830,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern uint g_socket_get_multicast_ttl(Gio.Socket socket);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_socket_get_option(Gio.Socket socket, int level, int optname, System.IntPtr value, out GLib.Error error);
+		public static extern bool g_socket_get_option(Gio.Socket socket, int level, int optname, out int value, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.SocketProtocol g_socket_get_protocol(Gio.Socket socket);
 		[DllImport("libgio-2.0.so.0")]
@@ -14083,7 +13856,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern long g_socket_receive_from(Gio.Socket socket, out Gio.SocketAddress address, System.IntPtr buffer, ulong size, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern long g_socket_receive_message(Gio.Socket socket, out Gio.SocketAddress address, System.IntPtr vectors, int num_vectors, System.IntPtr messages, System.IntPtr num_messages, System.IntPtr flags, Gio.Cancellable cancellable, out GLib.Error error);
+		public static extern long g_socket_receive_message(Gio.Socket socket, out Gio.SocketAddress address, System.IntPtr vectors, int num_vectors, out System.IntPtr messages, out int num_messages, ref int flags, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern int g_socket_receive_messages(Gio.Socket socket, System.IntPtr messages, uint num_messages, int flags, Gio.Cancellable cancellable, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
@@ -14251,11 +14024,11 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern bool g_subprocess_communicate_finish(Gio.Subprocess subprocess, Gio.AsyncResult result, out GLib.Bytes stdout_buf, out GLib.Bytes stderr_buf, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_subprocess_communicate_utf8(Gio.Subprocess subprocess, string stdin_buf, Gio.Cancellable cancellable, string stdout_buf, string stderr_buf, out GLib.Error error);
+		public static extern bool g_subprocess_communicate_utf8(Gio.Subprocess subprocess, string stdin_buf, Gio.Cancellable cancellable, out string stdout_buf, out string stderr_buf, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_subprocess_communicate_utf8_async(Gio.Subprocess subprocess, string stdin_buf, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern bool g_subprocess_communicate_utf8_finish(Gio.Subprocess subprocess, Gio.AsyncResult result, string stdout_buf, string stderr_buf, out GLib.Error error);
+		public static extern bool g_subprocess_communicate_utf8_finish(Gio.Subprocess subprocess, Gio.AsyncResult result, out string stdout_buf, out string stderr_buf, out GLib.Error error);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_subprocess_force_exit(Gio.Subprocess subprocess);
 		[DllImport("libgio-2.0.so.0")]
@@ -14505,7 +14278,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.TlsPasswordFlags g_tls_password_get_flags(Gio.TlsPassword password);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_tls_password_get_value(Gio.TlsPassword password, System.IntPtr length);
+		public static extern byte g_tls_password_get_value(Gio.TlsPassword password, ulong length);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern string g_tls_password_get_warning(Gio.TlsPassword password);
 		[DllImport("libgio-2.0.so.0")]
@@ -14513,9 +14286,9 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_password_set_flags(Gio.TlsPassword password, Gio.TlsPasswordFlags flags);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_password_set_value(Gio.TlsPassword password, System.IntPtr value, long length);
+		public static extern void g_tls_password_set_value(Gio.TlsPassword password, byte value, long length);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern void g_tls_password_set_value_full(Gio.TlsPassword password, System.IntPtr value, long length, System.IntPtr destroy);
+		public static extern void g_tls_password_set_value_full(Gio.TlsPassword password, byte value, long length, System.IntPtr destroy);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern void g_tls_password_set_warning(Gio.TlsPassword password, string warning);
 		[DllImport("libgio-2.0.so.0")]
@@ -14553,7 +14326,7 @@ namespace Gio {
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.UnixFDList g_unix_fd_message_get_fd_list(Gio.UnixFDMessage message);
 		[DllImport("libgio-2.0.so.0")]
-		public static extern System.IntPtr g_unix_fd_message_steal_fds(Gio.UnixFDMessage message, System.IntPtr length);
+		public static extern System.IntPtr g_unix_fd_message_steal_fds(Gio.UnixFDMessage message, out int length);
 		[DllImport("libgio-2.0.so.0")]
 		public static extern Gio.InputStream g_unix_input_stream_new(int fd, bool close_fd);
 		[DllImport("libgio-2.0.so.0")]

@@ -42,9 +42,9 @@ namespace GdkPixbuf {
 		public static GdkPixbuf.Pixbuf new_from_xpm_data(System.IntPtr data) => GdkPixbufInterop.gdk_pixbuf_new_from_xpm_data(data);
 		public static int calculate_rowstride(GdkPixbuf.Colorspace colorspace, bool has_alpha, int bits_per_sample, int width, int height) => GdkPixbufInterop.gdk_pixbuf_calculate_rowstride(colorspace, has_alpha, bits_per_sample, width, height);
 		public static GdkPixbuf.Pixbuf from_pixdata(GdkPixbuf.Pixdata pixdata, bool copy_pixels, out GLib.Error error) => GdkPixbufInterop.gdk_pixbuf_from_pixdata(pixdata, copy_pixels, out error);
-		public static GdkPixbuf.PixbufFormat get_file_info(string filename, System.IntPtr width, System.IntPtr height) => GdkPixbufInterop.gdk_pixbuf_get_file_info(filename, width, height);
+		public static GdkPixbuf.PixbufFormat get_file_info(string filename, out int width, out int height) => GdkPixbufInterop.gdk_pixbuf_get_file_info(filename, out width, out height);
 		public static void get_file_info_async(string filename, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => GdkPixbufInterop.gdk_pixbuf_get_file_info_async(filename, cancellable, callback, user_data);
-		public static GdkPixbuf.PixbufFormat get_file_info_finish(Gio.AsyncResult async_result, System.IntPtr width, System.IntPtr height, out GLib.Error error) => GdkPixbufInterop.gdk_pixbuf_get_file_info_finish(async_result, width, height, out error);
+		public static GdkPixbuf.PixbufFormat get_file_info_finish(Gio.AsyncResult async_result, out int width, out int height, out GLib.Error error) => GdkPixbufInterop.gdk_pixbuf_get_file_info_finish(async_result, out width, out height, out error);
 		public static System.IntPtr get_formats() => GdkPixbufInterop.gdk_pixbuf_get_formats();
 		public static void new_from_stream_async(Gio.InputStream stream, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => GdkPixbufInterop.gdk_pixbuf_new_from_stream_async(stream, cancellable, callback, user_data);
 		public static void new_from_stream_at_scale_async(Gio.InputStream stream, int width, int height, bool preserve_aspect_ratio, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => GdkPixbufInterop.gdk_pixbuf_new_from_stream_at_scale_async(stream, width, height, preserve_aspect_ratio, cancellable, callback, user_data);
@@ -68,17 +68,17 @@ namespace GdkPixbuf {
 		public string get_option(string key) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_option(this, key);
 		public System.IntPtr get_options() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_options(this);
 		public System.IntPtr get_pixels() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_pixels(this);
-		public System.IntPtr get_pixels_with_length(System.IntPtr length) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_pixels_with_length(this, length);
+		public System.IntPtr get_pixels_with_length(out uint length) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_pixels_with_length(this, out length);
 		public int get_rowstride() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_rowstride(this);
 		public int get_width() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_get_width(this);
 		public GdkPixbuf.Pixbuf new_subpixbuf(int src_x, int src_y, int width, int height) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_new_subpixbuf(this, src_x, src_y, width, height);
 		public GLib.Bytes read_pixel_bytes() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_read_pixel_bytes(this);
-		public System.IntPtr read_pixels() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_read_pixels(this);
+		public byte read_pixels() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_read_pixels(this);
 		public GdkPixbuf.Pixbuf @ref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_ref(this);
 		public bool remove_option(string key) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_remove_option(this, key);
 		public GdkPixbuf.Pixbuf rotate_simple(GdkPixbuf.PixbufRotation angle) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_rotate_simple(this, angle);
 		public void saturate_and_pixelate(GdkPixbuf.Pixbuf dest, float saturation, bool pixelate) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_saturate_and_pixelate(this, dest, saturation, pixelate);
-		public bool save_to_bufferv(System.IntPtr buffer, System.IntPtr buffer_size, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_save_to_bufferv(this, buffer, buffer_size, type, option_keys, option_values, out error);
+		public bool save_to_bufferv(out System.IntPtr buffer, out ulong buffer_size, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_save_to_bufferv(this, out buffer, out buffer_size, type, option_keys, option_values, out error);
 		public bool save_to_callbackv(System.IntPtr save_func, System.IntPtr user_data, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_save_to_callbackv(this, save_func, user_data, type, option_keys, option_values, out error);
 		public bool save_to_streamv(Gio.OutputStream stream, string type, System.IntPtr option_keys, System.IntPtr option_values, Gio.Cancellable cancellable, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_save_to_streamv(this, stream, type, option_keys, option_values, cancellable, out error);
 		public void save_to_streamv_async(Gio.OutputStream stream, string type, System.IntPtr option_keys, System.IntPtr option_values, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_save_to_streamv_async(this, stream, type, option_keys, option_values, cancellable, callback, user_data);
@@ -88,7 +88,7 @@ namespace GdkPixbuf {
 		public bool set_option(string key, string value) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_set_option(this, key, value);
 		public void unref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_unref(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -97,7 +97,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -105,13 +104,12 @@ namespace GdkPixbuf {
 		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -135,8 +133,7 @@ namespace GdkPixbuf {
 		public static explicit operator IntPtr(Pixdata value) => value._pointer;
 		public bool deserialize(uint stream_length, System.IntPtr stream, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixdata_deserialize(this, stream_length, stream, out error);
 		public System.IntPtr from_pixbuf(GdkPixbuf.Pixbuf pixbuf, bool use_rle) => GdkPixbuf.GdkPixbufInterop.gdk_pixdata_from_pixbuf(this, pixbuf, use_rle);
-		public System.IntPtr serialize(System.IntPtr stream_length_p) => GdkPixbuf.GdkPixbufInterop.gdk_pixdata_serialize(this, stream_length_p);
-		public GLib.String to_csource(string name, GdkPixbuf.PixdataDumpType dump_type) => GdkPixbuf.GdkPixbufInterop.gdk_pixdata_to_csource(this, name, dump_type);
+		public System.IntPtr serialize(out uint stream_length_p) => GdkPixbuf.GdkPixbufInterop.gdk_pixdata_serialize(this, out stream_length_p);
 	}
 	public ref struct PixbufFormat
 	{
@@ -195,14 +192,13 @@ namespace GdkPixbuf {
 		public static GdkPixbuf.PixbufAnimation new_from_stream_finish(Gio.AsyncResult async_result, out GLib.Error error) => GdkPixbufInterop.gdk_pixbuf_animation_new_from_stream_finish(async_result, out error);
 		public static void new_from_stream_async(Gio.InputStream stream, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data) => GdkPixbufInterop.gdk_pixbuf_animation_new_from_stream_async(stream, cancellable, callback, user_data);
 		public int get_height() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_height(this);
-		public GdkPixbuf.PixbufAnimationIter get_iter(GLib.TimeVal start_time) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_iter(this, start_time);
 		public GdkPixbuf.Pixbuf get_static_image() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_static_image(this);
 		public int get_width() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_width(this);
 		public bool is_static_image() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_is_static_image(this);
 		public GdkPixbuf.PixbufAnimation @ref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_ref(this);
 		public void unref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_unref(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -211,7 +207,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -219,13 +214,12 @@ namespace GdkPixbuf {
 		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -253,12 +247,11 @@ namespace GdkPixbuf {
 		public static explicit operator IntPtr(PixbufAnimationIter value) => value._pointer;
 		public static implicit operator GObject.Object(PixbufAnimationIter value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator PixbufAnimationIter(GObject.Object value) => new PixbufAnimationIter((IntPtr)value, checkType: true);
-		public bool advance(GLib.TimeVal current_time) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_advance(this, current_time);
 		public int get_delay_time() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_get_delay_time(this);
 		public GdkPixbuf.Pixbuf get_pixbuf() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_get_pixbuf(this);
 		public bool on_currently_loading_frame() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_on_currently_loading_frame(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -267,7 +260,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -276,13 +268,12 @@ namespace GdkPixbuf {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -332,7 +323,7 @@ namespace GdkPixbuf {
 		public bool write(System.IntPtr buf, ulong count, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_loader_write(this, buf, count, out error);
 		public bool write_bytes(GLib.Bytes buffer, out GLib.Error error) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_loader_write_bytes(this, buffer, out error);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -341,7 +332,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -350,13 +340,12 @@ namespace GdkPixbuf {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -402,14 +391,13 @@ namespace GdkPixbuf {
 		public bool get_loop() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_simple_anim_get_loop(this);
 		public void set_loop(bool loop) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_simple_anim_set_loop(this, loop);
 		public int get_height() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_height(this);
-		public GdkPixbuf.PixbufAnimationIter get_iter(GLib.TimeVal start_time) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_iter(this, start_time);
 		public GdkPixbuf.Pixbuf get_static_image() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_static_image(this);
 		public int get_width() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_get_width(this);
 		public bool is_static_image() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_is_static_image(this);
 		public GdkPixbuf.PixbufAnimation @ref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_ref(this);
 		public void unref() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_unref(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -418,7 +406,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -426,13 +413,12 @@ namespace GdkPixbuf {
 		public void notify_by_pspec(GObject.ParamSpec pspec) => GObject.GObjectInterop.g_object_notify_by_pspec(this, pspec);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -472,12 +458,11 @@ namespace GdkPixbuf {
 		public static explicit operator PixbufSimpleAnimIter(GdkPixbuf.PixbufAnimationIter value) => new PixbufSimpleAnimIter((IntPtr)value, checkType: true);
 		public static implicit operator GObject.Object(PixbufSimpleAnimIter value) => new GObject.Object((IntPtr)value, checkType: false);
 		public static explicit operator PixbufSimpleAnimIter(GObject.Object value) => new PixbufSimpleAnimIter((IntPtr)value, checkType: true);
-		public bool advance(GLib.TimeVal current_time) => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_advance(this, current_time);
 		public int get_delay_time() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_get_delay_time(this);
 		public GdkPixbuf.Pixbuf get_pixbuf() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_get_pixbuf(this);
 		public bool on_currently_loading_frame() => GdkPixbuf.GdkPixbufInterop.gdk_pixbuf_animation_iter_on_currently_loading_frame(this);
 		public void add_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_add_toggle_ref(this, notify, data);
-		public void add_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, weak_pointer_location);
+		public void add_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_add_weak_pointer(this, ref weak_pointer_location);
 		public GObject.Binding bind_property(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags) => GObject.GObjectInterop.g_object_bind_property(this, source_property, target, target_property, flags);
 		public GObject.Binding bind_property_full(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, System.IntPtr transform_to, System.IntPtr transform_from, System.IntPtr user_data, System.IntPtr notify) => GObject.GObjectInterop.g_object_bind_property_full(this, source_property, target, target_property, flags, transform_to, transform_from, user_data, notify);
 		public GObject.Binding bind_property_with_closures(string source_property, GObject.Object target, string target_property, GObject.BindingFlags flags, GObject.Closure transform_to, GObject.Closure transform_from) => GObject.GObjectInterop.g_object_bind_property_with_closures(this, source_property, target, target_property, flags, transform_to, transform_from);
@@ -486,7 +471,6 @@ namespace GdkPixbuf {
 		public void force_floating() => GObject.GObjectInterop.g_object_force_floating(this);
 		public void freeze_notify() => GObject.GObjectInterop.g_object_freeze_notify(this);
 		public System.IntPtr get_data(string key) => GObject.GObjectInterop.g_object_get_data(this, key);
-		public void get_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_get_property(this, property_name, value);
 		public System.IntPtr get_qdata(uint quark) => GObject.GObjectInterop.g_object_get_qdata(this, quark);
 		public void getv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_getv(this, n_properties, names, values);
 		public bool is_floating() => GObject.GObjectInterop.g_object_is_floating(this);
@@ -495,13 +479,12 @@ namespace GdkPixbuf {
 		public GObject.Object @ref() => GObject.GObjectInterop.g_object_ref(this);
 		public GObject.Object ref_sink() => GObject.GObjectInterop.g_object_ref_sink(this);
 		public void remove_toggle_ref(System.IntPtr notify, System.IntPtr data) => GObject.GObjectInterop.g_object_remove_toggle_ref(this, notify, data);
-		public void remove_weak_pointer(System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, weak_pointer_location);
+		public void remove_weak_pointer(ref System.IntPtr weak_pointer_location) => GObject.GObjectInterop.g_object_remove_weak_pointer(this, ref weak_pointer_location);
 		public bool replace_data(string key, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_data(this, key, oldval, newval, destroy, old_destroy);
 		public bool replace_qdata(uint quark, System.IntPtr oldval, System.IntPtr newval, System.IntPtr destroy, System.IntPtr old_destroy) => GObject.GObjectInterop.g_object_replace_qdata(this, quark, oldval, newval, destroy, old_destroy);
 		public void run_dispose() => GObject.GObjectInterop.g_object_run_dispose(this);
 		public void set_data(string key, System.IntPtr data) => GObject.GObjectInterop.g_object_set_data(this, key, data);
 		public void set_data_full(string key, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_data_full(this, key, data, destroy);
-		public void set_property(string property_name, GObject.Value value) => GObject.GObjectInterop.g_object_set_property(this, property_name, value);
 		public void set_qdata(uint quark, System.IntPtr data) => GObject.GObjectInterop.g_object_set_qdata(this, quark, data);
 		public void set_qdata_full(uint quark, System.IntPtr data, System.IntPtr destroy) => GObject.GObjectInterop.g_object_set_qdata_full(this, quark, data, destroy);
 		public void setv(uint n_properties, System.IntPtr names, System.IntPtr values) => GObject.GObjectInterop.g_object_setv(this, n_properties, names, values);
@@ -571,11 +554,11 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_from_pixdata(GdkPixbuf.Pixdata pixdata, bool copy_pixels, out GLib.Error error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern GdkPixbuf.PixbufFormat gdk_pixbuf_get_file_info(string filename, System.IntPtr width, System.IntPtr height);
+		public static extern GdkPixbuf.PixbufFormat gdk_pixbuf_get_file_info(string filename, out int width, out int height);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern void gdk_pixbuf_get_file_info_async(string filename, Gio.Cancellable cancellable, System.IntPtr callback, System.IntPtr user_data);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern GdkPixbuf.PixbufFormat gdk_pixbuf_get_file_info_finish(Gio.AsyncResult async_result, System.IntPtr width, System.IntPtr height, out GLib.Error error);
+		public static extern GdkPixbuf.PixbufFormat gdk_pixbuf_get_file_info_finish(Gio.AsyncResult async_result, out int width, out int height, out GLib.Error error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_get_formats();
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -623,7 +606,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixbuf_get_pixels(GdkPixbuf.Pixbuf pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_get_pixels_with_length(GdkPixbuf.Pixbuf pixbuf, System.IntPtr length);
+		public static extern System.IntPtr gdk_pixbuf_get_pixels_with_length(GdkPixbuf.Pixbuf pixbuf, out uint length);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_get_rowstride(GdkPixbuf.Pixbuf pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -633,7 +616,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern GLib.Bytes gdk_pixbuf_read_pixel_bytes(GdkPixbuf.Pixbuf pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixbuf_read_pixels(GdkPixbuf.Pixbuf pixbuf);
+		public static extern byte gdk_pixbuf_read_pixels(GdkPixbuf.Pixbuf pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_ref(GdkPixbuf.Pixbuf pixbuf);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -643,7 +626,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern void gdk_pixbuf_saturate_and_pixelate(GdkPixbuf.Pixbuf src, GdkPixbuf.Pixbuf dest, float saturation, bool pixelate);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern bool gdk_pixbuf_save_to_bufferv(GdkPixbuf.Pixbuf pixbuf, System.IntPtr buffer, System.IntPtr buffer_size, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error);
+		public static extern bool gdk_pixbuf_save_to_bufferv(GdkPixbuf.Pixbuf pixbuf, out System.IntPtr buffer, out ulong buffer_size, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern bool gdk_pixbuf_save_to_callbackv(GdkPixbuf.Pixbuf pixbuf, System.IntPtr save_func, System.IntPtr user_data, string type, System.IntPtr option_keys, System.IntPtr option_values, out GLib.Error error);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -665,9 +648,7 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern System.IntPtr gdk_pixdata_from_pixbuf(GdkPixbuf.Pixdata pixdata, GdkPixbuf.Pixbuf pixbuf, bool use_rle);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern System.IntPtr gdk_pixdata_serialize(GdkPixbuf.Pixdata pixdata, System.IntPtr stream_length_p);
-		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern GLib.String gdk_pixdata_to_csource(GdkPixbuf.Pixdata pixdata, string name, GdkPixbuf.PixdataDumpType dump_type);
+		public static extern System.IntPtr gdk_pixdata_serialize(GdkPixbuf.Pixdata pixdata, out uint stream_length_p);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern GdkPixbuf.PixbufFormat gdk_pixbuf_format_copy(GdkPixbuf.PixbufFormat format);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
@@ -705,8 +686,6 @@ namespace GdkPixbuf {
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_animation_get_height(GdkPixbuf.PixbufAnimation animation);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern GdkPixbuf.PixbufAnimationIter gdk_pixbuf_animation_get_iter(GdkPixbuf.PixbufAnimation animation, GLib.TimeVal start_time);
-		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern GdkPixbuf.Pixbuf gdk_pixbuf_animation_get_static_image(GdkPixbuf.PixbufAnimation animation);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_animation_get_width(GdkPixbuf.PixbufAnimation animation);
@@ -716,8 +695,6 @@ namespace GdkPixbuf {
 		public static extern GdkPixbuf.PixbufAnimation gdk_pixbuf_animation_ref(GdkPixbuf.PixbufAnimation animation);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern void gdk_pixbuf_animation_unref(GdkPixbuf.PixbufAnimation animation);
-		[DllImport("libgdk_pixbuf-2.0.so.0")]
-		public static extern bool gdk_pixbuf_animation_iter_advance(GdkPixbuf.PixbufAnimationIter iter, GLib.TimeVal current_time);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]
 		public static extern int gdk_pixbuf_animation_iter_get_delay_time(GdkPixbuf.PixbufAnimationIter iter);
 		[DllImport("libgdk_pixbuf-2.0.so.0")]

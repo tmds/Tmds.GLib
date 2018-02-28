@@ -9,13 +9,109 @@ namespace Tmds.Gir
     class Generator
     {
         private readonly StringBuilder _sb = new StringBuilder();
-
-        public Generator()
+        private readonly NamespaceCollection _namespaces;
+        private bool _analyzed;
+        private Dictionary<GLibType, TypeAnalysis> _typeAnalyses = new Dictionary<GLibType, TypeAnalysis>();
+        public Generator(NamespaceCollection namespaces)
         {
+            _namespaces = namespaces;
         }
 
-        public string Generate(Namespace ns)
+        private void Analyze()
         {
+            if (_analyzed)
+            {
+                return;
+            }
+            foreach (var ns in _namespaces.Namespaces)
+            {
+                AnalyzeFunctions(ns.Functions);
+                foreach (var type in ns.Types)
+                {
+                    var functions = GetFunctions(type);
+                    if (functions != null)
+                    {
+                        AnalyzeFunctions(functions);
+                    }
+                }
+            }
+            _analyzed = true;
+        }
+
+        private void AnalyzeFunctions(List<Function> functions)
+        {
+            foreach (var function in functions)
+            {
+                AnalyzeParameter(function.Return, function);
+                foreach (var parameter in function.Parameters)
+                {
+                    AnalyzeParameter(parameter, function);
+                }
+            }
+        }
+
+        private void AnalyzeParameter(Parameter param, Function function)
+        {
+            (string cType, GLibType type) = ResolveType(param.CType, param.Type);
+
+            int starCount = 0;
+            while (cType.Length > 0 && cType[cType.Length - 1 - starCount] == '*') { starCount++; };
+            if (param.Direction == ParameterDirection.Out || param.Direction == ParameterDirection.InOut)
+            {
+                starCount--;
+                if (type is ListType listType && param.CallerAllocates)
+                {
+                    if (listType.ItemType != null)
+                    {
+                        // g_io_channel_read_chars -> guint8
+                        // g_main_context_query    -> GLib.PollFD
+                        GetTypeInfo(listType.ItemType).StarCount[0]++;
+                    }
+                    starCount++;
+                }    
+            }
+
+            if (type is FundamentalType fun && (fun.Fundamental == Fundamental.Utf8) && starCount == 0)
+            {
+                // g_unichar_to_utf8
+                return;
+            }
+
+            if (type is ListType && starCount == 0)
+            {
+                // g_base64_decode_inplace -> gchar*
+                // g_base64_decode_step -> guchar*
+                // g_base64_encode_close -> gchar*
+                // g_base64_encode_step -> gchar*
+                // g_key_file_set_boolean_list -> gboolean
+                // g_key_file_set_double_list -> gdouble
+                // g_key_file_set_integer_list -> gint
+                // g_object_new_with_properties -> GValue
+                // g_object_getv -> GValue
+                // g_object_setv -> GValue
+                starCount++;
+            }
+
+            GetTypeInfo(type).StarCount[starCount]++;
+        }
+
+        private TypeAnalysis GetTypeInfo(GLibType type)
+        {
+            TypeAnalysis info;
+            if (!_typeAnalyses.TryGetValue(type, out info))
+            {
+                info = new TypeAnalysis(type);
+                _typeAnalyses.Add(type, info);
+            }
+            return info;
+        }
+
+        public string Generate(string name)
+        {
+            Namespace ns =_namespaces.Namespaces.Where(_ => _.Name == name).First();
+
+            Analyze();
+
             _sb.Clear();
             foreach (var usingNamespace in new[] { "System",
                                                    "System.Runtime.InteropServices"})
@@ -36,6 +132,18 @@ namespace Tmds.Gir
                 switch (type)
                 {
                     case RecordType rec:
+                        {
+                            bool isRefType = !_typeAnalyses.ContainsKey(rec) || _typeAnalyses[rec].IsRefType;
+                            if (isRefType)
+                            {
+                                AddRefStruct(rec);
+                            }
+                            else
+                            {
+                                AddValueStruct(rec);
+                            }
+                        }
+                        break;
                     case ClassType cls:
                     case InterfaceType interf:
                         AddRefStruct(type);
@@ -97,6 +205,14 @@ namespace Tmds.Gir
             {
                 return false;
             }
+        }
+
+        private void AddValueStruct(GLibType type)
+        {
+            // System.Console.WriteLine($"Adding value struct {type.FullName}");
+            // _sb.AppendFormat("\tpublic struct {0}\n", type.Name);
+            // _sb.Append("\t{\n");
+            // _sb.Append("\t}\n");
         }
 
         private void AddRefStruct(GLibType type)
@@ -207,7 +323,7 @@ namespace Tmds.Gir
             _sb.Append("\t}\n");
         }
 
-        private struct ParameterInfo
+        private class ParameterInfo
         {
             public string Type;
             public string Name;
@@ -307,125 +423,36 @@ namespace Tmds.Gir
             return identifier;
         }
 
-        private static (string modifier, string typeName) MarshallAsType(Parameter p, Function function)
+        private (string modifier, string typeName) MarshallAsType(Parameter p, Function function)
         {
             GLibType type = p.Type;
             string cType = p.CType;
 
             (cType, type) = ResolveType(cType, type);
 
-            int starCount = 0;
-            while (cType.Length > 0 && cType[cType.Length - 1 - starCount] == '*') { starCount++; };
-
-            bool enumType = type is BitfieldType || type is EnumerationType;
-            bool byRefType = type is RecordType || type is ClassType || type is InterfaceType;
-            if (byRefType)
+            TypeAnalysis info;
+            if (_typeAnalyses.TryGetValue(type, out info))
             {
-                if (starCount == 0)
-                {
-                    return (null, null);
-                }
-                starCount--;
-                cType = cType.Substring(0, cType.Length - 1);
+                return info.DetermineInteropType(p);
             }
-            string typeName = null;
-            string modifier = string.Empty;
-            if (enumType || byRefType)
+            else if (cType.EndsWith("*"))
             {
-                typeName = type.FullName;
-                switch (p.Direction)
-                {
-                    case ParameterDirection.In:
-                    case ParameterDirection.Return:
-                        break;
-                    case ParameterDirection.InOut:
-                        modifier = "ref ";
-                        break;
-                    case ParameterDirection.Out:
-                        modifier = "out ";
-                        break;
-                }
-                if (string.IsNullOrEmpty(modifier))
-                {
-                    if (starCount != 0)
-                    {
-                        return (null, null);
-                    }
-                    return (modifier, typeName);
-                }
-                else
-                {
-                    if (starCount != 1)
-                    {
-                        return (null, null);
-                    }
-                    return (modifier, typeName);
-                }
+                return (string.Empty, "System.IntPtr");
             }
-            bool isPointer = cType.EndsWith("*") || (type is RecordType rec && rec.Disguised);
-            bool isUtf8String = (type is FundamentalType fund && fund.Fundamental == Fundamental.Utf8);
-            if (isPointer && !isUtf8String)
+            else
             {
-                typeName = "System.IntPtr";
-                return (modifier, typeName);
+                return (null, null);
             }
-            if (type is ListType || type is HashTableType || type is CallbackType || type is ClassType || type is InterfaceType)
-            {
-                typeName = "System.IntPtr";
-                return (modifier, typeName);
-            }
-            if (type is FundamentalType f)
-            {
-                switch (f.Fundamental)
-                {
-                    case Fundamental.None: typeName = "void"; break;
-                    case Fundamental.Boolean: typeName = "bool"; break;
-                    case Fundamental.Int8: typeName = "sbyte"; break;
-                    case Fundamental.UInt8: typeName = "byte"; break;
-                    case Fundamental.Int16: typeName = "short"; break;
-                    case Fundamental.UInt16: typeName = "ushort"; break;
-                    case Fundamental.Int32: typeName = "int"; break;
-                    case Fundamental.UInt32: typeName = "uint"; break;
-                    case Fundamental.Int64: typeName = "long"; break;
-                    case Fundamental.UInt64: typeName = "ulong"; break;
-                    case Fundamental.Pointer: typeName = "System.IntPtr"; break;
-                    case Fundamental.Float: typeName = "float"; break;
-                    case Fundamental.Double: typeName = "double"; break;
-                    case Fundamental.Char: typeName = "sbyte"; break;
-                    case Fundamental.UChar: typeName = "byte"; break;
-                    case Fundamental.Short: typeName = "short"; break;
-                    case Fundamental.UShort: typeName = "ushort"; break;
-                    case Fundamental.Int: typeName = "int"; break;
-                    case Fundamental.UInt: typeName = "uint"; break;
-                    case Fundamental.IntPtr: typeName = "System.IntPtr"; break;
-                    case Fundamental.UIntPtr: typeName = "System.UIntPtr"; break;
-                    case Fundamental.UniChar: typeName = "uint"; break;
-                    case Fundamental.Utf8: typeName = "string"; break;
-                    case Fundamental.Filename: typeName = "System.IntPtr"; break;
-
-                    // Note: this is 32-bit on Windows:
-                    case Fundamental.Long: typeName = "long"; break;
-                    case Fundamental.ULong: typeName = "ulong"; break;
-
-                    // Note: this is 32-bit on a 32-bit system
-                    case Fundamental.Type: typeName = "GLib.GType";  break;// manually defined
-                    case Fundamental.Size: typeName = "ulong"; break;
-                    case Fundamental.SSize: typeName = "long"; break;
-
-                    // unsupported:
-                    case Fundamental.VarArgs:
-                    case Fundamental.LongDouble:
-                    case Fundamental.VaList:
-                        typeName = null; break;
-                }
-            }
-            return (modifier, typeName);
         }
 
-        private static (string cType, GLibType type) ResolveType(string cType, GLibType type)
+        internal static (string cType, GLibType type) ResolveType(string cType, GLibType type)
         {
             cType = cType.Replace("gpointer", "void*");
             cType = cType.Replace("gconstpointer", "void*");
+            if (type is RecordType rec && rec.Disguised)
+            {
+                cType += "*";
+            }
             if (type is AliasType a)
             {
                 cType = cType.Replace(a.CIdentifier, a.TargetCType);
@@ -456,10 +483,10 @@ namespace Tmds.Gir
         static void Main(string[] args)
         {
             NamespaceCollection lib = GirParser.Parse("../../gir-files", "Gtk-3.0");
+            Generator gen = new Generator(lib);
             foreach (var ns in lib.Namespaces)
             {
-                Generator gen = new Generator();
-                string code = gen.Generate(ns);
+                string code = gen.Generate(ns.Name);
                 File.WriteAllText($"../Tmds.GLib/Generated/{ns.Name}.Generated.cs", code);
                 //Console.WriteLine(gen.Generate(ns));
             }
